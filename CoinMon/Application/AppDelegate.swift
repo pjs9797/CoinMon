@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  CoinMon
-//
-//  Created by 박중선 on 5/1/24.
-//
-
 import UIKit
 
 @main

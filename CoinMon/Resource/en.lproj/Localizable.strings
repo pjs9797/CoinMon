@@ -1,0 +1,5 @@
+//StartScene
+"kakaoLogin" = "Sign in with Kakao";
+"appleLogin" = "Sign in with Apple";
+"coinMonLogin" = "Sign in with CoinMon";
+"signup" = "Sign Up";
