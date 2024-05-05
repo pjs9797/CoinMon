@@ -19,6 +19,8 @@ class SignupFlow: Flow {
         switch step {
         case .navigateToSignupEmailEntryViewController:
             return navigateToSignupEmailEntryViewController()
+        case .navigateToSignupPhoneNumberEntryViewController:
+            return navigateToSignupPhoneNumberEntryViewController()
         case .popViewController:
             return popViewController()
         case .completeSignupFlow:
@@ -29,6 +31,14 @@ class SignupFlow: Flow {
     private func navigateToSignupEmailEntryViewController() -> FlowContributors {
         let reactor = EmailEntryReactor()
         let viewController = SignupEmailEntryViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToSignupPhoneNumberEntryViewController() -> FlowContributors {
+        let reactor = SignupPhoneNumberEntryReactor()
+        let viewController = SignupPhoneNumberEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

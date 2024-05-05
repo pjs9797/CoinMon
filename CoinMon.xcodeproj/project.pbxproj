@@ -37,6 +37,9 @@
 		31777A302BE766B2006E8378 /* EmailEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */; };
 		31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A312BE7707E006E8378 /* SignupFlow.swift */; };
 		31777A342BE770D7006E8378 /* SignupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A332BE770D7006E8378 /* SignupStep.swift */; };
+		31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A352BE77B34006E8378 /* PhoneNumberEntryView.swift */; };
+		31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */; };
+		31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,9 @@
 		31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEntryReactor.swift; sourceTree = "<group>"; };
 		31777A312BE7707E006E8378 /* SignupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFlow.swift; sourceTree = "<group>"; };
 		31777A332BE770D7006E8378 /* SignupStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupStep.swift; sourceTree = "<group>"; };
+		31777A352BE77B34006E8378 /* PhoneNumberEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberEntryView.swift; sourceTree = "<group>"; };
+		31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhoneNumberEntryViewController.swift; sourceTree = "<group>"; };
+		31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhoneNumberEntryReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				31777A292BE5EDDD006E8378 /* EmailInputView.swift */,
+				31777A352BE77B34006E8378 /* PhoneNumberEntryView.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -258,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */,
+				31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */,
+				31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -359,9 +368,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */,
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* LoginView.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
+				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
+				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
 				31777A212BE3B220006E8378 /* LoginReactor.swift in Sources */,

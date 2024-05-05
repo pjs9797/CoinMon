@@ -1,12 +1,12 @@
 import UIKit
 import ReactorKit
 
-class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
+class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.Arrow_Chevron_Left, style: .plain, target: nil, action: nil)
-    let emailInputView = EmailInputView()
+    let phoneNumberEntryView = PhoneNumberEntryView()
     
-    init(with reactor: EmailEntryReactor) {
+    init(with reactor: SignupPhoneNumberEntryReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -19,7 +19,7 @@ class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
     override func loadView() {
         super.loadView()
         
-        view = emailInputView
+        view = phoneNumberEntryView
     }
 
     override func viewDidLoad() {
@@ -36,51 +36,50 @@ class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
     }
 }
 
-extension SignupEmailEntryViewController {
-    func bind(reactor: EmailEntryReactor) {
+extension SignupPhoneNumberEntryViewController {
+    func bind(reactor: SignupPhoneNumberEntryReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: EmailEntryReactor){
+    func bindAction(reactor: SignupPhoneNumberEntryReactor){
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        emailInputView.nextButton.rx.tap
+        phoneNumberEntryView.nextButton.rx.tap
             .map{ Reactor.Action.nextButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        emailInputView.clearButton.rx.tap
+        phoneNumberEntryView.clearButton.rx.tap
             .map{ Reactor.Action.clearButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        emailInputView.emailTextField.rx.text.orEmpty
-            .map{ Reactor.Action.updateEmail($0) }
+        phoneNumberEntryView.phoneNumberTextField.rx.text.orEmpty
+            .map{ Reactor.Action.updatePhoneNumber($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: EmailEntryReactor){
-        reactor.state.map { $0.email }
+    func bindState(reactor: SignupPhoneNumberEntryReactor){
+        reactor.state.map { $0.phoneNumber }
             .distinctUntilChanged()
-            .bind(to: emailInputView.emailTextField.rx.text)
+            .bind(to: phoneNumberEntryView.phoneNumberTextField.rx.text)
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isClearButtonHidden }
             .distinctUntilChanged()
-            .bind(to: emailInputView.clearButton.rx.isHidden)
+            .bind(to: phoneNumberEntryView.clearButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.isEmailValid }
+        reactor.state.map { $0.isPhoneNumberValid }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isValid in
-                self?.emailInputView.emailErrorLabel.isHidden = isValid ? true : false
-                self?.emailInputView.nextButton.isEnabled = isValid ? true : false
-                self?.emailInputView.nextButton.backgroundColor = isValid ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.phoneNumberEntryView.nextButton.isEnabled = isValid ? true : false
+                self?.phoneNumberEntryView.nextButton.backgroundColor = isValid ? ColorManager.primary : ColorManager.color_neutral_90
             })
             .disposed(by: disposeBag)
     }
