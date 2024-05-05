@@ -32,6 +32,11 @@
 		31777A212BE3B220006E8378 /* LoginReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A202BE3B220006E8378 /* LoginReactor.swift */; };
 		31777A252BE3B313006E8378 /* AppStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A242BE3B313006E8378 /* AppStep.swift */; };
 		31777A272BE3B319006E8378 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A262BE3B319006E8378 /* AppFlow.swift */; };
+		31777A2A2BE5EDDD006E8378 /* EmailInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A292BE5EDDD006E8378 /* EmailInputView.swift */; };
+		31777A2E2BE76668006E8378 /* SignupEmailEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */; };
+		31777A302BE766B2006E8378 /* EmailEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */; };
+		31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A312BE7707E006E8378 /* SignupFlow.swift */; };
+		31777A342BE770D7006E8378 /* SignupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A332BE770D7006E8378 /* SignupStep.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +62,11 @@
 		31777A202BE3B220006E8378 /* LoginReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginReactor.swift; sourceTree = "<group>"; };
 		31777A242BE3B313006E8378 /* AppStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStep.swift; sourceTree = "<group>"; };
 		31777A262BE3B319006E8378 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
+		31777A292BE5EDDD006E8378 /* EmailInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailInputView.swift; sourceTree = "<group>"; };
+		31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupEmailEntryViewController.swift; sourceTree = "<group>"; };
+		31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEntryReactor.swift; sourceTree = "<group>"; };
+		31777A312BE7707E006E8378 /* SignupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFlow.swift; sourceTree = "<group>"; };
+		31777A332BE770D7006E8378 /* SignupStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupStep.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +158,8 @@
 		317779F12BE1FAE3006E8378 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				31777A132BE3A44C006E8378 /* StartScene */,
+				31777A282BE5EDCB006E8378 /* Signup */,
+				31777A132BE3A44C006E8378 /* Login */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -156,7 +167,8 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				31777A1C2BE3B1EB006E8378 /* StartScene */,
+				31777A2B2BE76351006E8378 /* Signup */,
+				31777A1C2BE3B1EB006E8378 /* Login */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -164,7 +176,8 @@
 		317779F32BE20095006E8378 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
-				31777A1F2BE3B20C006E8378 /* StartScene */,
+				31777A2C2BE76357006E8378 /* Signup */,
+				31777A1F2BE3B20C006E8378 /* Login */,
 			);
 			path = Reactor;
 			sourceTree = "<group>";
@@ -191,34 +204,35 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		31777A132BE3A44C006E8378 /* StartScene */ = {
+		31777A132BE3A44C006E8378 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				31777A142BE3A458006E8378 /* LoginView.swift */,
 			);
-			path = StartScene;
+			path = Login;
 			sourceTree = "<group>";
 		};
-		31777A1C2BE3B1EB006E8378 /* StartScene */ = {
+		31777A1C2BE3B1EB006E8378 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				31777A1D2BE3B1FB006E8378 /* LoginViewController.swift */,
 			);
-			path = StartScene;
+			path = Login;
 			sourceTree = "<group>";
 		};
-		31777A1F2BE3B20C006E8378 /* StartScene */ = {
+		31777A1F2BE3B20C006E8378 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				31777A202BE3B220006E8378 /* LoginReactor.swift */,
 			);
-			path = StartScene;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		31777A222BE3B28C006E8378 /* Step */ = {
 			isa = PBXGroup;
 			children = (
 				31777A242BE3B313006E8378 /* AppStep.swift */,
+				31777A332BE770D7006E8378 /* SignupStep.swift */,
 			);
 			path = Step;
 			sourceTree = "<group>";
@@ -227,8 +241,33 @@
 			isa = PBXGroup;
 			children = (
 				31777A262BE3B319006E8378 /* AppFlow.swift */,
+				31777A312BE7707E006E8378 /* SignupFlow.swift */,
 			);
 			path = Flow;
+			sourceTree = "<group>";
+		};
+		31777A282BE5EDCB006E8378 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				31777A292BE5EDDD006E8378 /* EmailInputView.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		31777A2B2BE76351006E8378 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		31777A2C2BE76357006E8378 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */,
+			);
+			path = Signup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,17 +359,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* LoginView.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
 				31777A212BE3B220006E8378 /* LoginReactor.swift in Sources */,
+				31777A302BE766B2006E8378 /* EmailEntryReactor.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* LoginViewController.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
+				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
+				31777A2E2BE76668006E8378 /* SignupEmailEntryViewController.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
+				31777A2A2BE5EDDD006E8378 /* EmailInputView.swift in Sources */,
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

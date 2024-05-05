@@ -3,7 +3,7 @@ import ReactorKit
 
 class LoginViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
-    let startView = LoginView()
+    let loginView = LoginView()
     
     init(with reactor: LoginReactor) {
         super.init(nibName: nil, bundle: nil)
@@ -18,7 +18,7 @@ class LoginViewController: UIViewController, ReactorKit.View {
     override func loadView() {
         super.loadView()
         
-        view = startView
+        view = loginView
     }
 
     override func viewDidLoad() {
@@ -35,6 +35,10 @@ extension LoginViewController {
     }
     
     func bindAction(reactor: LoginReactor){
+        loginView.signupButton.rx.tap
+            .map{ Reactor.Action.signupButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: LoginReactor){

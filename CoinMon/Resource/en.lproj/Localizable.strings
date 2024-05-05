@@ -1,5 +1,11 @@
 //StartScene
-"kakaoLogin" = "Sign in with Kakao";
-"appleLogin" = "Sign in with Apple";
-"coinMonLogin" = "Sign in with CoinMon";
-"signup" = "Sign Up";
+"카카오로 계속하기" = "Sign in with Kakao";
+"애플로 계속하기" = "Sign in with Apple";
+"코인몬 아이디로 계속하기" = "Sign in with CoinMon";
+"회원가입" = "Sign Up";
+//SignUp
+"이메일을 입력해주세요" = "Please enter your Email";
+"사용하는 이메일을 입력해주세요" = "Please enter the email you use";
+"이메일 아이디" = "Email";
+"다음" = "Next";
+"올바른 이메일을 입력해주세요" = "Incorrect email address";

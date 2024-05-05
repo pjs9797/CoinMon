@@ -22,6 +22,7 @@ class LoginReactor: ReactorKit.Reactor, Stepper {
         case .coinMonLoginButtonTapped:
             return .empty()
         case .signupButtonTapped:
+            self.steps.accept(AppStep.goToSignupFlow)
             return .empty()
         }
     }

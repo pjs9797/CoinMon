@@ -60,10 +60,10 @@ class LoginView: UIView {
     }
     
     private func setLocalizedText(){
-        kakaoLoginButton.setTitle(NSLocalizedString("kakaoLogin", comment: ""), for: .normal)
-        appleLoginButton.setTitle(NSLocalizedString("appleLogin", comment: ""), for: .normal)
-        coinMonLoginButton.setTitle(NSLocalizedString("coinMonLogin", comment: ""), for: .normal)
-        signupButton.setTitle(NSLocalizedString("signup", comment: ""), for: .normal)
+        kakaoLoginButton.setTitle(NSLocalizedString("카카오로 계속하기", comment: ""), for: .normal)
+        appleLoginButton.setTitle(NSLocalizedString("애플로 계속하기", comment: ""), for: .normal)
+        coinMonLoginButton.setTitle(NSLocalizedString("코인몬 아이디로 계속하기", comment: ""), for: .normal)
+        signupButton.setTitle(NSLocalizedString("회원가입", comment: ""), for: .normal)
         signupButton.setUnderline()
     }
     
