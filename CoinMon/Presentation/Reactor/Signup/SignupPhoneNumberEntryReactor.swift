@@ -1,5 +1,4 @@
 import ReactorKit
-import Foundation
 import RxCocoa
 import RxFlow
 
@@ -32,7 +31,8 @@ class SignupPhoneNumberEntryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.popViewController)
             return .empty()
         case .nextButtonTapped:
-            
+            UserCredentialsManager.shared.phoneNumber = currentState.phoneNumber
+            self.steps.accept(SignupStep.navigateToVerificationNumberViewController)
             return .empty()
         case .clearButtonTapped:
             return .concat([

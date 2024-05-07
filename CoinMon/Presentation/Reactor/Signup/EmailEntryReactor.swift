@@ -32,6 +32,7 @@ class EmailEntryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.completeSignupFlow)
             return .empty()
         case .nextButtonTapped:
+            UserCredentialsManager.shared.email = currentState.email
             self.steps.accept(SignupStep.navigateToSignupPhoneNumberEntryViewController)
             return .empty()
         case .clearButtonTapped:
