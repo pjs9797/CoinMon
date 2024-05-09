@@ -23,6 +23,7 @@ class EmailInputView: UIView {
     let emailTextField: UITextField = {
         let textField = UITextField()
         textField.font = FontManager.H4_20
+        textField.textColor = ColorManager.color_neutral_10
         return textField
     }()
     let clearButton: UIButton = {

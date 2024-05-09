@@ -18,3 +18,6 @@
 "에 인증번호를 보냈어요" = "I sent the authentication number to %@";
 "인증번호" = "Authentication number";
 "6자리 인증번호 입력" = "Enter a 6-digit";
+//Signup-SignupCompleted
+"회원가입 완료" = "Sign Up Completed";
+"코인몬 시작하기" = "Start CoinMon";

@@ -5,6 +5,7 @@ class PhoneNumberEntryView: UIView {
     let enterPhoneNumberLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H2_24
+        label.textColor = ColorManager.color_neutral_5
         label.numberOfLines = 0
         return label
     }()
@@ -17,6 +18,7 @@ class PhoneNumberEntryView: UIView {
     let phoneNumberTextField: UITextField = {
         let textField = UITextField()
         textField.font = FontManager.H4_20
+        textField.textColor = ColorManager.color_neutral_10
         textField.keyboardType = .numberPad
         return textField
     }()

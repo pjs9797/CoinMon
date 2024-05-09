@@ -34,6 +34,7 @@ class VerificationNumberReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.popViewController)
             return .empty()
         case .nextButtonTapped:
+            self.steps.accept(SignupStep.navigateToSignupCompletedViewController)
             return .empty()
         case .clearButtonTapped:
             return .concat([

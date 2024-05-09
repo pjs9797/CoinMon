@@ -23,6 +23,8 @@ class SignupFlow: Flow {
             return navigateToSignupPhoneNumberEntryViewController()
         case .navigateToVerificationNumberViewController:
             return navigateToVerificationNumberViewController()
+        case .navigateToSignupCompletedViewController:
+            return navigateToSignupCompletedViewController()
         case .popViewController:
             return popViewController()
         case .completeSignupFlow:
@@ -49,6 +51,15 @@ class SignupFlow: Flow {
     private func navigateToVerificationNumberViewController() -> FlowContributors {
         let reactor = VerificationNumberReactor()
         let viewController = VerificationNumberViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToSignupCompletedViewController() -> FlowContributors {
+        let reactor = SignupCompletedReactor()
+        let viewController = SignupCompletedViewController(with: reactor)
+        self.rootViewController.navigationBar.isHidden = true
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

@@ -44,6 +44,9 @@
 		31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */; };
 		31777A422BE884A1006E8378 /* VerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A412BE884A1006E8378 /* VerificationNumberViewController.swift */; };
 		31777A442BE88511006E8378 /* VerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A432BE88511006E8378 /* VerificationNumberReactor.swift */; };
+		31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A452BEA5A37006E8378 /* SignupCompletedView.swift */; };
+		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
+		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +84,9 @@
 		31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsManager.swift; sourceTree = "<group>"; };
 		31777A412BE884A1006E8378 /* VerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationNumberViewController.swift; sourceTree = "<group>"; };
 		31777A432BE88511006E8378 /* VerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationNumberReactor.swift; sourceTree = "<group>"; };
+		31777A452BEA5A37006E8378 /* SignupCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedView.swift; sourceTree = "<group>"; };
+		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
+		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +273,7 @@
 				31777A292BE5EDDD006E8378 /* EmailInputView.swift */,
 				31777A352BE77B34006E8378 /* PhoneNumberEntryView.swift */,
 				31777A3C2BE7B154006E8378 /* VerificationNumberView.swift */,
+				31777A452BEA5A37006E8378 /* SignupCompletedView.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -277,6 +284,7 @@
 				31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */,
 				31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */,
 				31777A412BE884A1006E8378 /* VerificationNumberViewController.swift */,
+				31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -287,6 +295,7 @@
 				31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */,
 				31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */,
 				31777A432BE88511006E8378 /* VerificationNumberReactor.swift */,
+				31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -389,8 +398,11 @@
 				31777A442BE88511006E8378 /* VerificationNumberReactor.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
+				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
 				31777A212BE3B220006E8378 /* LoginReactor.swift in Sources */,
+				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
 				31777A302BE766B2006E8378 /* EmailEntryReactor.swift in Sources */,
+				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* LoginViewController.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
