@@ -5,6 +5,11 @@ import RxFlow
 class VerificationNumberReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let flowState: EmailEntryFlow
+    
+    init(flowState: EmailEntryFlow){
+        self.flowState = flowState
+    }
     
     enum Action {
         case backButtonTapped
@@ -31,10 +36,20 @@ class VerificationNumberReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            self.steps.accept(SignupStep.popViewController)
+            switch flowState {
+            case .Signup:
+                self.steps.accept(SignupStep.popViewController)
+            case .Signin:
+                self.steps.accept(SigninStep.popViewController)
+            }
             return .empty()
         case .nextButtonTapped:
-            self.steps.accept(SignupStep.navigateToSignupCompletedViewController)
+            switch flowState {
+            case .Signup:
+                self.steps.accept(SignupStep.navigateToSignupCompletedViewController)
+            case .Signin:
+                self.steps.accept(SigninStep.completeSigninFlow)
+            }
             return .empty()
         case .clearButtonTapped:
             return .concat([

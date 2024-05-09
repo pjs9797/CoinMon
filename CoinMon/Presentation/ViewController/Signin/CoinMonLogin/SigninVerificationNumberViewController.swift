@@ -1,10 +1,10 @@
 import UIKit
 import ReactorKit
 
-class VerificationNumberViewController: UIViewController, ReactorKit.View {
+class SigninVerificationNumberViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.Arrow_Chevron_Left, style: .plain, target: nil, action: nil)
-    let verificationNumberView = VerificationNumberView()
+    let verificationNumberView = VerificationNumberView(flowState: EmailEntryFlow.Signin)
     
     init(with reactor: VerificationNumberReactor) {
         super.init(nibName: nil, bundle: nil)
@@ -30,13 +30,13 @@ class VerificationNumberViewController: UIViewController, ReactorKit.View {
     }
     
     private func setNavigationbar() {
-        self.title = NSLocalizedString("회원가입", comment: "")
+        self.title = NSLocalizedString("로그인", comment: "")
         self.backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
     }
 }
 
-extension VerificationNumberViewController {
+extension SigninVerificationNumberViewController {
     func bind(reactor: VerificationNumberReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)

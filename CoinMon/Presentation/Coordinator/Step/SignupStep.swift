@@ -6,5 +6,6 @@ enum SignupStep: Step {
     case navigateToVerificationNumberViewController
     case navigateToSignupCompletedViewController
     case popViewController
+    case popToRootViewController
     case completeSignupFlow
 }

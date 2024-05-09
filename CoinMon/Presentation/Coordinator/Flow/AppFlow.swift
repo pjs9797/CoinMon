@@ -14,20 +14,26 @@ class AppFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? AppStep else { return .none }
         switch step {
-        case .navigateToLoginViewController:
-            return navigateToLoginViewController()
+        case .navigateToSigninViewController:
+            return navigateToSigninViewController()
         case .popViewController:
             return popViewController()
+        case .popToRootViewController:
+            return .none
         case .goToSignupFlow:
             return goToSignupFlow()
+        case .goToSigninFlow:
+            return goToSigninFlow()
         case .completeSignupFlow:
+            return .none
+        case .completeSigninFlow:
             return .none
         }
     }
     
-    private func navigateToLoginViewController() -> FlowContributors {
-        let reactor = LoginReactor()
-        let viewController = LoginViewController(with: reactor)
+    private func navigateToSigninViewController() -> FlowContributors {
+        let reactor = SigninReactor()
+        let viewController = SigninViewController(with: reactor)
         self.rootViewController.setViewControllers([viewController], animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -43,6 +49,12 @@ class AppFlow: Flow {
         let signupFlow = SignupFlow(with: self.rootViewController)
         
         return .one(flowContributor: .contribute(withNextPresentable: signupFlow, withNextStepper: OneStepper(withSingleStep: SignupStep.navigateToSignupEmailEntryViewController)))
+    }
+    
+    private func goToSigninFlow() -> FlowContributors {
+        let signinFlow = SigninFlow(with: self.rootViewController)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: signinFlow, withNextStepper: OneStepper(withSingleStep: SigninStep.navigateToSigninEmailEntryViewController)))
     }
 }
 

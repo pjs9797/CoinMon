@@ -27,13 +27,15 @@ class SignupFlow: Flow {
             return navigateToSignupCompletedViewController()
         case .popViewController:
             return popViewController()
+        case .popToRootViewController:
+            return popToRootViewController()
         case .completeSignupFlow:
             return completeSignupFlow()
         }
     }
     
     private func navigateToSignupEmailEntryViewController() -> FlowContributors {
-        let reactor = EmailEntryReactor()
+        let reactor = EmailEntryReactor(flowState: EmailEntryFlow.Signup)
         let viewController = SignupEmailEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
@@ -49,8 +51,8 @@ class SignupFlow: Flow {
     }
     
     private func navigateToVerificationNumberViewController() -> FlowContributors {
-        let reactor = VerificationNumberReactor()
-        let viewController = VerificationNumberViewController(with: reactor)
+        let reactor = VerificationNumberReactor(flowState: EmailEntryFlow.Signup)
+        let viewController = SignupVerificationNumberViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -71,9 +73,15 @@ class SignupFlow: Flow {
         return .none
     }
     
-    private func completeSignupFlow() -> FlowContributors {
+    private func popToRootViewController() -> FlowContributors {
         self.rootViewController.popToRootViewController(animated: true)
         
+        return .end(forwardToParentFlowWithStep: AppStep.popToRootViewController)
+    }
+    
+    private func completeSignupFlow() -> FlowContributors {
+        self.rootViewController.popToRootViewController(animated: true)
+        //TODO: 탭바 만들면 탭바뷰컨으로 이동되게
         return .end(forwardToParentFlowWithStep: AppStep.completeSignupFlow)
     }
 }

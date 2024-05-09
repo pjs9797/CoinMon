@@ -2,6 +2,7 @@
 "카카오로 계속하기" = "Sign in with Kakao";
 "애플로 계속하기" = "Sign in with Apple";
 "코인몬 아이디로 계속하기" = "Sign in with CoinMon";
+"로그인" = "Sign In";
 "회원가입" = "Sign Up";
 //SignUp,CoinMonLogin-EmailEntry
 "이메일을 입력해주세요" = "Please enter your Email";

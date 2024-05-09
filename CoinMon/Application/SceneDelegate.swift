@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.rootViewController = root
             self.window?.makeKeyAndVisible()
         }
-        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToLoginViewController))
+        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class LoginView: UIView {
+class SigninView: UIView {
     let coinMonImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = ColorManager.color_neutral_90
@@ -54,9 +54,7 @@ class LoginView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setLocalizedText()
-        layout()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setLocalizedText(){

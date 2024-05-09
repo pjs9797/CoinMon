@@ -1,8 +1,11 @@
 import RxFlow
 
 enum AppStep: Step {
-    case navigateToLoginViewController
+    case navigateToSigninViewController
     case popViewController
+    case popToRootViewController
     case goToSignupFlow
+    case goToSigninFlow
     case completeSignupFlow
+    case completeSigninFlow
 }

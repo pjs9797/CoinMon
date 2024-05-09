@@ -5,11 +5,12 @@ import RxFlow
 class SignupCompletedReactor: ReactorKit.Reactor, Stepper {    
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    typealias Mutation = NoMutation
     
     enum Action {
         case signupCompletedButtonTapped
     }
+    
+    enum Mutation {}
     
     struct State {}
     

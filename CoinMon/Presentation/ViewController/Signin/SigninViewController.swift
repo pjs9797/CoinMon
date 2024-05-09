@@ -1,11 +1,11 @@
 import UIKit
 import ReactorKit
 
-class LoginViewController: UIViewController, ReactorKit.View {
+class SigninViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
-    let loginView = LoginView()
+    let signinView = SigninView()
     
-    init(with reactor: LoginReactor) {
+    init(with reactor: SigninReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -18,7 +18,7 @@ class LoginViewController: UIViewController, ReactorKit.View {
     override func loadView() {
         super.loadView()
         
-        view = loginView
+        view = signinView
     }
 
     override func viewDidLoad() {
@@ -28,19 +28,24 @@ class LoginViewController: UIViewController, ReactorKit.View {
     }
 }
 
-extension LoginViewController {
-    func bind(reactor: LoginReactor) {
+extension SigninViewController {
+    func bind(reactor: SigninReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: LoginReactor){
-        loginView.signupButton.rx.tap
+    func bindAction(reactor: SigninReactor){
+        signinView.coinMonLoginButton.rx.tap
+            .map{ Reactor.Action.coinMonLoginButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        signinView.signupButton.rx.tap
             .map{ Reactor.Action.signupButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: LoginReactor){
+    func bindState(reactor: SigninReactor){
     }
 }

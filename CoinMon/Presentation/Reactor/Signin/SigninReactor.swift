@@ -2,7 +2,7 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class LoginReactor: ReactorKit.Reactor, Stepper {
+class SigninReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     
@@ -11,15 +11,14 @@ class LoginReactor: ReactorKit.Reactor, Stepper {
         case signupButtonTapped
     }
     
-    enum Mutation {
-    }
+    enum Mutation {}
     
-    struct State {
-    }
+    struct State {}
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .coinMonLoginButtonTapped:
+            self.steps.accept(AppStep.goToSigninFlow)
             return .empty()
         case .signupButtonTapped:
             self.steps.accept(AppStep.goToSignupFlow)
