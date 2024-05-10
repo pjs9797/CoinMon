@@ -26,7 +26,7 @@
 		31777A0E2BE3794B006E8378 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31777A0D2BE3794B006E8378 /* ColorAssets.xcassets */; };
 		31777A102BE39D88006E8378 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A0F2BE39D88006E8378 /* ImageManager.swift */; };
 		31777A122BE3A385006E8378 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A112BE3A385006E8378 /* Extension.swift */; };
-		31777A152BE3A458006E8378 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A142BE3A458006E8378 /* LoginView.swift */; };
+		31777A152BE3A458006E8378 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A142BE3A458006E8378 /* SigninView.swift */; };
 		31777A182BE3A676006E8378 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31777A1A2BE3A676006E8378 /* Localizable.strings */; };
 		31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A1D2BE3B1FB006E8378 /* SigninViewController.swift */; };
 		31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A202BE3B220006E8378 /* SigninReactor.swift */; };
@@ -52,6 +52,9 @@
 		31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791642BECB14000A7CABB /* SigninFlow.swift */; };
 		31F791682BECD0F600A7CABB /* FlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791672BECD0F600A7CABB /* FlowState.swift */; };
 		31F7916A2BECD5A300A7CABB /* SigninVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791692BECD5A300A7CABB /* SigninVerificationNumberViewController.swift */; };
+		31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916D2BECED1B00A7CABB /* TermsOfServiceViewController.swift */; };
+		31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916F2BECED2700A7CABB /* TermsOfServiceView.swift */; };
+		31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791712BEDE3DE00A7CABB /* TermsOfServiceReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,7 +73,7 @@
 		31777A0D2BE3794B006E8378 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 		31777A0F2BE39D88006E8378 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		31777A112BE3A385006E8378 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		31777A142BE3A458006E8378 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		31777A142BE3A458006E8378 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 		31777A192BE3A676006E8378 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31777A1B2BE3A67A006E8378 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31777A1D2BE3B1FB006E8378 /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +100,9 @@
 		31F791642BECB14000A7CABB /* SigninFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninFlow.swift; sourceTree = "<group>"; };
 		31F791672BECD0F600A7CABB /* FlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowState.swift; sourceTree = "<group>"; };
 		31F791692BECD5A300A7CABB /* SigninVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninVerificationNumberViewController.swift; sourceTree = "<group>"; };
+		31F7916D2BECED1B00A7CABB /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
+		31F7916F2BECED2700A7CABB /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
+		31F791712BEDE3DE00A7CABB /* TermsOfServiceReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +247,7 @@
 		31777A132BE3A44C006E8378 /* Signin */ = {
 			isa = PBXGroup;
 			children = (
-				31777A142BE3A458006E8378 /* LoginView.swift */,
+				31777A142BE3A458006E8378 /* SigninView.swift */,
 			);
 			path = Signin;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				31777A352BE77B34006E8378 /* PhoneNumberEntryView.swift */,
+				31F7916F2BECED2700A7CABB /* TermsOfServiceView.swift */,
 				31777A452BEA5A37006E8378 /* SignupCompletedView.swift */,
 			);
 			path = Signup;
@@ -297,6 +304,7 @@
 			children = (
 				31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */,
 				31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */,
+				31F7916D2BECED1B00A7CABB /* TermsOfServiceViewController.swift */,
 				31777A412BE884A1006E8378 /* SignupVerificationNumberViewController.swift */,
 				31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */,
 			);
@@ -308,6 +316,7 @@
 			children = (
 				31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */,
 				31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */,
+				31F791712BEDE3DE00A7CABB /* TermsOfServiceReactor.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -438,7 +447,8 @@
 			files = (
 				31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */,
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
-				31777A152BE3A458006E8378 /* LoginView.swift in Sources */,
+				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
+				31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
 				31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */,
@@ -461,6 +471,8 @@
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* SignupEmailEntryViewController.swift in Sources */,
+				31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */,
+				31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
 				31F7916A2BECD5A300A7CABB /* SigninVerificationNumberViewController.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
@@ -538,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -595,7 +607,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

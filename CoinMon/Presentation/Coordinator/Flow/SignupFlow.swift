@@ -21,6 +21,8 @@ class SignupFlow: Flow {
             return navigateToSignupEmailEntryViewController()
         case .navigateToSignupPhoneNumberEntryViewController:
             return navigateToSignupPhoneNumberEntryViewController()
+        case .presentToTermsOfServiceViewController:
+            return presentToTermsOfServiceViewController()
         case .navigateToVerificationNumberViewController:
             return navigateToVerificationNumberViewController()
         case .navigateToSignupCompletedViewController:
@@ -47,6 +49,23 @@ class SignupFlow: Flow {
         let viewController = SignupPhoneNumberEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToTermsOfServiceViewController() -> FlowContributors {
+        let reactor = TermsOfServiceReactor()
+        let viewController = TermsOfServiceViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 352*Constants.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*Constants.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     

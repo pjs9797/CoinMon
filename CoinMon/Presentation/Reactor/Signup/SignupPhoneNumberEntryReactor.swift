@@ -32,7 +32,7 @@ class SignupPhoneNumberEntryReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .nextButtonTapped:
             UserCredentialsManager.shared.phoneNumber = currentState.phoneNumber
-            self.steps.accept(SignupStep.navigateToVerificationNumberViewController)
+            self.steps.accept(SignupStep.presentToTermsOfServiceViewController)
             return .empty()
         case .clearButtonTapped:
             return .concat([

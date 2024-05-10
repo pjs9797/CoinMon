@@ -68,9 +68,9 @@ class VerificationNumberView: UIView {
         enterVerificationNumberLabel.text = NSLocalizedString("인증번호를 입력해주세요", comment: "")
         switch flowState {
         case .Signup:
-            sentVerificationNumberLabel.text = String(format: NSLocalizedString("%@에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.phoneNumber)
+            sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.phoneNumber)
         case .Signin:
-            sentVerificationNumberLabel.text = String(format: NSLocalizedString("%@에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.email)
+            sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.email)
         }
         verificationNumberLabel.text = NSLocalizedString("인증번호", comment: "")
         verificationNumberTextField.placeholder = NSLocalizedString("6자리 인증번호 입력", comment: "")

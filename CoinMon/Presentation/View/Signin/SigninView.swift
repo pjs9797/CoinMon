@@ -84,11 +84,23 @@ class SigninView: UIView {
             make.top.equalTo(coinMonImageView.snp.bottom).offset(40*Constants.standardHeight)
         }
         
+        kakaoLoginButton.imageView?.snp.makeConstraints { make in
+            make.width.height.equalTo(24*Constants.standardHeight)
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(kakaoLoginButton.titleLabel!.snp.leading).offset(-4*Constants.standardWidth)
+        }
+        
         appleLoginButton.snp.makeConstraints { make in
             make.width.equalTo(335*Constants.standardWidth)
             make.height.equalTo(52*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(kakaoLoginButton.snp.bottom).offset(12*Constants.standardHeight)
+        }
+        
+        appleLoginButton.imageView?.snp.makeConstraints { make in
+            make.width.height.equalTo(24*Constants.standardHeight)
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(appleLoginButton.titleLabel!.snp.leading).offset(-4*Constants.standardWidth)
         }
         
         coinMonLoginButton.snp.makeConstraints { make in

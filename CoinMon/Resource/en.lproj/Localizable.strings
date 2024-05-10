@@ -14,6 +14,12 @@
 "휴대폰번호를 입력해주세요" = "Please enter your Mobile number";
 "휴대폰번호" = "Mobile number";
 "숫자만 입력" = "Enter numbers only";
+//Signup-TermsOfService
+"약관 동의" = "Terms of Service";
+"약관에 모두 동의해요" = "I agree to all of the following";
+"[필수] 서비스 이용약관" = "[Mandatory] Consent to Terms of Service";
+"[필수] 개인정보 수집∙이용 동의" = "[Mandatory] Personal Information Agreement";
+"[선택] 마케팅 정보 수신 동의" = "[Optional] Marketing Consent Agreement";
 //Signup,CoinMonLogin-VerificationNumber
 "인증번호를 입력해주세요" = "Please enter the authentication number";
 "에 인증번호를 보냈어요" = "I sent the authentication number to %@";
