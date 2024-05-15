@@ -1,8 +1,8 @@
 import RxFlow
 
 enum SigninStep: Step {
-    case navigateToSigninEmailEntryViewController
-    case navigateToVerificationNumberViewController
+    case navigateToEmailEntryViewController
+    case navigateToEmailVerificationNumberViewController
     case popViewController
     case popToRootViewController
     case completeSigninFlow

@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View {
+class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.Arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let phoneNumberEntryView = PhoneNumberEntryView()
@@ -27,6 +27,8 @@ class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = .white
         setNavigationbar()
+        hideKeyboard(delegate: self, disposeBag: disposeBag)
+        bindKeyboardNotifications(to: phoneNumberEntryView.nextButton, disposeBag: disposeBag)
     }
     
     private func setNavigationbar() {
@@ -79,7 +81,7 @@ extension SignupPhoneNumberEntryViewController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isValid in
                 self?.phoneNumberEntryView.nextButton.isEnabled = isValid ? true : false
-                self?.phoneNumberEntryView.nextButton.backgroundColor = isValid ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.phoneNumberEntryView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
     }

@@ -17,10 +17,10 @@ class SigninFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? SigninStep else { return .none }
         switch step {
-        case .navigateToSigninEmailEntryViewController:
-            return navigateToSigninEmailEntryViewController()
-        case .navigateToVerificationNumberViewController:
-            return navigateToVerificationNumberViewController()
+        case .navigateToEmailEntryViewController:
+            return navigateToEmailEntryViewController()
+        case .navigateToEmailVerificationNumberViewController:
+            return navigateToEmailVerificationNumberViewController()
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
@@ -30,17 +30,17 @@ class SigninFlow: Flow {
         }
     }
     
-    private func navigateToSigninEmailEntryViewController() -> FlowContributors {
-        let reactor = EmailEntryReactor(flowState: EmailEntryFlow.Signin)
-        let viewController = SigninEmailEntryViewController(with: reactor)
+    private func navigateToEmailEntryViewController() -> FlowContributors {
+        let reactor = EmailEntryReactor(emailFlow: .signin)
+        let viewController = EmailEntryViewController(with: reactor, emailFlow: .signin)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToVerificationNumberViewController() -> FlowContributors {
-        let reactor = VerificationNumberReactor(flowState: EmailEntryFlow.Signin)
-        let viewController = SigninVerificationNumberViewController(with: reactor)
+    private func navigateToEmailVerificationNumberViewController() -> FlowContributors {
+        let reactor = EmailVerificationNumberReactor(emailFlow: .signin)
+        let viewController = EmailVerificationNumberViewController(with: reactor, emailFlow: .signin)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

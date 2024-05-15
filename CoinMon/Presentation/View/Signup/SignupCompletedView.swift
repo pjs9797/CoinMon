@@ -4,23 +4,23 @@ import SnapKit
 class SignupCompletedView: UIView {
     let signupCompletedLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H2_24
-        label.textColor = ColorManager.color_neutral_5
+        label.font = FontManager.D2_24
+        label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label
     }()
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 119*Constants.standardHeight
-        imageView.backgroundColor = ColorManager.color_neutral_60
+        imageView.backgroundColor = ColorManager.gray_60
         return imageView
     }()
     let signupCompletedButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = ColorManager.primary
+        button.backgroundColor = ColorManager.orange_60
         button.layer.cornerRadius = 12*Constants.standardHeight
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         return button
     }()
     

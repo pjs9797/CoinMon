@@ -4,8 +4,8 @@ import SnapKit
 class TermsOfServiceView: UIView {
     let termsOfServiceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H2_24
-        label.textColor = ColorManager.color_neutral_5
+        label.font = FontManager.D2_24
+        label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label
     }()
@@ -17,8 +17,8 @@ class TermsOfServiceView: UIView {
     }()
     let agreeAllLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H4_20
-        label.textColor = ColorManager.color_neutral_10
+        label.font = FontManager.H2_20
+        label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label
     }()
@@ -30,8 +30,8 @@ class TermsOfServiceView: UIView {
     }()
     let firstTermsOfServiceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T4_14
-        label.textColor = ColorManager.color_neutral_15
+        label.font = FontManager.T5_14
+        label.textColor = ColorManager.gray_20
         label.numberOfLines = 0
         return label
     }()
@@ -48,8 +48,8 @@ class TermsOfServiceView: UIView {
     }()
     let secondTermsOfServiceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T4_14
-        label.textColor = ColorManager.color_neutral_15
+        label.font = FontManager.T5_14
+        label.textColor = ColorManager.gray_20
         label.numberOfLines = 0
         return label
     }()
@@ -66,8 +66,8 @@ class TermsOfServiceView: UIView {
     }()
     let thirdTermsOfServiceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T4_14
-        label.textColor = ColorManager.color_neutral_15
+        label.font = FontManager.T5_14
+        label.textColor = ColorManager.gray_20
         label.numberOfLines = 0
         return label
     }()
@@ -80,7 +80,7 @@ class TermsOfServiceView: UIView {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12*Constants.standardHeight
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         return button
     }()
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */; };
 		317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779C92BE1E67A006E8378 /* AppDelegate.swift */; };
 		317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779CB2BE1E67A006E8378 /* SceneDelegate.swift */; };
 		317779D32BE1E67B006E8378 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317779D22BE1E67B006E8378 /* ImageAssets.xcassets */; };
@@ -32,8 +33,8 @@
 		31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A202BE3B220006E8378 /* SigninReactor.swift */; };
 		31777A252BE3B313006E8378 /* AppStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A242BE3B313006E8378 /* AppStep.swift */; };
 		31777A272BE3B319006E8378 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A262BE3B319006E8378 /* AppFlow.swift */; };
-		31777A2A2BE5EDDD006E8378 /* EmailInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A292BE5EDDD006E8378 /* EmailInputView.swift */; };
-		31777A2E2BE76668006E8378 /* SignupEmailEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */; };
+		31777A2A2BE5EDDD006E8378 /* EmailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A292BE5EDDD006E8378 /* EmailEntryView.swift */; };
+		31777A2E2BE76668006E8378 /* EmailEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A2D2BE76668006E8378 /* EmailEntryViewController.swift */; };
 		31777A302BE766B2006E8378 /* EmailEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */; };
 		31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A312BE7707E006E8378 /* SignupFlow.swift */; };
 		31777A342BE770D7006E8378 /* SignupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A332BE770D7006E8378 /* SignupStep.swift */; };
@@ -42,22 +43,22 @@
 		31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */; };
 		31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A3C2BE7B154006E8378 /* VerificationNumberView.swift */; };
 		31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */; };
-		31777A422BE884A1006E8378 /* SignupVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A412BE884A1006E8378 /* SignupVerificationNumberViewController.swift */; };
-		31777A442BE88511006E8378 /* VerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A432BE88511006E8378 /* VerificationNumberReactor.swift */; };
+		31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */; };
+		31777A442BE88511006E8378 /* EmailVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */; };
 		31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A452BEA5A37006E8378 /* SignupCompletedView.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
-		31F791612BECB11700A7CABB /* SigninEmailEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791602BECB11700A7CABB /* SigninEmailEntryViewController.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
 		31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791642BECB14000A7CABB /* SigninFlow.swift */; };
 		31F791682BECD0F600A7CABB /* FlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791672BECD0F600A7CABB /* FlowState.swift */; };
-		31F7916A2BECD5A300A7CABB /* SigninVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791692BECD5A300A7CABB /* SigninVerificationNumberViewController.swift */; };
+		31F7916A2BECD5A300A7CABB /* EmailVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791692BECD5A300A7CABB /* EmailVerificationNumberViewController.swift */; };
 		31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916D2BECED1B00A7CABB /* TermsOfServiceViewController.swift */; };
 		31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916F2BECED2700A7CABB /* TermsOfServiceView.swift */; };
 		31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791712BEDE3DE00A7CABB /* TermsOfServiceReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		317779C62BE1E67A006E8378 /* CoinMon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinMon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317779C92BE1E67A006E8378 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317779CB2BE1E67A006E8378 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,8 +81,8 @@
 		31777A202BE3B220006E8378 /* SigninReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninReactor.swift; sourceTree = "<group>"; };
 		31777A242BE3B313006E8378 /* AppStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStep.swift; sourceTree = "<group>"; };
 		31777A262BE3B319006E8378 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
-		31777A292BE5EDDD006E8378 /* EmailInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailInputView.swift; sourceTree = "<group>"; };
-		31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupEmailEntryViewController.swift; sourceTree = "<group>"; };
+		31777A292BE5EDDD006E8378 /* EmailEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEntryView.swift; sourceTree = "<group>"; };
+		31777A2D2BE76668006E8378 /* EmailEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEntryViewController.swift; sourceTree = "<group>"; };
 		31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEntryReactor.swift; sourceTree = "<group>"; };
 		31777A312BE7707E006E8378 /* SignupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFlow.swift; sourceTree = "<group>"; };
 		31777A332BE770D7006E8378 /* SignupStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupStep.swift; sourceTree = "<group>"; };
@@ -90,16 +91,15 @@
 		31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhoneNumberEntryReactor.swift; sourceTree = "<group>"; };
 		31777A3C2BE7B154006E8378 /* VerificationNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationNumberView.swift; sourceTree = "<group>"; };
 		31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsManager.swift; sourceTree = "<group>"; };
-		31777A412BE884A1006E8378 /* SignupVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVerificationNumberViewController.swift; sourceTree = "<group>"; };
-		31777A432BE88511006E8378 /* VerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationNumberReactor.swift; sourceTree = "<group>"; };
+		31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberViewController.swift; sourceTree = "<group>"; };
+		31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		31777A452BEA5A37006E8378 /* SignupCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedView.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
-		31F791602BECB11700A7CABB /* SigninEmailEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailEntryViewController.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
 		31F791642BECB14000A7CABB /* SigninFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninFlow.swift; sourceTree = "<group>"; };
 		31F791672BECD0F600A7CABB /* FlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowState.swift; sourceTree = "<group>"; };
-		31F791692BECD5A300A7CABB /* SigninVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninVerificationNumberViewController.swift; sourceTree = "<group>"; };
+		31F791692BECD5A300A7CABB /* EmailVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationNumberViewController.swift; sourceTree = "<group>"; };
 		31F7916D2BECED1B00A7CABB /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
 		31F7916F2BECED2700A7CABB /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
 		31F791712BEDE3DE00A7CABB /* TermsOfServiceReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceReactor.swift; sourceTree = "<group>"; };
@@ -122,6 +122,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31423C372BF341E6008AB6FD /* Signinup */ = {
+			isa = PBXGroup;
+			children = (
+				31777A2D2BE76668006E8378 /* EmailEntryViewController.swift */,
+				31F791692BECD5A300A7CABB /* EmailVerificationNumberViewController.swift */,
+			);
+			path = Signinup;
+			sourceTree = "<group>";
+		};
 		317779BD2BE1E679006E8378 = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +215,7 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				31423C372BF341E6008AB6FD /* Signinup */,
 				31777A2B2BE76351006E8378 /* Signup */,
 				31777A1C2BE3B1EB006E8378 /* Signin */,
 			);
@@ -255,7 +265,6 @@
 		31777A1C2BE3B1EB006E8378 /* Signin */ = {
 			isa = PBXGroup;
 			children = (
-				31F7915F2BECB0E300A7CABB /* CoinMonLogin */,
 				31777A1D2BE3B1FB006E8378 /* SigninViewController.swift */,
 			);
 			path = Signin;
@@ -302,10 +311,9 @@
 		31777A2B2BE76351006E8378 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				31777A2D2BE76668006E8378 /* SignupEmailEntryViewController.swift */,
 				31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */,
 				31F7916D2BECED1B00A7CABB /* TermsOfServiceViewController.swift */,
-				31777A412BE884A1006E8378 /* SignupVerificationNumberViewController.swift */,
+				31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */,
 				31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */,
 			);
 			path = Signup;
@@ -315,19 +323,11 @@
 			isa = PBXGroup;
 			children = (
 				31777A392BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift */,
-				31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */,
 				31F791712BEDE3DE00A7CABB /* TermsOfServiceReactor.swift */,
+				31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */,
+				31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */,
 			);
 			path = Signup;
-			sourceTree = "<group>";
-		};
-		31F7915F2BECB0E300A7CABB /* CoinMonLogin */ = {
-			isa = PBXGroup;
-			children = (
-				31F791602BECB11700A7CABB /* SigninEmailEntryViewController.swift */,
-				31F791692BECD5A300A7CABB /* SigninVerificationNumberViewController.swift */,
-			);
-			path = CoinMonLogin;
 			sourceTree = "<group>";
 		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
@@ -341,7 +341,7 @@
 		31F7916B2BECD65500A7CABB /* Signinup */ = {
 			isa = PBXGroup;
 			children = (
-				31777A292BE5EDDD006E8378 /* EmailInputView.swift */,
+				31777A292BE5EDDD006E8378 /* EmailEntryView.swift */,
 				31777A3C2BE7B154006E8378 /* VerificationNumberView.swift */,
 			);
 			path = Signinup;
@@ -351,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				31777A2F2BE766B2006E8378 /* EmailEntryReactor.swift */,
-				31777A432BE88511006E8378 /* VerificationNumberReactor.swift */,
+				31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */,
 			);
 			path = Signinup;
 			sourceTree = "<group>";
@@ -454,30 +454,30 @@
 				31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */,
 				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
-				31777A442BE88511006E8378 /* VerificationNumberReactor.swift in Sources */,
+				31777A442BE88511006E8378 /* EmailVerificationNumberReactor.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
 				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
 				31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
-				31F791612BECB11700A7CABB /* SigninEmailEntryViewController.swift in Sources */,
 				31777A302BE766B2006E8378 /* EmailEntryReactor.swift in Sources */,
 				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
+				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
-				31777A2E2BE76668006E8378 /* SignupEmailEntryViewController.swift in Sources */,
+				31777A2E2BE76668006E8378 /* EmailEntryViewController.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
-				31F7916A2BECD5A300A7CABB /* SigninVerificationNumberViewController.swift in Sources */,
+				31F7916A2BECD5A300A7CABB /* EmailVerificationNumberViewController.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
-				31777A2A2BE5EDDD006E8378 /* EmailInputView.swift in Sources */,
-				31777A422BE884A1006E8378 /* SignupVerificationNumberViewController.swift in Sources */,
+				31777A2A2BE5EDDD006E8378 /* EmailEntryView.swift in Sources */,
+				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,
 				31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */,
 			);

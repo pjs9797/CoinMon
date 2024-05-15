@@ -2,37 +2,37 @@ import UIKit
 import SnapKit
 
 class VerificationNumberView: UIView {
-    let flowState: EmailEntryFlow
+    let verificationType: VerificationType
     let enterVerificationNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H2_24
-        label.textColor = ColorManager.color_neutral_5
+        label.font = FontManager.D2_24
+        label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label
     }()
     let sentVerificationNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.B4_14
-        label.textColor = ColorManager.color_neutral_60
+        label.font = FontManager.B5_14
+        label.textColor = ColorManager.gray_15
         label.numberOfLines = 0
         return label
     }()
     let verificationNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T5_12
-        label.textColor = ColorManager.color_neutral_40
+        label.font = FontManager.T6_13
+        label.textColor = ColorManager.gray_40
         return label
     }()
     let verificationNumberTextField: UITextField = {
         let textField = UITextField()
-        textField.font = FontManager.H4_20
-        textField.textColor = ColorManager.color_neutral_10
+        textField.font = FontManager.H2_20
+        textField.textColor = ColorManager.common_0
         return textField
     }()
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T5_12
-        label.textColor = ColorManager.primary
+        label.font = FontManager.T6_13
+        label.textColor = ColorManager.orange_50
         return label
     }()
     let clearButton: UIButton = {
@@ -42,19 +42,19 @@ class VerificationNumberView: UIView {
     }()
     let textFieldLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = ColorManager.color_neutral_90
+        view.backgroundColor = ColorManager.gray_90
         return view
     }()
     let nextButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12*Constants.standardHeight
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         return button
     }()
     
-    init(flowState: EmailEntryFlow) {
-        self.flowState = flowState
+    init(verificationType: VerificationType) {
+        self.verificationType = verificationType
         super.init(frame: .zero)
         setLocalizedText()
         layout()
@@ -66,11 +66,11 @@ class VerificationNumberView: UIView {
     
     private func setLocalizedText(){
         enterVerificationNumberLabel.text = NSLocalizedString("인증번호를 입력해주세요", comment: "")
-        switch flowState {
-        case .Signup:
-            sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.phoneNumber)
-        case .Signin:
+        switch verificationType {
+        case .email:
             sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.email)
+        case .phone:
+            sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.phoneNumber)
         }
         verificationNumberLabel.text = NSLocalizedString("인증번호", comment: "")
         verificationNumberTextField.placeholder = NSLocalizedString("6자리 인증번호 입력", comment: "")

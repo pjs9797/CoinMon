@@ -17,28 +17,40 @@ class SignupFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? SignupStep else { return .none }
         switch step {
-        case .navigateToSignupEmailEntryViewController:
-            return navigateToSignupEmailEntryViewController()
+        case .navigateToEmailEntryViewController:
+            return navigateToEmailEntryViewController()
+        case .navigateToEmailVerificationNumberViewController:
+            return navigateToEmailVerificationNumberViewController()
         case .navigateToSignupPhoneNumberEntryViewController:
             return navigateToSignupPhoneNumberEntryViewController()
         case .presentToTermsOfServiceViewController:
             return presentToTermsOfServiceViewController()
-        case .navigateToVerificationNumberViewController:
-            return navigateToVerificationNumberViewController()
+        case .navigateToPhoneVerificationNumberViewController:
+            return navigateToPhoneVerificationNumberViewController()
         case .navigateToSignupCompletedViewController:
             return navigateToSignupCompletedViewController()
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
             return popToRootViewController()
+        case .dismissViewController:
+            return dismissViewController()
         case .completeSignupFlow:
             return completeSignupFlow()
         }
     }
     
-    private func navigateToSignupEmailEntryViewController() -> FlowContributors {
-        let reactor = EmailEntryReactor(flowState: EmailEntryFlow.Signup)
-        let viewController = SignupEmailEntryViewController(with: reactor)
+    private func navigateToEmailEntryViewController() -> FlowContributors {
+        let reactor = EmailEntryReactor(emailFlow: .signup)
+        let viewController = EmailEntryViewController(with: reactor, emailFlow: .signup)
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEmailVerificationNumberViewController() -> FlowContributors {
+        let reactor = EmailVerificationNumberReactor(emailFlow: .signup)
+        let viewController = EmailVerificationNumberViewController(with: reactor, emailFlow: .signup)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -69,9 +81,9 @@ class SignupFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToVerificationNumberViewController() -> FlowContributors {
-        let reactor = VerificationNumberReactor(flowState: EmailEntryFlow.Signup)
-        let viewController = SignupVerificationNumberViewController(with: reactor)
+    private func navigateToPhoneVerificationNumberViewController() -> FlowContributors {
+        let reactor = PhoneVerificationNumberReactor()
+        let viewController = PhoneVerificationNumberViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -96,6 +108,12 @@ class SignupFlow: Flow {
         self.rootViewController.popToRootViewController(animated: true)
         
         return .end(forwardToParentFlowWithStep: AppStep.popToRootViewController)
+    }
+    
+    private func dismissViewController() -> FlowContributors{
+        self.rootViewController.dismiss(animated: true)
+        
+        return .none
     }
     
     private func completeSignupFlow() -> FlowContributors {

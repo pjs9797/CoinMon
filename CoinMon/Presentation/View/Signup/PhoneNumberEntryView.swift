@@ -4,21 +4,21 @@ import SnapKit
 class PhoneNumberEntryView: UIView {
     let enterPhoneNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H2_24
-        label.textColor = ColorManager.color_neutral_5
+        label.font = FontManager.D2_24
+        label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label
     }()
     let phoneNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T5_12
-        label.textColor = ColorManager.color_neutral_40
+        label.font = FontManager.T6_13
+        label.textColor = ColorManager.gray_40
         return label
     }()
     let phoneNumberTextField: UITextField = {
         let textField = UITextField()
-        textField.font = FontManager.H4_20
-        textField.textColor = ColorManager.color_neutral_10
+        textField.font = FontManager.H2_20
+        textField.textColor = ColorManager.common_0
         textField.keyboardType = .numberPad
         return textField
     }()
@@ -29,14 +29,14 @@ class PhoneNumberEntryView: UIView {
     }()
     let textFieldLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = ColorManager.color_neutral_90
+        view.backgroundColor = ColorManager.gray_90
         return view
     }()
     let nextButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12*Constants.standardHeight
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         return button
     }()
     

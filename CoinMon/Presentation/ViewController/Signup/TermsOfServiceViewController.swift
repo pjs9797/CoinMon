@@ -55,34 +55,39 @@ extension TermsOfServiceViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        termsOfServiceView.nextButton.rx.tap
+            .map{ Reactor.Action.nextButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
     }
     
     func bindState(reactor: TermsOfServiceReactor){
         reactor.state.map { $0.isSelectAllButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.selectAllButton.tintColor = isChecked ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.termsOfServiceView.selectAllButton.setImage(isChecked ? ImageManager.Circle_Check_Orange : ImageManager.Circle_Check, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isFirstCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.firstCheckButton.imageView?.tintColor = isChecked ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.termsOfServiceView.firstCheckButton.imageView?.tintColor = isChecked ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isSecondCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.secondCheckButton.imageView?.tintColor = isChecked ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.termsOfServiceView.secondCheckButton.imageView?.tintColor = isChecked ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isThirdCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.thirdCheckButton.imageView?.tintColor = isChecked ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.termsOfServiceView.thirdCheckButton.imageView?.tintColor = isChecked ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
         
@@ -90,7 +95,7 @@ extension TermsOfServiceViewController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isValid in
                 self?.termsOfServiceView.nextButton.isEnabled = isValid ? true : false
-                self?.termsOfServiceView.nextButton.backgroundColor = isValid ? ColorManager.primary : ColorManager.color_neutral_90
+                self?.termsOfServiceView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
     }

@@ -1,4 +1,9 @@
-enum EmailEntryFlow{
-    case Signup
-    case Signin
+enum EmailFlow{
+    case signup
+    case signin
+}
+
+enum VerificationType {
+    case email
+    case phone
 }

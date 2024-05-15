@@ -66,7 +66,8 @@ class TermsOfServiceReactor: ReactorKit.Reactor, Stepper {
             //TODO: 약관 나오면 약관 상세 페이지 연결
             return .empty()
         case .nextButtonTapped:
-            self.steps.accept(SignupStep.navigateToVerificationNumberViewController)
+            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.navigateToPhoneVerificationNumberViewController)
             return .empty()
         }
     }

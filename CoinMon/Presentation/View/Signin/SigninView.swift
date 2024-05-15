@@ -4,15 +4,15 @@ import SnapKit
 class SigninView: UIView {
     let coinMonImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = ColorManager.color_neutral_90
+        imageView.backgroundColor = ColorManager.gray_98
         return imageView
     }()
     let kakaoLoginButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         button.setImage(ImageManager.kakao, for: .normal)
-        button.backgroundColor = ColorManager.color_kakao
+        button.backgroundColor = ColorManager.yellow_70
         button.layer.cornerRadius = 12*Constants.standardHeight
         var config = UIButton.Configuration.plain()
         config.imagePadding = 4*Constants.standardWidth
@@ -22,7 +22,7 @@ class SigninView: UIView {
     let appleLoginButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         button.setImage(ImageManager.apple, for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 12*Constants.standardHeight
@@ -34,16 +34,16 @@ class SigninView: UIView {
     let coinMonLoginButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = FontManager.H6_16
+        button.titleLabel?.font = FontManager.D6_16
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.layer.borderWidth = 1
-        button.layer.borderColor = ColorManager.color_neutral_90?.cgColor
+        button.layer.borderColor = ColorManager.gray_95?.cgColor
         return button
     }()
     let signupButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = FontManager.B5_12
+        button.setTitleColor(ColorManager.gray_22, for: .normal)
+        button.titleLabel?.font = FontManager.B7_12
         return button
     }()
     

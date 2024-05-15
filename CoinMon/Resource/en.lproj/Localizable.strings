@@ -6,7 +6,7 @@
 "회원가입" = "Sign Up";
 //SignUp,CoinMonLogin-EmailEntry
 "이메일을 입력해주세요" = "Please enter your Email";
-"사용하는 이메일을 입력해주세요" = "Please enter the email you use";
+"사용하는 이메일을 입력" = "Please enter the email you use";
 "이메일 아이디" = "Email";
 "다음" = "Next";
 "올바른 이메일을 입력해주세요" = "Incorrect email address";
