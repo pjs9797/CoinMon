@@ -103,11 +103,8 @@ class TermsOfServiceView: UIView {
         nextButton.setTitle(NSLocalizedString("다음", comment: ""), for: .normal)
     }
     
-    private func layout() {
-        [termsOfServiceLabel,selectAllButton,agreeAllLabel,firstCheckButton,firstTermsOfServiceDetailButton,firstTermsOfServiceLabel,secondTermsOfServiceLabel,secondCheckButton,secondTermsOfServiceDetailButton,thirdTermsOfServiceLabel,thirdCheckButton,thirdTermsOfServiceDetailButton,nextButton]
-            .forEach{
-                addSubview($0)
-            }
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
         termsOfServiceLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
@@ -130,7 +127,7 @@ class TermsOfServiceView: UIView {
         firstCheckButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(selectAllButton.snp.bottom).offset(26*Constants.standardHeight)
+            make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
         firstTermsOfServiceDetailButton.snp.makeConstraints { make in
@@ -140,15 +137,15 @@ class TermsOfServiceView: UIView {
         }
         
         firstTermsOfServiceLabel.snp.makeConstraints { make in
-            make.leading.equalTo(firstCheckButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.leading.equalTo(agreeAllLabel.snp.leading)
             make.trailing.equalTo(firstTermsOfServiceDetailButton.snp.leading).offset(-8*Constants.standardWidth)
-            make.centerY.equalTo(firstCheckButton)
+            make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
         secondTermsOfServiceLabel.snp.makeConstraints { make in
             make.leading.equalTo(firstTermsOfServiceLabel.snp.leading)
             make.trailing.equalTo(firstTermsOfServiceLabel.snp.trailing)
-            make.top.equalTo(firstTermsOfServiceLabel.snp.bottom).offset(14*Constants.standardHeight)
+            make.top.equalTo(firstTermsOfServiceLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
         secondCheckButton.snp.makeConstraints { make in
@@ -166,7 +163,7 @@ class TermsOfServiceView: UIView {
         thirdTermsOfServiceLabel.snp.makeConstraints { make in
             make.leading.equalTo(secondTermsOfServiceLabel.snp.leading)
             make.trailing.equalTo(secondTermsOfServiceLabel.snp.trailing)
-            make.top.equalTo(secondTermsOfServiceLabel.snp.bottom).offset(14*Constants.standardHeight)
+            make.top.equalTo(secondTermsOfServiceLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
         thirdCheckButton.snp.makeConstraints { make in
@@ -187,5 +184,12 @@ class TermsOfServiceView: UIView {
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
         }
+    }
+    
+    private func layout() {
+        [termsOfServiceLabel,selectAllButton,agreeAllLabel,firstCheckButton,firstTermsOfServiceDetailButton,firstTermsOfServiceLabel,secondTermsOfServiceLabel,secondCheckButton,secondTermsOfServiceDetailButton,thirdTermsOfServiceLabel,thirdCheckButton,thirdTermsOfServiceDetailButton,nextButton]
+            .forEach{
+                addSubview($0)
+            }
     }
 }

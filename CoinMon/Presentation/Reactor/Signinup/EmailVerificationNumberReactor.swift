@@ -5,6 +5,7 @@ import RxFlow
 class EmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    var timerDisposeBag = DisposeBag()
     let emailFlow: EmailFlow
     
     init(emailFlow: EmailFlow){
@@ -65,9 +66,13 @@ class EmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                 .just(.setValid(isverificationNumberValid))
             ])
         case .startTimer:
+            timerDisposeBag = DisposeBag()
             return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
-                .take(while: { _ in self.currentState.remainingSeconds > 0 })
-                .map { _ in .setTimer(self.currentState.remainingSeconds - 1) }
+                .take(while: { [weak self] _ in self?.currentState.remainingSeconds ?? 0 > 0 })
+                .map { [weak self] _ in .setTimer((self?.currentState.remainingSeconds ?? 1) - 1) }
+                .do(onDispose: { [weak self] in
+                    self?.timerDisposeBag = DisposeBag()
+                })
         }
     }
     

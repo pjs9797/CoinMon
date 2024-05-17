@@ -21,8 +21,8 @@ extension UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
-        tapGesture.rx.event.bind { [unowned self] _ in
-            self.view.endEditing(true)
+        tapGesture.rx.event.bind { [weak self] _ in
+            self?.view.endEditing(true)
         }.disposed(by: disposeBag)
     }
     
@@ -30,49 +30,35 @@ extension UIViewController {
         let tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
         tapGesture.delegate = delegate
-        tapGesture.rx.event.bind { [unowned self] _ in
-            self.view.endEditing(true)
+        tapGesture.rx.event.bind { [weak self] _ in
+            self?.view.endEditing(true)
         }.disposed(by: disposeBag)
     }
     
     func bindKeyboardNotifications(to button: UIButton, disposeBag: DisposeBag) {
         NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
-            .debug("keyboardWillShowNotification")
             .compactMap { $0.userInfo }
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak button] userInfo in
-                guard let button = button else { return }
+            .subscribe(onNext: { [weak self, weak button] userInfo in
                 if let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
                    let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                     let keyboardHeight = keyboardFrame.height
-                    let safeAreaBottom = self.view.safeAreaInsets.bottom
-                    let offsetY = -keyboardHeight + safeAreaBottom
+                    let safeAreaBottom = self?.view.safeAreaInsets.bottom
                     
-                    // NaN 값이 발생하는지 확인하기 위해 디버깅 메시지 추가
-                    print("Keyboard Height: \(keyboardHeight)")
-                    print("Safe Area Bottom: \(safeAreaBottom)")
-                    print("Offset Y: \(offsetY)")
-                    
-                    if offsetY.isNaN {
-                        print("Error: Offset Y is NaN")
-                        return
-                    }
                     UIView.animate(withDuration: duration) {
-                        button.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+safeAreaBottom)
+                        button?.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+(safeAreaBottom ?? 0))
                     }
                 }
             })
             .disposed(by: disposeBag)
         
         NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
-            .debug("keyboardWillHideNotification")
             .compactMap { $0.userInfo }
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak button] userInfo in
-                guard let button = button else { return }
                 if let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                     UIView.animate(withDuration: duration) {
-                        button.transform = .identity
+                        button?.transform = .identity
                     }
                 }
             })
