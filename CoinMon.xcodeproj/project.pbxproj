@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */; };
+		31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */; };
+		31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */; };
+		31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C422BFB332E008AB6FD /* HomeReactor.swift */; };
+		31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C442BFB4EBC008AB6FD /* PriceViewController.swift */; };
+		31423C472BFB4F27008AB6FD /* FeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C462BFB4F27008AB6FD /* FeeViewController.swift */; };
+		31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C482BFB4F65008AB6FD /* PremiumViewController.swift */; };
+		31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */; };
+		31423C502BFB5946008AB6FD /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C4F2BFB5946008AB6FD /* PriceView.swift */; };
+		31423C522BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C512BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift */; };
+		31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C532BFB5DE2008AB6FD /* SearchView.swift */; };
+		31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */; };
+		31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C592BFC8146008AB6FD /* PriceReactor.swift */; };
+		31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5B2BFC817B008AB6FD /* HomeStep.swift */; };
+		31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5D2BFC820B008AB6FD /* HomeFlow.swift */; };
+		31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5F2BFCAC1F008AB6FD /* LocalizationManager.swift */; };
 		317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779C92BE1E67A006E8378 /* AppDelegate.swift */; };
 		317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779CB2BE1E67A006E8378 /* SceneDelegate.swift */; };
 		317779D32BE1E67B006E8378 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317779D22BE1E67B006E8378 /* ImageAssets.xcassets */; };
@@ -59,6 +74,21 @@
 
 /* Begin PBXFileReference section */
 		31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberReactor.swift; sourceTree = "<group>"; };
+		31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		31423C422BFB332E008AB6FD /* HomeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReactor.swift; sourceTree = "<group>"; };
+		31423C442BFB4EBC008AB6FD /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
+		31423C462BFB4F27008AB6FD /* FeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeViewController.swift; sourceTree = "<group>"; };
+		31423C482BFB4F65008AB6FD /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
+		31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		31423C4F2BFB5946008AB6FD /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
+		31423C512BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeListCollectionViewCell.swift; sourceTree = "<group>"; };
+		31423C532BFB5DE2008AB6FD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewHeader.swift; sourceTree = "<group>"; };
+		31423C592BFC8146008AB6FD /* PriceReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceReactor.swift; sourceTree = "<group>"; };
+		31423C5B2BFC817B008AB6FD /* HomeStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStep.swift; sourceTree = "<group>"; };
+		31423C5D2BFC820B008AB6FD /* HomeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlow.swift; sourceTree = "<group>"; };
+		31423C5F2BFCAC1F008AB6FD /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		317779C62BE1E67A006E8378 /* CoinMon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinMon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317779C92BE1E67A006E8378 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317779CB2BE1E67A006E8378 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +161,70 @@
 			path = Signinup;
 			sourceTree = "<group>";
 		};
+		31423C3B2BFB182E008AB6FD /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		31423C3E2BFB32CD008AB6FD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */,
+				31423C442BFB4EBC008AB6FD /* PriceViewController.swift */,
+				31423C462BFB4F27008AB6FD /* FeeViewController.swift */,
+				31423C482BFB4F65008AB6FD /* PremiumViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		31423C412BFB331A008AB6FD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				31423C422BFB332E008AB6FD /* HomeReactor.swift */,
+				31423C592BFC8146008AB6FD /* PriceReactor.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		31423C4B2BFB572E008AB6FD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				31423C552BFB7E46008AB6FD /* TableViewCell */,
+				31423C4C2BFB575C008AB6FD /* CollectionViewCell */,
+				31423C4F2BFB5946008AB6FD /* PriceView.swift */,
+				31423C532BFB5DE2008AB6FD /* SearchView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		31423C4C2BFB575C008AB6FD /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */,
+				31423C512BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		31423C552BFB7E46008AB6FD /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31423C562BFB8546008AB6FD /* TableViewHeader */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		31423C562BFB8546008AB6FD /* TableViewHeader */ = {
+			isa = PBXGroup;
+			children = (
+				31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */,
+			);
+			path = TableViewHeader;
+			sourceTree = "<group>";
+		};
 		317779BD2BE1E679006E8378 = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +282,7 @@
 				31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */,
 				317779F42BE200B4006E8378 /* Constants.swift */,
 				31777A112BE3A385006E8378 /* Extension.swift */,
+				31423C5F2BFCAC1F008AB6FD /* LocalizationManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -205,6 +300,7 @@
 		317779F12BE1FAE3006E8378 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				31423C4B2BFB572E008AB6FD /* Home */,
 				31F7916B2BECD65500A7CABB /* Signinup */,
 				31777A282BE5EDCB006E8378 /* Signup */,
 				31777A132BE3A44C006E8378 /* Signin */,
@@ -215,6 +311,8 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				31423C3E2BFB32CD008AB6FD /* Home */,
+				31423C3B2BFB182E008AB6FD /* TabBar */,
 				31423C372BF341E6008AB6FD /* Signinup */,
 				31777A2B2BE76351006E8378 /* Signup */,
 				31777A1C2BE3B1EB006E8378 /* Signin */,
@@ -225,6 +323,7 @@
 		317779F32BE20095006E8378 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				31423C412BFB331A008AB6FD /* Home */,
 				31F7916C2BECDB6200A7CABB /* Signinup */,
 				31777A2C2BE76357006E8378 /* Signup */,
 				31777A1F2BE3B20C006E8378 /* Signin */,
@@ -284,6 +383,7 @@
 				31777A242BE3B313006E8378 /* AppStep.swift */,
 				31777A332BE770D7006E8378 /* SignupStep.swift */,
 				31F791622BECB12D00A7CABB /* SigninStep.swift */,
+				31423C5B2BFC817B008AB6FD /* HomeStep.swift */,
 			);
 			path = Step;
 			sourceTree = "<group>";
@@ -294,6 +394,7 @@
 				31777A262BE3B319006E8378 /* AppFlow.swift */,
 				31777A312BE7707E006E8378 /* SignupFlow.swift */,
 				31F791642BECB14000A7CABB /* SigninFlow.swift */,
+				31423C5D2BFC820B008AB6FD /* HomeFlow.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -449,12 +550,17 @@
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
 				31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */,
+				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
+				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,
 				31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */,
 				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
+				31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */,
+				31423C472BFB4F27008AB6FD /* FeeViewController.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
 				31777A442BE88511006E8378 /* EmailVerificationNumberReactor.swift in Sources */,
+				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
 				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
@@ -464,17 +570,27 @@
 				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */,
+				31423C502BFB5946008AB6FD /* PriceView.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
+				31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */,
 				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
+				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
+				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
+				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* EmailEntryViewController.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */,
+				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
+				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
+				31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */,
+				31423C522BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift in Sources */,
 				31F7916A2BECD5A300A7CABB /* EmailVerificationNumberViewController.swift in Sources */,
+				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* EmailEntryView.swift in Sources */,
 				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,

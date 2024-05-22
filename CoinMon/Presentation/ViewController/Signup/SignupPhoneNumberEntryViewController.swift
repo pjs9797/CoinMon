@@ -3,7 +3,7 @@ import ReactorKit
 
 class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
     var disposeBag = DisposeBag()
-    let backButton = UIBarButtonItem(image: ImageManager.Arrow_Chevron_Left, style: .plain, target: nil, action: nil)
+    let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let phoneNumberEntryView = PhoneNumberEntryView()
     
     init(with reactor: SignupPhoneNumberEntryReactor) {
@@ -33,7 +33,6 @@ class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View, U
     
     private func setNavigationbar() {
         self.title = NSLocalizedString("회원가입", comment: "")
-        self.backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
     }
 }

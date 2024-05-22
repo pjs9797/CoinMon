@@ -9,7 +9,7 @@ class SigninView: UIView {
     }()
     let kakaoLoginButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(ColorManager.common_0, for: .normal)
         button.titleLabel?.font = FontManager.D6_16
         button.setImage(ImageManager.kakao, for: .normal)
         button.backgroundColor = ColorManager.yellow_70
@@ -24,7 +24,7 @@ class SigninView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = FontManager.D6_16
         button.setImage(ImageManager.apple, for: .normal)
-        button.backgroundColor = .black
+        button.backgroundColor = ColorManager.common_0
         button.layer.cornerRadius = 12*Constants.standardHeight
         var config = UIButton.Configuration.plain()
         config.imagePadding = 4*Constants.standardWidth
@@ -33,7 +33,7 @@ class SigninView: UIView {
     }()
     let coinMonLoginButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(ColorManager.common_0, for: .normal)
         button.titleLabel?.font = FontManager.D6_16
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.layer.borderWidth = 1

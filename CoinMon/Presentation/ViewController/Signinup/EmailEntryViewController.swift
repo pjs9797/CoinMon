@@ -4,7 +4,7 @@ import ReactorKit
 class EmailEntryViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
     var emailFlow: EmailFlow
     var disposeBag = DisposeBag()
-    let backButton = UIBarButtonItem(image: ImageManager.Arrow_Chevron_Left, style: .plain, target: nil, action: nil)
+    let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let emailEntryView = EmailEntryView()
     
     init(with reactor: EmailEntryReactor, emailFlow: EmailFlow) {
@@ -40,7 +40,6 @@ class EmailEntryViewController: UIViewController, ReactorKit.View, UIGestureReco
         case .signin:
             self.title = NSLocalizedString("로그인", comment: "")
         }
-        self.backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
     }
 }

@@ -11,7 +11,7 @@ class TermsOfServiceView: UIView {
     }()
     let selectAllButton: UIButton = {
         let button = UIButton()
-        let image = ImageManager.Circle_Check?.withRenderingMode(.alwaysTemplate)
+        let image = ImageManager.circle_Check?.withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: .normal)
         return button
     }()
@@ -24,8 +24,6 @@ class TermsOfServiceView: UIView {
     }()
     let firstCheckButton: UIButton = {
         let button = UIButton()
-        let image = ImageManager.Check?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
         return button
     }()
     let firstTermsOfServiceLabel: UILabel = {
@@ -37,13 +35,11 @@ class TermsOfServiceView: UIView {
     }()
     let firstTermsOfServiceDetailButton: UIButton = {
         let button = UIButton()
-        button.setImage(ImageManager.Arrow_Chevron_Right, for: .normal)
+        button.setImage(ImageManager.arrow_Chevron_Right, for: .normal)
         return button
     }()
     let secondCheckButton: UIButton = {
         let button = UIButton()
-        let image = ImageManager.Check?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
         return button
     }()
     let secondTermsOfServiceLabel: UILabel = {
@@ -55,13 +51,11 @@ class TermsOfServiceView: UIView {
     }()
     let secondTermsOfServiceDetailButton: UIButton = {
         let button = UIButton()
-        button.setImage(ImageManager.Arrow_Chevron_Right, for: .normal)
+        button.setImage(ImageManager.arrow_Chevron_Right, for: .normal)
         return button
     }()
     let thirdCheckButton: UIButton = {
         let button = UIButton()
-        let image = ImageManager.Check?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
         return button
     }()
     let thirdTermsOfServiceLabel: UILabel = {
@@ -73,7 +67,7 @@ class TermsOfServiceView: UIView {
     }()
     let thirdTermsOfServiceDetailButton: UIButton = {
         let button = UIButton()
-        button.setImage(ImageManager.Arrow_Chevron_Right, for: .normal)
+        button.setImage(ImageManager.arrow_Chevron_Right, for: .normal)
         return button
     }()
     let nextButton: UIButton = {

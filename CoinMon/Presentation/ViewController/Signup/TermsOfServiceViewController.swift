@@ -66,28 +66,28 @@ extension TermsOfServiceViewController {
         reactor.state.map { $0.isSelectAllButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.selectAllButton.setImage(isChecked ? ImageManager.Circle_Check_Orange : ImageManager.Circle_Check, for: .normal)
+                self?.termsOfServiceView.selectAllButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.circle_Check, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isFirstCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.firstCheckButton.imageView?.tintColor = isChecked ? ColorManager.orange_60 : ColorManager.gray_90
+                self?.termsOfServiceView.firstCheckButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.check_Orange, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isSecondCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.secondCheckButton.imageView?.tintColor = isChecked ? ColorManager.orange_60 : ColorManager.gray_90
+                self?.termsOfServiceView.secondCheckButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.check_Orange, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isThirdCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.thirdCheckButton.imageView?.tintColor = isChecked ? ColorManager.orange_60 : ColorManager.gray_90
+                self?.termsOfServiceView.thirdCheckButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.check_Orange, for: .normal)
             })
             .disposed(by: disposeBag)
         

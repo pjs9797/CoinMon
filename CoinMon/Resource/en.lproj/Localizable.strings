@@ -28,3 +28,12 @@
 //Signup-SignupCompleted
 "회원가입 완료" = "Sign Up Completed";
 "코인몬 시작하기" = "Start CoinMon";
+//Home
+"시세" = "Price";
+"펀비" = "Fee";
+"김프" = "Kimchi Primium";
+//Home-Exchange
+"바이낸스" = "Binance";
+"바이비트" = "Bybit";
+"업비트" = "Upbit";
+"빗썸" = "Bithumb";

@@ -8,6 +8,8 @@ class AppFlow: Flow {
     
     private lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
+        //TODO: 로그인창과 연결시 삭제
+        navigationController.isNavigationBarHidden = true
         return navigationController
     }()
 
@@ -16,6 +18,8 @@ class AppFlow: Flow {
         switch step {
         case .navigateToSigninViewController:
             return navigateToSigninViewController()
+        case .navigateToTabBarController:
+            return navigateToTabBarController()
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
@@ -37,6 +41,24 @@ class AppFlow: Flow {
         self.rootViewController.setViewControllers([viewController], animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToTabBarController() -> FlowContributors {
+        let tabBarController = TabBarController()
+        let homeNavigationController = UINavigationController()
+        let homeFlow = HomeFlow(with: homeNavigationController)
+        
+        Flows.use(homeFlow, when: .created) { [weak self] (homeNavigationController) in
+            
+            homeNavigationController.tabBarItem = UITabBarItem(title: "홈", image: ImageManager.home, tag: 0)
+
+            tabBarController.viewControllers = [homeNavigationController]
+            self?.rootViewController.setViewControllers([tabBarController], animated: false)
+        }
+
+        return .multiple(flowContributors: [
+            .contribute(withNextPresentable: homeFlow, withNextStepper: OneStepper(withSingleStep: HomeStep.navigateToHomeViewController)),
+        ])
     }
     
     private func popViewController() -> FlowContributors {
