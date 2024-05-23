@@ -37,3 +37,9 @@
 "바이비트" = "Bybit";
 "업비트" = "Upbit";
 "빗썸" = "Bithumb";
+//Home-Price
+"코인 선택" = "Select Coin";
+"코인" = "Coin";
+"시세%" = "Price (%@)";
+"등락률" = "Change";
+"시평갭" = "Gap";

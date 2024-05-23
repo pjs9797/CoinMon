@@ -61,6 +61,7 @@
 		31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */; };
 		31777A442BE88511006E8378 /* EmailVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */; };
 		31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A452BEA5A37006E8378 /* SignupCompletedView.swift */; };
+		31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -124,6 +125,7 @@
 		31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberViewController.swift; sourceTree = "<group>"; };
 		31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		31777A452BEA5A37006E8378 /* SignupCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedView.swift; sourceTree = "<group>"; };
+		31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewCell.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				31423C562BFB8546008AB6FD /* TableViewHeader */,
+				31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 		317779C82BE1E67A006E8378 /* CoinMon */ = {
 			isa = PBXGroup;
 			children = (
+				31A48FD52BFF3A8100ABEA2F /* Domain */,
 				317779EE2BE1FAB7006E8378 /* Application */,
 				317779F62BE2019C006E8378 /* Resource */,
 				317779EF2BE1FAC3006E8378 /* Utility */,
@@ -431,6 +435,21 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
+		31A48FD52BFF3A8100ABEA2F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				31A48FD62BFF3AB500ABEA2F /* Entity */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		31A48FD62BFF3AB500ABEA2F /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +570,7 @@
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
 				31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
+				31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
 				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,

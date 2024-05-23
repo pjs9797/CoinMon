@@ -13,7 +13,16 @@ class PriceView: UIView {
         return collectionView
     }()
     let searchView = SearchView()
-    let tableView = UIView()
+    let priceTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset.left = 0
+        tableView.sectionHeaderTopPadding = 0
+        tableView.rowHeight = 52*Constants.standardHeight
+        tableView.register(PriceTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "PriceTableViewHeader")
+        tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "PriceTableViewCell")
+        return tableView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,10 +35,11 @@ class PriceView: UIView {
     }
     
     private func layout() {
-        [exchangeCollectionView,searchView,tableView]
+        [exchangeCollectionView,searchView,priceTableView]
             .forEach{
                 addSubview($0)
             }
+        
         exchangeCollectionView.snp.makeConstraints { make in
             make.width.equalTo(355*Constants.standardWidth)
             make.height.equalTo(35*Constants.standardHeight)
@@ -43,7 +53,7 @@ class PriceView: UIView {
             make.top.equalTo(exchangeCollectionView.snp.bottom).offset(8*Constants.standardHeight)
         }
         
-        tableView.snp.makeConstraints { make in
+        priceTableView.snp.makeConstraints { make in
             make.top.equalTo(searchView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)

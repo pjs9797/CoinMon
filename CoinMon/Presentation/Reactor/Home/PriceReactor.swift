@@ -20,6 +20,12 @@ class PriceReactor: ReactorKit.Reactor {
             Exchanges(image: ImageManager.upbit, title: LocalizationManager.shared.localizedString(forKey: "업비트")),
             Exchanges(image: ImageManager.bithumb, title: LocalizationManager.shared.localizedString(forKey: "빗썸"))
         ]
+        var priceList: [PriceList] = [
+            PriceList(coinImage: "bybit", coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            PriceList(coinImage: "bybit", coinTitle: "ETH", price: "123532", change: "15.13%", gap: "1.32%"),
+            PriceList(coinImage: "bybit", coinTitle: "XRP", price: "523", change: "-10.13%", gap: "52.32%"),
+            PriceList(coinImage: "bybit", coinTitle: "SOL", price: "4442", change: "20.13%", gap: "-22.32%"),
+        ]
     }
     
 }
@@ -27,4 +33,12 @@ class PriceReactor: ReactorKit.Reactor {
 struct Exchanges: Equatable{
     let image: UIImage?
     let title: String
+}
+
+struct PriceList: Equatable{
+    let coinImage: String
+    let coinTitle: String
+    let price: String
+    let change: String
+    let gap: String
 }

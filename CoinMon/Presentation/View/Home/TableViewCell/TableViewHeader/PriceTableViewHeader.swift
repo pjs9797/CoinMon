@@ -6,62 +6,62 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
         let view = UIView()
         return view
     }()
-    let coinLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T7_12_read
-        label.textColor = ColorManager.gray_50
-        label.textAlignment = .left
-        return label
+    let coinButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("코인", for: .normal)
+        button.setTitleColor(ColorManager.gray_50, for: .normal)
+        button.titleLabel?.font = FontManager.T7_12_read
+        button.setImage(ImageManager.sort, for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.semanticContentAttribute = .forceRightToLeft
+        return button
     }()
     let priceView: UIView = {
         let view = UIView()
         return view
     }()
-    let priceLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T7_12_read
-        label.textColor = ColorManager.gray_50
-        return label
-    }()
-    let priceSortImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = ImageManager.sort
-        return imageView
+    let priceButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("시세(USDT)", for: .normal)
+        button.setTitleColor(ColorManager.gray_50, for: .normal)
+        button.titleLabel?.font = FontManager.T7_12_read
+        button.setImage(ImageManager.sort, for: .normal)
+        button.contentHorizontalAlignment = .right
+        button.semanticContentAttribute = .forceRightToLeft
+        return button
     }()
     let changeView: UIView = {
         let view = UIView()
         return view
     }()
-    let changeLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T7_12_read
-        label.textColor = ColorManager.gray_50
-        return label
-    }()
-    let changeSortImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = ImageManager.sort
-        return imageView
+    let changeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("등락률", for: .normal)
+        button.setTitleColor(ColorManager.gray_50, for: .normal)
+        button.titleLabel?.font = FontManager.T7_12_read
+        button.setImage(ImageManager.sort, for: .normal)
+        button.contentHorizontalAlignment = .right
+        button.semanticContentAttribute = .forceRightToLeft
+        return button
     }()
     let gapView: UIView = {
         let view = UIView()
         return view
     }()
-    let gapLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T7_12_read
-        label.textColor = ColorManager.gray_50
-        return label
-    }()
-    let gapSortImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = ImageManager.sort
-        return imageView
+    let gapButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("시평갭", for: .normal)
+        button.setTitleColor(ColorManager.gray_50, for: .normal)
+        button.titleLabel?.font = FontManager.T7_12_read
+        button.setImage(ImageManager.sort, for: .normal)
+        button.contentHorizontalAlignment = .right
+        button.semanticContentAttribute = .forceRightToLeft
+        return button
     }()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-
+        
         layout()
     }
     
@@ -75,22 +75,10 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
                 contentView.addSubview($0)
             }
         
-        coinView.addSubview(coinLabel)
-        
-        [priceSortImageView,priceLabel]
-            .forEach {
-                priceView.addSubview($0)
-            }
-        
-        [changeSortImageView,changeLabel]
-            .forEach {
-                changeView.addSubview($0)
-            }
-        
-        [gapSortImageView,gapLabel]
-            .forEach {
-                gapView.addSubview($0)
-            }
+        coinView.addSubview(coinButton)
+        priceView.addSubview(priceButton)
+        changeView.addSubview(changeButton)
+        gapView.addSubview(gapButton)
         
         coinView.snp.makeConstraints { make in
             make.width.equalTo(121*Constants.standardWidth)
@@ -98,9 +86,8 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
             make.centerY.equalToSuperview()
         }
         
-        coinLabel.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.center.equalToSuperview()
+        coinButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         priceView.snp.makeConstraints { make in
@@ -109,15 +96,8 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
             make.centerY.equalToSuperview()
         }
         
-        priceSortImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(16*Constants.standardHeight)
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-        
-        priceLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(priceSortImageView.snp.leading)
-            make.centerY.equalToSuperview()
+        priceButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         changeView.snp.makeConstraints { make in
@@ -126,32 +106,18 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
             make.centerY.equalToSuperview()
         }
         
-        changeSortImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(16*Constants.standardHeight)
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-        
-        changeLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(changeSortImageView.snp.leading)
-            make.centerY.equalToSuperview()
+        changeButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         gapView.snp.makeConstraints { make in
-            make.width.equalTo(56*Constants.standardWidth).priority(.low)
-            make.leading.equalTo(priceView.snp.trailing)
+            make.leading.equalTo(changeView.snp.trailing)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
         
-        gapSortImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(16*Constants.standardHeight)
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-        
-        gapLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(gapSortImageView.snp.leading).priority(.low)
-            make.centerY.equalToSuperview()
+        gapButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }
