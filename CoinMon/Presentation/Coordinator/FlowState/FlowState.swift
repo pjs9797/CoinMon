@@ -3,7 +3,13 @@ enum EmailFlow{
     case signin
 }
 
-enum VerificationType {
+enum VerificationType{
     case email
     case phone
 }
+
+enum SelectExchangeFlow{
+    case departure
+    case arrival
+}
+

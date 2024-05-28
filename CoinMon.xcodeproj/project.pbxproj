@@ -62,6 +62,18 @@
 		31777A442BE88511006E8378 /* EmailVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */; };
 		31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A452BEA5A37006E8378 /* SignupCompletedView.swift */; };
 		31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */; };
+		31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9762C04A02C00DA2FC6 /* FeeView.swift */; };
+		31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9782C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift */; };
+		31BCE97B2C04A07500DA2FC6 /* FeeTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE97A2C04A07500DA2FC6 /* FeeTableViewHeader.swift */; };
+		31BCE97D2C04A1C200DA2FC6 /* FeeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE97C2C04A1C200DA2FC6 /* FeeReactor.swift */; };
+		31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */; };
+		31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9802C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift */; };
+		31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */; };
+		31BCE9852C04AFA100DA2FC6 /* SelectExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9842C04AFA100DA2FC6 /* SelectExchangeView.swift */; };
+		31BCE9872C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9862C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift */; };
+		31BCE9892C05B19000DA2FC6 /* SelectExchangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectExchangeViewController.swift */; };
+		31BCE98D2C05B20000DA2FC6 /* SelectExchangeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectExchangeReactor.swift */; };
+		31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -126,6 +138,18 @@
 		31777A432BE88511006E8378 /* EmailVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		31777A452BEA5A37006E8378 /* SignupCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedView.swift; sourceTree = "<group>"; };
 		31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewCell.swift; sourceTree = "<group>"; };
+		31BCE9762C04A02C00DA2FC6 /* FeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeView.swift; sourceTree = "<group>"; };
+		31BCE9782C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeePremiumTableViewCell.swift; sourceTree = "<group>"; };
+		31BCE97A2C04A07500DA2FC6 /* FeeTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeTableViewHeader.swift; sourceTree = "<group>"; };
+		31BCE97C2C04A1C200DA2FC6 /* FeeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeReactor.swift; sourceTree = "<group>"; };
+		31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
+		31BCE9802C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimiumTableViewHeader.swift; sourceTree = "<group>"; };
+		31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimiumReactor.swift; sourceTree = "<group>"; };
+		31BCE9842C04AFA100DA2FC6 /* SelectExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExchangeView.swift; sourceTree = "<group>"; };
+		31BCE9862C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTableViewCell.swift; sourceTree = "<group>"; };
+		31BCE9882C05B19000DA2FC6 /* SelectExchangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExchangeViewController.swift; sourceTree = "<group>"; };
+		31BCE98C2C05B20000DA2FC6 /* SelectExchangeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExchangeReactor.swift; sourceTree = "<group>"; };
+		31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -174,10 +198,8 @@
 		31423C3E2BFB32CD008AB6FD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				31BCE98B2C05B1BB00DA2FC6 /* PageViewController */,
 				31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */,
-				31423C442BFB4EBC008AB6FD /* PriceViewController.swift */,
-				31423C462BFB4F27008AB6FD /* FeeViewController.swift */,
-				31423C482BFB4F65008AB6FD /* PremiumViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -185,8 +207,8 @@
 		31423C412BFB331A008AB6FD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				31BCE98A2C05B1B300DA2FC6 /* PageViewController */,
 				31423C422BFB332E008AB6FD /* HomeReactor.swift */,
-				31423C592BFC8146008AB6FD /* PriceReactor.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -197,7 +219,10 @@
 				31423C552BFB7E46008AB6FD /* TableViewCell */,
 				31423C4C2BFB575C008AB6FD /* CollectionViewCell */,
 				31423C4F2BFB5946008AB6FD /* PriceView.swift */,
+				31BCE9762C04A02C00DA2FC6 /* FeeView.swift */,
+				31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */,
 				31423C532BFB5DE2008AB6FD /* SearchView.swift */,
+				31BCE9842C04AFA100DA2FC6 /* SelectExchangeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -216,6 +241,8 @@
 			children = (
 				31423C562BFB8546008AB6FD /* TableViewHeader */,
 				31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */,
+				31BCE9782C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift */,
+				31BCE9862C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -224,6 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */,
+				31BCE97A2C04A07500DA2FC6 /* FeeTableViewHeader.swift */,
+				31BCE9802C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift */,
 			);
 			path = TableViewHeader;
 			sourceTree = "<group>";
@@ -446,8 +475,39 @@
 		31A48FD62BFF3AB500ABEA2F /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				31BCE98E2C05CFFA00DA2FC6 /* Home */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		31BCE98A2C05B1B300DA2FC6 /* PageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				31423C592BFC8146008AB6FD /* PriceReactor.swift */,
+				31BCE97C2C04A1C200DA2FC6 /* FeeReactor.swift */,
+				31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */,
+				31BCE98C2C05B20000DA2FC6 /* SelectExchangeReactor.swift */,
+			);
+			path = PageViewController;
+			sourceTree = "<group>";
+		};
+		31BCE98B2C05B1BB00DA2FC6 /* PageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				31423C442BFB4EBC008AB6FD /* PriceViewController.swift */,
+				31423C462BFB4F27008AB6FD /* FeeViewController.swift */,
+				31423C482BFB4F65008AB6FD /* PremiumViewController.swift */,
+				31BCE9882C05B19000DA2FC6 /* SelectExchangeViewController.swift */,
+			);
+			path = PageViewController;
+			sourceTree = "<group>";
+		};
+		31BCE98E2C05CFFA00DA2FC6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
@@ -565,6 +625,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31BCE97D2C04A1C200DA2FC6 /* FeeReactor.swift in Sources */,
 				31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */,
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
@@ -578,8 +639,12 @@
 				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
 				31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */,
 				31423C472BFB4F27008AB6FD /* FeeViewController.swift in Sources */,
+				31BCE97B2C04A07500DA2FC6 /* FeeTableViewHeader.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
+				31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */,
 				31777A442BE88511006E8378 /* EmailVerificationNumberReactor.swift in Sources */,
+				31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */,
+				31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
@@ -594,25 +659,32 @@
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
 				31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */,
 				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
+				31BCE98D2C05B20000DA2FC6 /* SelectExchangeReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
+				31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* EmailEntryViewController.swift in Sources */,
+				31BCE9892C05B19000DA2FC6 /* SelectExchangeViewController.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */,
+				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
+				31BCE9872C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift in Sources */,
+				31BCE9852C04AFA100DA2FC6 /* SelectExchangeView.swift in Sources */,
 				31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */,
 				31423C522BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift in Sources */,
 				31F7916A2BECD5A300A7CABB /* EmailVerificationNumberViewController.swift in Sources */,
 				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* EmailEntryView.swift in Sources */,
+				31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */,
 				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,
 				31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */,

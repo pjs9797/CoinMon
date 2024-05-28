@@ -7,6 +7,8 @@ struct ImageManager {
     //direction
     static let arrow_Chevron_Left = UIImage(named: "Arrow_Chevron_Left")
     static let arrow_Chevron_Right = UIImage(named: "Arrow_Chevron_Right")
+    static let chevron_Down = UIImage(named: "Chevron_Down")
+    static let arrow_Left_Right = UIImage(named: "Arrow_Left_Right")
     //tabbar
     static let home = UIImage(named: "home")
     static let alert = UIImage(named: "alert")
