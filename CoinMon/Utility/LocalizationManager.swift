@@ -6,7 +6,10 @@ class LocalizationManager {
     var language: String = ""
     var rxLanguage: BehaviorRelay<String> = BehaviorRelay<String>(value: "ko")
     private init() {
-        if let appLanguage = Bundle.main.preferredLocalizations.first {
+        if let savedLanguage = UserDefaults.standard.string(forKey: "appLanguage") {
+            language = savedLanguage
+            rxLanguage = BehaviorRelay<String>(value: savedLanguage)
+        } else if let appLanguage = Bundle.main.preferredLocalizations.first {
             language = appLanguage
             rxLanguage = BehaviorRelay<String>(value: appLanguage)
         }
@@ -15,6 +18,7 @@ class LocalizationManager {
     func setLanguage(_ newLanguage: String) {
         language = newLanguage
         rxLanguage.accept(newLanguage)
+        UserDefaults.standard.set(newLanguage, forKey: "appLanguage")
     }
     
     func localizedString(forKey key: String, arguments: CVarArg...) -> String {

@@ -5,7 +5,6 @@ class PriceView: UIView {
     let exchangeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 8*Constants.standardWidth
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false

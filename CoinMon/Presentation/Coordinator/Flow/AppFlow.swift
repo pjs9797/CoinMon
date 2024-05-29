@@ -46,18 +46,22 @@ class AppFlow: Flow {
     private func navigateToTabBarController() -> FlowContributors {
         let tabBarController = TabBarController()
         let homeNavigationController = UINavigationController()
+        let settingNavigationController = UINavigationController()
         let homeFlow = HomeFlow(with: homeNavigationController)
+        let settingFlow = SettingFlow(with: settingNavigationController)
         
-        Flows.use(homeFlow, when: .created) { [weak self] (homeNavigationController) in
+        Flows.use(homeFlow,settingFlow, when: .created) { [weak self] (homeNavigationController,settingNavigationController) in
             
-            homeNavigationController.tabBarItem = UITabBarItem(title: "홈", image: ImageManager.home, tag: 0)
+            homeNavigationController.tabBarItem = UITabBarItem(title: LocalizationManager.shared.localizedString(forKey: "홈"), image: ImageManager.home_Select?.withRenderingMode(.alwaysOriginal), tag: 0)
+            settingNavigationController.tabBarItem = UITabBarItem(title: LocalizationManager.shared.localizedString(forKey: "설정"), image: ImageManager.setting?.withRenderingMode(.alwaysOriginal), tag: 1)
 
-            tabBarController.viewControllers = [homeNavigationController]
+            tabBarController.viewControllers = [homeNavigationController,settingNavigationController]
             self?.rootViewController.setViewControllers([tabBarController], animated: false)
         }
 
         return .multiple(flowContributors: [
             .contribute(withNextPresentable: homeFlow, withNextStepper: OneStepper(withSingleStep: HomeStep.navigateToHomeViewController)),
+            .contribute(withNextPresentable: settingFlow, withNextStepper: OneStepper(withSingleStep: SettingStep.navigateToSettingViewController)),
         ])
     }
     

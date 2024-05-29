@@ -23,6 +23,11 @@
 		31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5B2BFC817B008AB6FD /* HomeStep.swift */; };
 		31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5D2BFC820B008AB6FD /* HomeFlow.swift */; };
 		31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5F2BFCAC1F008AB6FD /* LocalizationManager.swift */; };
+		3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3146369D2C05FB95008A5629 /* SettingStep.swift */; };
+		314636A02C05FB9D008A5629 /* SettingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3146369F2C05FB9D008A5629 /* SettingFlow.swift */; };
+		314636A32C05FBCD008A5629 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A22C05FBCD008A5629 /* SettingView.swift */; };
+		314636A72C060056008A5629 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A62C060056008A5629 /* SettingViewController.swift */; };
+		314636A92C06005E008A5629 /* SettingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A82C06005E008A5629 /* SettingReactor.swift */; };
 		317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779C92BE1E67A006E8378 /* AppDelegate.swift */; };
 		317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779CB2BE1E67A006E8378 /* SceneDelegate.swift */; };
 		317779D32BE1E67B006E8378 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317779D22BE1E67B006E8378 /* ImageAssets.xcassets */; };
@@ -102,6 +107,11 @@
 		31423C5B2BFC817B008AB6FD /* HomeStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStep.swift; sourceTree = "<group>"; };
 		31423C5D2BFC820B008AB6FD /* HomeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlow.swift; sourceTree = "<group>"; };
 		31423C5F2BFCAC1F008AB6FD /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		3146369D2C05FB95008A5629 /* SettingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStep.swift; sourceTree = "<group>"; };
+		3146369F2C05FB9D008A5629 /* SettingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFlow.swift; sourceTree = "<group>"; };
+		314636A22C05FBCD008A5629 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		314636A62C060056008A5629 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		314636A82C06005E008A5629 /* SettingReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingReactor.swift; sourceTree = "<group>"; };
 		317779C62BE1E67A006E8378 /* CoinMon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinMon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317779C92BE1E67A006E8378 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317779CB2BE1E67A006E8378 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +267,30 @@
 			path = TableViewHeader;
 			sourceTree = "<group>";
 		};
+		314636A12C05FBA4008A5629 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				314636A22C05FBCD008A5629 /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		314636A42C060041008A5629 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				314636A62C060056008A5629 /* SettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		314636A52C060048008A5629 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				314636A82C06005E008A5629 /* SettingReactor.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		317779BD2BE1E679006E8378 = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +367,7 @@
 		317779F12BE1FAE3006E8378 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				314636A12C05FBA4008A5629 /* Setting */,
 				31423C4B2BFB572E008AB6FD /* Home */,
 				31F7916B2BECD65500A7CABB /* Signinup */,
 				31777A282BE5EDCB006E8378 /* Signup */,
@@ -344,6 +379,7 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				314636A42C060041008A5629 /* Setting */,
 				31423C3E2BFB32CD008AB6FD /* Home */,
 				31423C3B2BFB182E008AB6FD /* TabBar */,
 				31423C372BF341E6008AB6FD /* Signinup */,
@@ -356,6 +392,7 @@
 		317779F32BE20095006E8378 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				314636A52C060048008A5629 /* Setting */,
 				31423C412BFB331A008AB6FD /* Home */,
 				31F7916C2BECDB6200A7CABB /* Signinup */,
 				31777A2C2BE76357006E8378 /* Signup */,
@@ -417,6 +454,7 @@
 				31777A332BE770D7006E8378 /* SignupStep.swift */,
 				31F791622BECB12D00A7CABB /* SigninStep.swift */,
 				31423C5B2BFC817B008AB6FD /* HomeStep.swift */,
+				3146369D2C05FB95008A5629 /* SettingStep.swift */,
 			);
 			path = Step;
 			sourceTree = "<group>";
@@ -428,6 +466,7 @@
 				31777A312BE7707E006E8378 /* SignupFlow.swift */,
 				31F791642BECB14000A7CABB /* SigninFlow.swift */,
 				31423C5D2BFC820B008AB6FD /* HomeFlow.swift */,
+				3146369F2C05FB9D008A5629 /* SettingFlow.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -630,6 +669,7 @@
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
 				31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */,
+				314636A92C06005E008A5629 /* SettingReactor.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
 				31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
@@ -639,6 +679,7 @@
 				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
 				31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */,
 				31423C472BFB4F27008AB6FD /* FeeViewController.swift in Sources */,
+				314636A72C060056008A5629 /* SettingViewController.swift in Sources */,
 				31BCE97B2C04A07500DA2FC6 /* FeeTableViewHeader.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
 				31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */,
@@ -646,6 +687,7 @@
 				31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */,
 				31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
+				314636A32C05FBCD008A5629 /* SettingView.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
 				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
@@ -658,11 +700,13 @@
 				31423C502BFB5946008AB6FD /* PriceView.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
 				31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */,
+				314636A02C05FB9D008A5629 /* SettingFlow.swift in Sources */,
 				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
 				31BCE98D2C05B20000DA2FC6 /* SelectExchangeReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
+				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */,

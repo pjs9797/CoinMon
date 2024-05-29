@@ -35,22 +35,4 @@ class SelectExchangeReactor: ReactorKit.Reactor,Stepper {
     struct State {
         var exchanges: [Exchanges]
     }
-    
-    func mutate(action: Action) -> Observable<Mutation> {
-        switch action {
-        case .departureExchangeButtonTapped:
-            return .empty()
-        case .arrivalExchangeButtonTapped:
-            return .empty()
-        }
-    }
-    
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        switch mutation {
-        case .setSelectedItem(let index):
-            newState.selectedItem = index
-        }
-        return newState
-    }
 }

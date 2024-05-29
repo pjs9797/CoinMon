@@ -5,8 +5,7 @@ class FeeView: UIView {
     let exchangeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 8*Constants.standardWidth
+        layout.minimumLineSpacing = 8*Constants.standardWidth
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(ExchangeListCollectionViewCell.self, forCellWithReuseIdentifier: "ExchangeListCollectionViewCell")
@@ -19,8 +18,8 @@ class FeeView: UIView {
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
         tableView.rowHeight = 52*Constants.standardHeight
-        tableView.register(PriceTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "FeeTableViewHeader")
-        tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "FeePremiumTableViewCell")
+        tableView.register(FeeTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "FeeTableViewHeader")
+        tableView.register(FeePremiumTableViewCell.self, forCellReuseIdentifier: "FeePremiumTableViewCell")
         return tableView
     }()
     

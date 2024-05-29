@@ -61,7 +61,7 @@ class PremiumTableViewHeader: UITableViewHeaderFooterView {
         }
         
         premiumView.snp.makeConstraints { make in
-            make.width.equalTo(30*Constants.standardWidth)
+            make.width.equalTo(100*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }

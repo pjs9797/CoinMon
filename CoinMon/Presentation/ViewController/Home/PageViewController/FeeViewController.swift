@@ -100,4 +100,8 @@ extension FeeViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 32*Constants.standardHeight
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+            (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .white
+    }
 }

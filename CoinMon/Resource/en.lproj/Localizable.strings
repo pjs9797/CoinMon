@@ -28,6 +28,8 @@
 //Signup-SignupCompleted
 "회원가입 완료" = "Sign Up Completed";
 "코인몬 시작하기" = "Start CoinMon";
+//TabBar
+"홈" = "Home";
 //Home
 "시세" = "Price";
 "펀비" = "Fee";
@@ -43,3 +45,6 @@
 "시세%" = "Price (%@)";
 "등락률" = "Change";
 "시평갭" = "Gap";
+//Setting
+"설정" = "Setting";
+"언어" = "Language";
