@@ -33,6 +33,7 @@ class FeePremiumTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .none
         layout()
     }
 
@@ -82,5 +83,17 @@ class FeePremiumTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-4*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
+    }
+    
+    func configureFee(with feeList: FeeList) {
+        coinImageView.image = UIImage(named: feeList.coinImage)
+        coinLabel.text = feeList.coinTitle
+        feePremiumLabel.text = feeList.fee
+    }
+    
+    func configurePremium(with premiumList: PremiumList) {
+        coinImageView.image = UIImage(named: premiumList.coinImage)
+        coinLabel.text = premiumList.coinTitle
+        feePremiumLabel.text = premiumList.premium
     }
 }

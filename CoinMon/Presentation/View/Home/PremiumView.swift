@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 
 class PremiumView: UIView {
-    let departureExchangeButton: UIButton = {
+    let departureMarketButton: UIButton = {
         let button = UIButton()
         button.setTitle("업비트", for: .normal)
         button.titleLabel?.font = FontManager.H6_14
@@ -23,7 +23,7 @@ class PremiumView: UIView {
         imageView.image = ImageManager.arrow_Left_Right
         return imageView
     }()
-    let arrivalExchangeButton: UIButton = {
+    let arrivalMarketButton: UIButton = {
         let button = UIButton()
         button.setTitle("바이낸스", for: .normal)
         button.titleLabel?.font = FontManager.H6_14
@@ -61,7 +61,7 @@ class PremiumView: UIView {
     }
     
     private func layout() {
-        [leftRightImageView,departureExchangeButton,arrivalExchangeButton,premiumTableView]
+        [leftRightImageView,departureMarketButton,arrivalMarketButton,premiumTableView]
             .forEach{
                 addSubview($0)
             }
@@ -72,14 +72,14 @@ class PremiumView: UIView {
             make.top.equalToSuperview().offset(13*Constants.standardHeight)
         }
         
-        departureExchangeButton.snp.makeConstraints { make in
+        departureMarketButton.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
             make.height.equalTo(35*Constants.standardHeight)
             make.trailing.equalTo(leftRightImageView.snp.leading).offset(-8*Constants.standardWidth)
             make.centerY.equalTo(leftRightImageView)
         }
         
-        arrivalExchangeButton.snp.makeConstraints { make in
+        arrivalMarketButton.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
             make.height.equalTo(35*Constants.standardHeight)
             make.leading.equalTo(leftRightImageView.snp.trailing).offset(8*Constants.standardWidth)

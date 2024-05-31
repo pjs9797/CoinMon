@@ -2,7 +2,7 @@ import UIKit
 import ReactorKit
 import SnapKit
 
-class HomeViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class HomeViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let homeCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -10,6 +10,7 @@ class HomeViewController: UIViewController, ReactorKit.View, UIGestureRecognizer
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 2*Constants.standardWidth
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(HomeCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCategoryCollectionViewCell")
         return collectionView
     }()
@@ -31,6 +32,9 @@ class HomeViewController: UIViewController, ReactorKit.View, UIGestureRecognizer
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
+        homeCategoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
         layout()
     }
     
@@ -71,14 +75,14 @@ extension HomeViewController {
             .disposed(by: disposeBag)
         
         homeCategoryCollectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
+            .bind(onNext: { [weak self] indexPath in
                 let cell = self?.homeCategoryCollectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell
                 cell?.isSelected = true
             })
             .disposed(by: disposeBag)
         
         homeCategoryCollectionView.rx.itemDeselected
-            .subscribe(onNext: { [weak self] indexPath in
+            .bind(onNext: { [weak self] indexPath in
                 let cell = self?.homeCategoryCollectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell
                 cell?.isSelected = false
             })
@@ -87,18 +91,39 @@ extension HomeViewController {
     
     func bindState(reactor: HomeReactor){
         reactor.state.map { $0.selectedItem }
+            .observe(on:MainScheduler.asyncInstance)
             .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] index in
-                self?.pageViewController.setViewControllers([self?.viewControllers[index] ?? UIViewController()], direction: .forward, animated: true, completion: nil)
+            .bind(onNext: { [weak self] index in
+                let direction: UIPageViewController.NavigationDirection = (index > reactor.currentState.previousIndex) ? .forward : .reverse
+                self?.pageViewController.setViewControllers([self!.viewControllers[index]], direction: direction, animated: true, completion: nil)
+                reactor.action.onNext(.setPreviousIndex(index))
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.categories }
             .distinctUntilChanged()
             .bind(to: homeCategoryCollectionView.rx.items(cellIdentifier: "HomeCategoryCollectionViewCell", cellType: HomeCategoryCollectionViewCell.self)) { (index, categories, cell) in
+                if index == 0 {
+                    cell.isSelected = true
+                }
+                else{
+                    cell.isSelected = false
+                }
                 cell.categoryLabel.text = categories
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension HomeViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = viewControllers.firstIndex(of: viewController), index > 0 else { return nil }
+        return viewControllers[index - 1]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = viewControllers.firstIndex(of: viewController), index < (viewControllers.count - 1) else { return nil }
+        return viewControllers[index + 1]
     }
 }
 

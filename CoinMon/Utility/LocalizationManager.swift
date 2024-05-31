@@ -5,6 +5,7 @@ class LocalizationManager {
     static let shared = LocalizationManager()
     var language: String = ""
     var rxLanguage: BehaviorRelay<String> = BehaviorRelay<String>(value: "ko")
+    
     private init() {
         if let savedLanguage = UserDefaults.standard.string(forKey: "appLanguage") {
             language = savedLanguage
@@ -24,7 +25,7 @@ class LocalizationManager {
     func localizedString(forKey key: String, arguments: CVarArg...) -> String {
         let path = Bundle.main.path(forResource: language, ofType: "lproj")
         let bundle = Bundle(path: path!)
-        let format = bundle?.localizedString(forKey: key, value: nil, table: nil) ?? ""
+        let format = bundle?.localizedString(forKey: key, value: nil, table: nil) ?? key
         return String(format: format, arguments: arguments)
     }
 }

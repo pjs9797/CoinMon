@@ -1,12 +1,14 @@
 import UIKit
+import RxSwift
 import SnapKit
 
-class ExchangeListCollectionViewCell: UICollectionViewCell {
-    let exchangeImageView: UIImageView = {
+class MarketListCollectionViewCell: UICollectionViewCell {
+    var disposeBag = DisposeBag()
+    let marketImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
-    let exchangeLabel: UILabel = {
+    let marketLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H6_14
         label.textColor = ColorManager.gray_60
@@ -25,29 +27,44 @@ class ExchangeListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        updateUI()
+    }
+    
     override var isSelected: Bool {
         didSet {
-            exchangeLabel.textColor = isSelected ? ColorManager.common_0 : ColorManager.gray_60
-            self.backgroundColor = isSelected ? ColorManager.common_100 : ColorManager.gray_99
+            updateUI()
         }
     }
     
+    private func updateUI() {
+        marketLabel.textColor = isSelected ? ColorManager.common_100 : ColorManager.gray_60
+        self.backgroundColor = isSelected ? ColorManager.common_0 : ColorManager.gray_99
+    }
+    
     private func layout(){
-        [exchangeImageView,exchangeLabel]
+        [marketImageView,marketLabel]
             .forEach{
                 contentView.addSubview($0)
             }
         
-        exchangeImageView.snp.makeConstraints { make in
+        marketImageView.snp.makeConstraints { make in
             make.width.height.equalTo(20*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
         
-        exchangeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(exchangeImageView.snp.trailing).offset(2*Constants.standardWidth)
+        marketLabel.snp.makeConstraints { make in
+            make.leading.equalTo(marketImageView.snp.trailing).offset(2*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-12*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
+    }
+    
+    func configure(with market: Market) {
+        marketImageView.image = market.image
+        marketLabel.text = market.title
     }
 }

@@ -24,10 +24,20 @@ class HomeCategoryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        updateUI()
+    }
+    
     override var isSelected: Bool {
         didSet {
-            categoryLabel.textColor = isSelected ? ColorManager.gray_10 : ColorManager.gray_80
+            updateUI()
         }
+    }
+    
+    private func updateUI() {
+        categoryLabel.textColor = isSelected ? ColorManager.gray_10 : ColorManager.gray_80
+        underLineView.isHidden = isSelected ? false : true
     }
     
     private func layout(){

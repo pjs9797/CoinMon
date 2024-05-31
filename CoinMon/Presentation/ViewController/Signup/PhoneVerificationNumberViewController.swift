@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class PhoneVerificationNumberViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class PhoneVerificationNumberViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let verificationNumberView = VerificationNumberView(verificationType: VerificationType.phone)
@@ -27,7 +27,7 @@ class PhoneVerificationNumberViewController: UIViewController, ReactorKit.View, 
         
         view.backgroundColor = .white
         setNavigationbar()
-        hideKeyboard(delegate: self, disposeBag: disposeBag)
+        hideKeyboard(disposeBag: disposeBag)
         bindKeyboardNotifications(to: verificationNumberView.nextButton, disposeBag: disposeBag)
     }
     

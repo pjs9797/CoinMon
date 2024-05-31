@@ -8,7 +8,7 @@ enum VerificationType{
     case phone
 }
 
-enum SelectExchangeFlow{
+enum SelectMarketFlow{
     case departure
     case arrival
 }

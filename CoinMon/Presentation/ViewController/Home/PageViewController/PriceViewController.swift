@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class PriceViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class PriceViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let priceView = PriceView()
     
@@ -25,7 +25,14 @@ class PriceViewController: UIViewController, ReactorKit.View, UIGestureRecognize
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        hideKeyboard(delegate: self, disposeBag: disposeBag)
+        hideKeyboard(disposeBag: disposeBag)
+        priceView.marketCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+        
+        LocalizationManager.shared.rxLanguage
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.updateLocalizedMarkets)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -36,44 +43,38 @@ extension PriceViewController {
     }
     
     func bindAction(reactor: PriceReactor){
-        priceView.exchangeCollectionView.rx.setDelegate(self)
+        priceView.marketCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
         priceView.priceTableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        priceView.exchangeCollectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                let cell = self?.priceView.exchangeCollectionView.cellForItem(at: indexPath) as? ExchangeListCollectionViewCell
+        priceView.marketCollectionView.rx.itemSelected
+            .bind(onNext: { [weak self] indexPath in
+                let cell = self?.priceView.marketCollectionView.cellForItem(at: indexPath) as? MarketListCollectionViewCell
                 cell?.isSelected = true
             })
             .disposed(by: disposeBag)
         
-        priceView.exchangeCollectionView.rx.itemDeselected
-            .subscribe(onNext: { [weak self] indexPath in
-                let cell = self?.priceView.exchangeCollectionView.cellForItem(at: indexPath) as? ExchangeListCollectionViewCell
+        priceView.marketCollectionView.rx.itemDeselected
+            .bind(onNext: { [weak self] indexPath in
+                let cell = self?.priceView.marketCollectionView.cellForItem(at: indexPath) as? MarketListCollectionViewCell
                 cell?.isSelected = false
             })
             .disposed(by: disposeBag)
     }
     
     func bindState(reactor: PriceReactor){
-        reactor.state.map { $0.exchanges }
+        reactor.state.map { $0.markets }
             .distinctUntilChanged()
-            .bind(to: priceView.exchangeCollectionView.rx.items(cellIdentifier: "ExchangeListCollectionViewCell", cellType: ExchangeListCollectionViewCell.self)) { index, exchanges, cell in
-                cell.exchangeImageView.image = exchanges.image
-                cell.exchangeLabel.text = exchanges.title
+            .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
+                cell.configure(with: markets)
             }
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.priceList }
             .bind(to: priceView.priceTableView.rx.items(cellIdentifier: "PriceTableViewCell", cellType: PriceTableViewCell.self)){ row, priceList, cell in
-                
-                cell.coinImageView.image = UIImage(named: priceList.coinImage)
-                cell.coinLabel.text = priceList.coinTitle
-                cell.priceLabel.text = priceList.price
-                cell.changeLabel.text = priceList.change
-                cell.gapLabel.text = priceList.gap
+                cell.configure(with: priceList)
             }
             .disposed(by: disposeBag)
     }
@@ -82,7 +83,7 @@ extension PriceViewController {
 extension PriceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let index = indexPath.item
-        let text = (reactor?.currentState.exchanges[index].title) ?? ""
+        let text = (reactor?.currentState.markets[index].title) ?? ""
         let label = UILabel()
         label.text = text
         label.font = FontManager.H6_14

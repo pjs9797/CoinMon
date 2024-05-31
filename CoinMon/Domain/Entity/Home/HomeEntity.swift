@@ -1,6 +1,6 @@
 import UIKit
 
-struct Exchanges: Equatable{
+struct Market: Equatable{
     let image: UIImage?
     let title: String
 }

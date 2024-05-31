@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class EmailVerificationNumberViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class EmailVerificationNumberViewController: UIViewController, ReactorKit.View {
     var emailFlow: EmailFlow
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
@@ -29,7 +29,7 @@ class EmailVerificationNumberViewController: UIViewController, ReactorKit.View, 
         
         view.backgroundColor = .white
         setNavigationbar()
-        hideKeyboard(delegate: self, disposeBag: disposeBag)
+        hideKeyboard(disposeBag: disposeBag)
         bindKeyboardNotifications(to: verificationNumberView.nextButton, disposeBag: disposeBag)
     }
     

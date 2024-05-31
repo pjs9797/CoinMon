@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import ReactorKit
 
-class SettingViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class SettingViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let settingView = SettingView()
     
@@ -66,7 +66,7 @@ extension SettingViewController {
         reactor.state.map { $0.currentLanguage }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] newLanguage in
-                print("Language changed to: \(newLanguage)")
+                //print("Language changed to: \(newLanguage)")
             })
             .disposed(by: disposeBag)
     }

@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class ExchangeTableViewCell: UITableViewCell {
+class MarketTableViewCell: UITableViewCell {
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -16,6 +16,7 @@ class ExchangeTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .none
         layout()
     }
 

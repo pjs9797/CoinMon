@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class FeeViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class FeeViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let feeView = FeeView()
     
@@ -25,7 +25,13 @@ class FeeViewController: UIViewController, ReactorKit.View, UIGestureRecognizerD
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        hideKeyboard(delegate: self, disposeBag: disposeBag)
+        hideKeyboard(disposeBag: disposeBag)
+        feeView.marketCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+        LocalizationManager.shared.rxLanguage
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.updateLocalizedMarkets)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -36,42 +42,38 @@ extension FeeViewController {
     }
     
     func bindAction(reactor: FeeReactor){
-        feeView.exchangeCollectionView.rx.setDelegate(self)
+        feeView.marketCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
         feeView.feeTableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        feeView.exchangeCollectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                let cell = self?.feeView.exchangeCollectionView.cellForItem(at: indexPath) as? ExchangeListCollectionViewCell
+        feeView.marketCollectionView.rx.itemSelected
+            .bind(onNext: { [weak self] indexPath in
+                let cell = self?.feeView.marketCollectionView.cellForItem(at: indexPath) as? MarketListCollectionViewCell
                 cell?.isSelected = true
             })
             .disposed(by: disposeBag)
         
-        feeView.exchangeCollectionView.rx.itemDeselected
-            .subscribe(onNext: { [weak self] indexPath in
-                let cell = self?.feeView.exchangeCollectionView.cellForItem(at: indexPath) as? ExchangeListCollectionViewCell
+        feeView.marketCollectionView.rx.itemDeselected
+            .bind(onNext: { [weak self] indexPath in
+                let cell = self?.feeView.marketCollectionView.cellForItem(at: indexPath) as? MarketListCollectionViewCell
                 cell?.isSelected = false
             })
             .disposed(by: disposeBag)
     }
     
     func bindState(reactor: FeeReactor){
-        reactor.state.map { $0.exchanges }
+        reactor.state.map { $0.markets }
             .distinctUntilChanged()
-            .bind(to: feeView.exchangeCollectionView.rx.items(cellIdentifier: "ExchangeListCollectionViewCell", cellType: ExchangeListCollectionViewCell.self)) { index, exchanges, cell in
-                cell.exchangeImageView.image = exchanges.image
-                cell.exchangeLabel.text = exchanges.title
+            .bind(to: feeView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
+                cell.configure(with: markets)
             }
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.feeList }
             .bind(to: feeView.feeTableView.rx.items(cellIdentifier: "FeePremiumTableViewCell", cellType: FeePremiumTableViewCell.self)){ row, feeList, cell in
-                
-                cell.coinImageView.image = UIImage(named: feeList.coinImage)
-                cell.coinLabel.text = feeList.coinTitle
-                cell.feePremiumLabel.text = feeList.fee
+                cell.configureFee(with: feeList)
             }
             .disposed(by: disposeBag)
     }
@@ -80,7 +82,7 @@ extension FeeViewController {
 extension FeeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let index = indexPath.item
-        let text = (reactor?.currentState.exchanges[index].title) ?? ""
+        let text = (reactor?.currentState.markets[index].title) ?? ""
         let label = UILabel()
         label.text = text
         label.font = FontManager.H6_14

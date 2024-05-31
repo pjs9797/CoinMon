@@ -15,21 +15,13 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     }
 }
 
-extension UIViewController {
+extension UIViewController: UIGestureRecognizerDelegate{
     func hideKeyboard(disposeBag: DisposeBag) {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.cancelsTouchesInView = false
+        tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
         
-        tapGesture.rx.event.bind { [weak self] _ in
-            self?.view.endEditing(true)
-        }.disposed(by: disposeBag)
-    }
-    
-    func hideKeyboard(delegate: UIGestureRecognizerDelegate, disposeBag: DisposeBag) {
-        let tapGesture = UITapGestureRecognizer()
-        view.addGestureRecognizer(tapGesture)
-        tapGesture.delegate = delegate
         tapGesture.rx.event.bind { [weak self] _ in
             self?.view.endEditing(true)
         }.disposed(by: disposeBag)

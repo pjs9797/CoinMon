@@ -8,8 +8,8 @@ class PremiumReactor: ReactorKit.Reactor,Stepper {
     var steps = PublishRelay<Step>()
     
     enum Action {
-        case departureExchangeButtonTapped
-        case arrivalExchangeButtonTapped
+        case departureMarketButtonTapped
+        case arrivalMarketButtonTapped
     }
     
     enum Mutation {
@@ -27,11 +27,11 @@ class PremiumReactor: ReactorKit.Reactor,Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .departureExchangeButtonTapped:
-            self.steps.accept(HomeStep.presentToSelectDepartureExchangeViewController)
+        case .departureMarketButtonTapped:
+            self.steps.accept(HomeStep.presentToSelectDepartureMarketViewController)
             return .empty()
-        case .arrivalExchangeButtonTapped:
-            self.steps.accept(HomeStep.presentToSelectArrivalExchangeViewController)
+        case .arrivalMarketButtonTapped:
+            self.steps.accept(HomeStep.presentToSelectArrivalMarketViewController)
             return .empty()
         }
     }

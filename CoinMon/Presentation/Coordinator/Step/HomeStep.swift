@@ -2,7 +2,7 @@ import RxFlow
 
 enum HomeStep: Step {
     case navigateToHomeViewController
-    case presentToSelectDepartureExchangeViewController
-    case presentToSelectArrivalExchangeViewController
-    case dismissSelectExchangeViewController
+    case presentToSelectDepartureMarketViewController
+    case presentToSelectArrivalMarketViewController
+    case dismissSelectMarketViewController
 }

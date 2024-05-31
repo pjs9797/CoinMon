@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let phoneNumberEntryView = PhoneNumberEntryView()
@@ -27,7 +27,7 @@ class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View, U
         
         view.backgroundColor = .white
         setNavigationbar()
-        hideKeyboard(delegate: self, disposeBag: disposeBag)
+        hideKeyboard(disposeBag: disposeBag)
         bindKeyboardNotifications(to: phoneNumberEntryView.nextButton, disposeBag: disposeBag)
     }
     

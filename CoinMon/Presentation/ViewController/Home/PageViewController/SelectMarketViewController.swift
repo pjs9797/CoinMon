@@ -1,11 +1,11 @@
 import UIKit
 import ReactorKit
 
-class SelectExchangeViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class SelectMarketViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
-    let selectExchangeView = SelectExchangeView()
+    let selectMarketView = SelectMarketView()
     
-    init(with reactor: SelectExchangeReactor) {
+    init(with reactor: SelectMarketReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -18,7 +18,7 @@ class SelectExchangeViewController: UIViewController, ReactorKit.View, UIGesture
     override func loadView() {
         super.loadView()
         
-        view = selectExchangeView
+        view = selectMarketView
     }
 
     override func viewDidLoad() {
@@ -28,19 +28,19 @@ class SelectExchangeViewController: UIViewController, ReactorKit.View, UIGesture
     }
 }
 
-extension SelectExchangeViewController {
-    func bind(reactor: SelectExchangeReactor) {
+extension SelectMarketViewController {
+    func bind(reactor: SelectMarketReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectExchangeReactor){
+    func bindAction(reactor: SelectMarketReactor){
         
     }
     
-    func bindState(reactor: SelectExchangeReactor){
-        reactor.state.map { $0.exchanges }
-            .bind(to: selectExchangeView.exchangeTableView.rx.items(cellIdentifier: "ExchangeTableViewCell", cellType: ExchangeTableViewCell.self)){ row, exchangeList, cell in
+    func bindState(reactor: SelectMarketReactor){
+        reactor.state.map { $0.markets }
+            .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, exchangeList, cell in
                 
                 cell.coinImageView.image = exchangeList.image
                 cell.coinLabel.text = exchangeList.title

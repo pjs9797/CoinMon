@@ -1,18 +1,18 @@
 import UIKit
 import SnapKit
 
-class SelectExchangeView: UIView {
-    let selectExchangeLabel: UILabel = {
+class SelectMarketView: UIView {
+    let selectMarketLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D4_20
         label.textColor = ColorManager.common_0
         return label
     }()
-    let exchangeTableView: UITableView = {
+    let marketTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.rowHeight = 56*Constants.standardHeight
-        tableView.register(ExchangeTableViewCell.self, forCellReuseIdentifier: "ExchangeTableViewCell")
+        tableView.register(MarketTableViewCell.self, forCellReuseIdentifier: "MarketTableViewCell")
         return tableView
     }()
     
@@ -27,21 +27,21 @@ class SelectExchangeView: UIView {
     }
     
     private func layout() {
-        [selectExchangeLabel,exchangeTableView]
+        [selectMarketLabel,marketTableView]
             .forEach{
                 addSubview($0)
             }
         
-        selectExchangeLabel.snp.makeConstraints { make in
+        selectMarketLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalToSuperview().offset(32*Constants.standardHeight)
         }
         
-        exchangeTableView.snp.makeConstraints { make in
+        marketTableView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(selectExchangeLabel.snp.bottom).offset(12*Constants.standardHeight)
+            make.top.equalTo(selectMarketLabel.snp.bottom).offset(12*Constants.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }

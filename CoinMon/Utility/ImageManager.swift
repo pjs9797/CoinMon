@@ -16,7 +16,7 @@ struct ImageManager {
     static let home_Select = UIImage(named: "home_Select")
     static let alert_Select = UIImage(named: "alert_Select")
     static let setting_Select = UIImage(named: "setting_Select")
-    //exchange
+    //market
     static let binance = UIImage(named: "binance")
     static let bybit = UIImage(named: "bybit")
     static let upbit = UIImage(named: "upbit")

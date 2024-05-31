@@ -8,14 +8,17 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
     
     enum Action {
         case selectItem(Int)
+        case setPreviousIndex(Int)
     }
     
     enum Mutation {
         case setSelectedItem(Int)
+        case setPreviousIndex(Int)
     }
     
     struct State {
         var selectedItem: Int = 0
+        var previousIndex: Int = 0
         var categories: [String] = [
             LocalizationManager.shared.localizedString(forKey: "시세"),
             LocalizationManager.shared.localizedString(forKey: "펀비"),
@@ -27,6 +30,8 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
         switch action {
         case .selectItem(let index):
             return .just(.setSelectedItem(index))
+        case .setPreviousIndex(let index):
+            return .just(.setPreviousIndex(index))
         }
     }
     
@@ -35,6 +40,8 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setSelectedItem(let index):
             newState.selectedItem = index
+        case .setPreviousIndex(let index):
+            newState.previousIndex = index
         }
         return newState
     }

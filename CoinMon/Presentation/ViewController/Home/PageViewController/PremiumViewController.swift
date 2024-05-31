@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class PremiumViewController: UIViewController, ReactorKit.View, UIGestureRecognizerDelegate {
+class PremiumViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let premiumView = PremiumView()
     
@@ -38,13 +38,13 @@ extension PremiumViewController {
         premiumView.premiumTableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        premiumView.departureExchangeButton.rx.tap
-            .map{ Reactor.Action.departureExchangeButtonTapped }
+        premiumView.departureMarketButton.rx.tap
+            .map{ Reactor.Action.departureMarketButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        premiumView.arrivalExchangeButton.rx.tap
-            .map{ Reactor.Action.arrivalExchangeButtonTapped }
+        premiumView.arrivalMarketButton.rx.tap
+            .map{ Reactor.Action.arrivalMarketButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -52,10 +52,7 @@ extension PremiumViewController {
     func bindState(reactor: PremiumReactor){
         reactor.state.map { $0.premiumList }
             .bind(to: premiumView.premiumTableView.rx.items(cellIdentifier: "FeePremiumTableViewCell", cellType: FeePremiumTableViewCell.self)){ row, premiumList, cell in
-                
-                cell.coinImageView.image = UIImage(named: premiumList.coinImage)
-                cell.coinLabel.text = premiumList.coinTitle
-                cell.feePremiumLabel.text = premiumList.premium
+                cell.configurePremium(with: premiumList)
             }
             .disposed(by: disposeBag)
     }

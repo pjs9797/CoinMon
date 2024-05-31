@@ -20,12 +20,12 @@ class HomeFlow: Flow {
         switch step {
         case .navigateToHomeViewController:
             return navigateToHomeViewController()
-        case .presentToSelectDepartureExchangeViewController:
-            return presentToSelectDepartureExchangeViewController()
-        case .presentToSelectArrivalExchangeViewController:
-            return presentToSelectArrivalExchangeViewController()
-        case .dismissSelectExchangeViewController:
-            return dismissSelectExchangeViewController()
+        case .presentToSelectDepartureMarketViewController:
+            return presentToSelectDepartureMarketViewController()
+        case .presentToSelectArrivalMarketViewController:
+            return presentToSelectArrivalMarketViewController()
+        case .dismissSelectMarketViewController:
+            return dismissSelectMarketViewController()
         }
     }
     
@@ -46,9 +46,9 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectDepartureExchangeViewController() -> FlowContributors {
-        let reactor = SelectExchangeReactor(selectExchangeFlow: .departure)
-        let viewController = SelectExchangeViewController(with: reactor)
+    private func presentToSelectDepartureMarketViewController() -> FlowContributors {
+        let reactor = SelectMarketReactor(selectMarketFlow: .departure)
+        let viewController = SelectMarketViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 228*Constants.standardHeight
@@ -63,9 +63,9 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectArrivalExchangeViewController() -> FlowContributors {
-        let reactor = SelectExchangeReactor(selectExchangeFlow: .arrival)
-        let viewController = SelectExchangeViewController(with: reactor)
+    private func presentToSelectArrivalMarketViewController() -> FlowContributors {
+        let reactor = SelectMarketReactor(selectMarketFlow: .arrival)
+        let viewController = SelectMarketViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 228*Constants.standardHeight
@@ -80,7 +80,7 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func dismissSelectExchangeViewController() -> FlowContributors{
+    private func dismissSelectMarketViewController() -> FlowContributors{
         self.rootViewController.dismiss(animated: true)
         
         return .none

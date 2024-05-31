@@ -53,6 +53,7 @@ class PriceTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .none
         layout()
     }
 
@@ -128,5 +129,13 @@ class PriceTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-4*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
+    }
+    
+    func configure(with priceList: PriceList) {
+        coinImageView.image = UIImage(named: priceList.coinImage)
+        coinLabel.text = priceList.coinTitle
+        priceLabel.text = priceList.price
+        changeLabel.text = priceList.change
+        gapLabel.text = priceList.gap
     }
 }

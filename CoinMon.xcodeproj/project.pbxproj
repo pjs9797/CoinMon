@@ -16,7 +16,7 @@
 		31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C482BFB4F65008AB6FD /* PremiumViewController.swift */; };
 		31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */; };
 		31423C502BFB5946008AB6FD /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C4F2BFB5946008AB6FD /* PriceView.swift */; };
-		31423C522BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C512BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift */; };
+		31423C522BFB5998008AB6FD /* MarketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C512BFB5998008AB6FD /* MarketListCollectionViewCell.swift */; };
 		31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C532BFB5DE2008AB6FD /* SearchView.swift */; };
 		31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */; };
 		31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C592BFC8146008AB6FD /* PriceReactor.swift */; };
@@ -28,6 +28,7 @@
 		314636A32C05FBCD008A5629 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A22C05FBCD008A5629 /* SettingView.swift */; };
 		314636A72C060056008A5629 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A62C060056008A5629 /* SettingViewController.swift */; };
 		314636A92C06005E008A5629 /* SettingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A82C06005E008A5629 /* SettingReactor.swift */; };
+		316025612C083E6F00EC0294 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 316025602C083E6F00EC0294 /* ReactorKit */; };
 		317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779C92BE1E67A006E8378 /* AppDelegate.swift */; };
 		317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779CB2BE1E67A006E8378 /* SceneDelegate.swift */; };
 		317779D32BE1E67B006E8378 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317779D22BE1E67B006E8378 /* ImageAssets.xcassets */; };
@@ -74,10 +75,10 @@
 		31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */; };
 		31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9802C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift */; };
 		31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */; };
-		31BCE9852C04AFA100DA2FC6 /* SelectExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9842C04AFA100DA2FC6 /* SelectExchangeView.swift */; };
-		31BCE9872C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9862C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift */; };
-		31BCE9892C05B19000DA2FC6 /* SelectExchangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectExchangeViewController.swift */; };
-		31BCE98D2C05B20000DA2FC6 /* SelectExchangeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectExchangeReactor.swift */; };
+		31BCE9852C04AFA100DA2FC6 /* SelectMarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */; };
+		31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */; };
+		31BCE9892C05B19000DA2FC6 /* SelectMarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */; };
+		31BCE98D2C05B20000DA2FC6 /* SelectMarketReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */; };
 		31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
@@ -100,7 +101,7 @@
 		31423C482BFB4F65008AB6FD /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		31423C4F2BFB5946008AB6FD /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
-		31423C512BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeListCollectionViewCell.swift; sourceTree = "<group>"; };
+		31423C512BFB5998008AB6FD /* MarketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketListCollectionViewCell.swift; sourceTree = "<group>"; };
 		31423C532BFB5DE2008AB6FD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewHeader.swift; sourceTree = "<group>"; };
 		31423C592BFC8146008AB6FD /* PriceReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceReactor.swift; sourceTree = "<group>"; };
@@ -155,10 +156,10 @@
 		31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		31BCE9802C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimiumTableViewHeader.swift; sourceTree = "<group>"; };
 		31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimiumReactor.swift; sourceTree = "<group>"; };
-		31BCE9842C04AFA100DA2FC6 /* SelectExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExchangeView.swift; sourceTree = "<group>"; };
-		31BCE9862C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTableViewCell.swift; sourceTree = "<group>"; };
-		31BCE9882C05B19000DA2FC6 /* SelectExchangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExchangeViewController.swift; sourceTree = "<group>"; };
-		31BCE98C2C05B20000DA2FC6 /* SelectExchangeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExchangeReactor.swift; sourceTree = "<group>"; };
+		31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketView.swift; sourceTree = "<group>"; };
+		31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketTableViewCell.swift; sourceTree = "<group>"; };
+		31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewController.swift; sourceTree = "<group>"; };
+		31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketReactor.swift; sourceTree = "<group>"; };
 		31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 			files = (
 				317779EC2BE1FA78006E8378 /* RxFlow in Frameworks */,
 				317779E32BE1FA3B006E8378 /* RxRelay in Frameworks */,
+				316025612C083E6F00EC0294 /* ReactorKit in Frameworks */,
 				317779E12BE1FA3B006E8378 /* RxCocoa in Frameworks */,
 				317779E62BE1FA54006E8378 /* ReactorKit in Frameworks */,
 				317779DF2BE1FA3B006E8378 /* RxBlocking in Frameworks */,
@@ -232,7 +234,7 @@
 				31BCE9762C04A02C00DA2FC6 /* FeeView.swift */,
 				31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */,
 				31423C532BFB5DE2008AB6FD /* SearchView.swift */,
-				31BCE9842C04AFA100DA2FC6 /* SelectExchangeView.swift */,
+				31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -241,7 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */,
-				31423C512BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift */,
+				31423C512BFB5998008AB6FD /* MarketListCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -252,7 +254,7 @@
 				31423C562BFB8546008AB6FD /* TableViewHeader */,
 				31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */,
 				31BCE9782C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift */,
-				31BCE9862C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift */,
+				31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -525,7 +527,7 @@
 				31423C592BFC8146008AB6FD /* PriceReactor.swift */,
 				31BCE97C2C04A1C200DA2FC6 /* FeeReactor.swift */,
 				31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */,
-				31BCE98C2C05B20000DA2FC6 /* SelectExchangeReactor.swift */,
+				31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */,
 			);
 			path = PageViewController;
 			sourceTree = "<group>";
@@ -536,7 +538,7 @@
 				31423C442BFB4EBC008AB6FD /* PriceViewController.swift */,
 				31423C462BFB4F27008AB6FD /* FeeViewController.swift */,
 				31423C482BFB4F65008AB6FD /* PremiumViewController.swift */,
-				31BCE9882C05B19000DA2FC6 /* SelectExchangeViewController.swift */,
+				31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */,
 			);
 			path = PageViewController;
 			sourceTree = "<group>";
@@ -598,6 +600,7 @@
 				317779E52BE1FA54006E8378 /* ReactorKit */,
 				317779E82BE1FA65006E8378 /* SnapKit */,
 				317779EB2BE1FA78006E8378 /* RxFlow */,
+				316025602C083E6F00EC0294 /* ReactorKit */,
 			);
 			productName = CoinMon;
 			productReference = 317779C62BE1E67A006E8378 /* CoinMon.app */;
@@ -702,7 +705,7 @@
 				31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */,
 				314636A02C05FB9D008A5629 /* SettingFlow.swift in Sources */,
 				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
-				31BCE98D2C05B20000DA2FC6 /* SelectExchangeReactor.swift in Sources */,
+				31BCE98D2C05B20000DA2FC6 /* SelectMarketReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
@@ -713,17 +716,17 @@
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* EmailEntryViewController.swift in Sources */,
-				31BCE9892C05B19000DA2FC6 /* SelectExchangeViewController.swift in Sources */,
+				31BCE9892C05B19000DA2FC6 /* SelectMarketViewController.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
-				31BCE9872C04B0AC00DA2FC6 /* ExchangeTableViewCell.swift in Sources */,
-				31BCE9852C04AFA100DA2FC6 /* SelectExchangeView.swift in Sources */,
+				31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */,
+				31BCE9852C04AFA100DA2FC6 /* SelectMarketView.swift in Sources */,
 				31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */,
-				31423C522BFB5998008AB6FD /* ExchangeListCollectionViewCell.swift in Sources */,
+				31423C522BFB5998008AB6FD /* MarketListCollectionViewCell.swift in Sources */,
 				31F7916A2BECD5A300A7CABB /* EmailVerificationNumberViewController.swift in Sources */,
 				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
@@ -986,6 +989,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		316025602C083E6F00EC0294 /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 317779E42BE1FA54006E8378 /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
+		};
 		317779DE2BE1FA3B006E8378 /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 317779DD2BE1FA3B006E8378 /* XCRemoteSwiftPackageReference "RxSwift" */;
