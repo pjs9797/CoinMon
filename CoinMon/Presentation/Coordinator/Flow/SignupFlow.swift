@@ -17,8 +17,8 @@ class SignupFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? SignupStep else { return .none }
         switch step {
-        case .navigateToEmailEntryViewController:
-            return navigateToEmailEntryViewController()
+        case .navigateToSignupEmailEntryViewController:
+            return navigateToSignupEmailEntryViewController()
         case .navigateToEmailVerificationNumberViewController:
             return navigateToEmailVerificationNumberViewController()
         case .navigateToSignupPhoneNumberEntryViewController:
@@ -40,9 +40,9 @@ class SignupFlow: Flow {
         }
     }
     
-    private func navigateToEmailEntryViewController() -> FlowContributors {
-        let reactor = EmailEntryReactor(emailFlow: .signup)
-        let viewController = EmailEntryViewController(with: reactor, emailFlow: .signup)
+    private func navigateToSignupEmailEntryViewController() -> FlowContributors {
+        let reactor = SignupEmailEntryReactor()
+        let viewController = SignupEmailEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

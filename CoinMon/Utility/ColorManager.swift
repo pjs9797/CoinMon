@@ -47,4 +47,6 @@ struct ColorManager {
     static let red_99 = UIColor(named: "Red_99")
 
     static let yellow_70 = UIColor(named: "Yellow_70")
+    
+    static let green_50 = UIColor(named: "Green_50")
 }

@@ -11,8 +11,8 @@ class SignupCompletedView: UIView {
     }()
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 119*Constants.standardHeight
-        imageView.backgroundColor = ColorManager.gray_60
+        imageView.layer.cornerRadius = 40*Constants.standardHeight
+        imageView.image = ImageManager.circle_Check?.withTintColor(ColorManager.yellow_70!)
         return imageView
     }()
     let signupCompletedButton: UIButton = {
@@ -35,8 +35,8 @@ class SignupCompletedView: UIView {
     }
     
     private func setLocalizedText(){
-        signupCompletedLabel.text = NSLocalizedString("회원가입 완료", comment: "")
-        signupCompletedButton.setTitle(NSLocalizedString("코인몬 시작하기", comment: ""), for: .normal)
+        signupCompletedLabel.text = LocalizationManager.shared.localizedString(forKey: "회원가입 완료! 🎉")
+        signupCompletedButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 시작하기"), for: .normal)
     }
     
     private func layout() {
@@ -52,7 +52,7 @@ class SignupCompletedView: UIView {
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(238*Constants.standardHeight)
+            make.width.height.equalTo(80*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(signupCompletedLabel.snp.bottom).offset(80*Constants.standardHeight)
         }

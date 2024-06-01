@@ -65,16 +65,16 @@ class VerificationNumberView: UIView {
     }
     
     private func setLocalizedText(){
-        enterVerificationNumberLabel.text = NSLocalizedString("인증번호를 입력해주세요", comment: "")
+        enterVerificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "인증번호를 입력해주세요")
         switch verificationType {
         case .email:
-            sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.email)
+            sentVerificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "에 인증번호를 보냈어요", arguments: UserCredentialsManager.shared.email)
         case .phone:
-            sentVerificationNumberLabel.text = String(format: NSLocalizedString("에 인증번호를 보냈어요", comment: ""), UserCredentialsManager.shared.phoneNumber)
+            sentVerificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "에 인증번호를 보냈어요", arguments: UserCredentialsManager.shared.phoneNumber)
         }
-        verificationNumberLabel.text = NSLocalizedString("인증번호", comment: "")
-        verificationNumberTextField.placeholder = NSLocalizedString("6자리 인증번호 입력", comment: "")
-        nextButton.setTitle(NSLocalizedString("다음", comment: ""), for: .normal)
+        verificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "인증번호")
+        verificationNumberTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "6자리 인증번호 입력")
+        nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     
     private func layout() {

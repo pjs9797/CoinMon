@@ -89,12 +89,12 @@ class TermsOfServiceView: UIView {
     }
     
     private func setLocalizedText(){
-        termsOfServiceLabel.text = NSLocalizedString("약관 동의", comment: "")
-        agreeAllLabel.text = NSLocalizedString("약관에 모두 동의해요", comment: "")
-        firstTermsOfServiceLabel.text = NSLocalizedString("[필수] 서비스 이용약관", comment: "")
-        secondTermsOfServiceLabel.text = NSLocalizedString("[필수] 개인정보 수집∙이용 동의", comment: "")
-        thirdTermsOfServiceLabel.text = NSLocalizedString("[선택] 마케팅 정보 수신 동의", comment: "")
-        nextButton.setTitle(NSLocalizedString("다음", comment: ""), for: .normal)
+        termsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "약관 동의")
+        agreeAllLabel.text = LocalizationManager.shared.localizedString(forKey: "약관에 모두 동의해요")
+        firstTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[필수] 서비스 이용약관")
+        secondTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[필수] 개인정보 수집∙이용 동의")
+        thirdTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[선택] 마케팅 정보 수신 동의")
+        nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     
     override func layoutSubviews() {

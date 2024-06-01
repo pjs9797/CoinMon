@@ -73,21 +73,21 @@ extension TermsOfServiceViewController {
         reactor.state.map { $0.isFirstCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.firstCheckButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.check_Orange, for: .normal)
+                self?.termsOfServiceView.firstCheckButton.setImage(isChecked ? ImageManager.check?.withTintColor(ColorManager.orange_60!) : ImageManager.check, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isSecondCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.secondCheckButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.check_Orange, for: .normal)
+                self?.termsOfServiceView.secondCheckButton.setImage(isChecked ? ImageManager.check?.withTintColor(ColorManager.orange_60!) : ImageManager.check, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isThirdCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.termsOfServiceView.thirdCheckButton.setImage(isChecked ? ImageManager.circle_Check_Orange : ImageManager.check_Orange, for: .normal)
+                self?.termsOfServiceView.thirdCheckButton.setImage(isChecked ? ImageManager.check?.withTintColor(ColorManager.orange_60!) : ImageManager.check, for: .normal)
             })
             .disposed(by: disposeBag)
         

@@ -1,14 +1,12 @@
 import UIKit
 import ReactorKit
 
-class EmailEntryViewController: UIViewController, ReactorKit.View {
-    var emailFlow: EmailFlow
+class SigninEmailEntryViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
-    let emailEntryView = EmailEntryView()
+    let signinEmailEntryView = SigninEmailEntryView()
     
-    init(with reactor: EmailEntryReactor, emailFlow: EmailFlow) {
-        self.emailFlow = emailFlow
+    init(with reactor: SigninEmailEntryReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -21,7 +19,7 @@ class EmailEntryViewController: UIViewController, ReactorKit.View {
     override func loadView() {
         super.loadView()
         
-        view = emailEntryView
+        view = signinEmailEntryView
     }
 
     override func viewDidLoad() {
@@ -30,65 +28,60 @@ class EmailEntryViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = .white
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardNotifications(to: emailEntryView.nextButton, disposeBag: disposeBag)
+        bindKeyboardNotifications(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)
     }
     
     private func setNavigationbar() {
-        switch emailFlow {
-        case .signup:
-            self.title = NSLocalizedString("회원가입", comment: "")
-        case .signin:
-            self.title = NSLocalizedString("로그인", comment: "")
-        }
+        self.title = LocalizationManager.shared.localizedString(forKey: "로그인")
         navigationItem.leftBarButtonItem = backButton
     }
 }
 
-extension EmailEntryViewController {
-    func bind(reactor: EmailEntryReactor) {
+extension SigninEmailEntryViewController {
+    func bind(reactor: SigninEmailEntryReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: EmailEntryReactor){
+    func bindAction(reactor: SigninEmailEntryReactor){
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        emailEntryView.nextButton.rx.tap
+        signinEmailEntryView.nextButton.rx.tap
             .map{ Reactor.Action.nextButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        emailEntryView.clearButton.rx.tap
+        signinEmailEntryView.clearButton.rx.tap
             .map{ Reactor.Action.clearButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        emailEntryView.emailTextField.rx.text.orEmpty
+        signinEmailEntryView.emailTextField.rx.text.orEmpty
             .map{ Reactor.Action.updateEmail($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: EmailEntryReactor){
+    func bindState(reactor: SigninEmailEntryReactor){
         reactor.state.map { $0.email }
             .distinctUntilChanged()
-            .bind(to: emailEntryView.emailTextField.rx.text)
+            .bind(to: signinEmailEntryView.emailTextField.rx.text)
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isClearButtonHidden }
             .distinctUntilChanged()
-            .bind(to: emailEntryView.clearButton.rx.isHidden)
+            .bind(to: signinEmailEntryView.clearButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isEmailValid }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isValid in
-                self?.emailEntryView.emailErrorLabel.isHidden = isValid ? true : false
-                self?.emailEntryView.nextButton.isEnabled = isValid ? true : false
-                self?.emailEntryView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
+                self?.signinEmailEntryView.emailErrorLabel.isHidden = isValid ? true : false
+                self?.signinEmailEntryView.nextButton.isEnabled = isValid ? true : false
+                self?.signinEmailEntryView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
     }

@@ -10,6 +10,9 @@
 "이메일 아이디" = "Email";
 "다음" = "Next";
 "올바른 이메일을 입력해주세요" = "Incorrect email address";
+"중복확인" = "Check";
+"중복되지 않는 이메일이에요" = "Non-duplicate email address";
+"중복되는 이메일이에요" = "Duplicated email address";
 //Signup-PhoneNumberEntry
 "휴대폰번호를 입력해주세요" = "Please enter your Mobile number";
 "휴대폰번호" = "Mobile number";
@@ -26,7 +29,7 @@
 "인증번호" = "Authentication number";
 "6자리 인증번호 입력" = "Enter a 6-digit";
 //Signup-SignupCompleted
-"회원가입 완료" = "Sign Up Completed";
+"회원가입 완료" = "Sign up Completed! 🎉";
 "코인몬 시작하기" = "Start CoinMon";
 //TabBar
 "홈" = "Home";

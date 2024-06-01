@@ -102,5 +102,10 @@ extension EmailVerificationNumberViewController {
                 self?.verificationNumberView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.nextButtonTitle }
+            .distinctUntilChanged()
+            .bind(to: verificationNumberView.nextButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
     }
 }

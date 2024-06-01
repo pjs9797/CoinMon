@@ -3,14 +3,9 @@ import Foundation
 import RxCocoa
 import RxFlow
 
-class EmailEntryReactor: ReactorKit.Reactor, Stepper {
+class SigninEmailEntryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    let emailFlow: EmailFlow
-    
-    init(emailFlow: EmailFlow){
-        self.emailFlow = emailFlow
-    }
     
     enum Action {
         case backButtonTapped
@@ -34,21 +29,11 @@ class EmailEntryReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            switch emailFlow {
-            case .signup:
-                self.steps.accept(SignupStep.popToRootViewController)
-            case .signin:
-                self.steps.accept(SigninStep.popToRootViewController)
-            }
+            self.steps.accept(SigninStep.popToRootViewController)
             return .empty()
         case .nextButtonTapped:
             UserCredentialsManager.shared.email = currentState.email
-            switch emailFlow {
-            case .signup:
-                self.steps.accept(SignupStep.navigateToEmailVerificationNumberViewController)
-            case .signin:
-                self.steps.accept(SigninStep.navigateToEmailVerificationNumberViewController)
-            }
+            self.steps.accept(SigninStep.navigateToEmailVerificationNumberViewController)
             return .empty()
         case .clearButtonTapped:
             return .concat([

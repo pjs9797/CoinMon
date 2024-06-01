@@ -29,6 +29,7 @@ struct ImageManager {
     //sort
     static let sort = UIImage(named: "sort")
     //else
+    static let loginCoinMon = UIImage(named: "loginCoinMon")
     static let iconClear = UIImage(named: "iconClear")
     static let search = UIImage(named: "search")
 }

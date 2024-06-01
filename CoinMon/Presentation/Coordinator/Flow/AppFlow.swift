@@ -74,13 +74,13 @@ class AppFlow: Flow {
     private func goToSignupFlow() -> FlowContributors {
         let signupFlow = SignupFlow(with: self.rootViewController)
         
-        return .one(flowContributor: .contribute(withNextPresentable: signupFlow, withNextStepper: OneStepper(withSingleStep: SignupStep.navigateToEmailEntryViewController)))
+        return .one(flowContributor: .contribute(withNextPresentable: signupFlow, withNextStepper: OneStepper(withSingleStep: SignupStep.navigateToSignupEmailEntryViewController)))
     }
     
     private func goToSigninFlow() -> FlowContributors {
         let signinFlow = SigninFlow(with: self.rootViewController)
         
-        return .one(flowContributor: .contribute(withNextPresentable: signinFlow, withNextStepper: OneStepper(withSingleStep: SigninStep.navigateToEmailEntryViewController)))
+        return .one(flowContributor: .contribute(withNextPresentable: signinFlow, withNextStepper: OneStepper(withSingleStep: SigninStep.navigateToSigninEmailEntryViewController)))
     }
 }
 

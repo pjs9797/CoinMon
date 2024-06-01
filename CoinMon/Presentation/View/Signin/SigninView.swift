@@ -4,29 +4,37 @@ import SnapKit
 class SigninView: UIView {
     let coinMonImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = ColorManager.gray_98
+        imageView.image = ImageManager.loginCoinMon
         return imageView
     }()
     let kakaoLoginButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(ColorManager.common_0, for: .normal)
-        button.titleLabel?.font = FontManager.D6_16
-        button.setImage(ImageManager.kakao, for: .normal)
         button.backgroundColor = ColorManager.yellow_70
         button.layer.cornerRadius = 12*Constants.standardHeight
         var config = UIButton.Configuration.plain()
+        config.image = ImageManager.kakao
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = FontManager.D6_16
+            outgoing.foregroundColor = ColorManager.common_0
+            return outgoing
+        }
         config.imagePadding = 4*Constants.standardWidth
         button.configuration = config
         return button
     }()
     let appleLoginButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = FontManager.D6_16
-        button.setImage(ImageManager.apple, for: .normal)
         button.backgroundColor = ColorManager.common_0
         button.layer.cornerRadius = 12*Constants.standardHeight
         var config = UIButton.Configuration.plain()
+        config.image = ImageManager.apple
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = FontManager.D6_16
+            outgoing.foregroundColor = ColorManager.common_100
+            return outgoing
+        }
         config.imagePadding = 4*Constants.standardWidth
         button.configuration = config
         return button
@@ -38,11 +46,12 @@ class SigninView: UIView {
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.layer.borderWidth = 1
         button.layer.borderColor = ColorManager.gray_95?.cgColor
+        button.backgroundColor = ColorManager.gray_97
         return button
     }()
     let signupButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(ColorManager.gray_22, for: .normal)
+        button.setTitleColor(ColorManager.gray_70, for: .normal)
         button.titleLabel?.font = FontManager.B7_12
         return button
     }()
@@ -51,6 +60,7 @@ class SigninView: UIView {
         super.init(frame: frame)
         setLocalizedText()
         layout()
+        signupButton.setUnderline()
     }
     
     required init?(coder: NSCoder) {
@@ -58,11 +68,10 @@ class SigninView: UIView {
     }
     
     private func setLocalizedText(){
-        kakaoLoginButton.setTitle(NSLocalizedString("카카오로 계속하기", comment: ""), for: .normal)
-        appleLoginButton.setTitle(NSLocalizedString("애플로 계속하기", comment: ""), for: .normal)
-        coinMonLoginButton.setTitle(NSLocalizedString("코인몬 아이디로 계속하기", comment: ""), for: .normal)
-        signupButton.setTitle(NSLocalizedString("회원가입", comment: ""), for: .normal)
-        signupButton.setUnderline()
+        kakaoLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "카카오로 계속하기"), for: .normal)
+        appleLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "애플로 계속하기"), for: .normal)
+        coinMonLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 아이디로 계속하기"), for: .normal)
+        signupButton.setTitle(LocalizationManager.shared.localizedString(forKey: "회원가입"), for: .normal)
     }
     
     private func layout() {
@@ -72,9 +81,10 @@ class SigninView: UIView {
             }
         
         coinMonImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(220*Constants.standardHeight)
+            make.width.equalTo(335*Constants.standardWidth)
+            make.height.equalTo(300*Constants.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*Constants.standardHeight)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20*Constants.standardHeight)
         }
         
         kakaoLoginButton.snp.makeConstraints { make in

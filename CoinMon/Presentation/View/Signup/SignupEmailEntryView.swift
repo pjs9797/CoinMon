@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class EmailEntryView: UIView {
+class SignupEmailEntryView: UIView {
     let enterEmailLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D2_24
@@ -20,20 +20,28 @@ class EmailEntryView: UIView {
         textField.textColor = ColorManager.common_0
         return textField
     }()
-    let clearButton: UIButton = {
-        let button = UIButton()
-        button.setImage(ImageManager.iconClear, for: .normal)
-        return button
-    }()
     let textFieldLineView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.gray_90
         return view
     }()
+    let duplicateButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(ColorManager.common_100, for: .normal)
+        button.titleLabel?.font = FontManager.H4_16
+        button.backgroundColor = ColorManager.gray_5
+        button.layer.cornerRadius = 8*Constants.standardHeight
+        return button
+    }()
     let emailErrorLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.B7_12
         label.textColor = ColorManager.red_50
+        return label
+    }()
+    let emailDuplicateLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.B7_12
         return label
     }()
     let nextButton: UIButton = {
@@ -55,15 +63,16 @@ class EmailEntryView: UIView {
     }
     
     private func setLocalizedText(){
-        enterEmailLabel.text = NSLocalizedString("이메일을 입력해주세요", comment: "")
-        emailLabel.text = NSLocalizedString("이메일 아이디", comment: "")
-        emailTextField.placeholder = NSLocalizedString("사용하는 이메일을 입력", comment: "")
-        emailErrorLabel.text = NSLocalizedString("올바른 이메일을 입력해주세요", comment: "")
-        nextButton.setTitle(NSLocalizedString("다음", comment: ""), for: .normal)
+        enterEmailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일을 입력해주세요")
+        emailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일 아이디")
+        emailTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "사용하는 이메일을 입력")
+        duplicateButton.setTitle(LocalizationManager.shared.localizedString(forKey: "중복확인"), for: .normal)
+        emailErrorLabel.text = LocalizationManager.shared.localizedString(forKey: "올바른 이메일을 입력해주세요")
+        nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     
     private func layout() {
-        [enterEmailLabel,emailLabel,emailTextField,clearButton,textFieldLineView,emailErrorLabel,nextButton]
+        [enterEmailLabel,emailLabel,emailTextField,textFieldLineView,duplicateButton,emailErrorLabel,emailDuplicateLabel,nextButton]
             .forEach{
                 addSubview($0)
             }
@@ -81,25 +90,32 @@ class EmailEntryView: UIView {
         }
         
         emailTextField.snp.makeConstraints { make in
+            make.width.equalTo(247*Constants.standardWidth)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(emailLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
-        clearButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.trailing.equalTo(emailTextField)
-            make.centerY.equalTo(emailTextField)
-        }
-        
         textFieldLineView.snp.makeConstraints { make in
+            make.width.equalTo(emailTextField.snp.width)
             make.height.equalTo(1)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(emailTextField.snp.bottom).offset(6*Constants.standardHeight)
         }
         
+        duplicateButton.snp.makeConstraints { make in
+            make.width.equalTo(80*Constants.standardWidth)
+            make.height.equalTo(36*Constants.standardHeight)
+            make.leading.equalTo(emailTextField.snp.trailing).offset(8*Constants.standardWidth)
+            make.centerY.equalTo(emailTextField)
+        }
+        
         emailErrorLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        emailDuplicateLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(textFieldLineView.snp.bottom).offset(8*Constants.standardHeight)

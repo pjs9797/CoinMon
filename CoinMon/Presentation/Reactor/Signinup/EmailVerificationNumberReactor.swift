@@ -3,13 +3,14 @@ import RxCocoa
 import RxFlow
 
 class EmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+    let initialState: State
     var steps = PublishRelay<Step>()
     var timerDisposeBag = DisposeBag()
     let emailFlow: EmailFlow
     
-    init(emailFlow: EmailFlow){
+    init(emailFlow: EmailFlow) {
         self.emailFlow = emailFlow
+        initialState = State(nextButtonTitle: emailFlow == .signin ? LocalizationManager.shared.localizedString(forKey: "완료") : LocalizationManager.shared.localizedString(forKey: "다음"))
     }
     
     enum Action {
@@ -32,6 +33,7 @@ class EmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
         var remainingSeconds: Int = 180
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
+        var nextButtonTitle: String
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
