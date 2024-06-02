@@ -25,6 +25,11 @@ class PremiumViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        LocalizationManager.shared.rxLanguage
+            .subscribe(onNext: { [weak self] _ in
+                self?.premiumView.setLocalizedText()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -35,9 +40,6 @@ extension PremiumViewController {
     }
     
     func bindAction(reactor: PremiumReactor){
-        premiumView.premiumTableView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
         premiumView.departureMarketButton.rx.tap
             .map{ Reactor.Action.departureMarketButtonTapped }
             .bind(to: reactor.action)
@@ -55,16 +57,5 @@ extension PremiumViewController {
                 cell.configurePremium(with: premiumList)
             }
             .disposed(by: disposeBag)
-    }
-}
-
-extension PremiumViewController: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "PremiumTableViewHeader") as! PremiumTableViewHeader
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 32*Constants.standardHeight
     }
 }

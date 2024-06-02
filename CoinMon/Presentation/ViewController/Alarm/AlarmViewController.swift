@@ -1,11 +1,13 @@
 import UIKit
 import ReactorKit
+import RxSwift
+import RxCocoa
 
-class PriceViewController: UIViewController, ReactorKit.View {
+class AlarmViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
-    let priceView = PriceView()
+    let alarmView = AlarmView()
     
-    init(with reactor: PriceReactor) {
+    init(with reactor: AlarmReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -18,64 +20,64 @@ class PriceViewController: UIViewController, ReactorKit.View {
     override func loadView() {
         super.loadView()
         
-        view = priceView
+        view = alarmView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         hideKeyboard(disposeBag: disposeBag)
-        priceView.marketCollectionView.dragDelegate = self
-        priceView.marketCollectionView.dropDelegate = self
-        priceView.marketCollectionView.dragInteractionEnabled = true
+        alarmView.marketCollectionView.dragDelegate = self
+        alarmView.marketCollectionView.dropDelegate = self
+        alarmView.marketCollectionView.dragInteractionEnabled = true
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.reactor?.action.onNext(.updateLocalizedMarkets)
-                self?.priceView.setLocalizedText()
+                self?.alarmView.setLocalizedText()
             })
             .disposed(by: disposeBag)
     }
 }
 
-extension PriceViewController {
-    func bind(reactor: PriceReactor) {
+extension AlarmViewController {
+    func bind(reactor: AlarmReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: PriceReactor){
-        priceView.marketCollectionView.rx.setDelegate(self)
+    func bindAction(reactor: AlarmReactor){
+        alarmView.marketCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        priceView.marketCollectionView.rx.itemSelected
+        alarmView.marketCollectionView.rx.itemSelected
             .map { Reactor.Action.selectItem($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: PriceReactor){
+    func bindState(reactor: AlarmReactor){
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
-            .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
+            .bind(to: alarmView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
                 let isSelected = index == reactor.currentState.selectedItem
                 cell.isSelected = isSelected
                 if isSelected {
-                    self.priceView.marketCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                    self.alarmView.marketCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 }
                 cell.configure(with: markets)
             }
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.priceList }
-            .bind(to: priceView.priceTableView.rx.items(cellIdentifier: "PriceTableViewCell", cellType: PriceTableViewCell.self)){ row, priceList, cell in
-                cell.configure(with: priceList)
+        reactor.state.map { $0.alarms }
+            .bind(to: alarmView.alarmTableView.rx.items(cellIdentifier: "AlarmTableViewCell", cellType: AlarmTableViewCell.self)) { (index, alarm, cell) in
+                cell.configure(with: alarm)
             }
             .disposed(by: disposeBag)
     }
 }
 
-extension PriceViewController: UICollectionViewDelegateFlowLayout {
+extension AlarmViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let index = indexPath.item
         let text = (reactor?.currentState.markets[index].marketTitle) ?? ""
@@ -89,7 +91,7 @@ extension PriceViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PriceViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+extension AlarmViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let item = reactor?.currentState.markets[indexPath.item]
         let itemProvider = NSItemProvider(object: item?.marketTitle as? NSString ?? "")

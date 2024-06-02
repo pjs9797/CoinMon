@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class PriceTableViewHeader: UITableViewHeaderFooterView {
+class PriceTableViewHeader: UIView {
     let coinView: UIView = {
         let view = UIView()
         return view
@@ -59,8 +59,8 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
         return button
     }()
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         layout()
     }
@@ -72,7 +72,7 @@ class PriceTableViewHeader: UITableViewHeaderFooterView {
     private func layout(){
         [coinView,priceView,changeView,gapView]
             .forEach {
-                contentView.addSubview($0)
+                addSubview($0)
             }
         
         coinView.addSubview(coinButton)

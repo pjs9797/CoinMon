@@ -64,7 +64,7 @@ class MarketListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with market: Market) {
-        marketImageView.image = market.image
-        marketLabel.text = market.title
+        marketImageView.image = UIImage(named: market.localizationKey)
+        marketLabel.text = market.marketTitle
     }
 }

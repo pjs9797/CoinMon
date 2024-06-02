@@ -12,13 +12,13 @@ class FeeView: UIView {
         return collectionView
     }()
     let searchView = SearchView()
+    let feeTableViewHeader = FeeTableViewHeader()
     let feeTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
         tableView.rowHeight = 52*Constants.standardHeight
-        tableView.register(FeeTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "FeeTableViewHeader")
         tableView.register(FeePremiumTableViewCell.self, forCellReuseIdentifier: "FeePremiumTableViewCell")
         return tableView
     }()
@@ -33,8 +33,14 @@ class FeeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setLocalizedText(){
+        searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
+        feeTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
+        feeTableViewHeader.feeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "펀비"), for: .normal)
+    }
+    
     private func layout() {
-        [marketCollectionView,searchView,feeTableView]
+        [marketCollectionView,searchView,feeTableViewHeader,feeTableView]
             .forEach{
                 addSubview($0)
             }
@@ -52,8 +58,14 @@ class FeeView: UIView {
             make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
         }
         
-        feeTableView.snp.makeConstraints { make in
+        feeTableViewHeader.snp.makeConstraints { make in
+            make.height.equalTo(32*Constants.standardHeight)
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(searchView.snp.bottom)
+        }
+        
+        feeTableView.snp.makeConstraints { make in
+            make.top.equalTo(feeTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }

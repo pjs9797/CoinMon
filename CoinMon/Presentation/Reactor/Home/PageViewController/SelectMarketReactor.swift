@@ -6,8 +6,8 @@ import RxFlow
 class SelectMarketReactor: ReactorKit.Reactor,Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    let baseDepartureMarket = [Market(image: ImageManager.upbit, title: "업비트"),Market(image: ImageManager.bithumb, title: "빗썸")]
-    let baseArrivalMarket = [Market(image: ImageManager.binance, title: "바이낸스"),Market(image: ImageManager.bybit, title: "바이비트")]
+    let baseDepartureMarket = [Market(marketTitle: "Upbit", localizationKey: "Upbit"),Market(marketTitle: "Bithumb", localizationKey: "Bithumb")]
+    let baseArrivalMarket = [Market(marketTitle: "Binance", localizationKey: "Binance"),Market(marketTitle: "Bybit", localizationKey: "Bybit")]
     var selectMarketFlow: SelectMarketFlow
     
     init(selectMarketFlow: SelectMarketFlow){

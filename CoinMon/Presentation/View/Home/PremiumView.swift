@@ -2,20 +2,13 @@ import UIKit
 import SnapKit
 
 class PremiumView: UIView {
-    let departureMarketButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("업비트", for: .normal)
+    let departureMarketButton: PremiumMarketButton = {
+        let button = PremiumMarketButton(leftImage: ImageManager.upbit, rightImage: ImageManager.chevron_Down)
+        button.setTitle(LocalizationManager.shared.localizedString(forKey: "업비트"), for: .normal)
         button.titleLabel?.font = FontManager.H6_14
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.setImage(ImageManager.upbit, for: .normal)
-        button.layer.cornerRadius = 8*Constants.standardHeight
+        button.layer.cornerRadius = 8 * Constants.standardHeight
         button.backgroundColor = ColorManager.gray_22
-        let rightImageView = UIImageView(image: ImageManager.chevron_Down)
-        button.addSubview(rightImageView)
-        rightImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-8*Constants.standardWidth)
-            make.centerY.equalToSuperview()
-        }
         return button
     }()
     let leftRightImageView: UIImageView = {
@@ -23,71 +16,72 @@ class PremiumView: UIView {
         imageView.image = ImageManager.arrow_Left_Right
         return imageView
     }()
-    let arrivalMarketButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("바이낸스", for: .normal)
+    let arrivalMarketButton: PremiumMarketButton = {
+        let button = PremiumMarketButton(leftImage: ImageManager.binance, rightImage: ImageManager.chevron_Down)
+        button.setTitle(LocalizationManager.shared.localizedString(forKey: "바이낸스"), for: .normal)
         button.titleLabel?.font = FontManager.H6_14
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.setImage(ImageManager.binance, for: .normal)
-        button.layer.cornerRadius = 8*Constants.standardHeight
+        button.layer.cornerRadius = 8 * Constants.standardHeight
         button.backgroundColor = ColorManager.gray_22
-        let rightImageView = UIImageView(image: ImageManager.chevron_Down)
-        button.addSubview(rightImageView)
-        rightImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-8*Constants.standardWidth)
-            make.centerY.equalToSuperview()
-        }
         return button
     }()
+    let premiumTableViewHeader = PremiumTableViewHeader()
     let premiumTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
-        tableView.rowHeight = 52*Constants.standardHeight
-        tableView.register(PremiumTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "PremiumTableViewHeader")
+        tableView.rowHeight = 52 * Constants.standardHeight
         tableView.register(FeePremiumTableViewCell.self, forCellReuseIdentifier: "FeePremiumTableViewCell")
         return tableView
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         layout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setLocalizedText(){
+        departureMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: "업비트"), for: .normal)
+        arrivalMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: "바이낸스"), for: .normal)
+        premiumTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
+        premiumTableViewHeader.premiumButton.setTitle(LocalizationManager.shared.localizedString(forKey: "김프"), for: .normal)
+    }
+    
     private func layout() {
-        [leftRightImageView,departureMarketButton,arrivalMarketButton,premiumTableView]
-            .forEach{
+        [leftRightImageView, departureMarketButton, arrivalMarketButton, premiumTableViewHeader, premiumTableView]
+            .forEach {
                 addSubview($0)
             }
         
         leftRightImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
+            make.width.height.equalTo(24 * Constants.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(13*Constants.standardHeight)
+            make.top.equalToSuperview().offset(13 * Constants.standardHeight)
         }
-        
+
         departureMarketButton.snp.makeConstraints { make in
-            make.width.equalTo(100*Constants.standardWidth)
-            make.height.equalTo(35*Constants.standardHeight)
-            make.trailing.equalTo(leftRightImageView.snp.leading).offset(-8*Constants.standardWidth)
+            make.trailing.equalTo(leftRightImageView.snp.leading).offset(-8 * Constants.standardWidth)
             make.centerY.equalTo(leftRightImageView)
         }
-        
+
         arrivalMarketButton.snp.makeConstraints { make in
-            make.width.equalTo(100*Constants.standardWidth)
-            make.height.equalTo(35*Constants.standardHeight)
-            make.leading.equalTo(leftRightImageView.snp.trailing).offset(8*Constants.standardWidth)
+            make.leading.equalTo(leftRightImageView.snp.trailing).offset(8 * Constants.standardWidth)
             make.centerY.equalTo(leftRightImageView)
         }
         
+        premiumTableViewHeader.snp.makeConstraints { make in
+            make.height.equalTo(32*Constants.standardHeight)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(leftRightImageView.snp.bottom).offset(13 * Constants.standardHeight)
+        }
+
         premiumTableView.snp.makeConstraints { make in
-            make.top.equalTo(leftRightImageView.snp.bottom).offset(13*Constants.standardHeight)
+            make.top.equalTo(premiumTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }

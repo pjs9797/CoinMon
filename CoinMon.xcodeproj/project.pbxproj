@@ -31,6 +31,15 @@
 		315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01752C09BAE300BE00E3 /* SignupEmailEntryViewController.swift */; };
 		315C01782C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01772C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift */; };
 		315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01792C09CFA500BE00E3 /* SignupEmailEntryView.swift */; };
+		315C017D2C0B02DE00BE00E3 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C017C2C0B02DE00BE00E3 /* AlarmViewController.swift */; };
+		315C01802C0B045000BE00E3 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C017F2C0B045000BE00E3 /* AlarmView.swift */; };
+		315C01822C0B04B400BE00E3 /* NoneAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01812C0B04B400BE00E3 /* NoneAlarmView.swift */; };
+		315C01862C0B133B00BE00E3 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01852C0B133B00BE00E3 /* AlarmTableViewCell.swift */; };
+		315C01882C0B134500BE00E3 /* AlarmTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01872C0B134500BE00E3 /* AlarmTableViewHeader.swift */; };
+		315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01892C0B2C9D00BE00E3 /* AlarmEntity.swift */; };
+		315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C018C2C0B3B1000BE00E3 /* AlarmReactor.swift */; };
+		315C018F2C0B3D2C00BE00E3 /* AlarmStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C018E2C0B3D2C00BE00E3 /* AlarmStep.swift */; };
+		315C01912C0B3D3200BE00E3 /* AlarmFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01902C0B3D3200BE00E3 /* AlarmFlow.swift */; };
 		316025612C083E6F00EC0294 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 316025602C083E6F00EC0294 /* ReactorKit */; };
 		317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779C92BE1E67A006E8378 /* AppDelegate.swift */; };
 		317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779CB2BE1E67A006E8378 /* SceneDelegate.swift */; };
@@ -119,6 +128,15 @@
 		315C01752C09BAE300BE00E3 /* SignupEmailEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupEmailEntryViewController.swift; sourceTree = "<group>"; };
 		315C01772C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupEmailEntryReactor.swift; sourceTree = "<group>"; };
 		315C01792C09CFA500BE00E3 /* SignupEmailEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupEmailEntryView.swift; sourceTree = "<group>"; };
+		315C017C2C0B02DE00BE00E3 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		315C017F2C0B045000BE00E3 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
+		315C01812C0B04B400BE00E3 /* NoneAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneAlarmView.swift; sourceTree = "<group>"; };
+		315C01852C0B133B00BE00E3 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
+		315C01872C0B134500BE00E3 /* AlarmTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewHeader.swift; sourceTree = "<group>"; };
+		315C01892C0B2C9D00BE00E3 /* AlarmEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEntity.swift; sourceTree = "<group>"; };
+		315C018C2C0B3B1000BE00E3 /* AlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmReactor.swift; sourceTree = "<group>"; };
+		315C018E2C0B3D2C00BE00E3 /* AlarmStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmStep.swift; sourceTree = "<group>"; };
+		315C01902C0B3D3200BE00E3 /* AlarmFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFlow.swift; sourceTree = "<group>"; };
 		317779C62BE1E67A006E8378 /* CoinMon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinMon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317779C92BE1E67A006E8378 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317779CB2BE1E67A006E8378 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -298,6 +316,49 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		315C017B2C0B02CD00BE00E3 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				315C017C2C0B02DE00BE00E3 /* AlarmViewController.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		315C017E2C0B043E00BE00E3 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				315C01832C0B132300BE00E3 /* TableViewCell */,
+				315C017F2C0B045000BE00E3 /* AlarmView.swift */,
+				315C01812C0B04B400BE00E3 /* NoneAlarmView.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		315C01832C0B132300BE00E3 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				315C01842C0B132C00BE00E3 /* TableViewHeader */,
+				315C01852C0B133B00BE00E3 /* AlarmTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		315C01842C0B132C00BE00E3 /* TableViewHeader */ = {
+			isa = PBXGroup;
+			children = (
+				315C01872C0B134500BE00E3 /* AlarmTableViewHeader.swift */,
+			);
+			path = TableViewHeader;
+			sourceTree = "<group>";
+		};
+		315C018B2C0B3AF400BE00E3 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				315C018C2C0B3B1000BE00E3 /* AlarmReactor.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
 		317779BD2BE1E679006E8378 = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +435,7 @@
 		317779F12BE1FAE3006E8378 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				315C017E2C0B043E00BE00E3 /* Alarm */,
 				314636A12C05FBA4008A5629 /* Setting */,
 				31423C4B2BFB572E008AB6FD /* Home */,
 				31F7916B2BECD65500A7CABB /* Signinup */,
@@ -386,6 +448,7 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				315C017B2C0B02CD00BE00E3 /* Alarm */,
 				314636A42C060041008A5629 /* Setting */,
 				31423C3E2BFB32CD008AB6FD /* Home */,
 				31423C3B2BFB182E008AB6FD /* TabBar */,
@@ -399,6 +462,7 @@
 		317779F32BE20095006E8378 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				315C018B2C0B3AF400BE00E3 /* Alarm */,
 				314636A52C060048008A5629 /* Setting */,
 				31423C412BFB331A008AB6FD /* Home */,
 				31F7916C2BECDB6200A7CABB /* Signinup */,
@@ -464,6 +528,7 @@
 				31777A332BE770D7006E8378 /* SignupStep.swift */,
 				31F791622BECB12D00A7CABB /* SigninStep.swift */,
 				31423C5B2BFC817B008AB6FD /* HomeStep.swift */,
+				315C018E2C0B3D2C00BE00E3 /* AlarmStep.swift */,
 				3146369D2C05FB95008A5629 /* SettingStep.swift */,
 			);
 			path = Step;
@@ -476,6 +541,7 @@
 				31777A312BE7707E006E8378 /* SignupFlow.swift */,
 				31F791642BECB14000A7CABB /* SigninFlow.swift */,
 				31423C5D2BFC820B008AB6FD /* HomeFlow.swift */,
+				315C01902C0B3D3200BE00E3 /* AlarmFlow.swift */,
 				3146369F2C05FB9D008A5629 /* SettingFlow.swift */,
 			);
 			path = Flow;
@@ -558,6 +624,7 @@
 			isa = PBXGroup;
 			children = (
 				31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */,
+				315C01892C0B2C9D00BE00E3 /* AlarmEntity.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -700,9 +767,11 @@
 				31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */,
 				31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
+				315C01862C0B133B00BE00E3 /* AlarmTableViewCell.swift in Sources */,
 				314636A32C05FBCD008A5629 /* SettingView.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
+				315C01802C0B045000BE00E3 /* AlarmView.swift in Sources */,
 				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
 				31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
@@ -729,6 +798,7 @@
 				31BCE9892C05B19000DA2FC6 /* SelectMarketViewController.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* TermsOfServiceViewController.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
+				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* TermsOfServiceReactor.swift in Sources */,
@@ -741,12 +811,18 @@
 				315C01782C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift in Sources */,
 				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
+				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
+				315C018F2C0B3D2C00BE00E3 /* AlarmStep.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* SigninEmailEntryView.swift in Sources */,
 				315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */,
+				315C017D2C0B02DE00BE00E3 /* AlarmViewController.swift in Sources */,
 				31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */,
 				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,
+				315C01882C0B134500BE00E3 /* AlarmTableViewHeader.swift in Sources */,
 				31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */,
+				315C01822C0B04B400BE00E3 /* NoneAlarmView.swift in Sources */,
+				315C01912C0B3D3200BE00E3 /* AlarmFlow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

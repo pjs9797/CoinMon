@@ -43,6 +43,8 @@ class TabBarController: UITabBarController {
                 case 0:
                     tabItem.title = LocalizationManager.shared.localizedString(forKey: "홈")
                 case 1:
+                    tabItem.title = LocalizationManager.shared.localizedString(forKey: "알림")
+                case 2:
                     tabItem.title = LocalizationManager.shared.localizedString(forKey: "설정")
                 default:
                     break
@@ -59,7 +61,11 @@ extension TabBarController: UITabBarControllerDelegate {
                 if let tabItem = vc.tabBarItem {
                     if index == 0 {
                         tabItem.image = vc == viewController ? ImageManager.home_Select?.withRenderingMode(.alwaysOriginal) : ImageManager.home?.withRenderingMode(.alwaysOriginal)
-                    } else if index == 1 {
+                    } 
+                    else if index == 1 {
+                        tabItem.image = vc == viewController ? ImageManager.alarm_Select?.withRenderingMode(.alwaysOriginal) : ImageManager.alarm?.withRenderingMode(.alwaysOriginal)
+                    }
+                    else if index == 2 {
                         tabItem.image = vc == viewController ? ImageManager.setting_Select?.withRenderingMode(.alwaysOriginal) : ImageManager.setting?.withRenderingMode(.alwaysOriginal)
                     }
                 }

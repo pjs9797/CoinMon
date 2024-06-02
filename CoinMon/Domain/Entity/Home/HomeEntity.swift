@@ -1,12 +1,9 @@
-import UIKit
-
 struct Market: Equatable{
-    let image: UIImage?
-    let title: String
+    let marketTitle: String
+    let localizationKey: String
 }
 
 struct PriceList: Equatable{
-    let coinImage: String
     let coinTitle: String
     let price: String
     let change: String
@@ -14,13 +11,11 @@ struct PriceList: Equatable{
 }
 
 struct FeeList: Equatable{
-    let coinImage: String
     let coinTitle: String
     let fee: String
 }
 
 struct PremiumList: Equatable{
-    let coinImage: String
     let coinTitle: String
     let premium: String
 }

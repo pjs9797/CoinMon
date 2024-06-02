@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class FeeTableViewHeader: UITableViewHeaderFooterView {
+class FeeTableViewHeader: UIView {
     let coinView: UIView = {
         let view = UIView()
         return view
@@ -31,8 +31,8 @@ class FeeTableViewHeader: UITableViewHeaderFooterView {
         return button
     }()
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         layout()
     }
@@ -44,7 +44,7 @@ class FeeTableViewHeader: UITableViewHeaderFooterView {
     private func layout(){
         [coinView,feeView]
             .forEach {
-                contentView.addSubview($0)
+                addSubview($0)
             }
         
         coinView.addSubview(coinButton)

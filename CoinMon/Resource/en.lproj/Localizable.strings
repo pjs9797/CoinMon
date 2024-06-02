@@ -33,21 +33,26 @@
 "코인몬 시작하기" = "Start CoinMon";
 //TabBar
 "홈" = "Home";
+"알림" = "Alarm";
+"커뮤니티" = "Community";
 //Home
 "시세" = "Price";
 "펀비" = "Fee";
-"김프" = "Kimchi Premium";
+"김프" = "Premium";
 //Home-Market
-"바이낸스" = "Binance";
-"바이비트" = "Bybit";
-"업비트" = "Upbit";
-"빗썸" = "Bithumb";
+"Binance" = "Binance";
+"Bybit" = "Bybit";
+"Upbit" = "Upbit";
+"Bithumb" = "Bithumb";
 //Home-Price
-"코인 선택" = "Select Coin";
+"코인 검색" = "Search Coin";
 "코인" = "Coin";
 "시세%" = "Price (%@)";
 "등락률" = "Change";
 "시평갭" = "Gap";
+//Alarm
+"지정가 알람" = "Alarm";
+"설정가/현재가" = "Set Price/Current Price";
 //Setting
 "설정" = "Setting";
 "언어" = "Language";

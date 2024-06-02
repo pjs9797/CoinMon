@@ -40,10 +40,9 @@ extension SelectMarketViewController {
     
     func bindState(reactor: SelectMarketReactor){
         reactor.state.map { $0.markets }
-            .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, exchangeList, cell in
+            .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, market, cell in
                 
-                cell.coinImageView.image = exchangeList.image
-                cell.coinLabel.text = exchangeList.title
+                cell.configure(with: market)
             }
             .disposed(by: disposeBag)
     }

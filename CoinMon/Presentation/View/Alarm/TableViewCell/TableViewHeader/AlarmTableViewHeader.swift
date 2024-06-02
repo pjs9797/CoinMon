@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class PremiumTableViewHeader: UIView {
+class AlarmTableViewHeader: UIView {
     let coinView: UIView = {
         let view = UIView()
         return view
@@ -16,13 +16,13 @@ class PremiumTableViewHeader: UIView {
         button.semanticContentAttribute = .forceRightToLeft
         return button
     }()
-    let premiumView: UIView = {
+    let setPriceView: UIView = {
         let view = UIView()
         return view
     }()
-    let premiumButton: UIButton = {
+    let setPriceButton: UIButton = {
         let button = UIButton()
-        button.setTitle("프리미엄", for: .normal)
+        button.setTitle("설정가", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)
@@ -42,13 +42,13 @@ class PremiumTableViewHeader: UIView {
     }
     
     private func layout(){
-        [coinView,premiumView]
+        [coinView,setPriceView]
             .forEach {
                 addSubview($0)
             }
         
         coinView.addSubview(coinButton)
-        premiumView.addSubview(premiumButton)
+        setPriceView.addSubview(setPriceButton)
         
         coinView.snp.makeConstraints { make in
             make.width.equalTo(121*Constants.standardWidth)
@@ -60,14 +60,16 @@ class PremiumTableViewHeader: UIView {
             make.edges.equalToSuperview()
         }
         
-        premiumView.snp.makeConstraints { make in
-            make.width.equalTo(100*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+        setPriceView.snp.makeConstraints { make in
+            make.width.equalTo(148*Constants.standardWidth)
+            make.leading.equalTo(coinView.snp.trailing)
             make.centerY.equalToSuperview()
         }
         
-        premiumButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        setPriceButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
         }
     }
 }

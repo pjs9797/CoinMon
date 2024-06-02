@@ -1,9 +1,11 @@
-import UIKit.UIImage
+import Foundation
 import ReactorKit
 import RxCocoa
+import RxFlow
 
-class PriceReactor: ReactorKit.Reactor {
+class AlarmReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
+    var steps = PublishRelay<Step>()
     
     init() {
         var markets = [
@@ -13,7 +15,7 @@ class PriceReactor: ReactorKit.Reactor {
             Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "빗썸"), localizationKey: "Bithumb")
         ]
         
-        if let savedOrder = UserDefaults.standard.stringArray(forKey: "marketOrderAtPrice") {
+        if let savedOrder = UserDefaults.standard.stringArray(forKey: "marketOrderAtAlarm") {
             markets.sort { market1, market2 in
                 if let index1 = savedOrder.firstIndex(of: market1.localizationKey),
                    let index2 = savedOrder.firstIndex(of: market2.localizationKey) {
@@ -43,15 +45,9 @@ class PriceReactor: ReactorKit.Reactor {
     struct State {
         var selectedItem: Int = 0
         var markets: [Market]
-        var priceList: [PriceList] = [
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+        var alarms: [AlarmList] = [
+            AlarmList(coinTitle: "BTC", setPrice: 111111, currentPrice: 222222, isOn: true),
+            AlarmList(coinTitle: "BTC", setPrice: 111111, currentPrice: 222222, isOn: false),
         ]
     }
     
@@ -91,7 +87,7 @@ class PriceReactor: ReactorKit.Reactor {
             newState.markets = markets
         case .saveOrder:
             let order = newState.markets.map { $0.localizationKey }
-            UserDefaults.standard.set(order, forKey: "marketOrderAtPrice")
+            UserDefaults.standard.set(order, forKey: "marketOrderAtAlarm")
         }
         return newState
     }

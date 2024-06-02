@@ -34,8 +34,13 @@ class HomeViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = .white
         pageViewController.dataSource = self
         pageViewController.delegate = self
-        homeCategoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
         layout()
+        
+        LocalizationManager.shared.rxLanguage
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.updateLocalizedCategories)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func layout(){
@@ -73,20 +78,6 @@ extension HomeViewController {
             .map { Reactor.Action.selectItem($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        homeCategoryCollectionView.rx.itemSelected
-            .bind(onNext: { [weak self] indexPath in
-                let cell = self?.homeCategoryCollectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell
-                cell?.isSelected = true
-            })
-            .disposed(by: disposeBag)
-        
-        homeCategoryCollectionView.rx.itemDeselected
-            .bind(onNext: { [weak self] indexPath in
-                let cell = self?.homeCategoryCollectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell
-                cell?.isSelected = false
-            })
-            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: HomeReactor){
@@ -96,6 +87,7 @@ extension HomeViewController {
             .bind(onNext: { [weak self] index in
                 let direction: UIPageViewController.NavigationDirection = (index > reactor.currentState.previousIndex) ? .forward : .reverse
                 self?.pageViewController.setViewControllers([self!.viewControllers[index]], direction: direction, animated: true, completion: nil)
+                self?.homeCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 reactor.action.onNext(.setPreviousIndex(index))
             })
             .disposed(by: disposeBag)
@@ -103,11 +95,10 @@ extension HomeViewController {
         reactor.state.map { $0.categories }
             .distinctUntilChanged()
             .bind(to: homeCategoryCollectionView.rx.items(cellIdentifier: "HomeCategoryCollectionViewCell", cellType: HomeCategoryCollectionViewCell.self)) { (index, categories, cell) in
-                if index == 0 {
-                    cell.isSelected = true
-                }
-                else{
-                    cell.isSelected = false
+                let isSelected = index == reactor.currentState.selectedItem
+                cell.isSelected = isSelected
+                if isSelected {
+                    self.homeCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 }
                 cell.categoryLabel.text = categories
             }

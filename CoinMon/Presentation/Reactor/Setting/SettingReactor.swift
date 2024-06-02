@@ -2,7 +2,7 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class SettingReactor:  ReactorKit.Reactor, Stepper {
+class SettingReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
     

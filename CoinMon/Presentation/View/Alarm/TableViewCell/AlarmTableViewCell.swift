@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class PriceTableViewCell: UITableViewCell {
+class AlarmTableViewCell: UITableViewCell {
     let coinView: UIView = {
         let view = UIView()
         return view
@@ -19,35 +19,28 @@ class PriceTableViewCell: UITableViewCell {
         label.textAlignment = .left
         return label
     }()
-    let priceView: UIView = {
+    let setPriceView: UIView = {
         let view = UIView()
         return view
     }()
-    let priceLabel: UILabel = {
+    let setPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H7_13
-        label.textAlignment = .right
+        label.font = FontManager.D9_13
+        label.textAlignment = .left
         return label
     }()
-    let changeView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    let changeLabel: UILabel = {
+    let currentPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.H7_13
-        label.textAlignment = .right
+        label.font = FontManager.T6_13
+        label.textAlignment = .left
         return label
     }()
-    let gapView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    let gapLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.H7_13
-        label.textAlignment = .right
-        return label
+    let alarmSwitch: UISwitch = {
+        let uiSwitch = UISwitch()
+        uiSwitch.onTintColor = ColorManager.orange_60
+        uiSwitch.tintColor = ColorManager.gray_90
+        uiSwitch.layer.cornerRadius = 18*Constants.standardHeight
+        return uiSwitch
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -62,7 +55,7 @@ class PriceTableViewCell: UITableViewCell {
     }
 
     private func layout(){
-        [coinView,priceView,changeView,gapView]
+        [coinView,setPriceView,alarmSwitch]
             .forEach {
                 contentView.addSubview($0)
             }
@@ -71,10 +64,10 @@ class PriceTableViewCell: UITableViewCell {
             .forEach {
                 coinView.addSubview($0)
             }
-        
-        priceView.addSubview(priceLabel)
-        changeView.addSubview(changeLabel)
-        gapView.addSubview(gapLabel)
+        [setPriceLabel,currentPriceLabel]
+            .forEach{
+                setPriceView.addSubview($0)
+            }
         
         coinView.snp.makeConstraints { make in
             make.width.equalTo(121*Constants.standardWidth)
@@ -94,48 +87,40 @@ class PriceTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
         
-        priceView.snp.makeConstraints { make in
-            make.width.equalTo(90*Constants.standardWidth)
-            make.height.equalTo(52*Constants.standardHeight)
+        setPriceView.snp.makeConstraints { make in
+            make.width.equalTo(148*Constants.standardWidth)
+            make.height.equalTo(36*Constants.standardHeight)
             make.leading.equalTo(coinView.snp.trailing)
-        }
-        
-        priceLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-4*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
         
-        changeView.snp.makeConstraints { make in
-            make.width.equalTo(68*Constants.standardWidth)
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalTo(priceView.snp.trailing)
-        }
-
-        changeLabel.snp.makeConstraints { make in
+        setPriceLabel.snp.makeConstraints { make in
+            make.width.equalTo(148*Constants.standardWidth)
+            make.height.equalTo(18*Constants.standardHeight)
             make.leading.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-4*Constants.standardWidth)
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview()
         }
         
-        gapView.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalTo(changeView.snp.trailing)
+        currentPriceLabel.snp.makeConstraints { make in
+            make.width.equalTo(148*Constants.standardWidth)
+            make.height.equalTo(18*Constants.standardHeight)
+            make.leading.equalToSuperview()
+            make.top.equalTo(setPriceLabel.snp.bottom)
+        }
+        
+        alarmSwitch.snp.makeConstraints { make in
+            make.width.equalTo(50*Constants.standardWidth)
+            make.height.equalTo(28*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-        }
-
-        gapLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-4*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
     }
     
-    func configure(with priceList: PriceList) {
-        coinImageView.image = UIImage(named: priceList.coinTitle)
-        coinLabel.text = priceList.coinTitle
-        priceLabel.text = priceList.price
-        changeLabel.text = priceList.change
-        gapLabel.text = priceList.gap
+    func configure(with alarmList: AlarmList) {
+        coinImageView.image = UIImage(named: alarmList.coinTitle)
+        coinLabel.text = alarmList.coinTitle
+        setPriceLabel.text = String(alarmList.setPrice)
+        currentPriceLabel.text = String(alarmList.currentPrice)
+        alarmSwitch.isOn = alarmList.isOn
     }
 }

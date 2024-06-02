@@ -12,13 +12,13 @@ class PriceView: UIView {
         return collectionView
     }()
     let searchView = SearchView()
+    let priceTableViewHeader = PriceTableViewHeader()
     let priceTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
         tableView.rowHeight = 52*Constants.standardHeight
-        tableView.register(PriceTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "PriceTableViewHeader")
         tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "PriceTableViewCell")
         return tableView
     }()
@@ -33,8 +33,16 @@ class PriceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setLocalizedText(){
+        searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
+        priceTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
+        priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세%",arguments: "USDT"), for: .normal)
+        priceTableViewHeader.changeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "등락률"), for: .normal)
+        priceTableViewHeader.gapButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시평갭"), for: .normal)
+    }
+    
     private func layout() {
-        [marketCollectionView,searchView,priceTableView]
+        [marketCollectionView,searchView,priceTableViewHeader,priceTableView]
             .forEach{
                 addSubview($0)
             }
@@ -52,8 +60,14 @@ class PriceView: UIView {
             make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
         }
         
-        priceTableView.snp.makeConstraints { make in
+        priceTableViewHeader.snp.makeConstraints { make in
+            make.height.equalTo(32*Constants.standardHeight)
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(searchView.snp.bottom)
+        }
+        
+        priceTableView.snp.makeConstraints { make in
+            make.top.equalTo(priceTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }

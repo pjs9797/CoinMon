@@ -86,13 +86,13 @@ class FeePremiumTableViewCell: UITableViewCell {
     }
     
     func configureFee(with feeList: FeeList) {
-        coinImageView.image = UIImage(named: feeList.coinImage)
+        coinImageView.image = UIImage(named: feeList.coinTitle)
         coinLabel.text = feeList.coinTitle
         feePremiumLabel.text = feeList.fee
     }
     
     func configurePremium(with premiumList: PremiumList) {
-        coinImageView.image = UIImage(named: premiumList.coinImage)
+        coinImageView.image = UIImage(named: premiumList.coinTitle)
         coinLabel.text = premiumList.coinTitle
         feePremiumLabel.text = premiumList.premium
     }

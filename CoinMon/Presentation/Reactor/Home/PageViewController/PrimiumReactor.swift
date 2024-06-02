@@ -18,10 +18,10 @@ class PremiumReactor: ReactorKit.Reactor,Stepper {
     
     struct State {
         var premiumList: [PremiumList] = [
-            PremiumList(coinImage: "bybit", coinTitle: "BTC", premium: "0.01"),
-            PremiumList(coinImage: "bybit", coinTitle: "ETH", premium: "0.03"),
-            PremiumList(coinImage: "bybit", coinTitle: "XRP", premium: "0.05"),
-            PremiumList(coinImage: "bybit", coinTitle: "SOL", premium: "0.005"),
+            PremiumList(coinTitle: "BTC", premium: "0.01"),
+            PremiumList(coinTitle: "ETH", premium: "0.03"),
+            PremiumList(coinTitle: "XRP", premium: "0.05"),
+            PremiumList(coinTitle: "SOL", premium: "0.005"),
         ]
     }
     
