@@ -36,9 +36,9 @@ class EmailVerificationNumberViewController: UIViewController, ReactorKit.View {
     private func setNavigationbar() {
         switch emailFlow {
         case .signup:
-            self.title = NSLocalizedString("회원가입", comment: "")
+            self.title = LocalizationManager.shared.localizedString(forKey: "회원가입")
         case .signin:
-            self.title = NSLocalizedString("로그인", comment: "")
+            self.title = LocalizationManager.shared.localizedString(forKey: "로그인")
         }
         navigationItem.leftBarButtonItem = backButton
     }

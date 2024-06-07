@@ -19,6 +19,12 @@ class SettingFlow: Flow {
         switch step {
         case .navigateToSettingViewController:
             return navigateToSettingViewController()
+        case .navigateToMyAccountViewController:
+            return navigateToMyAccountViewController()
+        case .navigateToWithdrawalViewController:
+            return navigateToWithdrawalViewController()
+        case .popViewController:
+            return popViewController()
         }
     }
     
@@ -28,5 +34,27 @@ class SettingFlow: Flow {
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToMyAccountViewController() -> FlowContributors {
+        let reactor = MyAccountReactor()
+        let viewController = MyAccountViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToWithdrawalViewController() -> FlowContributors {
+        let reactor = WithdrawalReactor()
+        let viewController = WithdrawalViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func popViewController() -> FlowContributors {
+        self.rootViewController.popViewController(animated: true)
+        
+        return .none
     }
 }

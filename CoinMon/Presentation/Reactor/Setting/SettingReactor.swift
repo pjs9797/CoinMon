@@ -12,6 +12,7 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
     
     enum Action {
         case changeLanguage(String)
+        case myAccountButtonTapped
     }
     
     enum Mutation {
@@ -27,6 +28,9 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
         case .changeLanguage(let newLanguage):
             LocalizationManager.shared.setLanguage(newLanguage)
             return Observable.just(.setLanguage(newLanguage))
+        case .myAccountButtonTapped:
+            self.steps.accept(SettingStep.navigateToMyAccountViewController)
+            return .empty()
         }
     }
     

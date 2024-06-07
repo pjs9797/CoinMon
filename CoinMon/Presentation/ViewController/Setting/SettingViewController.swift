@@ -1,11 +1,3 @@
-//
-//  SettingViewController.swift
-//  CoinMon
-//
-//  Created by 박중선 on 5/28/24.
-//
-
-import Foundation
 import UIKit
 import ReactorKit
 
@@ -45,6 +37,8 @@ class SettingViewController: UIViewController, ReactorKit.View {
     private func setLocalizedText(){
         settingView.settingLabel.text = LocalizationManager.shared.localizedString(forKey: "설정")
         settingView.languageLabel.text = LocalizationManager.shared.localizedString(forKey: "언어")
+        settingView.alertSettingButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 설정"), for: .normal)
+        settingView.myAccountButton.setTitle(LocalizationManager.shared.localizedString(forKey: "내 계정"), for: .normal)
     }
 }
 
@@ -57,7 +51,12 @@ extension SettingViewController {
     func bindAction(reactor: SettingReactor){
         settingView.languageSegmentedControl.rx.selectedSegmentIndex
             .map { $0 == 0 ? "ko" : "en" }
-            .map { SettingReactor.Action.changeLanguage($0) }
+            .map { Reactor.Action.changeLanguage($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.myAccountButton.rx.tap
+            .map{ Reactor.Action.myAccountButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

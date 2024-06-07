@@ -33,10 +33,16 @@ class SettingView: UIView {
     }()
     let alertSettingButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = FontManager.H4_16
+        button.setTitleColor(ColorManager.common_0, for: .normal)
+        button.contentHorizontalAlignment = .leading
         return button
     }()
     let myAccountButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = FontManager.H4_16
+        button.setTitleColor(ColorManager.common_0, for: .normal)
+        button.contentHorizontalAlignment = .leading
         return button
     }()
     
@@ -51,7 +57,7 @@ class SettingView: UIView {
     }
     
     private func layout() {
-        [settingLabel,languageLabel,languageSegmentedControl]
+        [settingLabel,languageLabel,languageSegmentedControl,alertSettingButton,myAccountButton]
             .forEach{
                 addSubview($0)
             }
@@ -65,6 +71,7 @@ class SettingView: UIView {
         
         languageLabel.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
+            make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.top.equalTo(settingLabel.snp.bottom).offset(37*Constants.standardHeight)
         }
@@ -74,6 +81,20 @@ class SettingView: UIView {
             make.height.equalTo(40*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.centerY.equalTo(languageLabel)
+        }
+        
+        alertSettingButton.snp.makeConstraints { make in
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.top.equalTo(languageLabel.snp.bottom)
+        }
+        
+        myAccountButton.snp.makeConstraints { make in
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.top.equalTo(alertSettingButton.snp.bottom)
         }
     }
 }

@@ -48,7 +48,7 @@ class AlarmView: UIView {
     func setLocalizedText(){
         alarmLabel.text = LocalizationManager.shared.localizedString(forKey: "지정가 알람")
         searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
-        
+        addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가"), for: .normal)
         alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가/현재가"), for: .normal)
     }
     

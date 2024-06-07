@@ -53,6 +53,20 @@
 //Alarm
 "지정가 알람" = "Alarm";
 "설정가/현재가" = "Set Price/Current Price";
+"알람 추가" = "Add";
 //Setting
 "설정" = "Setting";
 "언어" = "Language";
+"알림 설정" = "Notification Setting";
+"내 계정" = "My Account";
+//Setting-MyAccount
+"닉네임 변경" = "Rename";
+"로그인 계정" = "Login Account";
+"로그아웃" = "Log Out";
+"회원탈퇴" = "Withdrawal";
+//Setting-Withdrawal
+"회원탈퇴설명1" = "Please check before Withdrawal";
+"회원탈퇴설명2" = "· If you unsubscribe, all notifications you have set will disappear.\n
+· Even if you have participated or applied for an event held within the Coinmon service, your record will be deleted if you withdraw before the results are announced.";
+"회원탈퇴설명3" = "Delete and cancel your Coinmon account";
+"탈퇴하기" = "Withdraw";

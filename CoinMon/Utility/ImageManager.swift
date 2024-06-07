@@ -26,6 +26,8 @@ struct ImageManager {
     static let circle_Check_Orange = UIImage(named: "Circle_Check_Orange")
     static let check = UIImage(named: "Check")
     static let check_Orange = UIImage(named: "Check_Orange")
+    static let square_Check_None = UIImage(named: "Square_Check_None")
+    static let square_Check_Select = UIImage(named: "Square_Check_Select")
     //sort
     static let sort = UIImage(named: "sort")
     //else

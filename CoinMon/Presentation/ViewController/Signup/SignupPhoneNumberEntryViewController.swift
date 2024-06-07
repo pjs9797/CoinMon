@@ -32,7 +32,7 @@ class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View {
     }
     
     private func setNavigationbar() {
-        self.title = NSLocalizedString("회원가입", comment: "")
+        self.title = LocalizationManager.shared.localizedString(forKey: "회원가입")
         navigationItem.leftBarButtonItem = backButton
     }
 }

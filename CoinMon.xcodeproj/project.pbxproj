@@ -92,6 +92,14 @@
 		31BCE9892C05B19000DA2FC6 /* SelectMarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */; };
 		31BCE98D2C05B20000DA2FC6 /* SelectMarketReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */; };
 		31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */; };
+		31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B02C1078DC00756DFD /* MyAccountView.swift */; };
+		31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B22C10838400756DFD /* MyAccountViewController.swift */; };
+		31E0A4C22C1086BB00756DFD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A4C12C1086BB00756DFD /* FirebaseMessaging */; };
+		31E0A4C52C108A8A00756DFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E0A4C42C108A8A00756DFD /* GoogleService-Info.plist */; };
+		31E0A4C72C108D9E00756DFD /* MyAccountReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4C62C108D9E00756DFD /* MyAccountReactor.swift */; };
+		31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4C82C10908400756DFD /* WithdrawalView.swift */; };
+		31E0A4CB2C130EB400756DFD /* WithdrawalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4CA2C130EB400756DFD /* WithdrawalViewController.swift */; };
+		31E0A4CD2C130EDD00756DFD /* WithdrawalReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4CC2C130EDD00756DFD /* WithdrawalReactor.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -185,6 +193,14 @@
 		31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewController.swift; sourceTree = "<group>"; };
 		31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketReactor.swift; sourceTree = "<group>"; };
 		31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
+		31E0A4B02C1078DC00756DFD /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
+		31E0A4B22C10838400756DFD /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		31E0A4C32C10892400756DFD /* CoinMon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoinMon.entitlements; sourceTree = "<group>"; };
+		31E0A4C42C108A8A00756DFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		31E0A4C62C108D9E00756DFD /* MyAccountReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountReactor.swift; sourceTree = "<group>"; };
+		31E0A4C82C10908400756DFD /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
+		31E0A4CA2C130EB400756DFD /* WithdrawalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalViewController.swift; sourceTree = "<group>"; };
+		31E0A4CC2C130EDD00756DFD /* WithdrawalReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalReactor.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -201,6 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31E0A4C22C1086BB00756DFD /* FirebaseMessaging in Frameworks */,
 				317779EC2BE1FA78006E8378 /* RxFlow in Frameworks */,
 				317779E32BE1FA3B006E8378 /* RxRelay in Frameworks */,
 				316025612C083E6F00EC0294 /* ReactorKit in Frameworks */,
@@ -296,6 +313,8 @@
 			isa = PBXGroup;
 			children = (
 				314636A22C05FBCD008A5629 /* SettingView.swift */,
+				31E0A4B02C1078DC00756DFD /* MyAccountView.swift */,
+				31E0A4C82C10908400756DFD /* WithdrawalView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -304,6 +323,8 @@
 			isa = PBXGroup;
 			children = (
 				314636A62C060056008A5629 /* SettingViewController.swift */,
+				31E0A4B22C10838400756DFD /* MyAccountViewController.swift */,
+				31E0A4CA2C130EB400756DFD /* WithdrawalViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -312,6 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				314636A82C06005E008A5629 /* SettingReactor.swift */,
+				31E0A4C62C108D9E00756DFD /* MyAccountReactor.swift */,
+				31E0A4CC2C130EDD00756DFD /* WithdrawalReactor.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -364,6 +387,7 @@
 			children = (
 				317779C82BE1E67A006E8378 /* CoinMon */,
 				317779C72BE1E67A006E8378 /* Products */,
+				31E0A4C02C1086BB00756DFD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -378,12 +402,14 @@
 		317779C82BE1E67A006E8378 /* CoinMon */ = {
 			isa = PBXGroup;
 			children = (
+				31E0A4C32C10892400756DFD /* CoinMon.entitlements */,
 				31A48FD52BFF3A8100ABEA2F /* Domain */,
 				317779EE2BE1FAB7006E8378 /* Application */,
 				317779F62BE2019C006E8378 /* Resource */,
 				317779EF2BE1FAC3006E8378 /* Utility */,
 				317779ED2BE1FA91006E8378 /* Presentation */,
 				317779D72BE1E67B006E8378 /* Info.plist */,
+				31E0A4C42C108A8A00756DFD /* GoogleService-Info.plist */,
 			);
 			path = CoinMon;
 			sourceTree = "<group>";
@@ -629,6 +655,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		31E0A4C02C1086BB00756DFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +710,7 @@
 				317779E82BE1FA65006E8378 /* SnapKit */,
 				317779EB2BE1FA78006E8378 /* RxFlow */,
 				316025602C083E6F00EC0294 /* ReactorKit */,
+				31E0A4C12C1086BB00756DFD /* FirebaseMessaging */,
 			);
 			productName = CoinMon;
 			productReference = 317779C62BE1E67A006E8378 /* CoinMon.app */;
@@ -711,6 +745,7 @@
 				317779E42BE1FA54006E8378 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				317779E72BE1FA65006E8378 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				317779EA2BE1FA78006E8378 /* XCRemoteSwiftPackageReference "RxFlow" */,
+				31E0A4BF2C1086A800756DFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 317779C72BE1E67A006E8378 /* Products */;
 			projectDirPath = "";
@@ -727,6 +762,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317779D32BE1E67B006E8378 /* ImageAssets.xcassets in Resources */,
+				31E0A4C52C108A8A00756DFD /* GoogleService-Info.plist in Resources */,
 				31777A0A2BE368D3006E8378 /* Pretendard-Bold.otf in Resources */,
 				31777A082BE368D3006E8378 /* Pretendard-Regular.otf in Resources */,
 				31777A182BE3A676006E8378 /* Localizable.strings in Resources */,
@@ -748,11 +784,13 @@
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
 				31F791702BECED2700A7CABB /* TermsOfServiceView.swift in Sources */,
+				31E0A4C72C108D9E00756DFD /* MyAccountReactor.swift in Sources */,
 				315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */,
 				314636A92C06005E008A5629 /* SettingReactor.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
 				31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */,
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
+				31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
 				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,
 				31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */,
@@ -792,6 +830,7 @@
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */,
+				31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* SigninEmailEntryViewController.swift in Sources */,
@@ -813,6 +852,7 @@
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
 				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
 				315C018F2C0B3D2C00BE00E3 /* AlarmStep.swift in Sources */,
+				31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* SigninEmailEntryView.swift in Sources */,
 				315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */,
 				315C017D2C0B02DE00BE00E3 /* AlarmViewController.swift in Sources */,
@@ -821,8 +861,10 @@
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,
 				315C01882C0B134500BE00E3 /* AlarmTableViewHeader.swift in Sources */,
 				31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */,
+				31E0A4CB2C130EB400756DFD /* WithdrawalViewController.swift in Sources */,
 				315C01822C0B04B400BE00E3 /* NoneAlarmView.swift in Sources */,
 				315C01912C0B3D3200BE00E3 /* AlarmFlow.swift in Sources */,
+				31E0A4CD2C130EDD00756DFD /* WithdrawalReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,6 +1007,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoinMon/CoinMon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -994,6 +1037,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoinMon/CoinMon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1074,6 +1118,14 @@
 				minimumVersion = 2.13.0;
 			};
 		};
+		31E0A4BF2C1086A800756DFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.27.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1111,6 +1163,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 317779EA2BE1FA78006E8378 /* XCRemoteSwiftPackageReference "RxFlow" */;
 			productName = RxFlow;
+		};
+		31E0A4C12C1086BB00756DFD /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31E0A4BF2C1086A800756DFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

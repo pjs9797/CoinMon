@@ -26,6 +26,7 @@ class AlarmViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .white
         hideKeyboard(disposeBag: disposeBag)
         alarmView.marketCollectionView.dragDelegate = self
