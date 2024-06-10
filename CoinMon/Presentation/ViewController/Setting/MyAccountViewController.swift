@@ -26,7 +26,7 @@ class MyAccountViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+        setNavigationbar()
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.myAccountView.setLocalizedText()
@@ -36,8 +36,6 @@ class MyAccountViewController: UIViewController, ReactorKit.View {
     }
     
     private func setNavigationbar() {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = true
         self.title = LocalizationManager.shared.localizedString(forKey: "내 계정")
         navigationItem.leftBarButtonItem = backButton
     }

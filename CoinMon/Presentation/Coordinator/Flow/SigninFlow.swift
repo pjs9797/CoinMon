@@ -7,6 +7,7 @@ class SigninFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
+    private let signinUseCase = SigninUseCase(repository: SigninRepository())
     
     init(with rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
@@ -19,8 +20,14 @@ class SigninFlow: Flow {
         switch step {
         case .navigateToSigninEmailEntryViewController:
             return navigateToSigninEmailEntryViewController()
-        case .navigateToEmailVerificationNumberViewController:
-            return navigateToEmailVerificationNumberViewController()
+        case .navigateToSigninEmailVerificationNumberViewController:
+            return navigateToSigninEmailVerificationNumberViewController()
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
+        case .presentToAuthenticationNumberErrorAlertController:
+            return presentToAuthenticationNumberErrorAlertController()
+        case .presentToNoRegisteredEmailErrorAlertController:
+            return presentToNoRegisteredEmailErrorAlertController()
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
@@ -31,19 +38,52 @@ class SigninFlow: Flow {
     }
     
     private func navigateToSigninEmailEntryViewController() -> FlowContributors {
-        let reactor = SigninEmailEntryReactor()
+        let reactor = SigninEmailEntryReactor(signinUseCase: signinUseCase)
         let viewController = SigninEmailEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToEmailVerificationNumberViewController() -> FlowContributors {
-        let reactor = EmailVerificationNumberReactor(emailFlow: .signin)
-        let viewController = EmailVerificationNumberViewController(with: reactor, emailFlow: .signin)
+    private func navigateToSigninEmailVerificationNumberViewController() -> FlowContributors {
+        let reactor = SigninEmailVerificationNumberReactor(signinUseCase: signinUseCase)
+        let viewController = SigninEmailVerificationNumberViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToNetworkErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+            message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToAuthenticationNumberErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: nil,
+            message: LocalizationManager.shared.localizedString(forKey: "인증번호 불일치"),
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToNoRegisteredEmailErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: nil,
+            message: LocalizationManager.shared.localizedString(forKey: "이메일 없음"),
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
     }
     
     private func popViewController() -> FlowContributors {
@@ -59,8 +99,8 @@ class SigninFlow: Flow {
     }
     
     private func completeSigninFlow() -> FlowContributors {
-        self.rootViewController.popToRootViewController(animated: true)
-        //TODO: 탭바 만들면 탭바뷰컨으로 이동되게
+        self.rootViewController.popToRootViewController(animated: false)
+
         return .end(forwardToParentFlowWithStep: AppStep.completeSigninFlow)
     }
 }

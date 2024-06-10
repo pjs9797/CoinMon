@@ -20,11 +20,10 @@ class SettingViewController: UIViewController, ReactorKit.View {
         
         view = settingView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .white
         
         LocalizationManager.shared.rxLanguage
@@ -34,11 +33,21 @@ class SettingViewController: UIViewController, ReactorKit.View {
             .disposed(by: disposeBag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     private func setLocalizedText(){
         settingView.settingLabel.text = LocalizationManager.shared.localizedString(forKey: "설정")
         settingView.languageLabel.text = LocalizationManager.shared.localizedString(forKey: "언어")
         settingView.alertSettingButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 설정"), for: .normal)
         settingView.myAccountButton.setTitle(LocalizationManager.shared.localizedString(forKey: "내 계정"), for: .normal)
+        settingView.inquiryButton.setTitle(LocalizationManager.shared.localizedString(forKey: "문의"), for: .normal)
+        settingView.termsOfServiceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "서비스 이용약관"), for: .normal)
+        settingView.privacyPolicyButton.setTitle(LocalizationManager.shared.localizedString(forKey: "개인정보 처리방침"), for: .normal)
+        settingView.versionLabel.text = LocalizationManager.shared.localizedString(forKey: "현재 버전")
     }
 }
 
@@ -57,6 +66,16 @@ extension SettingViewController {
         
         settingView.myAccountButton.rx.tap
             .map{ Reactor.Action.myAccountButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.termsOfServiceButton.rx.tap
+            .map{ Reactor.Action.termsOfServiceButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.privacyPolicyButton.rx.tap
+            .map{ Reactor.Action.privacyPolicyButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

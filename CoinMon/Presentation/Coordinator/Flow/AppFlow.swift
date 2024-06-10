@@ -9,7 +9,7 @@ class AppFlow: Flow {
     private lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
         //TODO: 로그인창과 연결시 삭제
-        navigationController.isNavigationBarHidden = true
+        //navigationController.isNavigationBarHidden = true
         return navigationController
     }()
 
@@ -31,7 +31,7 @@ class AppFlow: Flow {
         case .completeSignupFlow:
             return .none
         case .completeSigninFlow:
-            return .none
+            return navigateToTabBarController()
         }
     }
     

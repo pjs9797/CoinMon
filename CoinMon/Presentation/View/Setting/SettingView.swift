@@ -45,6 +45,33 @@ class SettingView: UIView {
         button.contentHorizontalAlignment = .leading
         return button
     }()
+    let inquiryButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = FontManager.H4_16
+        button.setTitleColor(ColorManager.common_0, for: .normal)
+        button.contentHorizontalAlignment = .leading
+        return button
+    }()
+    let termsOfServiceButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = FontManager.H4_16
+        button.setTitleColor(ColorManager.common_0, for: .normal)
+        button.contentHorizontalAlignment = .leading
+        return button
+    }()
+    let privacyPolicyButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = FontManager.H4_16
+        button.setTitleColor(ColorManager.common_0, for: .normal)
+        button.contentHorizontalAlignment = .leading
+        return button
+    }()
+    let versionLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.T3_16
+        label.textColor = ColorManager.gray_50
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +84,7 @@ class SettingView: UIView {
     }
     
     private func layout() {
-        [settingLabel,languageLabel,languageSegmentedControl,alertSettingButton,myAccountButton]
+        [settingLabel,languageLabel,languageSegmentedControl,alertSettingButton,myAccountButton,inquiryButton,termsOfServiceButton,privacyPolicyButton,versionLabel]
             .forEach{
                 addSubview($0)
             }
@@ -95,6 +122,34 @@ class SettingView: UIView {
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(alertSettingButton.snp.bottom)
+        }
+        
+        inquiryButton.snp.makeConstraints { make in
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.top.equalTo(myAccountButton.snp.bottom)
+        }
+        
+        termsOfServiceButton.snp.makeConstraints { make in
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.top.equalTo(inquiryButton.snp.bottom)
+        }
+        
+        privacyPolicyButton.snp.makeConstraints { make in
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.top.equalTo(termsOfServiceButton.snp.bottom)
+        }
+        
+        versionLabel.snp.makeConstraints { make in
+            make.width.equalTo(200*Constants.standardWidth)
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.top.equalTo(privacyPolicyButton.snp.bottom)
         }
     }
 }

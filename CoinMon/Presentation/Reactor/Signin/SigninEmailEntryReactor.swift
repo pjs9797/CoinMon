@@ -6,6 +6,11 @@ import RxFlow
 class SigninEmailEntryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    private let signinUseCase: SigninUseCase
+    
+    init(signinUseCase: SigninUseCase){
+        self.signinUseCase = signinUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -33,8 +38,20 @@ class SigninEmailEntryReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .nextButtonTapped:
             UserCredentialsManager.shared.email = currentState.email
-            self.steps.accept(SigninStep.navigateToEmailVerificationNumberViewController)
-            return .empty()
+            return signinUseCase.checkEmailIsExisted(email: currentState.email)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(SigninStep.presentToNoRegisteredEmailErrorAlertController)
+                    }
+                    else {
+                        self?.steps.accept(SigninStep.navigateToSigninEmailVerificationNumberViewController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] _ in
+                    self?.steps.accept(SigninStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .clearButtonTapped:
             return .concat([
                 .just(.setEmail("")),

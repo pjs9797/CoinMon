@@ -53,7 +53,7 @@ extension FeeViewController {
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .bind(to: feeView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
-                let isSelected = index == reactor.currentState.selectedItem
+                let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
                 if isSelected {
                     self.feeView.marketCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)

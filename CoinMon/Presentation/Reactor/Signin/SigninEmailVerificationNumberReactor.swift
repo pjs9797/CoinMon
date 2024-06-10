@@ -2,18 +2,18 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class EmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State
+class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
+    let initialState: State = State()
     var steps = PublishRelay<Step>()
     var timerDisposeBag = DisposeBag()
-    let emailFlow: EmailFlow
+    private let signinUseCase: SigninUseCase
     
-    init(emailFlow: EmailFlow) {
-        self.emailFlow = emailFlow
-        initialState = State(nextButtonTitle: emailFlow == .signin ? LocalizationManager.shared.localizedString(forKey: "완료") : LocalizationManager.shared.localizedString(forKey: "다음"))
+    init(signinUseCase: SigninUseCase){
+        self.signinUseCase = signinUseCase
     }
     
     enum Action {
+        case postEmailCode
         case backButtonTapped
         case nextButtonTapped
         case clearButtonTapped
@@ -33,27 +33,48 @@ class EmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
         var remainingSeconds: Int = 180
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
-        var nextButtonTitle: String
+        var nextButtonTitle: String = LocalizationManager.shared.localizedString(forKey: "완료")
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .postEmailCode:
+            return signinUseCase.requestEmailVerificationCode(email: UserCredentialsManager.shared.email)
+                .flatMap { resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                    }
+                    else {
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] _ in
+                    self?.steps.accept(SigninStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .backButtonTapped:
-            switch emailFlow {
-            case .signup:
-                self.steps.accept(SignupStep.popViewController)
-            case .signin:
-                self.steps.accept(SigninStep.popViewController)
-            }
+            self.steps.accept(SigninStep.popViewController)
             return .empty()
         case .nextButtonTapped:
-            switch emailFlow {
-            case .signup:
-                self.steps.accept(SignupStep.navigateToSignupPhoneNumberEntryViewController)
-            case .signin:
-                self.steps.accept(SigninStep.completeSigninFlow)
+            if let fcmToken = TokenManager.shared.loadFCMToken() {
+                return signinUseCase.checkEmailVerificationCodeForLogin(email: UserCredentialsManager.shared.email, number: currentState.verificationNumber, deviceToken: fcmToken)
+                    .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                        print(resultCode)
+                        if resultCode == "200" {
+                            self?.steps.accept(SigninStep.completeSigninFlow)
+                        }
+                        else {
+                            self?.steps.accept(SigninStep.presentToAuthenticationNumberErrorAlertController)
+                        }
+                        return .empty()
+                    }
+                    .catch { [weak self] _ in
+                        self?.steps.accept(SigninStep.presentToNetworkErrorAlertController)
+                        return .empty()
+                    }
             }
-            return .empty()
+            else {
+                return .empty()
+            }
         case .clearButtonTapped:
             return .concat([
                 .just(.setVerificationNumber("")),

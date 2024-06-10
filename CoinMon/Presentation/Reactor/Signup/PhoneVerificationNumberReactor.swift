@@ -6,6 +6,11 @@ class PhoneVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     var timerDisposeBag = DisposeBag()
+    private let signupUseCase: SignupUseCase
+    
+    init(signupUseCase: SignupUseCase){
+        self.signupUseCase = signupUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -35,8 +40,30 @@ class PhoneVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.popViewController)
             return .empty()
         case .nextButtonTapped:
-            self.steps.accept(SignupStep.navigateToSignupCompletedViewController)
-            return .empty()
+            return signupUseCase.checkPhoneVerificationCode(phoneNumber: UserCredentialsManager.shared.phoneNumber, number: currentState.verificationNumber)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        return self?.signupUseCase.signup(phoneNumber: UserCredentialsManager.shared.phoneNumber, email: UserCredentialsManager.shared.email, userType: UserCredentialsManager.shared.loginType)
+                            .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                                if resultCode == "200" {
+                                    self?.steps.accept(SignupStep.navigateToSignupCompletedViewController)
+                                }
+                                return .empty()
+                            }
+                            .catch { [weak self] _ in
+                                self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                                return .empty()
+                            } ?? .empty()
+                    }
+                    else {
+                        self?.steps.accept(SignupStep.presentToAuthenticationNumberErrorAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] _ in
+                    self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .clearButtonTapped:
             return .concat([
                 .just(.setVerificationNumber("")),

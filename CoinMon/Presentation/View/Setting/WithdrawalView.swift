@@ -12,7 +12,7 @@ class WithdrawalView: UIView {
         let label = UILabel()
         label.font = FontManager.B5_14
         label.textColor = ColorManager.common_0
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     let checkButton: UIButton = {
@@ -64,6 +64,7 @@ class WithdrawalView: UIView {
         
         secondNoticeLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(firstNoticeLabel.snp.bottom).offset(30*Constants.standardHeight)
         }
         
@@ -75,6 +76,7 @@ class WithdrawalView: UIView {
         
         checkNoticeLabel.snp.makeConstraints { make in
             make.leading.equalTo(checkButton.snp.trailing).offset(10*Constants.standardWidth)
+            make.centerY.equalTo(checkButton)
         }
         
         withdrawalButton.snp.makeConstraints { make in

@@ -30,20 +30,22 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
     
     enum Action {
         case updateLocalizedMarkets
-        case selectItem(Int)
+        case selectMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
+        case deleteAlarm(Int)
     }
     
     enum Mutation {
         case setLocalizedMarkets([Market])
-        case setSelectedItem(Int)
+        case setSelectedMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
+        case deleteAlarm(Int)
     }
     
     struct State {
-        var selectedItem: Int = 0
+        var selectedMarket: Int = 0
         var markets: [Market]
         var alarms: [AlarmList] = [
             AlarmList(coinTitle: "BTC", setPrice: 111111, currentPrice: 222222, isOn: true),
@@ -56,13 +58,13 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .updateLocalizedMarkets:
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))
-        case .selectItem(let index):
-            return .just(.setSelectedItem(index))
+        case .selectMarket(let index):
+            return .just(.setSelectedMarket(index))
         case .moveItem(let fromIndex, let toIndex):
-            if currentState.selectedItem == fromIndex {
+            if currentState.selectedMarket == fromIndex {
                 return .concat([
                     .just(.moveItem(fromIndex, toIndex)),
-                    .just(.setSelectedItem(toIndex))
+                    .just(.setSelectedMarket(toIndex))
                 ])
             }
             else{
@@ -70,6 +72,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
             }
         case .saveOrder:
             return .just(.saveOrder)
+        case .deleteAlarm(let index):
+            return .just(.deleteAlarm(index))
         }
     }
     
@@ -78,8 +82,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setLocalizedMarkets(let localizedMarkets):
             newState.markets = localizedMarkets
-        case .setSelectedItem(let index):
-            newState.selectedItem = index
+        case .setSelectedMarket(let index):
+            newState.selectedMarket = index
         case .moveItem(let fromIndex, let toIndex):
             var markets = newState.markets
             let market = markets.remove(at: fromIndex)
@@ -88,6 +92,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .saveOrder:
             let order = newState.markets.map { $0.localizationKey }
             UserDefaults.standard.set(order, forKey: "marketOrderAtAlarm")
+        case .deleteAlarm(let index):
+            newState.alarms.remove(at: index)
         }
         return newState
     }

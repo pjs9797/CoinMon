@@ -35,11 +35,15 @@ extension SelectMarketViewController {
     }
     
     func bindAction(reactor: SelectMarketReactor){
-        
+        selectMarketView.marketTableView.rx.itemSelected
+            .map { Reactor.Action.selectMarket($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: SelectMarketReactor){
         reactor.state.map { $0.markets }
+            .distinctUntilChanged()
             .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, market, cell in
                 
                 cell.configure(with: market)

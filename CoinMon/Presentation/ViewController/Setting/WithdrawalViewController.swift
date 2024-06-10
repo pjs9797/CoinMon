@@ -26,7 +26,7 @@ class WithdrawalViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+        setNavigationbar()
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.withdrawalView.setLocalizedText()

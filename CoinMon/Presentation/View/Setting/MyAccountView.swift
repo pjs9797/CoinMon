@@ -13,6 +13,7 @@ class MyAccountView: UIView {
         textField.font = FontManager.H3_18
         textField.textColor = ColorManager.common_0
         textField.isEnabled = false
+        textField.text = "CoinMon"
         return textField
     }()
     let changeNicknameButton: UIButton = {
@@ -106,6 +107,7 @@ class MyAccountView: UIView {
         }
         
         nicknameErrorLabel.snp.makeConstraints { make in
+            make.height.equalTo(20*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.top.equalTo(changeNicknameButton.snp.bottom)
         }
@@ -113,7 +115,7 @@ class MyAccountView: UIView {
         loginAccountLabel.snp.makeConstraints { make in
             make.height.equalTo(22*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalToSuperview().offset(40*Constants.standardHeight)
+            make.top.equalTo(changeNicknameButton.snp.bottom).offset(58*Constants.standardHeight)
         }
         
         loginTypeImageView.snp.makeConstraints { make in

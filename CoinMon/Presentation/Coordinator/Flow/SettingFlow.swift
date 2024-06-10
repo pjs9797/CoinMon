@@ -23,6 +23,10 @@ class SettingFlow: Flow {
             return navigateToMyAccountViewController()
         case .navigateToWithdrawalViewController:
             return navigateToWithdrawalViewController()
+        case .navigateToTermsOfServiceViewController:
+            return navigateToTermsOfServiceViewController()
+        case .navigateToPrivacyPolicyViewController:
+            return navigateToPrivacyPolicyViewController()
         case .popViewController:
             return popViewController()
         }
@@ -39,6 +43,8 @@ class SettingFlow: Flow {
     private func navigateToMyAccountViewController() -> FlowContributors {
         let reactor = MyAccountReactor()
         let viewController = MyAccountViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -47,6 +53,26 @@ class SettingFlow: Flow {
     private func navigateToWithdrawalViewController() -> FlowContributors {
         let reactor = WithdrawalReactor()
         let viewController = WithdrawalViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToTermsOfServiceViewController() -> FlowContributors {
+        let reactor = TermsOfServiceReactor(termsOfServiceFlow: .setting)
+        let viewController = TermsOfServiceViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToPrivacyPolicyViewController() -> FlowContributors {
+        let reactor = PrivacyPolicyReactor(termsOfServiceFlow: .setting)
+        let viewController = PrivacyPolicyViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

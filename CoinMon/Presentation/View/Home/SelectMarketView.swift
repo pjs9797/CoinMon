@@ -6,6 +6,7 @@ class SelectMarketView: UIView {
         let label = UILabel()
         label.font = FontManager.D4_20
         label.textColor = ColorManager.common_0
+        label.text = LocalizationManager.shared.localizedString(forKey: "거래소 선택")
         return label
     }()
     let marketTableView: UITableView = {

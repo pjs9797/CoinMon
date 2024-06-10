@@ -1,6 +1,6 @@
-enum EmailFlow{
+enum TermsOfServiceFlow{
     case signup
-    case signin
+    case setting
 }
 
 enum VerificationType{

@@ -2,18 +2,23 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class TermsOfServiceReactor: ReactorKit.Reactor, Stepper {
+class AgreeToTermsOfServiceReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    private let signupUseCase: SignupUseCase
+    
+    init(signupUseCase: SignupUseCase){
+        self.signupUseCase = signupUseCase
+    }
     
     enum Action {
         case selectAllButtonTapped
         case firstCheckButtonTapped
         case secondCheckButtonTapped
         case thirdCheckButtonTapped
-        case firstTermsOfServiceDetailButtonTapped
-        case secondTermsOfServiceDetailButtonTapped
-        case thirdTermsOfServiceDetailButtonTapped
+        case termsOfServiceDetailButtonTapped
+        case privacyPolicyDetailButtonTapped
+        case marketingConsentDetailButtonTapped
         case nextButtonTapped
     }
     
@@ -56,19 +61,34 @@ class TermsOfServiceReactor: ReactorKit.Reactor, Stepper {
                 .toggleThirdCheck,
                 .setNextButtonValid
             ])
-        case .firstTermsOfServiceDetailButtonTapped:
-            //TODO: 약관 나오면 약관 상세 페이지 연결
+        case .termsOfServiceDetailButtonTapped:
+            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
-        case .secondTermsOfServiceDetailButtonTapped:
-            //TODO: 약관 나오면 약관 상세 페이지 연결
+        case .privacyPolicyDetailButtonTapped:
+            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
-        case .thirdTermsOfServiceDetailButtonTapped:
-            //TODO: 약관 나오면 약관 상세 페이지 연결
+        case .marketingConsentDetailButtonTapped:
+            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
         case .nextButtonTapped:
-            self.steps.accept(SignupStep.dismissViewController)
-            self.steps.accept(SignupStep.navigateToPhoneVerificationNumberViewController)
-            return .empty()
+            return signupUseCase.requestPhoneVerificationCode(phoneNumber: UserCredentialsManager.shared.phoneNumber)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(SignupStep.dismissViewController)
+                        self?.steps.accept(SignupStep.navigateToPhoneVerificationNumberViewController)
+                    }
+                    else {
+                        self?.steps.accept(SignupStep.presentToAlreadysubscribedNumberErrorAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] _ in
+                    self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         }
     }
     

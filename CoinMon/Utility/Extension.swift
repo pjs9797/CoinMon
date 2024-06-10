@@ -85,7 +85,7 @@ extension UIButton {
 }
 
 class PremiumMarketButton: UIButton {
-    private let leftImageView = UIImageView()
+    let leftImageView = UIImageView()
     private let rightImageView = UIImageView()
 
     init(leftImage: UIImage?, rightImage: UIImage?) {

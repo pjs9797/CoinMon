@@ -1,8 +1,9 @@
 import RxFlow
+import RxCocoa
 
 enum HomeStep: Step {
     case navigateToHomeViewController
-    case presentToSelectDepartureMarketViewController
-    case presentToSelectArrivalMarketViewController
+    case presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>)
+    case presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>)
     case dismissSelectMarketViewController
 }

@@ -36,7 +36,7 @@ class SignupCompletedView: UIView {
     
     private func setLocalizedText(){
         signupCompletedLabel.text = LocalizationManager.shared.localizedString(forKey: "회원가입 완료! 🎉")
-        signupCompletedButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 시작하기"), for: .normal)
+        signupCompletedButton.setTitle(LocalizationManager.shared.localizedString(forKey: "완료"), for: .normal)
     }
     
     private func layout() {

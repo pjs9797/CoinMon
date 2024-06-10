@@ -1,5 +1,6 @@
 import UIKit
 import RxFlow
+import RxCocoa
 
 class HomeFlow: Flow {
     var root: Presentable {
@@ -20,10 +21,10 @@ class HomeFlow: Flow {
         switch step {
         case .navigateToHomeViewController:
             return navigateToHomeViewController()
-        case .presentToSelectDepartureMarketViewController:
-            return presentToSelectDepartureMarketViewController()
-        case .presentToSelectArrivalMarketViewController:
-            return presentToSelectArrivalMarketViewController()
+        case .presentToSelectDepartureMarketViewController(let selectedMarketRelay):
+            return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay)
+        case .presentToSelectArrivalMarketViewController(let selectedMarketRelay):
+            return presentToSelectArrivalMarketViewController(selectedMarketRelay: selectedMarketRelay)
         case .dismissSelectMarketViewController:
             return dismissSelectMarketViewController()
         }
@@ -43,11 +44,14 @@ class HomeFlow: Flow {
         let viewController = HomeViewController(with: reactor, viewControllers: [priceViewController,feeViewController,premiumViewController])
         self.rootViewController.pushViewController(viewController, animated: true)
 
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        return .multiple(flowContributors: [
+            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
+            .contribute(withNextPresentable: premiumViewController, withNextStepper: premiumReactor),
+        ])
     }
     
-    private func presentToSelectDepartureMarketViewController() -> FlowContributors {
-        let reactor = SelectMarketReactor(selectMarketFlow: .departure)
+    private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
+        let reactor = SelectMarketReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay)
         let viewController = SelectMarketViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -63,8 +67,8 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectArrivalMarketViewController() -> FlowContributors {
-        let reactor = SelectMarketReactor(selectMarketFlow: .arrival)
+    private func presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
+        let reactor = SelectMarketReactor(selectMarketFlow: .arrival, selectedMarketRelay: selectedMarketRelay)
         let viewController = SelectMarketViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -85,6 +89,4 @@ class HomeFlow: Flow {
         
         return .none
     }
-    
-    
 }

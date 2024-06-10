@@ -51,8 +51,11 @@ extension AlarmViewController {
         alarmView.marketCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
+        alarmView.alarmTableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
         alarmView.marketCollectionView.rx.itemSelected
-            .map { Reactor.Action.selectItem($0.item) }
+            .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -61,7 +64,7 @@ extension AlarmViewController {
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .bind(to: alarmView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
-                let isSelected = index == reactor.currentState.selectedItem
+                let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
                 if isSelected {
                     self.alarmView.marketCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
@@ -123,5 +126,18 @@ extension AlarmViewController: UICollectionViewDragDelegate, UICollectionViewDro
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+}
+
+extension AlarmViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: LocalizationManager.shared.localizedString(forKey: "삭제")) { [weak self] (action, view, completionHandler) in
+            
+            self?.reactor?.action.onNext(.deleteAlarm(indexPath.row))
+            completionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
     }
 }

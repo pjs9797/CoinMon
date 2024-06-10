@@ -1,14 +1,12 @@
 import UIKit
 import ReactorKit
 
-class EmailVerificationNumberViewController: UIViewController, ReactorKit.View {
-    var emailFlow: EmailFlow
+class SignupEmailVerificationNumberViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let verificationNumberView = VerificationNumberView(verificationType: VerificationType.email)
     
-    init(with reactor: EmailVerificationNumberReactor, emailFlow: EmailFlow) {
-        self.emailFlow = emailFlow
+    init(with reactor: SignupEmailVerificationNumberReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -31,26 +29,22 @@ class EmailVerificationNumberViewController: UIViewController, ReactorKit.View {
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
         bindKeyboardNotifications(to: verificationNumberView.nextButton, disposeBag: disposeBag)
+        self.reactor?.action.onNext(.postEmailCode)
     }
     
     private func setNavigationbar() {
-        switch emailFlow {
-        case .signup:
-            self.title = LocalizationManager.shared.localizedString(forKey: "회원가입")
-        case .signin:
-            self.title = LocalizationManager.shared.localizedString(forKey: "로그인")
-        }
+        self.title = LocalizationManager.shared.localizedString(forKey: "회원가입")
         navigationItem.leftBarButtonItem = backButton
     }
 }
 
-extension EmailVerificationNumberViewController {
-    func bind(reactor: EmailVerificationNumberReactor) {
+extension SignupEmailVerificationNumberViewController {
+    func bind(reactor: SignupEmailVerificationNumberReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: EmailVerificationNumberReactor){
+    func bindAction(reactor: SignupEmailVerificationNumberReactor){
         reactor.action.onNext(.startTimer)
         
         backButton.rx.tap
@@ -74,7 +68,7 @@ extension EmailVerificationNumberViewController {
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: EmailVerificationNumberReactor){
+    func bindState(reactor: SignupEmailVerificationNumberReactor){
         reactor.state.map{ $0.remainingSeconds }
             .distinctUntilChanged()
             .map { seconds -> String in

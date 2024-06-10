@@ -49,7 +49,7 @@ extension PriceViewController {
             .disposed(by: disposeBag)
         
         priceView.marketCollectionView.rx.itemSelected
-            .map { Reactor.Action.selectItem($0.item) }
+            .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -58,7 +58,7 @@ extension PriceViewController {
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
-                let isSelected = index == reactor.currentState.selectedItem
+                let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
                 if isSelected {
                     self.priceView.marketCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)

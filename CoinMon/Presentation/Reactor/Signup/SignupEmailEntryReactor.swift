@@ -6,6 +6,11 @@ import RxFlow
 class SignupEmailEntryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    private let signupUseCase: SignupUseCase
+    
+    init(signupUseCase: SignupUseCase){
+        self.signupUseCase = signupUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -34,10 +39,22 @@ class SignupEmailEntryReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .nextButtonTapped:
             UserCredentialsManager.shared.email = currentState.email
-            self.steps.accept(SignupStep.navigateToEmailVerificationNumberViewController)
+            self.steps.accept(SignupStep.navigateToSignupEmailVerificationNumberViewController)
             return .empty()
         case .duplicateButtonTapped:
-            return .just(.setEmailDuplicate(false))
+            return signupUseCase.checkEmailDuplication(email: currentState.email)
+                .flatMap { resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        return .just(.setEmailDuplicate(false))
+                    }
+                    else {
+                        return .just(.setEmailDuplicate(true))
+                    }
+                }
+                .catch { [weak self] _ in
+                    self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .updateEmail(let email):
             let isValid = isValidEmail(email)
             if isValid {

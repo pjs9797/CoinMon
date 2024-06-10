@@ -1,8 +1,8 @@
 import UIKit
 import SnapKit
 
-class TermsOfServiceView: UIView {
-    let termsOfServiceLabel: UILabel = {
+class AgreeToTermsOfServiceView: UIView {
+    let agreeToTermsOfServiceLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D2_24
         label.textColor = ColorManager.common_0
@@ -22,50 +22,50 @@ class TermsOfServiceView: UIView {
         label.numberOfLines = 0
         return label
     }()
-    let firstCheckButton: UIButton = {
+    let termsOfServiceCheckButton: UIButton = {
         let button = UIButton()
         return button
     }()
-    let firstTermsOfServiceLabel: UILabel = {
+    let termsOfServiceLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.T5_14
         label.textColor = ColorManager.gray_20
         label.numberOfLines = 0
         return label
     }()
-    let firstTermsOfServiceDetailButton: UIButton = {
+    let termsOfServiceDetailButton: UIButton = {
         let button = UIButton()
         button.setImage(ImageManager.arrow_Chevron_Right, for: .normal)
         return button
     }()
-    let secondCheckButton: UIButton = {
+    let privacyPolicyViewCheckButton: UIButton = {
         let button = UIButton()
         return button
     }()
-    let secondTermsOfServiceLabel: UILabel = {
+    let privacyPolicyViewLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.T5_14
         label.textColor = ColorManager.gray_20
         label.numberOfLines = 0
         return label
     }()
-    let secondTermsOfServiceDetailButton: UIButton = {
+    let privacyPolicyViewDetailButton: UIButton = {
         let button = UIButton()
         button.setImage(ImageManager.arrow_Chevron_Right, for: .normal)
         return button
     }()
-    let thirdCheckButton: UIButton = {
+    let marketingConsentViewCheckButton: UIButton = {
         let button = UIButton()
         return button
     }()
-    let thirdTermsOfServiceLabel: UILabel = {
+    let marketingConsentViewLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.T5_14
         label.textColor = ColorManager.gray_20
         label.numberOfLines = 0
         return label
     }()
-    let thirdTermsOfServiceDetailButton: UIButton = {
+    let marketingConsentViewDetailButton: UIButton = {
         let button = UIButton()
         button.setImage(ImageManager.arrow_Chevron_Right, for: .normal)
         return button
@@ -89,18 +89,18 @@ class TermsOfServiceView: UIView {
     }
     
     private func setLocalizedText(){
-        termsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "약관 동의")
+        agreeToTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "약관 동의")
         agreeAllLabel.text = LocalizationManager.shared.localizedString(forKey: "약관에 모두 동의해요")
-        firstTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[필수] 서비스 이용약관")
-        secondTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[필수] 개인정보 수집∙이용 동의")
-        thirdTermsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[선택] 마케팅 정보 수신 동의")
+        termsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "[필수] 서비스 이용약관")
+        privacyPolicyViewLabel.text = LocalizationManager.shared.localizedString(forKey: "[필수] 개인정보 수집∙이용 동의")
+        marketingConsentViewLabel.text = LocalizationManager.shared.localizedString(forKey: "[선택] 마케팅 정보 수신 동의")
         nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        termsOfServiceLabel.snp.makeConstraints { make in
+        agreeToTermsOfServiceLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalToSuperview().offset(40*Constants.standardHeight)
@@ -109,7 +109,7 @@ class TermsOfServiceView: UIView {
         selectAllButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(termsOfServiceLabel.snp.bottom).offset(26*Constants.standardHeight)
+            make.top.equalTo(agreeToTermsOfServiceLabel.snp.bottom).offset(26*Constants.standardHeight)
         }
         
         agreeAllLabel.snp.makeConstraints { make in
@@ -118,58 +118,58 @@ class TermsOfServiceView: UIView {
             make.centerY.equalTo(selectAllButton)
         }
         
-        firstCheckButton.snp.makeConstraints { make in
+        termsOfServiceCheckButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
-        firstTermsOfServiceDetailButton.snp.makeConstraints { make in
+        termsOfServiceDetailButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.centerY.equalTo(firstCheckButton)
+            make.centerY.equalTo(termsOfServiceCheckButton)
         }
         
-        firstTermsOfServiceLabel.snp.makeConstraints { make in
+        termsOfServiceLabel.snp.makeConstraints { make in
             make.leading.equalTo(agreeAllLabel.snp.leading)
-            make.trailing.equalTo(firstTermsOfServiceDetailButton.snp.leading).offset(-8*Constants.standardWidth)
+            make.trailing.equalTo(termsOfServiceDetailButton.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
-        secondTermsOfServiceLabel.snp.makeConstraints { make in
-            make.leading.equalTo(firstTermsOfServiceLabel.snp.leading)
-            make.trailing.equalTo(firstTermsOfServiceLabel.snp.trailing)
-            make.top.equalTo(firstTermsOfServiceLabel.snp.bottom).offset(24*Constants.standardHeight)
+        privacyPolicyViewLabel.snp.makeConstraints { make in
+            make.leading.equalTo(termsOfServiceLabel.snp.leading)
+            make.trailing.equalTo(termsOfServiceLabel.snp.trailing)
+            make.top.equalTo(termsOfServiceLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
-        secondCheckButton.snp.makeConstraints { make in
+        privacyPolicyViewCheckButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.centerY.equalTo(secondTermsOfServiceLabel)
+            make.centerY.equalTo(privacyPolicyViewLabel)
         }
         
-        secondTermsOfServiceDetailButton.snp.makeConstraints { make in
+        privacyPolicyViewDetailButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.centerY.equalTo(secondTermsOfServiceLabel)
+            make.centerY.equalTo(privacyPolicyViewLabel)
         }
         
-        thirdTermsOfServiceLabel.snp.makeConstraints { make in
-            make.leading.equalTo(secondTermsOfServiceLabel.snp.leading)
-            make.trailing.equalTo(secondTermsOfServiceLabel.snp.trailing)
-            make.top.equalTo(secondTermsOfServiceLabel.snp.bottom).offset(24*Constants.standardHeight)
+        marketingConsentViewLabel.snp.makeConstraints { make in
+            make.leading.equalTo(privacyPolicyViewLabel.snp.leading)
+            make.trailing.equalTo(privacyPolicyViewLabel.snp.trailing)
+            make.top.equalTo(privacyPolicyViewLabel.snp.bottom).offset(24*Constants.standardHeight)
         }
         
-        thirdCheckButton.snp.makeConstraints { make in
+        marketingConsentViewCheckButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.centerY.equalTo(thirdTermsOfServiceLabel)
+            make.centerY.equalTo(marketingConsentViewLabel)
         }
         
-        thirdTermsOfServiceDetailButton.snp.makeConstraints { make in
+        marketingConsentViewDetailButton.snp.makeConstraints { make in
             make.width.height.equalTo(24*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.centerY.equalTo(thirdTermsOfServiceLabel)
+            make.centerY.equalTo(marketingConsentViewLabel)
         }
         
         nextButton.snp.makeConstraints { make in
@@ -181,7 +181,7 @@ class TermsOfServiceView: UIView {
     }
     
     private func layout() {
-        [termsOfServiceLabel,selectAllButton,agreeAllLabel,firstCheckButton,firstTermsOfServiceDetailButton,firstTermsOfServiceLabel,secondTermsOfServiceLabel,secondCheckButton,secondTermsOfServiceDetailButton,thirdTermsOfServiceLabel,thirdCheckButton,thirdTermsOfServiceDetailButton,nextButton]
+        [agreeToTermsOfServiceLabel,selectAllButton,agreeAllLabel,termsOfServiceCheckButton,termsOfServiceDetailButton,termsOfServiceLabel,privacyPolicyViewLabel,privacyPolicyViewCheckButton,privacyPolicyViewDetailButton,marketingConsentViewLabel,marketingConsentViewCheckButton,marketingConsentViewDetailButton,nextButton]
             .forEach{
                 addSubview($0)
             }

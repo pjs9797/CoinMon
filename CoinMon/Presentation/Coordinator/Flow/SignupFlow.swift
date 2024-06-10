@@ -7,6 +7,7 @@ class SignupFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
+    private let signupUseCase = SignupUseCase(repository: SignupRepository())
     
     init(with rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
@@ -19,16 +20,28 @@ class SignupFlow: Flow {
         switch step {
         case .navigateToSignupEmailEntryViewController:
             return navigateToSignupEmailEntryViewController()
-        case .navigateToEmailVerificationNumberViewController:
-            return navigateToEmailVerificationNumberViewController()
+        case .navigateToSignupEmailVerificationNumberViewController:
+            return navigateToSignupEmailVerificationNumberViewController()
         case .navigateToSignupPhoneNumberEntryViewController:
             return navigateToSignupPhoneNumberEntryViewController()
-        case .presentToTermsOfServiceViewController:
-            return presentToTermsOfServiceViewController()
+        case .presentToAgreeToTermsOfServiceViewController:
+            return presentToAgreeToTermsOfServiceViewController()
+        case .navigateToTermsOfServiceViewController:
+            return navigateToTermsOfServiceViewController()
+        case .navigateToPrivacyPolicyViewController:
+            return navigateToPrivacyPolicyViewController()
+        case .navigateToMarketingConsentViewController:
+            return navigateToMarketingConsentViewController()
         case .navigateToPhoneVerificationNumberViewController:
             return navigateToPhoneVerificationNumberViewController()
         case .navigateToSignupCompletedViewController:
             return navigateToSignupCompletedViewController()
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
+        case .presentToAuthenticationNumberErrorAlertController:
+            return presentToAuthenticationNumberErrorAlertController()
+        case .presentToAlreadysubscribedNumberErrorAlertController:
+            return presentToAlreadysubscribedNumberErrorAlertController()
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
@@ -41,32 +54,32 @@ class SignupFlow: Flow {
     }
     
     private func navigateToSignupEmailEntryViewController() -> FlowContributors {
-        let reactor = SignupEmailEntryReactor()
+        let reactor = SignupEmailEntryReactor(signupUseCase: signupUseCase)
         let viewController = SignupEmailEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToEmailVerificationNumberViewController() -> FlowContributors {
-        let reactor = EmailVerificationNumberReactor(emailFlow: .signup)
-        let viewController = EmailVerificationNumberViewController(with: reactor, emailFlow: .signup)
+    private func navigateToSignupEmailVerificationNumberViewController() -> FlowContributors {
+        let reactor = SignupEmailVerificationNumberReactor(signupUseCase: signupUseCase)
+        let viewController = SignupEmailVerificationNumberViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
     private func navigateToSignupPhoneNumberEntryViewController() -> FlowContributors {
-        let reactor = SignupPhoneNumberEntryReactor()
+        let reactor = SignupPhoneNumberEntryReactor(signupUseCase: signupUseCase)
         let viewController = SignupPhoneNumberEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToTermsOfServiceViewController() -> FlowContributors {
-        let reactor = TermsOfServiceReactor()
-        let viewController = TermsOfServiceViewController(with: reactor)
+    private func presentToAgreeToTermsOfServiceViewController() -> FlowContributors {
+        let reactor = AgreeToTermsOfServiceReactor(signupUseCase: signupUseCase)
+        let viewController = AgreeToTermsOfServiceViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 348*Constants.standardHeight
@@ -81,8 +94,35 @@ class SignupFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    private func navigateToTermsOfServiceViewController() -> FlowContributors {
+        let reactor = TermsOfServiceReactor(termsOfServiceFlow: .signup)
+        let viewController = TermsOfServiceViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToPrivacyPolicyViewController() -> FlowContributors {
+        let reactor = PrivacyPolicyReactor(termsOfServiceFlow: .signup)
+        let viewController = PrivacyPolicyViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToMarketingConsentViewController() -> FlowContributors {
+        let reactor = MarketingConsentReactor(termsOfServiceFlow: .signup)
+        let viewController = MarketingConsentViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func navigateToPhoneVerificationNumberViewController() -> FlowContributors {
-        let reactor = PhoneVerificationNumberReactor()
+        let reactor = PhoneVerificationNumberReactor(signupUseCase: signupUseCase)
         let viewController = PhoneVerificationNumberViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
@@ -94,8 +134,41 @@ class SignupFlow: Flow {
         let viewController = SignupCompletedViewController(with: reactor)
         self.rootViewController.navigationBar.isHidden = true
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToNetworkErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+            message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToAuthenticationNumberErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: nil,
+            message: LocalizationManager.shared.localizedString(forKey: "인증번호 불일치"),
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToAlreadysubscribedNumberErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: nil,
+            message: LocalizationManager.shared.localizedString(forKey: "가입된 번호"),
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
     }
     
     private func popViewController() -> FlowContributors {
@@ -118,7 +191,7 @@ class SignupFlow: Flow {
     
     private func completeSignupFlow() -> FlowContributors {
         self.rootViewController.popToRootViewController(animated: true)
-        //TODO: 탭바 만들면 탭바뷰컨으로 이동되게
+        
         return .end(forwardToParentFlowWithStep: AppStep.completeSignupFlow)
     }
 }

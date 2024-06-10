@@ -5,6 +5,11 @@ import RxFlow
 class SignupPhoneNumberEntryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    private let signupUseCase: SignupUseCase
+    
+    init(signupUseCase: SignupUseCase){
+        self.signupUseCase = signupUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -31,8 +36,11 @@ class SignupPhoneNumberEntryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.popViewController)
             return .empty()
         case .nextButtonTapped:
-            UserCredentialsManager.shared.phoneNumber = currentState.phoneNumber
-            self.steps.accept(SignupStep.presentToTermsOfServiceViewController)
+            var formattedNumber = currentState.phoneNumber
+            formattedNumber.insert("-", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 3))
+            formattedNumber.insert("-", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 8))
+            UserCredentialsManager.shared.phoneNumber = formattedNumber
+            self.steps.accept(SignupStep.presentToAgreeToTermsOfServiceViewController)
             return .empty()
         case .clearButtonTapped:
             return .concat([
