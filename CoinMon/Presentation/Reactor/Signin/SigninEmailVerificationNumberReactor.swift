@@ -30,7 +30,7 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     
     struct State {
         var verificationNumber: String = ""
-        var remainingSeconds: Int = 180
+        var remainingSeconds: Int = 300
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
         var nextButtonTitle: String = LocalizationManager.shared.localizedString(forKey: "완료")
@@ -40,11 +40,7 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
         switch action {
         case .postEmailCode:
             return signinUseCase.requestEmailVerificationCode(email: UserCredentialsManager.shared.email)
-                .flatMap { resultCode -> Observable<Mutation> in
-                    if resultCode == "200" {
-                    }
-                    else {
-                    }
+                .flatMap { _ -> Observable<Mutation> in
                     return .empty()
                 }
                 .catch { [weak self] _ in
@@ -58,7 +54,6 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             if let fcmToken = TokenManager.shared.loadFCMToken() {
                 return signinUseCase.checkEmailVerificationCodeForLogin(email: UserCredentialsManager.shared.email, number: currentState.verificationNumber, deviceToken: fcmToken)
                     .flatMap { [weak self] resultCode -> Observable<Mutation> in
-                        print(resultCode)
                         if resultCode == "200" {
                             self?.steps.accept(SigninStep.completeSigninFlow)
                         }

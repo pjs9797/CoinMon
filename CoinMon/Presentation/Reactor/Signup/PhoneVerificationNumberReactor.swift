@@ -29,7 +29,7 @@ class PhoneVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     
     struct State {
         var verificationNumber: String = ""
-        var remainingSeconds: Int = 180
+        var remainingSeconds: Int = 300
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
     }

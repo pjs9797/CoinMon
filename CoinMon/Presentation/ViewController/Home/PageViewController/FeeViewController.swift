@@ -36,6 +36,17 @@ class FeeViewController: UIViewController, ReactorKit.View {
             })
             .disposed(by: disposeBag)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(222)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(444)
+    }
 }
 
 extension FeeViewController {

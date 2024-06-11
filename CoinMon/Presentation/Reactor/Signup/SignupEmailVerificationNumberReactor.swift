@@ -30,7 +30,7 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     
     struct State {
         var verificationNumber: String = ""
-        var remainingSeconds: Int = 180
+        var remainingSeconds: Int = 300
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
         var nextButtonTitle: String = LocalizationManager.shared.localizedString(forKey: "다음")
@@ -40,11 +40,7 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
         switch action {
         case .postEmailCode:
             return signupUseCase.requestEmailVerificationCode(email: UserCredentialsManager.shared.email)
-                .flatMap { resultCode -> Observable<Mutation> in
-                    if resultCode == "200" {
-                    }
-                    else {
-                    }
+                .flatMap { _ -> Observable<Mutation> in
                     return .empty()
                 }
                 .catch { [weak self] _ in

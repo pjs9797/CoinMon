@@ -12,7 +12,6 @@ class MyAccountView: UIView {
         let textField = UITextField()
         textField.font = FontManager.H3_18
         textField.textColor = ColorManager.common_0
-        textField.isEnabled = false
         textField.text = "CoinMon"
         return textField
     }()
@@ -27,6 +26,7 @@ class MyAccountView: UIView {
     let nicknameErrorLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.B7_12
+        label.textColor = ColorManager.gray_80
         return label
     }()
     let loginAccountLabel: UILabel = {
@@ -42,7 +42,7 @@ class MyAccountView: UIView {
         imageView.layer.cornerRadius = 12*Constants.standardHeight
         return imageView
     }()
-    let accountLabel: UILabel = {
+    let emailLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.T3_16
         label.textColor = ColorManager.common_0
@@ -75,13 +75,14 @@ class MyAccountView: UIView {
     
     func setLocalizedText(){
         changeNicknameButton.setTitle(LocalizationManager.shared.localizedString(forKey: "닉네임 변경"), for: .normal)
+        nicknameErrorLabel.text = LocalizationManager.shared.localizedString(forKey: "최대 12자까지 가능해요")
         loginAccountLabel.text = LocalizationManager.shared.localizedString(forKey: "로그인 계정")
         logoutButton.setTitle(LocalizationManager.shared.localizedString(forKey: "로그아웃"), for: .normal)
         withdrawalButton.setTitle(LocalizationManager.shared.localizedString(forKey: "회원탈퇴"), for: .normal)
     }
     
     private func layout() {
-        [profileImageView,nicknameTextField,changeNicknameButton,nicknameErrorLabel,loginAccountLabel,loginTypeImageView,accountLabel,logoutButton,withdrawalButton]
+        [profileImageView,nicknameTextField,changeNicknameButton,nicknameErrorLabel,loginAccountLabel,loginTypeImageView,emailLabel,logoutButton,withdrawalButton]
             .forEach{
                 addSubview($0)
             }
@@ -124,7 +125,7 @@ class MyAccountView: UIView {
             make.top.equalTo(loginAccountLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
         
-        accountLabel.snp.makeConstraints { make in
+        emailLabel.snp.makeConstraints { make in
             make.leading.equalTo(loginTypeImageView.snp.trailing).offset(8*Constants.standardWidth)
             make.centerY.equalTo(loginTypeImageView)
         }

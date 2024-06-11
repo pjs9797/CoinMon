@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "Coin Logo - 2024-06-11T150413.701.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Coin Logo - 2024-06-11T150415.367.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Coin Logo - 2024-06-11T150416.850.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

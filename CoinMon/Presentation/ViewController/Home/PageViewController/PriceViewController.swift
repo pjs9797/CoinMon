@@ -36,6 +36,17 @@ class PriceViewController: UIViewController, ReactorKit.View {
             })
             .disposed(by: disposeBag)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(111)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(333)
+    }
 }
 
 extension PriceViewController {

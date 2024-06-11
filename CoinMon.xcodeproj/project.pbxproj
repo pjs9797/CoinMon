@@ -128,6 +128,13 @@
 		31E0A50D2C1711F500756DFD /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A50C2C1711F500756DFD /* KeychainHelper.swift */; };
 		31E0A50F2C17120300756DFD /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A50E2C17120300756DFD /* TokenManager.swift */; };
 		31E0A5112C17201000756DFD /* AddAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5102C17201000756DFD /* AddAlarmView.swift */; };
+		31E0A5152C1824BC00756DFD /* AuthTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5142C1824BC00756DFD /* AuthTokens.swift */; };
+		31E0A5172C1827A700756DFD /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5162C1827A700756DFD /* UserService.swift */; };
+		31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5182C182BE300756DFD /* UserDTO.swift */; };
+		31E0A51C2C182C4100756DFD /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A51B2C182C4100756DFD /* UserData.swift */; };
+		31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */; };
+		31E0A5202C182CFD00756DFD /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A51F2C182CFD00756DFD /* UserRepository.swift */; };
+		31E0A5222C182D7A00756DFD /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5212C182D7A00756DFD /* UserUseCase.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -253,6 +260,13 @@
 		31E0A50C2C1711F500756DFD /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		31E0A50E2C17120300756DFD /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		31E0A5102C17201000756DFD /* AddAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmView.swift; sourceTree = "<group>"; };
+		31E0A5142C1824BC00756DFD /* AuthTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokens.swift; sourceTree = "<group>"; };
+		31E0A5162C1827A700756DFD /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		31E0A5182C182BE300756DFD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		31E0A51B2C182C4100756DFD /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryInterface.swift; sourceTree = "<group>"; };
+		31E0A51F2C182CFD00756DFD /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		31E0A5212C182D7A00756DFD /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -676,6 +690,8 @@
 		31A48FD62BFF3AB500ABEA2F /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				31E0A51A2C182C3500756DFD /* User */,
+				31E0A5132C1824A500756DFD /* AuthToken */,
 				31BCE98E2C05CFFA00DA2FC6 /* Home */,
 			);
 			path = Entity;
@@ -734,6 +750,7 @@
 			children = (
 				31E0A4E42C15C72100756DFD /* SignupRepository.swift */,
 				31E0A4F42C16C23700756DFD /* SigninRepository.swift */,
+				31E0A51F2C182CFD00756DFD /* UserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -743,6 +760,7 @@
 			children = (
 				31E0A4E22C15BF0B00756DFD /* SignupDTO.swift */,
 				31E0A4F22C16C22300756DFD /* SigninDTO.swift */,
+				31E0A5182C182BE300756DFD /* UserDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -752,6 +770,7 @@
 			children = (
 				31E0A4DB2C158F3F00756DFD /* SignupService.swift */,
 				31E0A5062C16FEE500756DFD /* SigninService.swift */,
+				31E0A5162C1827A700756DFD /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -761,6 +780,7 @@
 			children = (
 				31E0A4E82C15D6B400756DFD /* SignupUseCase.swift */,
 				31E0A5082C16FFE300756DFD /* SigninUseCase.swift */,
+				31E0A5212C182D7A00756DFD /* UserUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -770,6 +790,7 @@
 			children = (
 				31E0A4E62C15C75C00756DFD /* SignupRepositoryInterface.swift */,
 				31E0A50A2C16FFEE00756DFD /* SigninRepositoryInterface.swift */,
+				31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -810,6 +831,22 @@
 				31E0A5102C17201000756DFD /* AddAlarmView.swift */,
 			);
 			path = AddAlarm;
+			sourceTree = "<group>";
+		};
+		31E0A5132C1824A500756DFD /* AuthToken */ = {
+			isa = PBXGroup;
+			children = (
+				31E0A5142C1824BC00756DFD /* AuthTokens.swift */,
+			);
+			path = AuthToken;
+			sourceTree = "<group>";
+		};
+		31E0A51A2C182C3500756DFD /* User */ = {
+			isa = PBXGroup;
+			children = (
+				31E0A51B2C182C4100756DFD /* UserData.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
@@ -948,11 +985,13 @@
 				31BCE97B2C04A07500DA2FC6 /* FeeTableViewHeader.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
 				31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */,
+				31E0A5222C182D7A00756DFD /* UserUseCase.swift in Sources */,
 				31E0A4DF2C15BDF900756DFD /* TermsOfServiceView.swift in Sources */,
 				31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */,
 				31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */,
 				31E0A4FA2C16CC5E00756DFD /* TermsOfServiceViewController.swift in Sources */,
 				31E0A4F32C16C22300756DFD /* SigninDTO.swift in Sources */,
+				31E0A5172C1827A700756DFD /* UserService.swift in Sources */,
 				31E0A4FC2C16CC6A00756DFD /* PrivacyPolicyViewController.swift in Sources */,
 				31E0A4F12C16B5EE00756DFD /* SigninEmailVerificationNumberReactor.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
@@ -969,6 +1008,7 @@
 				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
 				31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
+				31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */,
 				31777A302BE766B2006E8378 /* SigninEmailEntryReactor.swift in Sources */,
 				31E0A4F52C16C23700756DFD /* SigninRepository.swift in Sources */,
 				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
@@ -983,6 +1023,7 @@
 				31E0A5012C16CCA400756DFD /* TermsOfServiceReactor.swift in Sources */,
 				31BCE98D2C05B20000DA2FC6 /* SelectMarketReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
+				31E0A51C2C182C4100756DFD /* UserData.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
@@ -999,6 +1040,7 @@
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
+				31E0A5152C1824BC00756DFD /* AuthTokens.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
@@ -1013,6 +1055,7 @@
 				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
 				31E0A4E72C15C75C00756DFD /* SignupRepositoryInterface.swift in Sources */,
+				31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */,
 				31E0A4E52C15C72100756DFD /* SignupRepository.swift in Sources */,
 				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
 				31E0A4E12C15BE2100756DFD /* PrivacyPolicyView.swift in Sources */,
@@ -1026,6 +1069,7 @@
 				31E0A5052C16CCC100756DFD /* MarketingConsentReactor.swift in Sources */,
 				315C017D2C0B02DE00BE00E3 /* AlarmViewController.swift in Sources */,
 				31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */,
+				31E0A5202C182CFD00756DFD /* UserRepository.swift in Sources */,
 				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,
 				31E0A4FE2C16CC7400756DFD /* MarketingConsentViewController.swift in Sources */,
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,

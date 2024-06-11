@@ -8,8 +8,6 @@ class AppFlow: Flow {
     
     private lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
-        //TODO: 로그인창과 연결시 삭제
-        //navigationController.isNavigationBarHidden = true
         return navigationController
     }()
 
@@ -32,12 +30,15 @@ class AppFlow: Flow {
             return .none
         case .completeSigninFlow:
             return navigateToTabBarController()
+        case .completeMainFlow:
+            return navigateToSigninViewController()
         }
     }
     
     private func navigateToSigninViewController() -> FlowContributors {
         let reactor = SigninReactor()
         let viewController = SigninViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.setViewControllers([viewController], animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -45,6 +46,7 @@ class AppFlow: Flow {
     
     private func navigateToTabBarController() -> FlowContributors {
         let tabBarController = TabBarController()
+        self.rootViewController.isNavigationBarHidden = true
         let homeNavigationController = UINavigationController()
         let alarmNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()

@@ -27,12 +27,14 @@ class MyAccountViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = .white
         setNavigationbar()
+        hideKeyboard(disposeBag: disposeBag)
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.myAccountView.setLocalizedText()
                 self?.title = LocalizationManager.shared.localizedString(forKey: "내 계정")
             })
             .disposed(by: disposeBag)
+        self.reactor?.action.onNext(.loadUserData)
     }
     
     private func setNavigationbar() {
@@ -53,6 +55,11 @@ extension MyAccountViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        myAccountView.nicknameTextField.rx.text.orEmpty
+            .map{ Reactor.Action.updateNickname($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         myAccountView.changeNicknameButton.rx.tap
             .map{ Reactor.Action.changeNicknameButtonTapped }
             .bind(to: reactor.action)
@@ -70,5 +77,51 @@ extension MyAccountViewController {
     }
     
     func bindState(reactor: MyAccountReactor){
+        reactor.state.map{ $0.imageIndex }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] index in
+                self?.myAccountView.profileImageView.image = UIImage(named: "profileImage\(index)")
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.nickname }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] nickname in
+                self?.myAccountView.nicknameTextField.text = nickname
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.nicknameErrorLabelHidden }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] isHidden in
+                if isHidden {
+                    self?.myAccountView.nicknameErrorLabel.isHidden = true
+                    self?.myAccountView.nicknameErrorLabel.isEnabled = false
+                    self?.myAccountView.changeNicknameButton.setTitle(LocalizationManager.shared.localizedString(forKey: "닉네임 변경"), for: .normal)
+                }
+                else {
+                    self?.myAccountView.nicknameErrorLabel.isHidden = false
+                    self?.myAccountView.nicknameErrorLabel.isEnabled = true
+                    self?.myAccountView.changeNicknameButton.setTitle(LocalizationManager.shared.localizedString(forKey: "저장"), for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.loginType }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] type in
+                switch type{
+                case "COINMON":
+                    self?.myAccountView.loginTypeImageView.image = UIImage(named: "profileImage1")
+                default:
+                    self?.myAccountView.loginTypeImageView.image = UIImage(named: "profileImage1")
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.email }
+            .distinctUntilChanged()
+            .bind(to: self.myAccountView.emailLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }

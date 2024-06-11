@@ -1,0 +1,40 @@
+import Moya
+import RxMoya
+import RxSwift
+
+class UserRepository: UserRepositoryInterface {
+    private let provider = MoyaProvider<UserService>()
+    
+    func withdraw() -> Observable<String> {
+        return provider.rx.request(.withdraw)
+            .filterSuccessfulStatusCodes()
+            .map(UserDTO.self)
+            .map{ UserDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func changeNickname(nickname: String) -> Observable<String> {
+        return provider.rx.request(.changeNickname(nickname: nickname))
+            .filterSuccessfulStatusCodes()
+            .map(UserDTO.self)
+            .map{ UserDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func fetchUserData() -> Observable<UserData> {
+        return provider.rx.request(.getUserData)
+            .filterSuccessfulStatusCodes()
+            .map(UserResponseDTO.self)
+            .map{ UserResponseDTO.toUserData(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+}

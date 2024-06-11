@@ -5,8 +5,14 @@ import RxFlow
 class WithdrawalReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    private let userUseCase: UserUseCase
+    
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
+    }
     
     enum Action {
+        case withdrawAlertYesButtonTapped
         case backButtonTapped
         case checkButtonTapped
     }
@@ -21,6 +27,16 @@ class WithdrawalReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .withdrawAlertYesButtonTapped:
+            return userUseCase.withdraw()
+                .flatMap { [weak self] _ -> Observable<Mutation> in
+                    self?.steps.accept(SettingStep.completeMainFlow)
+                    return .empty()
+                }
+                .catch { [weak self] _ in
+                    self?.steps.accept(SettingStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .backButtonTapped:
             self.steps.accept(SettingStep.popViewController)
             return .empty()

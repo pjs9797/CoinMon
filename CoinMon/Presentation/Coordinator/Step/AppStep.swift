@@ -9,4 +9,5 @@ enum AppStep: Step {
     case goToSigninFlow
     case completeSignupFlow
     case completeSigninFlow
+    case completeMainFlow
 }
