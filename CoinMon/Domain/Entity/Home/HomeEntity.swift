@@ -3,19 +3,19 @@ struct Market: Equatable{
     let localizationKey: String
 }
 
-struct PriceList: Equatable{
+struct CoinPriceAtHome: Equatable{
     let coinTitle: String
     let price: String
     let change: String
     let gap: String
 }
 
-struct FeeList: Equatable{
+struct CoinFee: Equatable{
     let coinTitle: String
     let fee: String
 }
 
-struct PremiumList: Equatable{
+struct CoinPremium: Equatable{
     let coinTitle: String
     let premium: String
 }

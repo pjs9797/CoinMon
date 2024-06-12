@@ -1,5 +1,5 @@
-import UIKit.UIImage
 import ReactorKit
+import Foundation
 import RxCocoa
 
 class FeeReactor: ReactorKit.Reactor {
@@ -7,8 +7,8 @@ class FeeReactor: ReactorKit.Reactor {
     
     init() {
         var markets = [
-            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "업비트"), localizationKey: "Upbit"),
-            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "빗썸"), localizationKey: "Bithumb")
+            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Binance"), localizationKey: "Binance"),
+            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Bybit"), localizationKey: "Bybit")
         ]
         
         if let savedOrder = UserDefaults.standard.stringArray(forKey: "marketOrderAtFee") {
@@ -41,11 +41,11 @@ class FeeReactor: ReactorKit.Reactor {
     struct State {
         var selectedMarket: Int = 0
         var markets: [Market]
-        var feeList: [FeeList] = [
-            FeeList(coinTitle: "BTC", fee: "0.01"),
-            FeeList(coinTitle: "ETH", fee: "0.03"),
-            FeeList(coinTitle: "XRP", fee: "0.05"),
-            FeeList(coinTitle: "SOL", fee: "0.005"),
+        var feeList: [CoinFee] = [
+            CoinFee(coinTitle: "BTC", fee: "0.01"),
+            CoinFee(coinTitle: "ETH", fee: "0.03"),
+            CoinFee(coinTitle: "XRP", fee: "0.05"),
+            CoinFee(coinTitle: "SOL", fee: "0.005"),
         ]
     }
     

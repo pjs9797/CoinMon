@@ -26,7 +26,6 @@ class AlarmViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .white
         hideKeyboard(disposeBag: disposeBag)
         alarmView.marketCollectionView.dragDelegate = self
@@ -38,6 +37,12 @@ class AlarmViewController: UIViewController, ReactorKit.View {
                 self?.alarmView.setLocalizedText()
             })
             .disposed(by: disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.isNavigationBarHidden = true
     }
 }
 
@@ -52,6 +57,11 @@ extension AlarmViewController {
             .disposed(by: disposeBag)
         
         alarmView.alarmTableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        alarmView.addAlarmButton.rx.tap
+            .map{ Reactor.Action.addAlarmButtonTapped }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         alarmView.marketCollectionView.rx.itemSelected

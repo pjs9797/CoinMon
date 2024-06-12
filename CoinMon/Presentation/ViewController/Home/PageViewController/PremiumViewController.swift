@@ -51,13 +51,13 @@ extension PremiumViewController {
             .disposed(by: disposeBag)
         
         reactor.selectDepartureMarketRelay
-            .bind(onNext: { [weak self] selectedMarket in
+            .bind(onNext: { selectedMarket in
                 reactor.action.onNext(.setDepartureMarket(selectedMarket))
             })
             .disposed(by: disposeBag)
         
         reactor.selectArrivalMarketRelay
-            .bind(onNext: { [weak self] selectedMarket in
+            .bind(onNext: { selectedMarket in
                 reactor.action.onNext(.setArrivalMarket(selectedMarket))
             })
             .disposed(by: disposeBag)

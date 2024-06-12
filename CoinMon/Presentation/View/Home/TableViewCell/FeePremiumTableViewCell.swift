@@ -17,6 +17,7 @@ class FeePremiumTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = FontManager.D9_13
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     let feePremiumView: UIView = {
@@ -55,7 +56,7 @@ class FeePremiumTableViewCell: UITableViewCell {
         feePremiumView.addSubview(feePremiumLabel)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(220*Constants.standardWidth)
+            make.width.equalTo(170*Constants.standardWidth)
             make.height.equalTo(52*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
         }
@@ -67,6 +68,7 @@ class FeePremiumTableViewCell: UITableViewCell {
         }
 
         coinLabel.snp.makeConstraints { make in
+            make.height.equalTo(42*Constants.standardHeight)
             make.leading.equalTo(coinImageView.snp.trailing).offset(6*Constants.standardWidth)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -85,13 +87,13 @@ class FeePremiumTableViewCell: UITableViewCell {
         }
     }
     
-    func configureFee(with feeList: FeeList) {
+    func configureFee(with feeList: CoinFee) {
         coinImageView.image = UIImage(named: feeList.coinTitle)
         coinLabel.text = feeList.coinTitle
         feePremiumLabel.text = feeList.fee
     }
     
-    func configurePremium(with premiumList: PremiumList) {
+    func configurePremium(with premiumList: CoinPremium) {
         coinImageView.image = UIImage(named: premiumList.coinTitle)
         coinLabel.text = premiumList.coinTitle
         feePremiumLabel.text = premiumList.premium

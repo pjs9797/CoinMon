@@ -35,7 +35,9 @@ class HomeViewController: UIViewController, ReactorKit.View {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         layout()
-        
+        if let accessToken = TokenManager.shared.loadAccessToken() {
+            print("accessToken",accessToken)
+        }
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.reactor?.action.onNext(.updateLocalizedCategories)

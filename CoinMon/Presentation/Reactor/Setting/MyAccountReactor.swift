@@ -58,7 +58,8 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.popViewController)
             return .empty()
         case .updateNickname(let nickname):
-            return .just(.setNickname(nickname))
+            var adjustedNickname = String(nickname.prefix(12))
+            return .just(.setNickname(adjustedNickname))
         case .changeNicknameButtonTapped:
             if currentState.nicknameErrorLabelHidden {
                 return .just(.setNicknameErrorLabelHidden)

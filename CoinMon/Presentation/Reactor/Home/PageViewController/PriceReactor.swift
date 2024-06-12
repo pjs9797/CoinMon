@@ -1,9 +1,10 @@
-import UIKit.UIImage
 import ReactorKit
+import Foundation
 import RxCocoa
 
 class PriceReactor: ReactorKit.Reactor {
     let initialState: State
+    private var timerDisposable: Disposable?
     
     init() {
         var markets = [
@@ -27,6 +28,8 @@ class PriceReactor: ReactorKit.Reactor {
     }
     
     enum Action {
+        case loadCoinData
+        case stopLoadCoinData
         case updateLocalizedMarkets
         case selectMarket(Int)
         case moveItem(Int, Int)
@@ -43,20 +46,30 @@ class PriceReactor: ReactorKit.Reactor {
     struct State {
         var selectedMarket: Int = 0
         var markets: [Market]
-        var priceList: [PriceList] = [
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
-            PriceList(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+        var priceList: [CoinPriceAtHome] = [
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
         ]
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .loadCoinData:
+//            timerDisposable = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.instance)
+//                .subscribe(onNext: { [weak self] _ in
+//                    self?.action.onNext(.fetchFeeData)
+//                })
+            return .empty()
+        case .stopLoadCoinData:
+            timerDisposable?.dispose()
+            timerDisposable = nil
+            return .empty()
         case .updateLocalizedMarkets:
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))

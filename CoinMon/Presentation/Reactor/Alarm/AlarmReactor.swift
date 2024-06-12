@@ -29,6 +29,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Action {
+        case addAlarmButtonTapped
         case updateLocalizedMarkets
         case selectMarket(Int)
         case moveItem(Int, Int)
@@ -55,6 +56,9 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .addAlarmButtonTapped:
+            self.steps.accept(AlarmStep.navigateToAddAlarmViewController)
+            return .empty()
         case .updateLocalizedMarkets:
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))

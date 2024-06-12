@@ -17,6 +17,7 @@ class PriceTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = FontManager.D9_13
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     let priceView: UIView = {
@@ -89,6 +90,7 @@ class PriceTableViewCell: UITableViewCell {
         }
 
         coinLabel.snp.makeConstraints { make in
+            make.height.equalTo(42*Constants.standardHeight)
             make.leading.equalTo(coinImageView.snp.trailing).offset(6*Constants.standardWidth)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -131,7 +133,7 @@ class PriceTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with priceList: PriceList) {
+    func configure(with priceList: CoinPriceAtHome) {
         coinImageView.image = UIImage(named: priceList.coinTitle)
         coinLabel.text = priceList.coinTitle
         priceLabel.text = priceList.price

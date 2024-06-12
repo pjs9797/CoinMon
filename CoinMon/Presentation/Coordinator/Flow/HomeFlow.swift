@@ -51,8 +51,8 @@ class HomeFlow: Flow {
     }
     
     private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectMarketReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay)
-        let viewController = SelectMarketViewController(with: reactor)
+        let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay)
+        let viewController = SelectMarketViewAtHomeController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 228*Constants.standardHeight
@@ -68,8 +68,8 @@ class HomeFlow: Flow {
     }
     
     private func presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectMarketReactor(selectMarketFlow: .arrival, selectedMarketRelay: selectedMarketRelay)
-        let viewController = SelectMarketViewController(with: reactor)
+        let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .arrival, selectedMarketRelay: selectedMarketRelay)
+        let viewController = SelectMarketViewAtHomeController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 228*Constants.standardHeight

@@ -39,12 +39,13 @@ class PriceViewController: UIViewController, ReactorKit.View {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.reactor?.action.onNext(.loadCoinData)
         print(111)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.reactor?.action.onNext(.stopLoadCoinData)
         print(333)
     }
 }

@@ -1,4 +1,3 @@
-import UIKit.UIImage
 import ReactorKit
 import RxCocoa
 import RxFlow
@@ -22,11 +21,11 @@ class PremiumReactor: ReactorKit.Reactor,Stepper {
     }
     
     struct State {
-        var premiumList: [PremiumList] = [
-            PremiumList(coinTitle: "BTC", premium: "0.01"),
-            PremiumList(coinTitle: "ETH", premium: "0.03"),
-            PremiumList(coinTitle: "XRP", premium: "0.05"),
-            PremiumList(coinTitle: "SOL", premium: "0.005"),
+        var premiumList: [CoinPremium] = [
+            CoinPremium(coinTitle: "BTC", premium: "0.01"),
+            CoinPremium(coinTitle: "ETH", premium: "0.03"),
+            CoinPremium(coinTitle: "XRP", premium: "0.05"),
+            CoinPremium(coinTitle: "SOL", premium: "0.005"),
         ]
         var departureMarketButtonTitle: String = "Upbit"
         var arrivalMarketButtonTitle: String = "Binance"

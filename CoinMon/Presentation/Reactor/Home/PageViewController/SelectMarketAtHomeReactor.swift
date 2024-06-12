@@ -1,9 +1,8 @@
-import UIKit.UIImage
 import ReactorKit
 import RxCocoa
 import RxFlow
 
-class SelectMarketReactor: ReactorKit.Reactor,Stepper {
+class SelectMarketAtHomeReactor: ReactorKit.Reactor,Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
     let baseDepartureMarket = [Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Upbit"), localizationKey: "Upbit"),Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Bithumb"), localizationKey: "Bithumb")]

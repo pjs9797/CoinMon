@@ -17,6 +17,7 @@ class AlarmTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = FontManager.D9_13
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     let setPriceView: UIView = {
@@ -82,6 +83,7 @@ class AlarmTableViewCell: UITableViewCell {
         }
 
         coinLabel.snp.makeConstraints { make in
+            make.height.equalTo(42*Constants.standardHeight)
             make.leading.equalTo(coinImageView.snp.trailing).offset(6*Constants.standardWidth)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()

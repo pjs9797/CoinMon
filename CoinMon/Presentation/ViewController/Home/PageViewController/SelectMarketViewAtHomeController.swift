@@ -1,11 +1,11 @@
 import UIKit
 import ReactorKit
 
-class SelectMarketViewController: UIViewController, ReactorKit.View {
+class SelectMarketViewAtHomeController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectMarketView = SelectMarketView()
     
-    init(with reactor: SelectMarketReactor) {
+    init(with reactor: SelectMarketAtHomeReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -28,20 +28,20 @@ class SelectMarketViewController: UIViewController, ReactorKit.View {
     }
 }
 
-extension SelectMarketViewController {
-    func bind(reactor: SelectMarketReactor) {
+extension SelectMarketViewAtHomeController {
+    func bind(reactor: SelectMarketAtHomeReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectMarketReactor){
+    func bindAction(reactor: SelectMarketAtHomeReactor){
         selectMarketView.marketTableView.rx.itemSelected
             .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: SelectMarketReactor){
+    func bindState(reactor: SelectMarketAtHomeReactor){
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, market, cell in

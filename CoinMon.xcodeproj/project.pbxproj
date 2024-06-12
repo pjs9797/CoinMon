@@ -88,8 +88,8 @@
 		31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */; };
 		31BCE9852C04AFA100DA2FC6 /* SelectMarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */; };
 		31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */; };
-		31BCE9892C05B19000DA2FC6 /* SelectMarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */; };
-		31BCE98D2C05B20000DA2FC6 /* SelectMarketReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */; };
+		31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */; };
+		31BCE98D2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */; };
 		31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */; };
 		31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B02C1078DC00756DFD /* MyAccountView.swift */; };
 		31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B22C10838400756DFD /* MyAccountViewController.swift */; };
@@ -135,6 +135,26 @@
 		31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */; };
 		31E0A5202C182CFD00756DFD /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A51F2C182CFD00756DFD /* UserRepository.swift */; };
 		31E0A5222C182D7A00756DFD /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5212C182D7A00756DFD /* UserUseCase.swift */; };
+		31E0A5242C196E4800756DFD /* CoinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5232C196E4800756DFD /* CoinService.swift */; };
+		31E0A5262C196E8D00756DFD /* CoinRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5252C196E8D00756DFD /* CoinRepositoryInterface.swift */; };
+		31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5272C196F5200756DFD /* CoinDTO.swift */; };
+		31E0A52A2C19849500756DFD /* CoinRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5292C19849500756DFD /* CoinRepository.swift */; };
+		31E0A52C2C1984E400756DFD /* CoinUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A52B2C1984E400756DFD /* CoinUseCase.swift */; };
+		31E0A52E2C19937200756DFD /* AddAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A52D2C19937200756DFD /* AddAlarmViewController.swift */; };
+		31E0A5302C1994D800756DFD /* AddAlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A52F2C1994D800756DFD /* AddAlarmReactor.swift */; };
+		31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift */; };
+		31E0A5342C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5332C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift */; };
+		31E0A5362C19B6D600756DFD /* AlarmConditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5352C19B6D500756DFD /* AlarmConditionTableViewCell.swift */; };
+		31E0A5382C19BC2500756DFD /* SelectAlarmConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5372C19BC2500756DFD /* SelectAlarmConditionView.swift */; };
+		31E0A53A2C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift */; };
+		31E0A53E2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A53D2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift */; };
+		31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift */; };
+		31E0A5422C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5412C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift */; };
+		31E0A5442C19CB3D00756DFD /* SelectCoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5432C19CB3D00756DFD /* SelectCoinView.swift */; };
+		31E0A5462C19CB5D00756DFD /* SelectCoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5452C19CB5D00756DFD /* SelectCoinTableViewCell.swift */; };
+		31E0A5482C19CF5A00756DFD /* SelectCoinTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5472C19CF5A00756DFD /* SelectCoinTableViewHeader.swift */; };
+		31E0A54A2C19D1F500756DFD /* SelectCoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5492C19D1F500756DFD /* SelectCoinViewController.swift */; };
+		31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A54B2C19D21300756DFD /* SelectCoinReactor.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -223,8 +243,8 @@
 		31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimiumReactor.swift; sourceTree = "<group>"; };
 		31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketView.swift; sourceTree = "<group>"; };
 		31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketTableViewCell.swift; sourceTree = "<group>"; };
-		31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewController.swift; sourceTree = "<group>"; };
-		31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketReactor.swift; sourceTree = "<group>"; };
+		31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewAtHomeController.swift; sourceTree = "<group>"; };
+		31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtHomeReactor.swift; sourceTree = "<group>"; };
 		31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
 		31E0A4B02C1078DC00756DFD /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
 		31E0A4B22C10838400756DFD /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +287,26 @@
 		31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryInterface.swift; sourceTree = "<group>"; };
 		31E0A51F2C182CFD00756DFD /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		31E0A5212C182D7A00756DFD /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
+		31E0A5232C196E4800756DFD /* CoinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinService.swift; sourceTree = "<group>"; };
+		31E0A5252C196E8D00756DFD /* CoinRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRepositoryInterface.swift; sourceTree = "<group>"; };
+		31E0A5272C196F5200756DFD /* CoinDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDTO.swift; sourceTree = "<group>"; };
+		31E0A5292C19849500756DFD /* CoinRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRepository.swift; sourceTree = "<group>"; };
+		31E0A52B2C1984E400756DFD /* CoinUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinUseCase.swift; sourceTree = "<group>"; };
+		31E0A52D2C19937200756DFD /* AddAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmViewController.swift; sourceTree = "<group>"; };
+		31E0A52F2C1994D800756DFD /* AddAlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmReactor.swift; sourceTree = "<group>"; };
+		31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtAlarmViewController.swift; sourceTree = "<group>"; };
+		31E0A5332C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtAlarmReactor.swift; sourceTree = "<group>"; };
+		31E0A5352C19B6D500756DFD /* AlarmConditionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmConditionTableViewCell.swift; sourceTree = "<group>"; };
+		31E0A5372C19BC2500756DFD /* SelectAlarmConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlarmConditionView.swift; sourceTree = "<group>"; };
+		31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFirstAlarmConditionViewController.swift; sourceTree = "<group>"; };
+		31E0A53D2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFirstAlarmConditionReactor.swift; sourceTree = "<group>"; };
+		31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSecondAlarmConditionViewController.swift; sourceTree = "<group>"; };
+		31E0A5412C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSecondAlarmConditionReactor.swift; sourceTree = "<group>"; };
+		31E0A5432C19CB3D00756DFD /* SelectCoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinView.swift; sourceTree = "<group>"; };
+		31E0A5452C19CB5D00756DFD /* SelectCoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinTableViewCell.swift; sourceTree = "<group>"; };
+		31E0A5472C19CF5A00756DFD /* SelectCoinTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinTableViewHeader.swift; sourceTree = "<group>"; };
+		31E0A5492C19D1F500756DFD /* SelectCoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinViewController.swift; sourceTree = "<group>"; };
+		31E0A54B2C19D21300756DFD /* SelectCoinReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinReactor.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -402,7 +442,10 @@
 		315C017B2C0B02CD00BE00E3 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				31E0A53B2C19BCE000756DFD /* SheetPresentation */,
 				315C017C2C0B02DE00BE00E3 /* AlarmViewController.swift */,
+				31E0A52D2C19937200756DFD /* AddAlarmViewController.swift */,
+				31E0A5492C19D1F500756DFD /* SelectCoinViewController.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -423,6 +466,8 @@
 			children = (
 				315C01842C0B132C00BE00E3 /* TableViewHeader */,
 				315C01852C0B133B00BE00E3 /* AlarmTableViewCell.swift */,
+				31E0A5352C19B6D500756DFD /* AlarmConditionTableViewCell.swift */,
+				31E0A5452C19CB5D00756DFD /* SelectCoinTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -431,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				315C01872C0B134500BE00E3 /* AlarmTableViewHeader.swift */,
+				31E0A5472C19CF5A00756DFD /* SelectCoinTableViewHeader.swift */,
 			);
 			path = TableViewHeader;
 			sourceTree = "<group>";
@@ -438,7 +484,10 @@
 		315C018B2C0B3AF400BE00E3 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				31E0A53C2C19BCF900756DFD /* SheetPresentation */,
 				315C018C2C0B3B1000BE00E3 /* AlarmReactor.swift */,
+				31E0A52F2C1994D800756DFD /* AddAlarmReactor.swift */,
+				31E0A54B2C19D21300756DFD /* SelectCoinReactor.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -703,7 +752,7 @@
 				31423C592BFC8146008AB6FD /* PriceReactor.swift */,
 				31BCE97C2C04A1C200DA2FC6 /* FeeReactor.swift */,
 				31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */,
-				31BCE98C2C05B20000DA2FC6 /* SelectMarketReactor.swift */,
+				31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */,
 			);
 			path = PageViewController;
 			sourceTree = "<group>";
@@ -714,7 +763,7 @@
 				31423C442BFB4EBC008AB6FD /* PriceViewController.swift */,
 				31423C462BFB4F27008AB6FD /* FeeViewController.swift */,
 				31423C482BFB4F65008AB6FD /* PremiumViewController.swift */,
-				31BCE9882C05B19000DA2FC6 /* SelectMarketViewController.swift */,
+				31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */,
 			);
 			path = PageViewController;
 			sourceTree = "<group>";
@@ -751,6 +800,7 @@
 				31E0A4E42C15C72100756DFD /* SignupRepository.swift */,
 				31E0A4F42C16C23700756DFD /* SigninRepository.swift */,
 				31E0A51F2C182CFD00756DFD /* UserRepository.swift */,
+				31E0A5292C19849500756DFD /* CoinRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -761,6 +811,7 @@
 				31E0A4E22C15BF0B00756DFD /* SignupDTO.swift */,
 				31E0A4F22C16C22300756DFD /* SigninDTO.swift */,
 				31E0A5182C182BE300756DFD /* UserDTO.swift */,
+				31E0A5272C196F5200756DFD /* CoinDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -771,6 +822,7 @@
 				31E0A4DB2C158F3F00756DFD /* SignupService.swift */,
 				31E0A5062C16FEE500756DFD /* SigninService.swift */,
 				31E0A5162C1827A700756DFD /* UserService.swift */,
+				31E0A5232C196E4800756DFD /* CoinService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -781,6 +833,7 @@
 				31E0A4E82C15D6B400756DFD /* SignupUseCase.swift */,
 				31E0A5082C16FFE300756DFD /* SigninUseCase.swift */,
 				31E0A5212C182D7A00756DFD /* UserUseCase.swift */,
+				31E0A52B2C1984E400756DFD /* CoinUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -791,6 +844,7 @@
 				31E0A4E62C15C75C00756DFD /* SignupRepositoryInterface.swift */,
 				31E0A50A2C16FFEE00756DFD /* SigninRepositoryInterface.swift */,
 				31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */,
+				31E0A5252C196E8D00756DFD /* CoinRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -829,6 +883,8 @@
 			isa = PBXGroup;
 			children = (
 				31E0A5102C17201000756DFD /* AddAlarmView.swift */,
+				31E0A5372C19BC2500756DFD /* SelectAlarmConditionView.swift */,
+				31E0A5432C19CB3D00756DFD /* SelectCoinView.swift */,
 			);
 			path = AddAlarm;
 			sourceTree = "<group>";
@@ -847,6 +903,26 @@
 				31E0A51B2C182C4100756DFD /* UserData.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		31E0A53B2C19BCE000756DFD /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift */,
+				31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift */,
+				31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31E0A53C2C19BCF900756DFD /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31E0A5332C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift */,
+				31E0A53D2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift */,
+				31E0A5412C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift */,
+			);
+			path = SheetPresentation;
 			sourceTree = "<group>";
 		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
@@ -966,9 +1042,11 @@
 				31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */,
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
+				31E0A5342C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift in Sources */,
 				31F791702BECED2700A7CABB /* AgreeToTermsOfServiceView.swift in Sources */,
 				31E0A4C72C108D9E00756DFD /* MyAccountReactor.swift in Sources */,
 				315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */,
+				31E0A5382C19BC2500756DFD /* SelectAlarmConditionView.swift in Sources */,
 				314636A92C06005E008A5629 /* SettingReactor.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
 				31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */,
@@ -977,10 +1055,12 @@
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
 				31E0A5092C16FFE300756DFD /* SigninUseCase.swift in Sources */,
 				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,
+				31E0A5262C196E8D00756DFD /* CoinRepositoryInterface.swift in Sources */,
 				31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */,
 				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
 				31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */,
 				31423C472BFB4F27008AB6FD /* FeeViewController.swift in Sources */,
+				31E0A5362C19B6D600756DFD /* AlarmConditionTableViewCell.swift in Sources */,
 				314636A72C060056008A5629 /* SettingViewController.swift in Sources */,
 				31BCE97B2C04A07500DA2FC6 /* FeeTableViewHeader.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
@@ -993,6 +1073,7 @@
 				31E0A4F32C16C22300756DFD /* SigninDTO.swift in Sources */,
 				31E0A5172C1827A700756DFD /* UserService.swift in Sources */,
 				31E0A4FC2C16CC6A00756DFD /* PrivacyPolicyViewController.swift in Sources */,
+				31E0A5482C19CF5A00756DFD /* SelectCoinTableViewHeader.swift in Sources */,
 				31E0A4F12C16B5EE00756DFD /* SigninEmailVerificationNumberReactor.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
 				31E0A50D2C1711F500756DFD /* KeychainHelper.swift in Sources */,
@@ -1002,26 +1083,35 @@
 				314636A32C05FBCD008A5629 /* SettingView.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
+				31E0A5442C19CB3D00756DFD /* SelectCoinView.swift in Sources */,
 				31E0A4E92C15D6B400756DFD /* SignupUseCase.swift in Sources */,
 				31E0A50B2C16FFEE00756DFD /* SigninRepositoryInterface.swift in Sources */,
 				315C01802C0B045000BE00E3 /* AlarmView.swift in Sources */,
 				31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */,
 				31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
+				31E0A5242C196E4800756DFD /* CoinService.swift in Sources */,
+				31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */,
 				31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */,
+				31E0A53E2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift in Sources */,
 				31777A302BE766B2006E8378 /* SigninEmailEntryReactor.swift in Sources */,
 				31E0A4F52C16C23700756DFD /* SigninRepository.swift in Sources */,
+				31E0A52C2C1984E400756DFD /* CoinUseCase.swift in Sources */,
 				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
+				31E0A52A2C19849500756DFD /* CoinRepository.swift in Sources */,
+				31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */,
 				31E0A5032C16CCB200756DFD /* PrivacyPolicyReactor.swift in Sources */,
 				31423C502BFB5946008AB6FD /* PriceView.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
+				31E0A52E2C19937200756DFD /* AddAlarmViewController.swift in Sources */,
+				31E0A53A2C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift in Sources */,
 				31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */,
 				314636A02C05FB9D008A5629 /* SettingFlow.swift in Sources */,
 				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
 				31E0A5012C16CCA400756DFD /* TermsOfServiceReactor.swift in Sources */,
-				31BCE98D2C05B20000DA2FC6 /* SelectMarketReactor.swift in Sources */,
+				31BCE98D2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31E0A51C2C182C4100756DFD /* UserData.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
@@ -1029,19 +1119,23 @@
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
+				31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */,
 				31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
+				31E0A5462C19CB5D00756DFD /* SelectCoinTableViewCell.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* SigninEmailEntryViewController.swift in Sources */,
-				31BCE9892C05B19000DA2FC6 /* SelectMarketViewController.swift in Sources */,
+				31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift in Sources */,
+				31E0A54A2C19D1F500756DFD /* SelectCoinViewController.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceViewController.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
 				31E0A5152C1824BC00756DFD /* AuthTokens.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
+				31E0A5302C1994D800756DFD /* AddAlarmReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
 				31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */,
@@ -1055,6 +1149,7 @@
 				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* Constants.swift in Sources */,
 				31E0A4E72C15C75C00756DFD /* SignupRepositoryInterface.swift in Sources */,
+				31E0A5422C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift in Sources */,
 				31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */,
 				31E0A4E52C15C72100756DFD /* SignupRepository.swift in Sources */,
 				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
@@ -1062,6 +1157,7 @@
 				315C018F2C0B3D2C00BE00E3 /* AlarmStep.swift in Sources */,
 				31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* SigninEmailEntryView.swift in Sources */,
+				31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift in Sources */,
 				315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */,
 				31E0A4E32C15BF0B00756DFD /* SignupDTO.swift in Sources */,
 				31E0A4ED2C16B51900756DFD /* SignupEmailVerificationNumberReactor.swift in Sources */,
