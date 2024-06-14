@@ -25,6 +25,7 @@ class SelectFirstAlarmConditionViewController: UIViewController, ReactorKit.View
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        selectAlarmConditionView.alarmConditionTableView.goToMiddle()
     }
 }
 
@@ -47,6 +48,7 @@ extension SelectFirstAlarmConditionViewController {
             .bind(to: selectAlarmConditionView.alarmConditionTableView.rx.items(cellIdentifier: "AlarmConditionTableViewCell", cellType: AlarmConditionTableViewCell.self)){ row, condition, cell in
                 let conditionToString = "\(condition)%"
                 cell.configure(with: conditionToString)
+                cell.configureTextColor(with: condition)
             }
             .disposed(by: disposeBag)
     }

@@ -8,7 +8,7 @@ enum UserService {
 }
 
 extension UserService: TargetType {
-    var baseURL: URL { return URL(string: "http://43.200.255.44:8080/api/v1/user/")! }
+    var baseURL: URL { return URL(string: "http://54.180.226.58:8080/api/v1/user/")! }
     var path: String {
         switch self {
         case .withdraw:
@@ -42,8 +42,8 @@ extension UserService: TargetType {
     }
     
     var headers: [String : String]? {
-        if let accessToken = TokenManager.shared.loadAccessToken() {
-            return ["Content-Type": "application/json", "Authorization": "Bearer \(accessToken)"]
+        if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
+            return ["Content-Type": "application/json", "Authorization": "Bearer \(accessToken)", "Authorization-refresh": "Bearer \(refreshToken)"]
         }
         return ["Content-Type": "application/json"]
     }

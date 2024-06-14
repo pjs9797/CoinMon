@@ -11,8 +11,8 @@ class SignupCompletedView: UIView {
     }()
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 40*Constants.standardHeight
-        imageView.image = ImageManager.circle_Check?.withTintColor(ColorManager.yellow_70!)
+        imageView.layer.cornerRadius = 50*Constants.standardHeight
+        imageView.image = ImageManager.check_Yellow
         return imageView
     }()
     let signupCompletedButton: UIButton = {
@@ -52,7 +52,7 @@ class SignupCompletedView: UIView {
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(80*Constants.standardHeight)
+            make.width.height.equalTo(100*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(signupCompletedLabel.snp.bottom).offset(80*Constants.standardHeight)
         }

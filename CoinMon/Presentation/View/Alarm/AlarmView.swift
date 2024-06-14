@@ -50,10 +50,11 @@ class AlarmView: UIView {
         searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
         addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가버튼"), for: .normal)
         alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가"), for: .normal)
+        noneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "알림 없음")
     }
     
     private func layout() {
-        [alarmLabel,addAlarmButton,marketCollectionView,searchView,noneAlarmView,alarmTableViewHeader,alarmTableView]
+        [alarmLabel,addAlarmButton,marketCollectionView,searchView,alarmTableViewHeader,alarmTableView,noneAlarmView]
             .forEach{
                 addSubview($0)
             }
@@ -85,13 +86,6 @@ class AlarmView: UIView {
             make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
         }
         
-        noneAlarmView.snp.makeConstraints { make in
-            make.width.equalTo(335*Constants.standardWidth)
-            make.height.equalTo(146*Constants.standardHeight)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom).offset(100*Constants.standardHeight)
-        }
-        
         alarmTableViewHeader.snp.makeConstraints { make in
             make.height.equalTo(32*Constants.standardHeight)
             make.leading.trailing.equalToSuperview()
@@ -101,6 +95,13 @@ class AlarmView: UIView {
         alarmTableView.snp.makeConstraints { make in
             make.top.equalTo(alarmTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        noneAlarmView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }

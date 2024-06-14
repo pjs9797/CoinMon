@@ -134,7 +134,7 @@ class PriceTableViewCell: UITableViewCell {
     }
     
     func configure(with priceList: CoinPriceAtHome) {
-        coinImageView.image = UIImage(named: priceList.coinTitle)
+        coinImageView.image = UIImage(named: priceList.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = priceList.coinTitle
         priceLabel.text = priceList.price
         changeLabel.text = priceList.change

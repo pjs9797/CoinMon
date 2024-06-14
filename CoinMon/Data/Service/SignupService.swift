@@ -11,7 +11,7 @@ enum SignupService {
 }
 
 extension SignupService: TargetType {
-    var baseURL: URL { return URL(string: "http://43.200.255.44:8080/api/v1/user/")! }
+    var baseURL: URL { return URL(string: "http://54.180.226.58:8080/api/v1/user/")! }
     var path: String {
         switch self {
         case .checkEmail:

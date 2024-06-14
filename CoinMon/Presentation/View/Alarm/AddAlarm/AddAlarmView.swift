@@ -13,6 +13,7 @@ class AddAlarmView: UIView {
         button.titleLabel?.font = FontManager.D7_15
         button.backgroundColor = ColorManager.gray_99
         button.layer.cornerRadius = 12*Constants.standardHeight
+        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*Constants.standardWidth)
         return button
     }()
     let coinLabel: UILabel = {
@@ -26,6 +27,7 @@ class AddAlarmView: UIView {
         button.titleLabel?.font = FontManager.D7_15
         button.backgroundColor = ColorManager.gray_99
         button.layer.cornerRadius = 12*Constants.standardHeight
+        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*Constants.standardWidth)
         return button
     }()
     let currentPriceLabel: UILabel = {
@@ -34,14 +36,23 @@ class AddAlarmView: UIView {
         label.textColor = ColorManager.common_0
         return label
     }()
+    let currentCoinPriceView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.gray_99
+        view.layer.cornerRadius = 12*Constants.standardHeight
+        return view
+    }()
     let currentCoinPriceLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H5_15
         label.textColor = ColorManager.common_0
-        label.backgroundColor = ColorManager.gray_99
-        label.layer.cornerRadius = 12*Constants.standardHeight
-        label.clipsToBounds = true
         label.textAlignment = .center
+        return label
+    }()
+    let currentCoinPriceUnitLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.H5_15
+        label.textColor = ColorManager.common_0
         return label
     }()
     let setPriceLabel: UILabel = {
@@ -50,15 +61,24 @@ class AddAlarmView: UIView {
         label.textColor = ColorManager.common_0
         return label
     }()
+    let setPriceView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.gray_99
+        view.layer.cornerRadius = 12*Constants.standardHeight
+        return view
+    }()
     let setPriceTextField: UITextField = {
         let textField = UITextField()
         textField.font = FontManager.D7_15
         textField.textColor = ColorManager.common_0
-        textField.backgroundColor = ColorManager.gray_99
-        textField.layer.cornerRadius = 12*Constants.standardHeight
-        textField.clipsToBounds = true
         textField.textAlignment = .center
         return textField
+    }()
+    let setPriceUnitLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.D7_15
+        label.textColor = ColorManager.common_0
+        return label
     }()
     let comparePriceLabel: UILabel = {
         let label = UILabel()
@@ -87,6 +107,13 @@ class AddAlarmView: UIView {
         button.layer.cornerRadius = 12*Constants.standardHeight
         return button
     }()
+    let completeButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.titleLabel?.font = FontManager.D6_16
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,12 +132,23 @@ class AddAlarmView: UIView {
         setPriceLabel.text = LocalizationManager.shared.localizedString(forKey: "설정가")
         comparePriceLabel.text = LocalizationManager.shared.localizedString(forKey: "현재가 대비")
         cycleLabel.text = LocalizationManager.shared.localizedString(forKey: "주기")
+        completeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "완료"), for: .normal)
     }
     
     private func layout() {
-        [marketButton,marketLabel,coinButton,coinLabel,currentCoinPriceLabel,currentPriceLabel,setPriceTextField,setPriceLabel,comparePriceButton,comparePriceLabel,cycleButton,cycleLabel]
+        [marketButton,marketLabel,coinButton,coinLabel,currentCoinPriceView,currentPriceLabel,setPriceView,setPriceLabel,comparePriceButton,comparePriceLabel,cycleButton,cycleLabel,completeButton]
             .forEach{
                 addSubview($0)
+            }
+        
+        [currentCoinPriceUnitLabel,currentCoinPriceLabel]
+            .forEach{
+                currentCoinPriceView.addSubview($0)
+            }
+        
+        [setPriceUnitLabel,setPriceTextField]
+            .forEach{
+                setPriceView.addSubview($0)
             }
         
         marketButton.snp.makeConstraints { make in
@@ -139,11 +177,23 @@ class AddAlarmView: UIView {
             make.centerY.equalTo(coinButton)
         }
         
-        currentCoinPriceLabel.snp.makeConstraints { make in
+        currentCoinPriceView.snp.makeConstraints { make in
             make.width.equalTo(232*Constants.standardWidth)
             make.height.equalTo(48*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(coinButton.snp.bottom).offset(12*Constants.standardHeight)
+        }
+        
+        currentCoinPriceUnitLabel.snp.makeConstraints { make in
+            make.width.equalTo(60*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-5*Constants.standardWidth)
+            make.centerY.equalToSuperview()
+        }
+        
+        currentCoinPriceLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(10*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-10*Constants.standardWidth)
+            make.centerY.equalToSuperview()
         }
         
         currentPriceLabel.snp.makeConstraints { make in
@@ -152,11 +202,23 @@ class AddAlarmView: UIView {
             make.centerY.equalTo(currentCoinPriceLabel)
         }
         
-        setPriceTextField.snp.makeConstraints { make in
+        setPriceView.snp.makeConstraints { make in
             make.width.equalTo(232*Constants.standardWidth)
             make.height.equalTo(48*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(currentCoinPriceLabel.snp.bottom).offset(12*Constants.standardHeight)
+            make.top.equalTo(currentCoinPriceView.snp.bottom).offset(12*Constants.standardHeight)
+        }
+        
+        setPriceUnitLabel.snp.makeConstraints { make in
+            make.width.equalTo(60*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-5*Constants.standardWidth)
+            make.centerY.equalToSuperview()
+        }
+        
+        setPriceTextField.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(10*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-10*Constants.standardWidth)
+            make.centerY.equalToSuperview()
         }
         
         setPriceLabel.snp.makeConstraints { make in
@@ -169,7 +231,7 @@ class AddAlarmView: UIView {
             make.width.equalTo(232*Constants.standardWidth)
             make.height.equalTo(48*Constants.standardHeight)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(setPriceTextField.snp.bottom).offset(12*Constants.standardHeight)
+            make.top.equalTo(setPriceView.snp.bottom).offset(12*Constants.standardHeight)
         }
         
         comparePriceLabel.snp.makeConstraints { make in
@@ -190,6 +252,13 @@ class AddAlarmView: UIView {
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalTo(cycleButton.snp.leading).offset(-12*Constants.standardWidth)
             make.centerY.equalTo(cycleButton)
+        }
+        
+        completeButton.snp.makeConstraints { make in
+            make.height.equalTo(52*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
         }
     }
 }

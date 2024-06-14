@@ -47,7 +47,7 @@ class PriceReactor: ReactorKit.Reactor {
         var selectedMarket: Int = 0
         var markets: [Market]
         var priceList: [CoinPriceAtHome] = [
-            CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
+            CoinPriceAtHome(coinTitle: "aaa", price: "999999", change: "10.13%", gap: "12.32%"),
             CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
             CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),
             CoinPriceAtHome(coinTitle: "BTC", price: "999999", change: "10.13%", gap: "12.32%"),

@@ -1,5 +1,4 @@
 import RxSwift
-import Foundation
 
 class UserUseCase {
     private let repository: UserRepositoryInterface

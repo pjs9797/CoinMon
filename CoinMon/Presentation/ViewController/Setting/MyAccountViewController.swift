@@ -112,9 +112,9 @@ extension MyAccountViewController {
             .bind(onNext: { [weak self] type in
                 switch type{
                 case "COINMON":
-                    self?.myAccountView.loginTypeImageView.image = UIImage(named: "profileImage1")
+                    self?.myAccountView.loginTypeImageView.image = ImageManager.login_coinmon
                 default:
-                    self?.myAccountView.loginTypeImageView.image = UIImage(named: "profileImage1")
+                    self?.myAccountView.loginTypeImageView.image = ImageManager.login_coinmon
                 }
             })
             .disposed(by: disposeBag)

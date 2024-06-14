@@ -67,6 +67,17 @@ extension UIFont {
     }
 }
 
+extension UIImage {
+    func resizeTo20() -> UIImage? {
+        let size = CGSize(width: 20*Constants.standardHeight, height: 20*Constants.standardHeight)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+}
+
 extension UIButton {
     func setUnderline() {
         guard let title = title(for: .normal) else { return }
@@ -81,6 +92,17 @@ extension UIButton {
         ], range: NSRange(location: 0, length: title.count))
         
         setAttributedTitle(attributedString, for: .normal)
+    }
+}
+
+extension UITableView {
+    func goToMiddle() {
+        DispatchQueue.main.async {
+            let row = self.numberOfRows(inSection: 0) - 1
+            
+            let indexPath = IndexPath(row: row/2-3, section: 0)
+            self.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
 }
 

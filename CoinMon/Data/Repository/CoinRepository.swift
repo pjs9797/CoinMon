@@ -5,18 +5,30 @@ import RxSwift
 class CoinRepository: CoinRepositoryInterface {
     private let provider = MoyaProvider<CoinService>()
     
-    func fetchCoinPriceList() -> Observable<[CoinPriceAtHome]> {
-        return provider.rx.request(.getCoinData)
+    func fetchCoinPriceAtHome(exchange: String) -> Observable<[CoinPriceAtHome]> {
+        return provider.rx.request(.getCoinData(exchange: exchange))
             .filterSuccessfulStatusCodes()
             .map(CoinPriceResponseDTO.self)
-            .map { CoinPriceResponseDTO.toPriceLists(dto: $0) }
+            .map { CoinPriceResponseDTO.toPriceListsAtHome(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)
             }
     }
     
-    func fetchCoinFeeList() -> Observable<[CoinFee]> {
+    func fetchCoinPriceAtAlarm(exchange: String) -> Observable<[CoinPriceAtAlarm]> {
+        return provider.rx.request(.getCoinData(exchange: exchange))
+            .debug("getCoinData")
+            .filterSuccessfulStatusCodes()
+            .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toPriceListsAtAlarm(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func fetchCoinFee() -> Observable<[CoinFee]> {
         return Observable.just([])
     }
 }

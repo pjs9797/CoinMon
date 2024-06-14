@@ -35,6 +35,7 @@ class SelectCoinViewController: UIViewController, ReactorKit.View {
                 self?.selectCoinView.setLocalizedText()
             })
             .disposed(by: disposeBag)
+        self.reactor?.action.onNext(.loadCoinData)
     }
     
     private func setNavigationbar() {

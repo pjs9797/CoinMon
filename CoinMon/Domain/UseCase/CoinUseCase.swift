@@ -1,5 +1,4 @@
 import RxSwift
-import Foundation
 
 class CoinUseCase {
     private let repository: CoinRepositoryInterface
@@ -8,10 +7,17 @@ class CoinUseCase {
         self.repository = repository
     }
     
-    func fetchCoinPriceList() -> Observable<[CoinPriceAtHome]> {
-        return repository.fetchCoinPriceList()
+    func fetchCoinPriceList(exchange: String) -> Observable<[CoinPriceAtHome]> {
+        let exchangeUpper = exchange.uppercased()
+        return repository.fetchCoinPriceAtHome(exchange: exchangeUpper)
     }
+    
+    func fetchCoinPriceAtAlarm(exchange: String) -> Observable<[CoinPriceAtAlarm]> {
+        let exchangeUpper = exchange.uppercased()
+        return repository.fetchCoinPriceAtAlarm(exchange: exchangeUpper)
+    }
+    
     func fetchCoinFeeList() -> Observable<[CoinFee]> {
-        return repository.fetchCoinFeeList()
+        return repository.fetchCoinFee()
     }
 }

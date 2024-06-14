@@ -11,6 +11,7 @@ class NoneAlarmView: UIView {
         let label = UILabel()
         label.font = FontManager.B3_16
         label.textColor = ColorManager.gray_70
+        label.textAlignment = .center
         label.numberOfLines = 2
         return label
     }()
@@ -18,6 +19,7 @@ class NoneAlarmView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = .white
         layout()
     }
     
@@ -34,7 +36,7 @@ class NoneAlarmView: UIView {
         noneAlarmImageView.snp.makeConstraints { make in
             make.width.height.equalTo(50*Constants.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(16*Constants.standardHeight)
+            make.centerY.equalToSuperview()
         }
         
         noneAlarmLabel.snp.makeConstraints { make in

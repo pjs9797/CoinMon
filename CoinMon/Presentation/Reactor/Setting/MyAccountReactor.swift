@@ -50,7 +50,7 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
                         .just(.setEmail(data.email))
                     ])
                 }
-                .catch { [weak self] _ in
+                .catch { [weak self] error in
                     self?.steps.accept(SettingStep.presentToNetworkErrorAlertController)
                     return .empty()
                 }
@@ -58,7 +58,7 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.popViewController)
             return .empty()
         case .updateNickname(let nickname):
-            var adjustedNickname = String(nickname.prefix(12))
+            let adjustedNickname = String(nickname.prefix(12))
             return .just(.setNickname(adjustedNickname))
         case .changeNicknameButtonTapped:
             if currentState.nicknameErrorLabelHidden {

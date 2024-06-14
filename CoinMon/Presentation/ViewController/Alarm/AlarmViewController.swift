@@ -43,6 +43,7 @@ class AlarmViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.navigationController?.isNavigationBarHidden = true
+        self.reactor?.action.onNext(.selectMarket(reactor?.currentState.selectedMarket ?? 0))
     }
 }
 
@@ -68,6 +69,12 @@ extension AlarmViewController {
             .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        alarmView.searchView.searchTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .map { Reactor.Action.updateSearchText($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: AlarmReactor){
@@ -83,10 +90,50 @@ extension AlarmViewController {
             }
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.alarms }
+        reactor.state.map { $0.filteredAlarms }
+            .distinctUntilChanged()
             .bind(to: alarmView.alarmTableView.rx.items(cellIdentifier: "AlarmTableViewCell", cellType: AlarmTableViewCell.self)) { (index, alarm, cell) in
                 cell.configure(with: alarm)
+                
+                cell.alarmSwitch.rx.isOn.changed
+                    .map { isOn in
+                        Reactor.Action.toggleAlarmSwitch(alarm: alarm, isOn: isOn)
+                    }
+                    .bind(to: reactor.action)
+                    .disposed(by: cell.disposeBag)
             }
+            .disposed(by: disposeBag)
+        
+//                reactor.state.map{ $0.onCnt }
+//                    .distinctUntilChanged()
+//                    .bind(onNext: { [weak self] cnt in
+//                if cnt == 20 {
+//                    self?.alarmView.alarmTableViewHeader.onCntLabel.textColor = ColorManager.red_50
+//                }
+//                else {
+//                    self?.alarmView.alarmTableViewHeader.onCntLabel.textColor = ColorManager.gray_50
+//                }
+//                self?.alarmView.alarmTableViewHeader.onCntLabel.text = "\(cnt) / 20"
+//            })
+//            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.totalCnt }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] cnt in
+                if cnt == 0 {
+                    self?.alarmView.noneAlarmView.isHidden = false
+                }
+                else {
+                    self?.alarmView.noneAlarmView.isHidden = true
+                }
+                if cnt == 20 {
+                    self?.alarmView.alarmTableViewHeader.totalCntLabel.textColor = ColorManager.red_50
+                }
+                else {
+                    self?.alarmView.alarmTableViewHeader.totalCntLabel.textColor = ColorManager.gray_50
+                }
+                self?.alarmView.alarmTableViewHeader.totalCntLabel.text = "\(cnt) / 20"
+            })
             .disposed(by: disposeBag)
     }
 }
@@ -142,8 +189,9 @@ extension AlarmViewController: UICollectionViewDragDelegate, UICollectionViewDro
 extension AlarmViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: LocalizationManager.shared.localizedString(forKey: "삭제")) { [weak self] (action, view, completionHandler) in
-            
-            self?.reactor?.action.onNext(.deleteAlarm(indexPath.row))
+            let cell = tableView.cellForRow(at: indexPath) as? AlarmTableViewCell
+            let alarmId = cell?.alarmId
+            self?.reactor?.action.onNext(.deleteAlarm(alarmId ?? 0, indexPath.row))
             completionHandler(true)
         }
         deleteAction.backgroundColor = .red

@@ -22,6 +22,7 @@ struct ImageManager {
     static let upbit = UIImage(named: "Upbit")
     static let bithumb = UIImage(named: "Bithumb")
     //check
+    static let check_Yellow = UIImage(named: "Check_Yellow")
     static let circle_Check = UIImage(named: "Circle_Check")
     static let circle_Check_Orange = UIImage(named: "Circle_Check_Orange")
     static let check = UIImage(named: "Check")
@@ -30,6 +31,10 @@ struct ImageManager {
     static let square_Check_Select = UIImage(named: "Square_Check_Select")
     //sort
     static let sort = UIImage(named: "sort")
+    //loginType
+    static let login_kakao = UIImage(named: "login_kakao")
+    static let login_apple = UIImage(named: "login_apple")
+    static let login_coinmon = UIImage(named: "login_coinmon")
     //else
     static let loginCoinMon = UIImage(named: "loginCoinMon")
     static let iconClear = UIImage(named: "iconClear")

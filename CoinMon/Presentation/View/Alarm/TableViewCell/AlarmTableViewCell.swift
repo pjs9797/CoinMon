@@ -1,7 +1,12 @@
 import UIKit
+import RxSwift
 import SnapKit
 
 class AlarmTableViewCell: UITableViewCell {
+    var disposeBag = DisposeBag()
+    var alarmId: Int = 0
+    var filter: String = "UP"
+    var cycle: String = "0"
     let coinView: UIView = {
         let view = UIView()
         return view
@@ -26,13 +31,7 @@ class AlarmTableViewCell: UITableViewCell {
     }()
     let setPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.D9_13
-        label.textAlignment = .left
-        return label
-    }()
-    let currentPriceLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T6_13
+        label.font = FontManager.H7_13
         label.textAlignment = .left
         return label
     }()
@@ -54,6 +53,11 @@ class AlarmTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
 
     private func layout(){
         [coinView,setPriceView,alarmSwitch]
@@ -65,10 +69,7 @@ class AlarmTableViewCell: UITableViewCell {
             .forEach {
                 coinView.addSubview($0)
             }
-        [setPriceLabel,currentPriceLabel]
-            .forEach{
-                setPriceView.addSubview($0)
-            }
+        setPriceView.addSubview(setPriceLabel)
         
         coinView.snp.makeConstraints { make in
             make.width.equalTo(121*Constants.standardWidth)
@@ -90,24 +91,16 @@ class AlarmTableViewCell: UITableViewCell {
         }
         
         setPriceView.snp.makeConstraints { make in
-            make.width.equalTo(148*Constants.standardWidth)
+            make.width.equalTo(108*Constants.standardWidth)
             make.height.equalTo(36*Constants.standardHeight)
             make.leading.equalTo(coinView.snp.trailing)
             make.centerY.equalToSuperview()
         }
         
         setPriceLabel.snp.makeConstraints { make in
-            make.width.equalTo(148*Constants.standardWidth)
-            make.height.equalTo(18*Constants.standardHeight)
+            make.width.equalTo(108*Constants.standardWidth)
             make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-        }
-        
-        currentPriceLabel.snp.makeConstraints { make in
-            make.width.equalTo(148*Constants.standardWidth)
-            make.height.equalTo(18*Constants.standardHeight)
-            make.leading.equalToSuperview()
-            make.top.equalTo(setPriceLabel.snp.bottom)
+            make.centerY.equalToSuperview()
         }
         
         alarmSwitch.snp.makeConstraints { make in
@@ -118,11 +111,13 @@ class AlarmTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with alarmList: AlarmList) {
-        coinImageView.image = UIImage(named: alarmList.coinTitle)
-        coinLabel.text = alarmList.coinTitle
-        setPriceLabel.text = String(alarmList.setPrice)
-        currentPriceLabel.text = String(alarmList.currentPrice)
-        alarmSwitch.isOn = alarmList.isOn
+    func configure(with alarm: Alarm) {
+        coinImageView.image = UIImage(named: alarm.coinTitle)
+        coinLabel.text = alarm.coinTitle
+        setPriceLabel.text = alarm.setPrice
+        alarmSwitch.isOn = alarm.isOn
+        alarmId = alarm.alarmId
+        filter = alarm.filter
+        cycle = alarm.cycle
     }
 }

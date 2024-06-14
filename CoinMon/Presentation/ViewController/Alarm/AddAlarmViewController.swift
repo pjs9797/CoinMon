@@ -66,7 +66,7 @@ extension AddAlarmViewController {
             .disposed(by: disposeBag)
         
         addAlarmView.setPriceTextField.rx.text.orEmpty
-            .map{ Reactor.Action.updateSetPrice($0) }
+            .map { Reactor.Action.updateSetPrice($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -77,6 +77,11 @@ extension AddAlarmViewController {
         
         addAlarmView.cycleButton.rx.tap
             .map{ Reactor.Action.cycleButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        addAlarmView.completeButton.rx.tap
+            .map{ Reactor.Action.completeButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -113,7 +118,7 @@ extension AddAlarmViewController {
                 if let market = market {
                     self?.addAlarmView.marketButton.setTitle(LocalizationManager.shared.localizedString(forKey: market), for: .normal)
                     self?.addAlarmView.marketButton.setTitleColor(ColorManager.common_0, for: .normal)
-                    self?.addAlarmView.marketButton.setImage(UIImage(named: market), for: .normal)
+                    self?.addAlarmView.marketButton.setImage(UIImage(named: market)?.resizeTo20(), for: .normal)
                     self?.addAlarmView.coinButton.isEnabled = true
                 }
                 else {
@@ -130,7 +135,8 @@ extension AddAlarmViewController {
                 if let coin = coin {
                     self?.addAlarmView.coinButton.setTitle(coin, for: .normal)
                     self?.addAlarmView.coinButton.setTitleColor(ColorManager.common_0, for: .normal)
-                    self?.addAlarmView.coinButton.setImage(UIImage(named: coin), for: .normal)
+                    
+                    self?.addAlarmView.coinButton.setImage(UIImage(named: coin)?.resizeTo20() ?? ImageManager.login_coinmon?.resizeTo20(), for: .normal)
                     self?.addAlarmView.setPriceTextField.isEnabled = true
                     self?.addAlarmView.comparePriceButton.isEnabled = true
                 }
@@ -152,13 +158,28 @@ extension AddAlarmViewController {
             })
             .disposed(by: disposeBag)
         
+        reactor.state.map{ $0.currentPriceUnit }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] unit in
+                if let unit = unit {
+                    self?.addAlarmView.currentCoinPriceUnitLabel.text = unit
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.setPrice }
             .bind(onNext: { [weak self] price in
                 if let price = price {
                     self?.addAlarmView.setPriceTextField.text = price
                 }
-                else {
-                    self?.addAlarmView.setPriceTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "선택")
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.setPriceUnit }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] unit in
+                if let unit = unit {
+                    self?.addAlarmView.setPriceUnitLabel.text = unit
                 }
             })
             .disposed(by: disposeBag)
@@ -166,7 +187,7 @@ extension AddAlarmViewController {
         reactor.state.map{ $0.comparePrice }
             .bind(onNext: { [weak self] condition in
                 if let condition = condition {
-                    self?.addAlarmView.comparePriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: condition), for: .normal)
+                    self?.addAlarmView.comparePriceButton.setTitle("\(condition)%", for: .normal)
                     self?.addAlarmView.comparePriceButton.setTitleColor(ColorManager.common_0, for: .normal)
                 }
                 else {
@@ -186,6 +207,14 @@ extension AddAlarmViewController {
                     self?.addAlarmView.cycleButton.setTitle(LocalizationManager.shared.localizedString(forKey: "선택"), for: .normal)
                     self?.addAlarmView.cycleButton.setTitleColor(ColorManager.gray_90, for: .normal)
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.isCompleteButtonEnable }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] isEnable in
+                self?.addAlarmView.completeButton.isEnabled = isEnable ? true : false
+                self?.addAlarmView.completeButton.backgroundColor = isEnable ? ColorManager.orange_60 : ColorManager.gray_90
             })
             .disposed(by: disposeBag)
     }

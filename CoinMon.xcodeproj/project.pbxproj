@@ -155,6 +155,13 @@
 		31E0A5482C19CF5A00756DFD /* SelectCoinTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5472C19CF5A00756DFD /* SelectCoinTableViewHeader.swift */; };
 		31E0A54A2C19D1F500756DFD /* SelectCoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5492C19D1F500756DFD /* SelectCoinViewController.swift */; };
 		31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A54B2C19D21300756DFD /* SelectCoinReactor.swift */; };
+		31E0A54E2C1AFDB200756DFD /* AlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A54D2C1AFDB200756DFD /* AlarmService.swift */; };
+		31E0A5502C1B05F500756DFD /* AlarmDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A54F2C1B05F500756DFD /* AlarmDTO.swift */; };
+		31E0A5522C1B064900756DFD /* AlarmRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5512C1B064900756DFD /* AlarmRepositoryInterface.swift */; };
+		31E0A5542C1B071600756DFD /* AlarmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5532C1B071600756DFD /* AlarmRepository.swift */; };
+		31E0A5562C1B096B00756DFD /* AlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5552C1B096B00756DFD /* AlarmUseCase.swift */; };
+		31E0A5582C1B28DF00756DFD /* ModifyAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5572C1B28DF00756DFD /* ModifyAlarmViewController.swift */; };
+		31E0A55A2C1B28F900756DFD /* ModifyAlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5592C1B28F900756DFD /* ModifyAlarmReactor.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -307,6 +314,13 @@
 		31E0A5472C19CF5A00756DFD /* SelectCoinTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinTableViewHeader.swift; sourceTree = "<group>"; };
 		31E0A5492C19D1F500756DFD /* SelectCoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinViewController.swift; sourceTree = "<group>"; };
 		31E0A54B2C19D21300756DFD /* SelectCoinReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinReactor.swift; sourceTree = "<group>"; };
+		31E0A54D2C1AFDB200756DFD /* AlarmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmService.swift; sourceTree = "<group>"; };
+		31E0A54F2C1B05F500756DFD /* AlarmDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDTO.swift; sourceTree = "<group>"; };
+		31E0A5512C1B064900756DFD /* AlarmRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmRepositoryInterface.swift; sourceTree = "<group>"; };
+		31E0A5532C1B071600756DFD /* AlarmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmRepository.swift; sourceTree = "<group>"; };
+		31E0A5552C1B096B00756DFD /* AlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUseCase.swift; sourceTree = "<group>"; };
+		31E0A5572C1B28DF00756DFD /* ModifyAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyAlarmViewController.swift; sourceTree = "<group>"; };
+		31E0A5592C1B28F900756DFD /* ModifyAlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyAlarmReactor.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -446,6 +460,7 @@
 				315C017C2C0B02DE00BE00E3 /* AlarmViewController.swift */,
 				31E0A52D2C19937200756DFD /* AddAlarmViewController.swift */,
 				31E0A5492C19D1F500756DFD /* SelectCoinViewController.swift */,
+				31E0A5572C1B28DF00756DFD /* ModifyAlarmViewController.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -488,6 +503,7 @@
 				315C018C2C0B3B1000BE00E3 /* AlarmReactor.swift */,
 				31E0A52F2C1994D800756DFD /* AddAlarmReactor.swift */,
 				31E0A54B2C19D21300756DFD /* SelectCoinReactor.swift */,
+				31E0A5592C1B28F900756DFD /* ModifyAlarmReactor.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -801,6 +817,7 @@
 				31E0A4F42C16C23700756DFD /* SigninRepository.swift */,
 				31E0A51F2C182CFD00756DFD /* UserRepository.swift */,
 				31E0A5292C19849500756DFD /* CoinRepository.swift */,
+				31E0A5532C1B071600756DFD /* AlarmRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -812,6 +829,7 @@
 				31E0A4F22C16C22300756DFD /* SigninDTO.swift */,
 				31E0A5182C182BE300756DFD /* UserDTO.swift */,
 				31E0A5272C196F5200756DFD /* CoinDTO.swift */,
+				31E0A54F2C1B05F500756DFD /* AlarmDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -823,6 +841,7 @@
 				31E0A5062C16FEE500756DFD /* SigninService.swift */,
 				31E0A5162C1827A700756DFD /* UserService.swift */,
 				31E0A5232C196E4800756DFD /* CoinService.swift */,
+				31E0A54D2C1AFDB200756DFD /* AlarmService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -834,6 +853,7 @@
 				31E0A5082C16FFE300756DFD /* SigninUseCase.swift */,
 				31E0A5212C182D7A00756DFD /* UserUseCase.swift */,
 				31E0A52B2C1984E400756DFD /* CoinUseCase.swift */,
+				31E0A5552C1B096B00756DFD /* AlarmUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -845,6 +865,7 @@
 				31E0A50A2C16FFEE00756DFD /* SigninRepositoryInterface.swift */,
 				31E0A51D2C182CB300756DFD /* UserRepositoryInterface.swift */,
 				31E0A5252C196E8D00756DFD /* CoinRepositoryInterface.swift */,
+				31E0A5512C1B064900756DFD /* AlarmRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -1047,6 +1068,7 @@
 				31E0A4C72C108D9E00756DFD /* MyAccountReactor.swift in Sources */,
 				315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */,
 				31E0A5382C19BC2500756DFD /* SelectAlarmConditionView.swift in Sources */,
+				31E0A5502C1B05F500756DFD /* AlarmDTO.swift in Sources */,
 				314636A92C06005E008A5629 /* SettingReactor.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
 				31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */,
@@ -1068,6 +1090,7 @@
 				31E0A5222C182D7A00756DFD /* UserUseCase.swift in Sources */,
 				31E0A4DF2C15BDF900756DFD /* TermsOfServiceView.swift in Sources */,
 				31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */,
+				31E0A5522C1B064900756DFD /* AlarmRepositoryInterface.swift in Sources */,
 				31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */,
 				31E0A4FA2C16CC5E00756DFD /* TermsOfServiceViewController.swift in Sources */,
 				31E0A4F32C16C22300756DFD /* SigninDTO.swift in Sources */,
@@ -1076,6 +1099,7 @@
 				31E0A5482C19CF5A00756DFD /* SelectCoinTableViewHeader.swift in Sources */,
 				31E0A4F12C16B5EE00756DFD /* SigninEmailVerificationNumberReactor.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
+				31E0A55A2C1B28F900756DFD /* ModifyAlarmReactor.swift in Sources */,
 				31E0A50D2C1711F500756DFD /* KeychainHelper.swift in Sources */,
 				31E0A4EB2C16B4EB00756DFD /* SignupEmailVerificationNumberViewController.swift in Sources */,
 				315C01862C0B133B00BE00E3 /* AlarmTableViewCell.swift in Sources */,
@@ -1091,6 +1115,7 @@
 				31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
 				31E0A5242C196E4800756DFD /* CoinService.swift in Sources */,
+				31E0A5542C1B071600756DFD /* AlarmRepository.swift in Sources */,
 				31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */,
 				31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */,
 				31E0A53E2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift in Sources */,
@@ -1100,6 +1125,7 @@
 				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
 				31E0A52A2C19849500756DFD /* CoinRepository.swift in Sources */,
 				31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */,
+				31E0A5582C1B28DF00756DFD /* ModifyAlarmViewController.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */,
 				31E0A5032C16CCB200756DFD /* PrivacyPolicyReactor.swift in Sources */,
@@ -1140,6 +1166,7 @@
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
 				31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */,
 				31E0A50F2C17120300756DFD /* TokenManager.swift in Sources */,
+				31E0A5562C1B096B00756DFD /* AlarmUseCase.swift in Sources */,
 				31BCE9852C04AFA100DA2FC6 /* SelectMarketView.swift in Sources */,
 				31E0A5112C17201000756DFD /* AddAlarmView.swift in Sources */,
 				31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */,
@@ -1153,6 +1180,7 @@
 				31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */,
 				31E0A4E52C15C72100756DFD /* SignupRepository.swift in Sources */,
 				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
+				31E0A54E2C1AFDB200756DFD /* AlarmService.swift in Sources */,
 				31E0A4E12C15BE2100756DFD /* PrivacyPolicyView.swift in Sources */,
 				315C018F2C0B3D2C00BE00E3 /* AlarmStep.swift in Sources */,
 				31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */,

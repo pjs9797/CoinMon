@@ -3,8 +3,12 @@ struct CoinPriceResponseDTO: Codable {
     let resultMessage: String
     let data: [CoinPriceInfoDTO]
     
-    static func toPriceLists(dto: CoinPriceResponseDTO) -> [CoinPriceAtHome] {
-            return dto.data.map { CoinPriceInfoDTO.toPriceList(dto: $0) }
+    static func toPriceListsAtHome(dto: CoinPriceResponseDTO) -> [CoinPriceAtHome] {
+            return dto.data.map { CoinPriceInfoDTO.toPriceListAtHome(dto: $0) }
+        }
+    
+    static func toPriceListsAtAlarm(dto: CoinPriceResponseDTO) -> [CoinPriceAtAlarm] {
+            return dto.data.map { CoinPriceInfoDTO.toPriceListAtAlarm(dto: $0) }
         }
 }
 
@@ -15,9 +19,11 @@ struct CoinPriceInfoDTO: Codable {
     let marketPrice: Double
     let limitPrice: Double
     let fundingRate: Double
+    let standardPrice: Double
+    let percent: Double
     let time: String
     
-    static func toPriceList(dto: CoinPriceInfoDTO) -> CoinPriceAtHome {
+    static func toPriceListAtHome(dto: CoinPriceInfoDTO) -> CoinPriceAtHome {
            let change = abs((dto.limitPrice - dto.marketPrice) / dto.marketPrice) * 100
            let gap = abs(dto.limitPrice - dto.marketPrice) / dto.marketPrice * 100
            return CoinPriceAtHome(
@@ -27,6 +33,10 @@ struct CoinPriceInfoDTO: Codable {
                gap: String(format: "%.2f%%", gap)
            )
        }
+    
+    static func toPriceListAtAlarm(dto: CoinPriceInfoDTO) -> CoinPriceAtAlarm {
+        return CoinPriceAtAlarm(coinTitle: dto.symbol, price: formatPrice(dto.limitPrice))
+    }
     
     static func formatPrice(_ price: Double) -> String {
         var priceString = String(format: "%.8f", price)

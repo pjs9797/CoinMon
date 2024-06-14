@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print(userInfo)
+        print("Remote notification received: \(userInfo)")
         completionHandler(.newData)
     }
     
@@ -38,10 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // 포그라운드에 있을 때 알림 표시 옵션 설정
-        completionHandler([.badge, .sound])
+        print("Will present notification: \(notification.request.content.userInfo)")
+        completionHandler([.badge, .sound, .alert])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("Did receive notification response: \(response.notification.request.content.userInfo)")
         completionHandler()
     }
 }

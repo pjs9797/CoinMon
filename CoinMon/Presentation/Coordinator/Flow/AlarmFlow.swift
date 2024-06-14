@@ -8,6 +8,8 @@ class AlarmFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
+    private let alarmUseCase = AlarmUseCase(repository: AlarmRepository())
+    private let coinUseCase = CoinUseCase(repository: CoinRepository())
     
     init(with rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
@@ -24,13 +26,16 @@ class AlarmFlow: Flow {
             return navigateToAddAlarmViewController()
         case .presentToSelectMarketViewController(let selectedMarketRelay):
             return presentToSelectMarketViewController(selectedMarketRelay: selectedMarketRelay)
-        case .navigateToSelectCoinViewController(let selectedCoinRelay):
-            return navigateToSelectCoinViewController(selectedCoinRelay: selectedCoinRelay)        case .presentToSelectFirstAlarmConditionViewController(let firstAlarmConditionRelay):
+        case .navigateToSelectCoinViewController(let selectedCoinRelay, let market):
+            return navigateToSelectCoinViewController(selectedCoinRelay: selectedCoinRelay, market: market)
+        case .presentToSelectFirstAlarmConditionViewController(let firstAlarmConditionRelay):
             return presentToSelectFirstAlarmConditionViewController(firstAlarmConditionRelay: firstAlarmConditionRelay)
         case .presentToSelectSecondAlarmConditionViewController(let secondAlarmConditionRelay):
             return presentToSelectSecondAlarmConditionViewController(secondAlarmConditionRelay: secondAlarmConditionRelay)
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
+        case .presentToRestrictedAlarmErrorAlertController:
+            return presentToRestrictedAlarmErrorAlertController()
         case .dismissSheetPresentationController:
             return dismissSheetPresentationController()
         case .popViewController:
@@ -39,7 +44,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToAlarmViewController() -> FlowContributors {
-        let reactor = AlarmReactor()
+        let reactor = AlarmReactor(alarmUseCase: alarmUseCase)
         let viewController = AlarmViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
@@ -47,8 +52,9 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToAddAlarmViewController() -> FlowContributors {
-        let reactor = AddAlarmReactor()
+        let reactor = AddAlarmReactor(alarmUseCase: alarmUseCase)
         let viewController = AddAlarmViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
 
@@ -72,8 +78,8 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToSelectCoinViewController(selectedCoinRelay: PublishRelay<(String,String)>) -> FlowContributors {
-        let reactor = SelectCoinReactor(selectedCoinRelay: selectedCoinRelay)
+    private func navigateToSelectCoinViewController(selectedCoinRelay: PublishRelay<(String,String)>, market: String) -> FlowContributors {
+        let reactor = SelectCoinReactor(coinUseCase: coinUseCase, selectedCoinRelay: selectedCoinRelay, market: market)
         let viewController = SelectCoinViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
@@ -97,7 +103,7 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectSecondAlarmConditionViewController(secondAlarmConditionRelay: PublishRelay<Int>) -> FlowContributors {
+    private func presentToSelectSecondAlarmConditionViewController(secondAlarmConditionRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectSecondAlarmConditionReactor(secondAlarmConditionRelay: secondAlarmConditionRelay)
         let viewController = SelectSecondAlarmConditionViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
@@ -117,6 +123,17 @@ class AlarmFlow: Flow {
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToRestrictedAlarmErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: nil,
+                                                message: LocalizationManager.shared.localizedString(forKey: "알람 제한"),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)

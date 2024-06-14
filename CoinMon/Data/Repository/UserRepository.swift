@@ -34,6 +34,9 @@ class UserRepository: UserRepositoryInterface {
             .map{ UserResponseDTO.toUserData(dto: $0) }
             .asObservable()
             .catch { error in
+                if let moyaError = error as? MoyaError, let response = moyaError.response {
+                    print("Error: \(moyaError), Status code: \(response.statusCode)")
+                }
                 return Observable.error(error)
             }
     }

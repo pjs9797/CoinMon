@@ -5,9 +5,9 @@ import RxFlow
 class SelectSecondAlarmConditionReactor: ReactorKit.Reactor,Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    var secondAlarmConditionRelay: PublishRelay<Int>
+    var secondAlarmConditionRelay: PublishRelay<String>
     
-    init(secondAlarmConditionRelay: PublishRelay<Int>){
+    init(secondAlarmConditionRelay: PublishRelay<String>){
         self.secondAlarmConditionRelay = secondAlarmConditionRelay
     }
     
@@ -33,7 +33,7 @@ class SelectSecondAlarmConditionReactor: ReactorKit.Reactor,Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .selectCondition(let index):
-            secondAlarmConditionRelay.accept(index)
+            secondAlarmConditionRelay.accept(currentState.conditions[index])
             self.steps.accept(AlarmStep.dismissSheetPresentationController)
             return .empty()
         }
