@@ -1,11 +1,16 @@
 import ReactorKit
 import Foundation
 import RxCocoa
+import RxFlow
 
-class FeeReactor: ReactorKit.Reactor {
+class FeeReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
+    var steps = PublishRelay<Step>()
+    private var timerDisposable: Disposable?
+    private let coinUseCase: CoinUseCase
     
-    init() {
+    init(coinUseCase: CoinUseCase) {
+        self.coinUseCase = coinUseCase
         var markets = [
             Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Binance"), localizationKey: "Binance"),
             Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Bybit"), localizationKey: "Bybit")
@@ -25,37 +30,91 @@ class FeeReactor: ReactorKit.Reactor {
     }
     
     enum Action {
+        case startTimer
+        case stopTimer
+        case loadFeeList
         case updateLocalizedMarkets
         case selectMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
+        case updateSearchText(String)
+        case clearButtonTapped
+        case sortByCoin
+        case sortByFee
     }
     
     enum Mutation {
+        case setFeeList([CoinFee])
         case setLocalizedMarkets([Market])
         case setSelectedMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
+        case setSearchText(String)
+        case setFilteredFeeList([CoinFee])
+        case setCoinSortOrder(SortOrder)
+        case setFeeSortOrder(SortOrder)
     }
     
     struct State {
         var selectedMarket: Int = 0
         var markets: [Market]
-        var feeList: [CoinFee] = [
-            CoinFee(coinTitle: "BTC", fee: "0.01"),
-            CoinFee(coinTitle: "ETH", fee: "0.03"),
-            CoinFee(coinTitle: "XRP", fee: "0.05"),
-            CoinFee(coinTitle: "SOL", fee: "0.005"),
-        ]
+        var feeList: [CoinFee] = []
+        var searchText: String = ""
+        var filteredFeeList: [CoinFee] = []
+        var coinSortOrder: SortOrder = .none
+        var feeSortOrder: SortOrder = .none
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .startTimer:
+            startTimer()
+            return .empty()
+        case .stopTimer:
+            stopTimer()
+            return .empty()
+        case .loadFeeList:
+            return coinUseCase.fetchCoinFeeList(market: currentState.markets[currentState.selectedMarket].localizationKey)
+                .flatMap { [weak self] feeList -> Observable<Mutation> in
+                    var sortedFeeList = feeList
+                    if self?.currentState.coinSortOrder != SortOrder.none {
+                        sortedFeeList = self?.sortFeeList(sortedFeeList, by: \.coinTitle, order: self?.currentState.coinSortOrder ?? .none) ?? feeList
+                    }
+                    if self?.currentState.feeSortOrder != SortOrder.none {
+                        sortedFeeList = self?.sortFeeList(sortedFeeList, by: \.fee, order: self?.currentState.feeSortOrder ?? .none) ?? feeList
+                    }
+                    return .concat([
+                        .just(.setFeeList(feeList)),
+                        .just(.setFilteredFeeList(sortedFeeList))
+                    ])
+                }
+                .catch { [weak self] error in
+                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .updateLocalizedMarkets:
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))
         case .selectMarket(let index):
-            return .just(.setSelectedMarket(index))
+            return coinUseCase.fetchCoinFeeList(market: currentState.markets[currentState.selectedMarket].localizationKey)
+                .flatMap { [weak self] feeList -> Observable<Mutation> in
+                    var sortedFeeList = feeList
+                    if self?.currentState.coinSortOrder != SortOrder.none {
+                        sortedFeeList = self?.sortFeeList(sortedFeeList, by: \.coinTitle, order: self?.currentState.coinSortOrder ?? .none) ?? feeList
+                    }
+                    if self?.currentState.feeSortOrder != SortOrder.none {
+                        sortedFeeList = self?.sortFeeList(sortedFeeList, by: \.fee, order: self?.currentState.feeSortOrder ?? .none) ?? feeList
+                    }
+                    return .concat([
+                        .just(.setFeeList(feeList)),
+                        .just(.setFilteredFeeList(sortedFeeList)),
+                        .just(.setSelectedMarket(index))
+                    ])
+                }
+                .catch { [weak self] error in
+                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .moveItem(let fromIndex, let toIndex):
             if currentState.selectedMarket == fromIndex {
                 return .concat([
@@ -68,12 +127,51 @@ class FeeReactor: ReactorKit.Reactor {
             }
         case .saveOrder:
             return .just(.saveOrder)
+        case .updateSearchText(let searchText):
+            let filteredFeeList = searchText.isEmpty ? currentState.feeList : currentState.feeList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            return .concat([
+                .just(.setSearchText(searchText)),
+                .just(.setFilteredFeeList(filteredFeeList))
+            ])
+        case .clearButtonTapped:
+            return .concat([
+                .just(.setSearchText("")),
+                .just(.setFilteredFeeList(currentState.feeList))
+            ])
+        case .sortByCoin:
+            let newOrder: SortOrder
+            switch currentState.coinSortOrder {
+            case .none, .descending:
+                newOrder = .ascending
+            case .ascending:
+                newOrder = .descending
+            }
+            let sortedFeeList = self.sortFeeList(currentState.filteredFeeList, by: \.coinTitle, order: newOrder)
+            return .concat([
+                .just(.setCoinSortOrder(newOrder)),
+                .just(.setFilteredFeeList(sortedFeeList))
+            ])
+        case .sortByFee:
+            let newOrder: SortOrder
+            switch currentState.feeSortOrder {
+            case .none, .descending:
+                newOrder = .ascending
+            case .ascending:
+                newOrder = .descending
+            }
+            let sortedFeeList = self.sortFeeList(currentState.filteredFeeList, by: \.fee, order: newOrder)
+            return .concat([
+                .just(.setFeeSortOrder(newOrder)),
+                .just(.setFilteredFeeList(sortedFeeList))
+            ])
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case .setFeeList(let feeList):
+            newState.feeList = feeList
         case .setLocalizedMarkets(let localizedMarkets):
             newState.markets = localizedMarkets
         case .setSelectedMarket(let index):
@@ -86,7 +184,72 @@ class FeeReactor: ReactorKit.Reactor {
         case .saveOrder:
             let order = newState.markets.map { $0.localizationKey }
             UserDefaults.standard.set(order, forKey: "marketOrderAtFee")
+        case .setSearchText(let searchText):
+            newState.searchText = searchText
+        case .setFilteredFeeList(let filteredFeeList):
+            newState.filteredFeeList = filteredFeeList
+        case .setCoinSortOrder(let order):
+            newState.coinSortOrder = order
+            newState.feeSortOrder = .none
+        case .setFeeSortOrder(let order):
+            newState.feeSortOrder = order
+            newState.coinSortOrder = .none
         }
         return newState
+    }
+    
+    private func startTimer() {
+        stopTimer()
+        timerDisposable = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.action.onNext(.loadFeeList)
+            })
+    }
+    
+    private func stopTimer() {
+        timerDisposable?.dispose()
+        timerDisposable = nil
+    }
+    
+    private func sortFeeList(_ feeList: [CoinFee], by keyPath: PartialKeyPath<CoinFee>, order: SortOrder) -> [CoinFee] {
+        var sortedFeeList = feeList
+        
+        sortedFeeList.sort {
+            let lhs: Any
+            let rhs: Any
+            
+            if keyPath == \CoinFee.fee, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+                lhs = Double(lhsValue) ?? 0.0
+                rhs = Double(rhsValue) ?? 0.0
+            }
+            else {
+                lhs = $0[keyPath: keyPath]
+                rhs = $1[keyPath: keyPath]
+            }
+            
+            switch order {
+            case .ascending:
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs < rhs
+                }
+                if let lhs = lhs as? String, let rhs = rhs as? String {
+                    return lhs < rhs
+                }
+                return false
+            case .descending:
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs > rhs
+                }
+                if let lhs = lhs as? String, let rhs = rhs as? String {
+                    return lhs > rhs
+                }
+                return false
+            case .none:
+                return true
+            }
+        }
+        
+        return sortedFeeList
     }
 }

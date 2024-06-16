@@ -35,18 +35,17 @@ class PriceViewController: UIViewController, ReactorKit.View {
                 self?.priceView.setLocalizedText()
             })
             .disposed(by: disposeBag)
+        self.reactor?.action.onNext(.loadPriceList)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.reactor?.action.onNext(.loadCoinData)
-        print(111)
+        self.reactor?.action.onNext(.startTimer)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.reactor?.action.onNext(.stopLoadCoinData)
-        print(333)
+        self.reactor?.action.onNext(.stopTimer)
     }
 }
 
@@ -64,6 +63,37 @@ extension PriceViewController {
             .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        priceView.searchView.searchTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .map { Reactor.Action.updateSearchText($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.searchView.clearButton.rx.tap
+            .map { Reactor.Action.clearButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.priceTableViewHeader.coinButton.rx.tap
+            .map{ Reactor.Action.sortByCoin }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.priceTableViewHeader.priceButton.rx.tap
+            .map{ Reactor.Action.sortByPrice }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.priceTableViewHeader.changeButton.rx.tap
+            .map{ Reactor.Action.sortByChange }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.priceTableViewHeader.gapButton.rx.tap
+            .map{ Reactor.Action.sortByGap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: PriceReactor){
@@ -79,10 +109,86 @@ extension PriceViewController {
             }
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.priceList }
+        reactor.state.map { $0.filteredPriceList }
             .bind(to: priceView.priceTableView.rx.items(cellIdentifier: "PriceTableViewCell", cellType: PriceTableViewCell.self)){ row, priceList, cell in
                 cell.configure(with: priceList)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.unit }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] unit in
+                self?.priceView.priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세%",arguments: unit), for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.searchText }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] text in
+                self?.priceView.searchView.searchTextField.text = text
+                if text == "" {
+                    self?.priceView.searchView.clearButton.isHidden = true
+                }
+                else {
+                    self?.priceView.searchView.clearButton.isHidden = false
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.coinSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.priceView.priceTableViewHeader.coinButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.priceView.priceTableViewHeader.coinButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.priceView.priceTableViewHeader.coinButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.priceSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.priceView.priceTableViewHeader.priceButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.priceView.priceTableViewHeader.priceButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.priceView.priceTableViewHeader.priceButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.changeSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.priceView.priceTableViewHeader.changeButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.priceView.priceTableViewHeader.changeButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.priceView.priceTableViewHeader.changeButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.gapSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.priceView.priceTableViewHeader.gapButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.priceView.priceTableViewHeader.gapButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.priceView.priceTableViewHeader.gapButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }

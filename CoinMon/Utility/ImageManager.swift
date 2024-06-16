@@ -31,6 +31,8 @@ struct ImageManager {
     static let square_Check_Select = UIImage(named: "Square_Check_Select")
     //sort
     static let sort = UIImage(named: "sort")
+    static let sort_ascending = UIImage(named: "sort_ascending")
+    static let sort_descending = UIImage(named: "sort_descending")
     //loginType
     static let login_kakao = UIImage(named: "login_kakao")
     static let login_apple = UIImage(named: "login_apple")

@@ -32,12 +32,12 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
     
     enum Mutation {
         case setMarket(String)
-        case setCoinTitle(String)
-        case setCurrentPriceUnit(String)
-        case setCurrentPrice(String)
-        case setSetPriceUnit(String)
-        case setSetPrice(String)
-        case setComparePrice(Int)
+        case setCoinTitle(String?)
+        case setCurrentPriceUnit(String?)
+        case setCurrentPrice(String?)
+        case setSetPriceUnit(String?)
+        case setSetPrice(String?)
+        case setComparePrice(Int?)
         case setCycle(String)
         case setCycleForAPI(String)
     }
@@ -80,7 +80,7 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
                     filter = "DOWN"
                 }
             }
-            return alarmUseCase.createAlarm(exchange: currentState.market ?? "", symbol: currentState.coinTitle ?? "", targetPrice: currentState.setPrice ?? "", frequency: currentState.cycleForAPI, useYn: "Y", filter: filter)
+            return alarmUseCase.createAlarm(market: currentState.market ?? "", symbol: currentState.coinTitle ?? "", targetPrice: currentState.setPrice ?? "", frequency: currentState.cycleForAPI, useYn: "Y", filter: filter)
                 .flatMap { [weak self] _ -> Observable<Mutation> in
                     self?.steps.accept(AlarmStep.popViewController)
                     return .empty()
@@ -90,7 +90,15 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
                     return .empty()
                 }
         case .setMarket(let market):
-            return .just(.setMarket(market))
+            return .concat([
+                .just(.setMarket(market)),
+                .just(.setCoinTitle(nil)),
+                .just(.setCurrentPriceUnit(nil)),
+                .just(.setCurrentPrice(nil)),
+                .just(.setSetPriceUnit(nil)),
+                .just(.setSetPrice(nil)),
+                .just(.setComparePrice(nil))
+            ])
         case .setCoin(let coin, let price):
             let unit = setUnit()
             return .concat([
@@ -104,13 +112,13 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
             if price == "" {
                 return .empty()
             }
-            let filteredPrice = filterAndTruncatePrice(price: price)
+            let filteredPrice = filterPrice(price: price)
             return .concat([
                 .just(.setSetPrice(filteredPrice))
             ])
         case .setComparePrice(let index):
             if let currentPrice = currentState.currentPrice{
-                let newPrice = calculateNewPrice(currentPrice: currentPrice, index: index)
+                let newPrice = calculateSetPrice(currentPrice: currentPrice, index: index)
                 return .concat([
                     .just(.setComparePrice(index)),
                     .just(.setSetPrice(newPrice))
@@ -180,7 +188,7 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
         return ""
     }
     
-    private func filterAndTruncatePrice(price: String) -> String {
+    func filterPrice(price: String) -> String {
         let filteredText = price.filter { $0.isNumber || $0 == "." }
         var resultText = ""
         var decimalFound = false
@@ -196,19 +204,27 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
             resultText.append(char)
         }
         
-        if resultText.count > 9 {
-            resultText = String(resultText.prefix(9))
+        if resultText.last == "." {
+            resultText.removeLast()
+        }
+        
+        if resultText.count > 10 {
+            resultText = String(resultText.prefix(10))
+            
+            if resultText.last == "." {
+                resultText.removeLast()
+            }
         }
         
         return resultText
     }
     
-    private func calculateNewPrice(currentPrice: String, index: Int) -> String {
+    private func calculateSetPrice(currentPrice: String, index: Int) -> String {
         guard let priceValue = Double(currentPrice) else {
             return ""
         }
         
-        let newValue = String(priceValue * (1 + Double(index) / 100.0)).prefix(9)
+        let newValue = String(priceValue * (1 + Double(index) / 100.0)).prefix(10)
         return String(newValue)
     }
 }

@@ -3,21 +3,24 @@ import Foundation
 
 enum CoinService {
     case getCoinData(exchange: String)
+    case getOneCoinData(exchange: String, symbol: String)
 }
 
 extension CoinService: TargetType {
-    var baseURL: URL { return URL(string: "http://54.180.226.58:8080/api/v1/coin/")! }
+    var baseURL: URL { return URL(string: "http://43.203.234.134:8080/api/v1/coin/")! }
     var path: String {
         switch self {
         case .getCoinData:
             return "get"
+        case .getOneCoinData:
+            return "getOne"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getCoinData:
-            return .get
+        case .getCoinData, .getOneCoinData:
+            return .post
         }
     }
     
@@ -25,6 +28,9 @@ extension CoinService: TargetType {
         switch self {
         case .getCoinData(let exchange):
             let parameters = ["exchange": exchange]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .getOneCoinData(let exchange, let symbol):
+            let parameters = ["exchange": exchange, "symbol": symbol]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }

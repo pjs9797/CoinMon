@@ -60,15 +60,84 @@ extension SelectCoinViewController {
             .map { Reactor.Action.selectCoin($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        selectCoinView.searchView.searchTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .map { Reactor.Action.updateSearchText($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        selectCoinView.searchView.clearButton.rx.tap
+            .map { Reactor.Action.clearButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        selectCoinView.selectCoinTableViewHeader.coinButton.rx.tap
+            .map{ Reactor.Action.sortByCoin }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        selectCoinView.selectCoinTableViewHeader.priceButton.rx.tap
+            .map{ Reactor.Action.sortByPrice }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: SelectCoinReactor){
-        reactor.state.map { $0.coins }
+        reactor.state.map { $0.filteredCoins }
             .distinctUntilChanged()
             .bind(to: selectCoinView.selectCoinTableView.rx.items(cellIdentifier: "SelectCoinTableViewCell", cellType: SelectCoinTableViewCell.self)){ row, coin, cell in
                 
                 cell.configurePrice(with: coin)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.unit }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] unit in
+                self?.selectCoinView.selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세", arguments: unit), for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.searchText }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] text in
+                self?.selectCoinView.searchView.searchTextField.text = text
+                if text == "" {
+                    self?.selectCoinView.searchView.clearButton.isHidden = true
+                }
+                else {
+                    self?.selectCoinView.searchView.clearButton.isHidden = false
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.coinSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.selectCoinView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.selectCoinView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.selectCoinView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.setPriceSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.selectCoinView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.selectCoinView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.selectCoinView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }

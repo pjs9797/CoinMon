@@ -31,7 +31,7 @@ struct AlarmInfoDTO: Codable {
     let frequency: String
     let filter: String
     let useYn: String
-    let count: Int
+    let expTime: [Int]
     
     static func toAlarm(dto: AlarmInfoDTO) -> Alarm {
         var market = ""

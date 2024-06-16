@@ -3,7 +3,7 @@ struct Market: Equatable{
     let localizationKey: String
 }
 
-struct CoinPriceAtHome: Equatable{
+struct CoinPrice: Equatable{
     let coinTitle: String
     let price: String
     let change: String
@@ -18,4 +18,10 @@ struct CoinFee: Equatable{
 struct CoinPremium: Equatable{
     let coinTitle: String
     let premium: String
+}
+
+enum SortOrder {
+    case none
+    case ascending
+    case descending
 }

@@ -24,6 +24,8 @@ class AlarmFlow: Flow {
             return navigateToAlarmViewController()
         case .navigateToAddAlarmViewController:
             return navigateToAddAlarmViewController()
+        case .navigateToModifyAlarmViewController(let market, let alarm):
+            return navigateToModifyAlarmViewController(market: market, alarm: alarm)
         case .presentToSelectMarketViewController(let selectedMarketRelay):
             return presentToSelectMarketViewController(selectedMarketRelay: selectedMarketRelay)
         case .navigateToSelectCoinViewController(let selectedCoinRelay, let market):
@@ -54,6 +56,16 @@ class AlarmFlow: Flow {
     private func navigateToAddAlarmViewController() -> FlowContributors {
         let reactor = AddAlarmReactor(alarmUseCase: alarmUseCase)
         let viewController = AddAlarmViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToModifyAlarmViewController(market: String, alarm: Alarm) -> FlowContributors {
+        let reactor = ModifyAlarmReactor(alarmUseCase: alarmUseCase, coinUseCase: coinUseCase, market: market, alarm: alarm)
+        let viewController = ModifyAlarmViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)

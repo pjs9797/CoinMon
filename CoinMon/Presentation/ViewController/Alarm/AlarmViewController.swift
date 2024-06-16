@@ -44,6 +44,7 @@ class AlarmViewController: UIViewController, ReactorKit.View {
         
         self.navigationController?.isNavigationBarHidden = true
         self.reactor?.action.onNext(.selectMarket(reactor?.currentState.selectedMarket ?? 0))
+        self.reactor?.action.onNext(.updateSearchText(""))
     }
 }
 
@@ -70,9 +71,29 @@ extension AlarmViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        alarmView.alarmTableView.rx.itemSelected
+            .map { Reactor.Action.alarmSelected($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         alarmView.searchView.searchTextField.rx.text.orEmpty
             .distinctUntilChanged()
             .map { Reactor.Action.updateSearchText($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        alarmView.searchView.clearButton.rx.tap
+            .map { Reactor.Action.clearButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        alarmView.alarmTableViewHeader.coinButton.rx.tap
+            .map{ Reactor.Action.sortByCoin }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        alarmView.alarmTableViewHeader.setPriceButton.rx.tap
+            .map{ Reactor.Action.sortBySetPrice }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -90,6 +111,19 @@ extension AlarmViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.map{ $0.searchText }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] text in
+                self?.alarmView.searchView.searchTextField.text = text
+                if text == "" {
+                    self?.alarmView.searchView.clearButton.isHidden = true
+                }
+                else {
+                    self?.alarmView.searchView.clearButton.isHidden = false
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.filteredAlarms }
             .distinctUntilChanged()
             .bind(to: alarmView.alarmTableView.rx.items(cellIdentifier: "AlarmTableViewCell", cellType: AlarmTableViewCell.self)) { (index, alarm, cell) in
@@ -102,6 +136,13 @@ extension AlarmViewController {
                     .bind(to: reactor.action)
                     .disposed(by: cell.disposeBag)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.unit }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] unit in
+                self?.alarmView.alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가", arguments: unit), for: .normal)
+            })
             .disposed(by: disposeBag)
         
 //                reactor.state.map{ $0.onCnt }
@@ -133,6 +174,34 @@ extension AlarmViewController {
                     self?.alarmView.alarmTableViewHeader.totalCntLabel.textColor = ColorManager.gray_50
                 }
                 self?.alarmView.alarmTableViewHeader.totalCntLabel.text = "\(cnt) / 20"
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.coinSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.alarmView.alarmTableViewHeader.coinButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.alarmView.alarmTableViewHeader.coinButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.alarmView.alarmTableViewHeader.coinButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.setPriceSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.alarmView.alarmTableViewHeader.setPriceButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.alarmView.alarmTableViewHeader.setPriceButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.alarmView.alarmTableViewHeader.setPriceButton.setImage(ImageManager.sort, for: .normal)
+                }
             })
             .disposed(by: disposeBag)
     }

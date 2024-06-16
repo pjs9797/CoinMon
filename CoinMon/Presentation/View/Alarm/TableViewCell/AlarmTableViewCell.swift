@@ -112,7 +112,7 @@ class AlarmTableViewCell: UITableViewCell {
     }
     
     func configure(with alarm: Alarm) {
-        coinImageView.image = UIImage(named: alarm.coinTitle)
+        coinImageView.image = UIImage(named: alarm.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = alarm.coinTitle
         setPriceLabel.text = alarm.setPrice
         alarmSwitch.isOn = alarm.isOn

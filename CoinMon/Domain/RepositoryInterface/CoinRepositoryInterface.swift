@@ -1,7 +1,9 @@
 import RxSwift
 
 protocol CoinRepositoryInterface {
-    func fetchCoinPriceAtHome(exchange: String) -> Observable<[CoinPriceAtHome]>
-    func fetchCoinPriceAtAlarm(exchange: String) -> Observable<[CoinPriceAtAlarm]>
-    func fetchCoinFee() -> Observable<[CoinFee]>
+    func fetchCoinsPriceAtHome(exchange: String) -> Observable<[CoinPrice]>
+    func fetchCoinsPriceAtAlarm(exchange: String) -> Observable<[OneCoinPrice]>
+    func fetchOneCoinPrice(exchange: String, symbol: String) -> Observable<OneCoinPrice>
+    func fetchCoinFee(exchange: String) -> Observable<[CoinFee]>
+    func fetchCoinPremiumList(departureExchange: String, arrivalExchange: String) -> Observable<(departurePrices: [OneCoinPrice], arrivalPrices: [OneCoinPrice])> 
 }

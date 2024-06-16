@@ -16,11 +16,11 @@ class SelectCoinTableViewHeader: UIView {
         button.semanticContentAttribute = .forceRightToLeft
         return button
     }()
-    let feeView: UIView = {
+    let priceView: UIView = {
         let view = UIView()
         return view
     }()
-    let feeButton: UIButton = {
+    let priceButton: UIButton = {
         let button = UIButton()
         button.setTitle("시세", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
@@ -42,13 +42,13 @@ class SelectCoinTableViewHeader: UIView {
     }
     
     private func layout(){
-        [coinView,feeView]
+        [coinView,priceView]
             .forEach {
                 addSubview($0)
             }
         
         coinView.addSubview(coinButton)
-        feeView.addSubview(feeButton)
+        priceView.addSubview(priceButton)
         
         coinView.snp.makeConstraints { make in
             make.width.equalTo(121*Constants.standardWidth)
@@ -60,13 +60,13 @@ class SelectCoinTableViewHeader: UIView {
             make.edges.equalToSuperview()
         }
         
-        feeView.snp.makeConstraints { make in
+        priceView.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.centerY.equalToSuperview()
         }
         
-        feeButton.snp.makeConstraints { make in
+        priceButton.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

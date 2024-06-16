@@ -27,7 +27,7 @@ class SelectCoinView: UIView {
     func setLocalizedText(){
         searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
         selectCoinTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
-        selectCoinTableViewHeader.feeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세",arguments: "USDT"), for: .normal)
+        selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세",arguments: "USDT"), for: .normal)
     }
     
     private func layout() {

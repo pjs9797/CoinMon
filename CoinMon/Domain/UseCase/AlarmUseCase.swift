@@ -7,24 +7,25 @@ class AlarmUseCase {
         self.repository = repository
     }
     
-    func createAlarm(exchange: String, symbol: String, targetPrice: String, frequency: String, useYn: String, filter: String) -> Observable<String> {
-        let exchangeUpper = exchange.uppercased()
-        return repository.createAlarm(exchange: exchangeUpper, symbol: symbol, targetPrice: targetPrice, frequency: frequency, useYn: useYn, filter: filter)
+    func createAlarm(market: String, symbol: String, targetPrice: String, frequency: String, useYn: String, filter: String) -> Observable<String> {
+        let marketUpper = market.uppercased()
+        return repository.createAlarm(exchange: marketUpper, symbol: symbol, targetPrice: targetPrice, frequency: frequency, useYn: useYn, filter: filter)
     }
     
     func deleteAlarm(pushId: Int) -> Observable<String> {
         return repository.deleteAlarm(pushId: pushId)
     }
     
-    func updateAlarm(pushId: Int, exchange: String, symbol: String, targetPrice: String, frequency: String, useYn: String, filter: String) -> Observable<String> {
-        return repository.updateAlarm(pushId: pushId, exchange: exchange, symbol: symbol, targetPrice: targetPrice, frequency: frequency, useYn: useYn, filter: filter)
+    func updateAlarm(pushId: Int, market: String, symbol: String, targetPrice: String, frequency: String, useYn: String, filter: String) -> Observable<String> {
+        let marketUpper = market.uppercased()
+        return repository.updateAlarm(pushId: pushId, exchange: marketUpper, symbol: symbol, targetPrice: targetPrice, frequency: frequency, useYn: useYn, filter: filter)
     }
     
-    func getAlarms(exchange: String) -> Observable<([Alarm], Int, Int)> {
+    func getAlarms(market: String) -> Observable<([Alarm], Int, Int)> {
         return repository.getAlarms()
             .map { alarms in
-                let filteredAlarms = alarms.filter { $0.market == exchange }
-                let totalAlarmsCount = filteredAlarms.count
+                let filteredAlarms = alarms.filter { $0.market == market }
+                let totalAlarmsCount = alarms.count
                 let activeAlarmsCount = filteredAlarms.filter { $0.isOn }.count
                 return (filteredAlarms, totalAlarmsCount, activeAlarmsCount)
             }

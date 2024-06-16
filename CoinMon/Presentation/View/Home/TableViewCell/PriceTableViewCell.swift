@@ -133,11 +133,26 @@ class PriceTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with priceList: CoinPriceAtHome) {
+    func configure(with priceList: CoinPrice) {
         coinImageView.image = UIImage(named: priceList.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = priceList.coinTitle
         priceLabel.text = priceList.price
         changeLabel.text = priceList.change
         gapLabel.text = priceList.gap
+        if priceList.change.first == "-" {
+            changeLabel.textColor = .blue
+        }
+        else if priceList.change == "0.00%" {
+            changeLabel.textColor = .black
+        }
+        else {
+            changeLabel.textColor = .red
+        }
+        if priceList.change == "-" {
+            changeLabel.textAlignment = .center
+        }
+        if priceList.gap == "-" {
+            gapLabel.textAlignment = .center
+        }
     }
 }

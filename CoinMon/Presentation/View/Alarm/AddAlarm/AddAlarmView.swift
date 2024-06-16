@@ -14,6 +14,7 @@ class AddAlarmView: UIView {
         button.backgroundColor = ColorManager.gray_99
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*Constants.standardWidth)
+        button.isEnabled = true
         return button
     }()
     let coinLabel: UILabel = {
@@ -28,6 +29,7 @@ class AddAlarmView: UIView {
         button.backgroundColor = ColorManager.gray_99
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*Constants.standardWidth)
+        button.isEnabled = true
         return button
     }()
     let currentPriceLabel: UILabel = {
@@ -72,6 +74,7 @@ class AddAlarmView: UIView {
         textField.font = FontManager.D7_15
         textField.textColor = ColorManager.common_0
         textField.textAlignment = .center
+        textField.keyboardType = .decimalPad
         return textField
     }()
     let setPriceUnitLabel: UILabel = {
@@ -112,6 +115,7 @@ class AddAlarmView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.titleLabel?.font = FontManager.D6_16
+        button.backgroundColor = ColorManager.orange_60
         return button
     }()
     

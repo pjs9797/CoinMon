@@ -10,6 +10,7 @@ class AlarmView: UIView {
     }()
     let addAlarmButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = FontManager.T3_16
         button.setTitleColor(ColorManager.gray_15, for: .normal)
         return button
     }()

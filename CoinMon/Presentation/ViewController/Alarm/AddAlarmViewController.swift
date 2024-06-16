@@ -66,8 +66,12 @@ extension AddAlarmViewController {
             .disposed(by: disposeBag)
         
         addAlarmView.setPriceTextField.rx.text.orEmpty
-            .map { Reactor.Action.updateSetPrice($0) }
-            .bind(to: reactor.action)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] text in
+                let text = self?.reactor?.filterPrice(price: text)
+                self?.addAlarmView.setPriceTextField.text = text
+                reactor.action.onNext(.updateSetPrice(text ?? ""))
+            })
             .disposed(by: disposeBag)
         
         addAlarmView.comparePriceButton.rx.tap
@@ -143,6 +147,7 @@ extension AddAlarmViewController {
                 else {
                     self?.addAlarmView.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "선택"), for: .normal)
                     self?.addAlarmView.coinButton.setTitleColor(ColorManager.gray_90, for: .normal)
+                    self?.addAlarmView.coinButton.setImage(nil, for: .normal)
                     self?.addAlarmView.setPriceTextField.isEnabled = false
                     self?.addAlarmView.comparePriceButton.isEnabled = false
                 }
@@ -155,6 +160,9 @@ extension AddAlarmViewController {
                 if let price = price {
                     self?.addAlarmView.currentCoinPriceLabel.text = price
                 }
+                else {
+                    self?.addAlarmView.currentCoinPriceLabel.text = nil
+                }
             })
             .disposed(by: disposeBag)
         
@@ -164,13 +172,20 @@ extension AddAlarmViewController {
                 if let unit = unit {
                     self?.addAlarmView.currentCoinPriceUnitLabel.text = unit
                 }
+                else {
+                    self?.addAlarmView.currentCoinPriceUnitLabel.text = nil
+                }
             })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.setPrice }
+            .distinctUntilChanged()
             .bind(onNext: { [weak self] price in
                 if let price = price {
                     self?.addAlarmView.setPriceTextField.text = price
+                }
+                else {
+                    self?.addAlarmView.setPriceTextField.text = nil
                 }
             })
             .disposed(by: disposeBag)
@@ -181,10 +196,14 @@ extension AddAlarmViewController {
                 if let unit = unit {
                     self?.addAlarmView.setPriceUnitLabel.text = unit
                 }
+                else {
+                    self?.addAlarmView.setPriceUnitLabel.text = nil
+                }
             })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.comparePrice }
+            .distinctUntilChanged()
             .bind(onNext: { [weak self] condition in
                 if let condition = condition {
                     self?.addAlarmView.comparePriceButton.setTitle("\(condition)%", for: .normal)
@@ -198,6 +217,7 @@ extension AddAlarmViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.cycle }
+            .distinctUntilChanged()
             .bind(onNext: { [weak self] condition in
                 if let condition = condition {
                     self?.addAlarmView.cycleButton.setTitle(LocalizationManager.shared.localizedString(forKey: condition), for: .normal)

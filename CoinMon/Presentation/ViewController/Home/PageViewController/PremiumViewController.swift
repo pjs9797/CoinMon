@@ -30,6 +30,19 @@ class PremiumViewController: UIViewController, ReactorKit.View {
                 self?.premiumView.setLocalizedText()
             })
             .disposed(by: disposeBag)
+        self.reactor?.action.onNext(.loadPremiumList)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        reactor?.action.onNext(.startTimer)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        reactor?.action.onNext(.stopTimer)
     }
 }
 
@@ -61,10 +74,20 @@ extension PremiumViewController {
                 reactor.action.onNext(.setArrivalMarket(selectedMarket))
             })
             .disposed(by: disposeBag)
+        
+        premiumView.premiumTableViewHeader.coinButton.rx.tap
+            .map{ Reactor.Action.sortByCoin }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        premiumView.premiumTableViewHeader.premiumButton.rx.tap
+            .map{ Reactor.Action.sortByPremium }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: PremiumReactor){
-        reactor.state.map { $0.premiumList }
+        reactor.state.map { $0.filteredpremiumList }
             .distinctUntilChanged()
             .bind(to: premiumView.premiumTableView.rx.items(cellIdentifier: "FeePremiumTableViewCell", cellType: FeePremiumTableViewCell.self)){ row, premiumList, cell in
                 cell.configurePremium(with: premiumList)
@@ -84,6 +107,34 @@ extension PremiumViewController {
             .bind(onNext: { [weak self] title in
                 self?.premiumView.arrivalMarketButton.leftImageView.image = UIImage(named: title)
                 self?.premiumView.arrivalMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: title), for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.coinSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.premiumView.premiumTableViewHeader.coinButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.premiumView.premiumTableViewHeader.coinButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.premiumView.premiumTableViewHeader.coinButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.premiumSortOrder }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] order in
+                switch order{
+                case .ascending:
+                    self?.premiumView.premiumTableViewHeader.premiumButton.setImage(ImageManager.sort_ascending, for: .normal)
+                case .descending:
+                    self?.premiumView.premiumTableViewHeader.premiumButton.setImage(ImageManager.sort_descending, for: .normal)
+                case .none:
+                    self?.premiumView.premiumTableViewHeader.premiumButton.setImage(ImageManager.sort, for: .normal)
+                }
             })
             .disposed(by: disposeBag)
     }

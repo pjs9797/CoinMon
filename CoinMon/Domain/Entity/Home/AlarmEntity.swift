@@ -8,7 +8,7 @@ struct Alarm: Equatable {
     let isOn: Bool
 }
 
-struct CoinPriceAtAlarm: Equatable{
+struct OneCoinPrice: Equatable{
     let coinTitle: String
     let price: String
 }

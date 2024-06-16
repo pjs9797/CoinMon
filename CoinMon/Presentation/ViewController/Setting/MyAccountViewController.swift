@@ -56,8 +56,11 @@ extension MyAccountViewController {
             .disposed(by: disposeBag)
         
         myAccountView.nicknameTextField.rx.text.orEmpty
-            .map{ Reactor.Action.updateNickname($0) }
-            .bind(to: reactor.action)
+            .bind(onNext: { [weak self] nickname in
+                let filterNickname = String(nickname.prefix(12))
+                self?.myAccountView.nicknameTextField.text = filterNickname
+                reactor.action.onNext(.updateNickname(filterNickname))
+            })
             .disposed(by: disposeBag)
         
         myAccountView.changeNicknameButton.rx.tap

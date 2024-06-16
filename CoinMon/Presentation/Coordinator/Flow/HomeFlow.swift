@@ -8,6 +8,7 @@ class HomeFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
+    private let coinUseCase = CoinUseCase(repository: CoinRepository())
     
     init(with rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
@@ -25,19 +26,21 @@ class HomeFlow: Flow {
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay):
             return presentToSelectArrivalMarketViewController(selectedMarketRelay: selectedMarketRelay)
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
         case .dismissSelectMarketViewController:
             return dismissSelectMarketViewController()
         }
     }
     
     private func navigateToHomeViewController() -> FlowContributors {
-        let priceReactor = PriceReactor()
+        let priceReactor = PriceReactor(coinUseCase: coinUseCase)
         let priceViewController = PriceViewController(with: priceReactor)
         
-        let feeReactor = FeeReactor()
+        let feeReactor = FeeReactor(coinUseCase: coinUseCase)
         let feeViewController = FeeViewController(with: feeReactor)
         
-        let premiumReactor = PremiumReactor()
+        let premiumReactor = PremiumReactor(coinUseCase: coinUseCase)
         let premiumViewController = PremiumViewController(with: premiumReactor)
         
         let reactor = HomeReactor()
@@ -82,6 +85,17 @@ class HomeFlow: Flow {
         self.rootViewController.present(viewController, animated: true)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToNetworkErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
     }
     
     private func dismissSelectMarketViewController() -> FlowContributors{
