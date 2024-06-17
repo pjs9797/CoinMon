@@ -19,12 +19,12 @@ class SigninUseCase {
     func checkEmailVerificationCodeForLogin(email: String, number: String, deviceToken: String) -> Observable<String> {
         return repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken)
             .flatMap { response -> Observable<String> in
-                if response.resultCode == "200" {
+                if let response = response, response.resultCode == "200" {
                     TokenManager.shared.saveAccessToken(response.accessToken)
                     TokenManager.shared.saveRefreshToken(response.refreshToken)
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 }
-                return .just(response.resultCode)
+                return .just(response?.resultCode ?? "426")
             }
     }
 }

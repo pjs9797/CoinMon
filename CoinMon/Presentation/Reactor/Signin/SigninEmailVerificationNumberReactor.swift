@@ -62,7 +62,7 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                         }
                         return .empty()
                     }
-                    .catch { [weak self] _ in
+                    .catch { [weak self] error in
                         self?.steps.accept(SigninStep.presentToNetworkErrorAlertController)
                         return .empty()
                     }

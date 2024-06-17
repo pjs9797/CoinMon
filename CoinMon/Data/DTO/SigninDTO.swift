@@ -11,11 +11,15 @@ struct SigninDTO: Codable {
 struct SigninResponseDTO: Codable {
     let resultCode: String
     let resultMessage: String
-    let data: SigninDataDTO
+    let data: SigninDataDTO?
     
-    static func toAuthTokens(dto: SigninResponseDTO) -> AuthTokens {
-        let data = dto.data
-        return AuthTokens(resultCode: dto.resultCode, accessToken: data.accessToken, refreshToken: data.refreshToken)
+    static func toAuthTokens(dto: SigninResponseDTO) -> AuthTokens? {
+        if let data = dto.data {
+            return AuthTokens(resultCode: dto.resultCode, accessToken: data.accessToken, refreshToken: data.refreshToken)
+        }
+        else {
+            return nil
+        }
     }
 }
 
