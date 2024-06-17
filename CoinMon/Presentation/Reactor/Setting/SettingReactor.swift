@@ -12,7 +12,9 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
     
     enum Action {
         case changeLanguage(String)
+        case alarmSettingButtonTapped
         case myAccountButtonTapped
+        case inquiryButtonTapped
         case termsOfServiceButtonTapped
         case privacyPolicyButtonTapped
     }
@@ -30,8 +32,14 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
         case .changeLanguage(let newLanguage):
             LocalizationManager.shared.setLanguage(newLanguage)
             return Observable.just(.setLanguage(newLanguage))
+        case .alarmSettingButtonTapped:
+            self.steps.accept(SettingStep.goToAlarmSetting)
+            return .empty()
         case .myAccountButtonTapped:
             self.steps.accept(SettingStep.navigateToMyAccountViewController)
+            return .empty()
+        case .inquiryButtonTapped:
+            self.steps.accept(SettingStep.navigateToInquiryViewController)
             return .empty()
         case .termsOfServiceButtonTapped:
             self.steps.accept(SettingStep.navigateToTermsOfServiceViewController)

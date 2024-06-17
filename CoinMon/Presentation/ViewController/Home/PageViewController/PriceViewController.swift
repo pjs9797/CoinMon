@@ -118,7 +118,7 @@ extension PriceViewController {
         reactor.state.map{ $0.unit }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] unit in
-                self?.priceView.priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세%",arguments: unit), for: .normal)
+                self?.priceView.priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더",arguments: unit), for: .normal)
             })
             .disposed(by: disposeBag)
         

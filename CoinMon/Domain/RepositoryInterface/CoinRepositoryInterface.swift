@@ -6,4 +6,5 @@ protocol CoinRepositoryInterface {
     func fetchOneCoinPrice(exchange: String, symbol: String) -> Observable<OneCoinPrice>
     func fetchCoinFee(exchange: String) -> Observable<[CoinFee]>
     func fetchCoinPremiumList(departureExchange: String, arrivalExchange: String) -> Observable<(departurePrices: [OneCoinPrice], arrivalPrices: [OneCoinPrice])> 
+    func fetchExchangeRate() -> Observable<Double>
 }

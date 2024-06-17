@@ -46,8 +46,8 @@ class PremiumView: UIView {
     }
     
     func setLocalizedText(){
-        departureMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: "업비트"), for: .normal)
-        arrivalMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: "바이낸스"), for: .normal)
+        departureMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: "Upbit"), for: .normal)
+        arrivalMarketButton.setTitle(LocalizationManager.shared.localizedString(forKey: "Binance"), for: .normal)
         premiumTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         premiumTableViewHeader.premiumButton.setTitle(LocalizationManager.shared.localizedString(forKey: "김프"), for: .normal)
     }

@@ -31,7 +31,7 @@ class SettingView: UIView {
         segmentedControl.layer.cornerRadius = 8*Constants.standardHeight
         return segmentedControl
     }()
-    let alertSettingButton: UIButton = {
+    let alarmSettingButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = FontManager.H4_16
         button.setTitleColor(ColorManager.common_0, for: .normal)
@@ -84,7 +84,7 @@ class SettingView: UIView {
     }
     
     private func layout() {
-        [settingLabel,languageLabel,languageSegmentedControl,alertSettingButton,myAccountButton,inquiryButton,termsOfServiceButton,privacyPolicyButton,versionLabel]
+        [settingLabel,languageLabel,languageSegmentedControl,alarmSettingButton,myAccountButton,inquiryButton,termsOfServiceButton,privacyPolicyButton,versionLabel]
             .forEach{
                 addSubview($0)
             }
@@ -110,7 +110,7 @@ class SettingView: UIView {
             make.centerY.equalTo(languageLabel)
         }
         
-        alertSettingButton.snp.makeConstraints { make in
+        alarmSettingButton.snp.makeConstraints { make in
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
@@ -121,7 +121,7 @@ class SettingView: UIView {
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(alertSettingButton.snp.bottom)
+            make.top.equalTo(alarmSettingButton.snp.bottom)
         }
         
         inquiryButton.snp.makeConstraints { make in

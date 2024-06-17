@@ -291,12 +291,12 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                 rhs = Double(rhsValue) ?? 0.0
             }
             else if keyPath == \CoinPrice.change, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
-                lhs = Double(lhsValue.replacingOccurrences(of: "%", with: "")) ?? 0.0
-                rhs = Double(rhsValue.replacingOccurrences(of: "%", with: "")) ?? 0.0
+                lhs = Double(lhsValue) ?? 0.0
+                rhs = Double(rhsValue) ?? 0.0
             }
             else if keyPath == \CoinPrice.gap, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
-                lhs = Double(lhsValue.replacingOccurrences(of: "%", with: "")) ?? 0.0
-                rhs = Double(rhsValue.replacingOccurrences(of: "%", with: "")) ?? 0.0
+                lhs = Double(lhsValue) ?? 0.0
+                rhs = Double(rhsValue) ?? 0.0
             }
             else {
                 lhs = $0[keyPath: keyPath]

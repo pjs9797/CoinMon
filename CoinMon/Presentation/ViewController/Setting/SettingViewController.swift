@@ -42,7 +42,7 @@ class SettingViewController: UIViewController, ReactorKit.View {
     private func setLocalizedText(){
         settingView.settingLabel.text = LocalizationManager.shared.localizedString(forKey: "설정")
         settingView.languageLabel.text = LocalizationManager.shared.localizedString(forKey: "언어")
-        settingView.alertSettingButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 설정"), for: .normal)
+        settingView.alarmSettingButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 설정"), for: .normal)
         settingView.myAccountButton.setTitle(LocalizationManager.shared.localizedString(forKey: "내 계정"), for: .normal)
         settingView.inquiryButton.setTitle(LocalizationManager.shared.localizedString(forKey: "문의"), for: .normal)
         settingView.termsOfServiceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "서비스 이용약관"), for: .normal)
@@ -64,8 +64,18 @@ extension SettingViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        settingView.alarmSettingButton.rx.tap
+            .map{ Reactor.Action.alarmSettingButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         settingView.myAccountButton.rx.tap
             .map{ Reactor.Action.myAccountButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.inquiryButton.rx.tap
+            .map{ Reactor.Action.inquiryButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

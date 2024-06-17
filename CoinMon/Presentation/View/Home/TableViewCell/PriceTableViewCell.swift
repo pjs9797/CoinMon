@@ -137,22 +137,28 @@ class PriceTableViewCell: UITableViewCell {
         coinImageView.image = UIImage(named: priceList.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = priceList.coinTitle
         priceLabel.text = priceList.price
-        changeLabel.text = priceList.change
-        gapLabel.text = priceList.gap
-        if priceList.change.first == "-" {
-            changeLabel.textColor = .blue
+        changeLabel.text = "\(priceList.change)%"
+        gapLabel.text = "\(priceList.gap)%"
+        if priceList.change == "-99.00" {
+            changeLabel.text = "-"
         }
-        else if priceList.change == "0.00%" {
-            changeLabel.textColor = .black
-        }
-        else {
-            changeLabel.textColor = .red
+        if priceList.gap == "-99.00" {
+            gapLabel.text = "-"
         }
         if priceList.change == "-" {
             changeLabel.textAlignment = .center
         }
         if priceList.gap == "-" {
             gapLabel.textAlignment = .center
+        }
+        if priceList.change.first == "-" && priceList.change.count > 1 {
+            changeLabel.textColor = .blue
+        }
+        else if priceList.change == "0.00" {
+            changeLabel.textColor = .black
+        }
+        else {
+            changeLabel.textColor = .red
         }
     }
 }

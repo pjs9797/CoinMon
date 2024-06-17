@@ -30,19 +30,28 @@ class CoinUseCase {
     func fetchCoinPremiumList(departureMarket: String, arrivalMarket: String) -> Observable<[CoinPremium]> {
         let departureMarketUpper = departureMarket.uppercased()
         let arrivalMarketUpper = arrivalMarket.uppercased()
-        return repository.fetchCoinPremiumList(departureExchange: departureMarketUpper, arrivalExchange: arrivalMarketUpper)
-            .map { (departurePrices, arrivalPrices) in
-                var premiums: [CoinPremium] = []
-                for departurePrice in departurePrices {
-                    if let arrivalPrice = arrivalPrices.first(where: { $0.coinTitle == departurePrice.coinTitle }) {
-                        let doubleArrivalPrice = Double(arrivalPrice.price) ?? 0.0
-                        let doubleDeparturePrice = Double(departurePrice.price) ?? 1.0
-                        let premiumValue = (doubleDeparturePrice / doubleArrivalPrice) / doubleDeparturePrice * 100
-                        let premium = CoinPremium(coinTitle: departurePrice.coinTitle, premium: String(format: "%.2f%%", premiumValue))
-                        premiums.append(premium)
+        return Observable.zip(
+            repository.fetchCoinPremiumList(departureExchange: departureMarketUpper, arrivalExchange: arrivalMarketUpper),
+            repository.fetchExchangeRate()
+        )
+        .map { (prices, exchangeRate) in
+            let (departurePrices, arrivalPrices) = prices
+            var premiums: [CoinPremium] = []
+            for departurePrice in departurePrices {
+                if let arrivalPrice = arrivalPrices.first(where: { $0.coinTitle == departurePrice.coinTitle }) {
+                    let krwPrice = Double(departurePrice.price) ?? 0.0
+                    let usdtPrice = Double(arrivalPrice.price) ?? 0.0
+                    let usdtPriceInKRW = usdtPrice * exchangeRate
+                    let premiumValue = ((krwPrice - usdtPriceInKRW) / usdtPriceInKRW) * 100
+                    if departurePrice.coinTitle == "TON" {
+                        //print(departurePrice.price,arrivalPrice.price)
+                        continue
                     }
+                    let premium = CoinPremium(coinTitle: departurePrice.coinTitle, premium: String(format: "%.2f", premiumValue))
+                    premiums.append(premium)
                 }
-                return premiums
             }
+            return premiums
+        }
     }
 }

@@ -27,6 +27,7 @@ class VerificationNumberView: UIView {
         let textField = UITextField()
         textField.font = FontManager.H2_20
         textField.textColor = ColorManager.common_0
+        textField.keyboardType = .numberPad
         return textField
     }()
     let timerLabel: UILabel = {

@@ -8,7 +8,7 @@ enum UserService {
 }
 
 extension UserService: TargetType {
-    var baseURL: URL { return URL(string: "http://43.203.234.134:8080/api/v1/user/")! }
+    var baseURL: URL { return URL(string: "http://52.78.66.213:8080/api/v1/user/")! }
     var path: String {
         switch self {
         case .withdraw:

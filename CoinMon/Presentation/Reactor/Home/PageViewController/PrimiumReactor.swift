@@ -153,9 +153,8 @@ class PremiumReactor: ReactorKit.Reactor,Stepper {
             let rhs: Any
             
             if keyPath == \CoinPremium.premium, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
-                print(lhsValue)
-                lhs = Double(lhsValue.replacingOccurrences(of: "%", with: "")) ?? 0.0
-                rhs = Double(rhsValue.replacingOccurrences(of: "%", with: "")) ?? 0.0
+                lhs = Double(lhsValue) ?? 0.0
+                rhs = Double(rhsValue) ?? 0.0
             }
             else {
                 lhs = $0[keyPath: keyPath]

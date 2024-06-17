@@ -141,7 +141,7 @@ extension AlarmViewController {
         reactor.state.map{ $0.unit }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] unit in
-                self?.alarmView.alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가", arguments: unit), for: .normal)
+                self?.alarmView.alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가 헤더", arguments: unit), for: .normal)
             })
             .disposed(by: disposeBag)
         

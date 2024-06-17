@@ -94,7 +94,7 @@ class FeePremiumTableViewCell: UITableViewCell {
         if feeList.fee.first == "-" {
             feePremiumLabel.textColor = .blue
         }
-        else if feeList.fee == "0%" {
+        else if feeList.fee == "0" {
             feePremiumLabel.textColor = .black
         }
         else {
@@ -105,11 +105,11 @@ class FeePremiumTableViewCell: UITableViewCell {
     func configurePremium(with premiumList: CoinPremium) {
         coinImageView.image = UIImage(named: premiumList.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = premiumList.coinTitle
-        feePremiumLabel.text = premiumList.premium
+        feePremiumLabel.text = "\(premiumList.premium)%"
         if premiumList.premium.first == "-" {
             feePremiumLabel.textColor = .blue
         }
-        else if premiumList.premium == "0%" {
+        else if premiumList.premium == "0.00" {
             feePremiumLabel.textColor = .black
         }
         else {

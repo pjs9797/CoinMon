@@ -36,7 +36,7 @@ class PriceView: UIView {
     func setLocalizedText(){
         searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
         priceTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
-        priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세%",arguments: "USDT"), for: .normal)
+        priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더",arguments: "USDT"), for: .normal)
         priceTableViewHeader.changeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "등락률"), for: .normal)
         priceTableViewHeader.gapButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시평갭"), for: .normal)
     }

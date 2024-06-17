@@ -7,8 +7,12 @@ struct CoinPriceResponseDTO: Codable {
         let info: [CoinPriceInfoDTO]
     }
     
-    static func toPriceListsAtHome(dto: CoinPriceResponseDTO) -> [CoinPrice?] {
-        return dto.data.info.map { CoinPriceInfoDTO.toPriceListAtHome(dto: $0) }
+    static func toPriceListsAtHome(dto: CoinPriceResponseDTO) -> [CoinPrice] {
+        return dto.data.info.compactMap { CoinPriceInfoDTO.toPriceListAtHome(dto: $0) }
+    }
+    
+    static func toPremiumLists(dto: CoinPriceResponseDTO) -> [OneCoinPrice] {
+        return dto.data.info.compactMap { CoinPriceInfoDTO.toPremiumList(dto: $0) }
     }
     
     static func toPriceListsAtAlarm(dto: CoinPriceResponseDTO) -> [OneCoinPrice] {
@@ -20,7 +24,7 @@ struct CoinPriceResponseDTO: Codable {
     }
     
     static func toFeeList(dto: CoinPriceResponseDTO) -> [CoinFee] {
-        return dto.data.info.map { CoinPriceInfoDTO.toFeeList(dto: $0) }
+        return dto.data.info.compactMap { CoinPriceInfoDTO.toFeeList(dto: $0) }
     }
 }
 
@@ -35,9 +39,9 @@ struct CoinPriceInfoDTO: Codable {
     let percent: Double
     let time: String
     
-    static func toPriceListAtHome(dto: CoinPriceInfoDTO) -> CoinPrice {
-        var change = -100.0
-        var gap = -100.0
+    static func toPriceListAtHome(dto: CoinPriceInfoDTO) -> CoinPrice? {
+        var change = -99.0
+        var gap = -99.0
         if let standardPrice = dto.standardPrice {
             if standardPrice != 0.0 || standardPrice != -100.0 {
                 change = (standardPrice - dto.limitPrice) / standardPrice * 100
@@ -47,22 +51,32 @@ struct CoinPriceInfoDTO: Codable {
             gap = abs(dto.limitPrice - dto.marketPrice) / dto.marketPrice * 100
             
         }
-//        if dto.limitPrice == 0.0 {
-//            return nil
-//        }
+        if dto.limitPrice == 0.0 {
+            return nil
+        }
         return CoinPrice(
             coinTitle: dto.symbol,
             price: formatPrice(dto.limitPrice),
-            change: change == -100.0 ? "-" : String(format: "%.2f%%", change),
-            gap: gap == -100.0 ? "-" : String(format: "%.2f%%", gap)
+            change: String(format: "%.2f", change),
+            gap: String(format: "%.2f", gap)
         )
+    }
+    
+    static func toPremiumList(dto: CoinPriceInfoDTO) -> OneCoinPrice? {
+        if dto.limitPrice == 0.0 {
+            return nil
+        }
+        return OneCoinPrice(coinTitle: dto.symbol, price: formatPrice(dto.limitPrice))
     }
     
     static func toPriceListAtAlarm(dto: CoinPriceInfoDTO) -> OneCoinPrice {
         return OneCoinPrice(coinTitle: dto.symbol, price: formatPrice(dto.limitPrice))
     }
     
-    static func toFeeList(dto: CoinPriceInfoDTO) -> CoinFee {
+    static func toFeeList(dto: CoinPriceInfoDTO) -> CoinFee? {
+        if dto.fundingRate == 0.0 {
+            return nil
+        }
         return CoinFee(coinTitle: dto.symbol, fee: formatPrice(dto.fundingRate * 100))
     }
     

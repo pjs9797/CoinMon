@@ -22,6 +22,8 @@ class SettingFlow: Flow {
             return navigateToSettingViewController()
         case .navigateToMyAccountViewController:
             return navigateToMyAccountViewController()
+        case .navigateToInquiryViewController:
+            return navigateToInquiryViewController()
         case .navigateToWithdrawalViewController:
             return navigateToWithdrawalViewController()
         case .navigateToTermsOfServiceViewController:
@@ -36,6 +38,8 @@ class SettingFlow: Flow {
             return presentToLogoutAlertController(reactor: reactor)
         case .presentToWithdrawAlertController(let reactor):
             return presentToWithdrawAlertController(reactor: reactor)
+        case .goToAlarmSetting:
+            return goToAlarmSetting()
         case .popViewController:
             return popViewController()
         case .completeMainFlow:
@@ -54,6 +58,16 @@ class SettingFlow: Flow {
     private func navigateToMyAccountViewController() -> FlowContributors {
         let reactor = MyAccountReactor(userUseCase: userUseCase)
         let viewController = MyAccountViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToInquiryViewController() -> FlowContributors {
+        let reactor = InquiryReactor()
+        let viewController = InquiryViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
@@ -138,6 +152,13 @@ class SettingFlow: Flow {
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
         
+        return .none
+    }
+    
+    private func goToAlarmSetting() -> FlowContributors {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
         return .none
     }
     

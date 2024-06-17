@@ -162,6 +162,11 @@
 		31E0A5562C1B096B00756DFD /* AlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5552C1B096B00756DFD /* AlarmUseCase.swift */; };
 		31E0A5582C1B28DF00756DFD /* ModifyAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5572C1B28DF00756DFD /* ModifyAlarmViewController.swift */; };
 		31E0A55A2C1B28F900756DFD /* ModifyAlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5592C1B28F900756DFD /* ModifyAlarmReactor.swift */; };
+		31E0A55C2C20101D00756DFD /* ExchangeRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A55B2C20101D00756DFD /* ExchangeRateService.swift */; };
+		31E0A55E2C20105100756DFD /* ExchangeRateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A55D2C20105100756DFD /* ExchangeRateDTO.swift */; };
+		31E0A5602C201C4700756DFD /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A55F2C201C4700756DFD /* InquiryView.swift */; };
+		31E0A5622C201C6600756DFD /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5612C201C6600756DFD /* InquiryViewController.swift */; };
+		31E0A5642C201C7C00756DFD /* InquiryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5632C201C7C00756DFD /* InquiryReactor.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -321,6 +326,11 @@
 		31E0A5552C1B096B00756DFD /* AlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUseCase.swift; sourceTree = "<group>"; };
 		31E0A5572C1B28DF00756DFD /* ModifyAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyAlarmViewController.swift; sourceTree = "<group>"; };
 		31E0A5592C1B28F900756DFD /* ModifyAlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyAlarmReactor.swift; sourceTree = "<group>"; };
+		31E0A55B2C20101D00756DFD /* ExchangeRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateService.swift; sourceTree = "<group>"; };
+		31E0A55D2C20105100756DFD /* ExchangeRateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateDTO.swift; sourceTree = "<group>"; };
+		31E0A55F2C201C4700756DFD /* InquiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryView.swift; sourceTree = "<group>"; };
+		31E0A5612C201C6600756DFD /* InquiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
+		31E0A5632C201C7C00756DFD /* InquiryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryReactor.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -429,6 +439,7 @@
 				314636A22C05FBCD008A5629 /* SettingView.swift */,
 				31E0A4B02C1078DC00756DFD /* MyAccountView.swift */,
 				31E0A4C82C10908400756DFD /* WithdrawalView.swift */,
+				31E0A55F2C201C4700756DFD /* InquiryView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -439,6 +450,7 @@
 				314636A62C060056008A5629 /* SettingViewController.swift */,
 				31E0A4B22C10838400756DFD /* MyAccountViewController.swift */,
 				31E0A4CA2C130EB400756DFD /* WithdrawalViewController.swift */,
+				31E0A5612C201C6600756DFD /* InquiryViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -449,6 +461,7 @@
 				314636A82C06005E008A5629 /* SettingReactor.swift */,
 				31E0A4C62C108D9E00756DFD /* MyAccountReactor.swift */,
 				31E0A4CC2C130EDD00756DFD /* WithdrawalReactor.swift */,
+				31E0A5632C201C7C00756DFD /* InquiryReactor.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -830,6 +843,7 @@
 				31E0A5182C182BE300756DFD /* UserDTO.swift */,
 				31E0A5272C196F5200756DFD /* CoinDTO.swift */,
 				31E0A54F2C1B05F500756DFD /* AlarmDTO.swift */,
+				31E0A55D2C20105100756DFD /* ExchangeRateDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -842,6 +856,7 @@
 				31E0A5162C1827A700756DFD /* UserService.swift */,
 				31E0A5232C196E4800756DFD /* CoinService.swift */,
 				31E0A54D2C1AFDB200756DFD /* AlarmService.swift */,
+				31E0A55B2C20101D00756DFD /* ExchangeRateService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1069,6 +1084,7 @@
 				315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */,
 				31E0A5382C19BC2500756DFD /* SelectAlarmConditionView.swift in Sources */,
 				31E0A5502C1B05F500756DFD /* AlarmDTO.swift in Sources */,
+				31E0A5622C201C6600756DFD /* InquiryViewController.swift in Sources */,
 				314636A92C06005E008A5629 /* SettingReactor.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
 				31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */,
@@ -1105,6 +1121,7 @@
 				315C01862C0B133B00BE00E3 /* AlarmTableViewCell.swift in Sources */,
 				31E0A4F72C16C7C700756DFD /* MarketingConsentView.swift in Sources */,
 				314636A32C05FBCD008A5629 /* SettingView.swift in Sources */,
+				31E0A55E2C20105100756DFD /* ExchangeRateDTO.swift in Sources */,
 				317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */,
 				31777A102BE39D88006E8378 /* ImageManager.swift in Sources */,
 				31E0A5442C19CB3D00756DFD /* SelectCoinView.swift in Sources */,
@@ -1117,6 +1134,7 @@
 				31E0A5242C196E4800756DFD /* CoinService.swift in Sources */,
 				31E0A5542C1B071600756DFD /* AlarmRepository.swift in Sources */,
 				31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */,
+				31E0A55C2C20101D00756DFD /* ExchangeRateService.swift in Sources */,
 				31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */,
 				31E0A53E2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift in Sources */,
 				31777A302BE766B2006E8378 /* SigninEmailEntryReactor.swift in Sources */,
@@ -1196,12 +1214,14 @@
 				31E0A5202C182CFD00756DFD /* UserRepository.swift in Sources */,
 				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,
 				31E0A4FE2C16CC7400756DFD /* MarketingConsentViewController.swift in Sources */,
+				31E0A5602C201C4700756DFD /* InquiryView.swift in Sources */,
 				31777A122BE3A385006E8378 /* Extension.swift in Sources */,
 				315C01882C0B134500BE00E3 /* AlarmTableViewHeader.swift in Sources */,
 				31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */,
 				31E0A4CB2C130EB400756DFD /* WithdrawalViewController.swift in Sources */,
 				315C01822C0B04B400BE00E3 /* NoneAlarmView.swift in Sources */,
 				315C01912C0B3D3200BE00E3 /* AlarmFlow.swift in Sources */,
+				31E0A5642C201C7C00756DFD /* InquiryReactor.swift in Sources */,
 				31E0A4CD2C130EDD00756DFD /* WithdrawalReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1364,9 +1384,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1394,9 +1417,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

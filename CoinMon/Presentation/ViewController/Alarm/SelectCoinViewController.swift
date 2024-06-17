@@ -95,7 +95,7 @@ extension SelectCoinViewController {
         reactor.state.map{ $0.unit }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] unit in
-                self?.selectCoinView.selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세", arguments: unit), for: .normal)
+                self?.selectCoinView.selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더", arguments: unit), for: .normal)
             })
             .disposed(by: disposeBag)
         
