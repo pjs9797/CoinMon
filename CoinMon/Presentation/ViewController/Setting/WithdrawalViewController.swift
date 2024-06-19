@@ -57,6 +57,11 @@ extension WithdrawalViewController {
             .map{ Reactor.Action.checkButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        withdrawalView.withdrawalButton.rx.tap
+            .map{ Reactor.Action.withdrawAlertYesButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: WithdrawalReactor){
