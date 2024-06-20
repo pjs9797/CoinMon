@@ -136,7 +136,12 @@ class PriceTableViewCell: UITableViewCell {
     func configure(with priceList: CoinPrice) {
         coinImageView.image = UIImage(named: priceList.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = priceList.coinTitle
-        priceLabel.text = priceList.price
+        if let formattedPrice = formatPrice(priceList.price) {
+            priceLabel.text = formattedPrice
+        }
+        else {
+            priceLabel.text = priceList.price
+        }
         changeLabel.text = "\(priceList.change)%"
         gapLabel.text = "\(priceList.gap)%"
         if priceList.change == "-99.00" {
@@ -160,5 +165,15 @@ class PriceTableViewCell: UITableViewCell {
         else {
             changeLabel.textColor = .red
         }
+    }
+    
+    private func formatPrice(_ price: String) -> String? {
+        guard let number = Double(price) else { return nil }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        
+        return formatter.string(from: NSNumber(value: number))
     }
 }

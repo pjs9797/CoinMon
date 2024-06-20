@@ -114,10 +114,25 @@ class AlarmTableViewCell: UITableViewCell {
     func configure(with alarm: Alarm) {
         coinImageView.image = UIImage(named: alarm.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = alarm.coinTitle
-        setPriceLabel.text = alarm.setPrice
+        if let formattedPrice = formatPrice(alarm.setPrice) {
+            setPriceLabel.text = formattedPrice
+        }
+        else {
+            setPriceLabel.text = alarm.setPrice
+        }
         alarmSwitch.isOn = alarm.isOn
         alarmId = alarm.alarmId
         filter = alarm.filter
         cycle = alarm.cycle
+    }
+    
+    private func formatPrice(_ price: String) -> String? {
+        guard let number = Double(price) else { return nil }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        
+        return formatter.string(from: NSNumber(value: number))
     }
 }

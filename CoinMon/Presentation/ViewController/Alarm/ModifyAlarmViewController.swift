@@ -127,7 +127,9 @@ extension ModifyAlarmViewController {
         
         reactor.state.map{ $0.currentPrice }
             .distinctUntilChanged()
-            .bind(to: self.addAlarmView.currentCoinPriceLabel.rx.text)
+            .bind(onNext: { [weak self] price in
+                self?.addAlarmView.currentCoinPriceLabel.text = reactor.formatPrice(price)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.currentPriceUnit }
@@ -137,7 +139,9 @@ extension ModifyAlarmViewController {
         
         reactor.state.map{ $0.setPrice }
             .distinctUntilChanged()
-            .bind(to: self.addAlarmView.setPriceTextField.rx.text)
+            .bind(onNext: { [weak self] price in
+                self?.addAlarmView.setPriceTextField.text = reactor.formatPrice(price)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.setPriceUnit }

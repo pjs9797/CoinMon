@@ -70,7 +70,7 @@ extension AddAlarmViewController {
             .bind(onNext: { [weak self] text in
                 let text = self?.reactor?.filterPrice(price: text)
                 self?.addAlarmView.setPriceTextField.text = text
-                reactor.action.onNext(.updateSetPrice(text ?? ""))
+                reactor.action.onNext(.updateSetPrice(text?.replacingOccurrences(of: ",", with: "") ?? ""))
             })
             .disposed(by: disposeBag)
         
@@ -158,7 +158,7 @@ extension AddAlarmViewController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] price in
                 if let price = price {
-                    self?.addAlarmView.currentCoinPriceLabel.text = price
+                    self?.addAlarmView.currentCoinPriceLabel.text = reactor.formatPrice(price)
                 }
                 else {
                     self?.addAlarmView.currentCoinPriceLabel.text = nil
@@ -182,7 +182,7 @@ extension AddAlarmViewController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] price in
                 if let price = price {
-                    self?.addAlarmView.setPriceTextField.text = price
+                    self?.addAlarmView.setPriceTextField.text = reactor.formatPrice(price)
                 }
                 else {
                     self?.addAlarmView.setPriceTextField.text = nil

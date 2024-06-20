@@ -91,5 +91,21 @@ class SelectCoinTableViewCell: UITableViewCell {
         coinImageView.image = UIImage(named: coinPriceAtAlarm.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = coinPriceAtAlarm.coinTitle
         priceLabel.text = coinPriceAtAlarm.price
+        if let formattedPrice = formatPrice(coinPriceAtAlarm.price) {
+            priceLabel.text = formattedPrice
+        } 
+        else {
+            priceLabel.text = coinPriceAtAlarm.price
+        }
+    }
+    
+    private func formatPrice(_ price: String) -> String? {
+        guard let number = Double(price) else { return nil }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        
+        return formatter.string(from: NSNumber(value: number))
     }
 }

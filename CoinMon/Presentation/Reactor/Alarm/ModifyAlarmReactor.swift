@@ -1,4 +1,5 @@
 import ReactorKit
+import Foundation
 import RxCocoa
 import RxFlow
 
@@ -201,8 +202,8 @@ class ModifyAlarmReactor: ReactorKit.Reactor, Stepper {
             resultText.removeLast()
         }
         
-        if resultText.count > 10 {
-            resultText = String(resultText.prefix(10))
+        if resultText.count > 9 {
+            resultText = String(resultText.prefix(9))
             if resultText.last == "." {
                 resultText.removeLast()
             }
@@ -218,5 +219,17 @@ class ModifyAlarmReactor: ReactorKit.Reactor, Stepper {
         
         let newValue = String(priceValue * (1 + Double(index) / 100.0)).prefix(10)
         return String(newValue)
+    }
+    
+    func formatPrice(_ price: String) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.groupingSeparator = ","
+        
+        if let number = Double(price.replacingOccurrences(of: ",", with: "")) {
+            return numberFormatter.string(from: NSNumber(value: number)) ?? price
+        }
+        
+        return price
     }
 }

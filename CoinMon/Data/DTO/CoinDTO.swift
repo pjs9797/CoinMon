@@ -91,8 +91,8 @@ struct CoinPriceInfoDTO: Codable {
             priceString.removeLast()
         }
         
-        if priceString.count > 10 {
-            priceString = String(priceString.prefix(10))
+        if priceString.count > 9 {
+            priceString = String(priceString.prefix(9))
             
             if priceString.last == "." {
                 priceString.removeLast()
