@@ -102,6 +102,7 @@ extension HomeViewController {
             .bind(to: homeCategoryCollectionView.rx.items(cellIdentifier: "HomeCategoryCollectionViewCell", cellType: HomeCategoryCollectionViewCell.self)) { (index, categories, cell) in
                 let isSelected = index == reactor.currentState.selectedItem
                 cell.isSelected = isSelected
+                print("isSelected",index,isSelected)
                 if isSelected {
                     self.homeCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 }
@@ -120,6 +121,15 @@ extension HomeViewController: UIPageViewControllerDataSource, UIPageViewControll
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllers.firstIndex(of: viewController), index < (viewControllers.count - 1) else { return nil }
         return viewControllers[index + 1]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed, let visibleViewController = pageViewController.viewControllers?.first,
+           let index = viewControllers.firstIndex(of: visibleViewController) {
+            homeCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+            reactor?.action.onNext(.setPreviousIndex(index))
+            reactor?.action.onNext(.selectItem(index))
+        }
     }
 }
 
