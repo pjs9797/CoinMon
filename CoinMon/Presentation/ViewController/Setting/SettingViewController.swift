@@ -91,11 +91,5 @@ extension SettingViewController {
     }
     
     func bindState(reactor: SettingReactor){
-        reactor.state.map { $0.currentLanguage }
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] newLanguage in
-                print("Language changed to: \(newLanguage)")
-            })
-            .disposed(by: disposeBag)
     }
 }

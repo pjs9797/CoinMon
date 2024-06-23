@@ -100,7 +100,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                         .just(.setOnCnt(onCnt)),
                         .just(.setTotalCnt(totalCnt)),
                         .just(.setFilteredAlarms(alarmList)),
-                        .just(.setUnit(unit))
+                        .just(.setUnit(unit)),
+                        .just(.setSearchText(""))
                     ])
                 }
                 .catch { [weak self] error in
@@ -146,7 +147,20 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                     return .empty()
                 }
         case .updateSearchText(let searchText):
-            let filteredAlarms = searchText.isEmpty ? currentState.alarms : currentState.alarms.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            let filteredAlarms: [Alarm]
+            if searchText.isEmpty {
+                var sortedAlarms = currentState.alarms
+                if self.currentState.coinSortOrder != SortOrder.none {
+                    sortedAlarms = self.sortAlarms(sortedAlarms, by: \.coinTitle, order: self.currentState.coinSortOrder)
+                }
+                if self.currentState.setPriceSortOrder != SortOrder.none {
+                    sortedAlarms = self.sortAlarms(sortedAlarms, by: \.setPrice, order: self.currentState.setPriceSortOrder)
+                }
+                filteredAlarms = sortedAlarms
+            }
+            else {
+                filteredAlarms = currentState.alarms.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            }
             return .concat([
                 .just(.setSearchText(searchText)),
                 .just(.setFilteredAlarms(filteredAlarms))

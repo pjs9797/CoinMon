@@ -99,6 +99,7 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                     if self?.currentState.gapSortOrder != SortOrder.none {
                         sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.gap, order: self?.currentState.gapSortOrder ?? .none) ?? priceList
                     }
+                    sortedPriceList = self?.filterPriceList(priceList: sortedPriceList, searchText: self?.currentState.searchText ?? "") ?? priceList
                     return .concat([
                         .just(.setPriceList(priceList)),
                         .just(.setFilteredPriceList(sortedPriceList))
@@ -133,7 +134,8 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                         .just(.setPriceList(priceList)),
                         .just(.setFilteredPriceList(sortedPriceList)),
                         .just(.setUnit(unit)),
-                        .just(.setSelectedMarket(index))
+                        .just(.setSelectedMarket(index)),
+                        .just(.setSearchText(""))
                     ])
                 }
                 .catch { [weak self] error in
@@ -153,7 +155,25 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .saveOrder:
             return .just(.saveOrder)
         case .updateSearchText(let searchText):
-            let filteredPriceList = searchText.isEmpty ? currentState.priceList : currentState.priceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            let filteredPriceList: [CoinPrice]
+            if searchText.isEmpty {
+                var sortedPriceList = currentState.priceList
+                if currentState.coinSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.coinTitle, order: currentState.coinSortOrder)
+                } 
+                else if currentState.priceSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.price, order: currentState.priceSortOrder)
+                } 
+                else if currentState.changeSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.change, order: currentState.changeSortOrder)
+                } 
+                else if currentState.gapSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.gap, order: currentState.gapSortOrder)
+                }
+                filteredPriceList = sortedPriceList
+            } else {
+                filteredPriceList = currentState.priceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            }
             return .concat([
                 .just(.setSearchText(searchText)),
                 .just(.setFilteredPriceList(filteredPriceList))
@@ -326,5 +346,10 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         }
         
         return sortedPriceList
+    }
+    
+    private func filterPriceList(priceList: [CoinPrice], searchText: String) -> [CoinPrice] {
+        guard !searchText.isEmpty else { return priceList }
+        return priceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
     }
 }

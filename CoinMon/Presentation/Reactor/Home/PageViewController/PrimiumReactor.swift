@@ -2,7 +2,7 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class PremiumReactor: ReactorKit.Reactor,Stepper {
+class PremiumReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     let selectDepartureMarketRelay = PublishRelay<String>()

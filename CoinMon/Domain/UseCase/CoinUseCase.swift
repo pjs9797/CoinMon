@@ -44,7 +44,6 @@ class CoinUseCase {
                     let usdtPriceInKRW = usdtPrice * exchangeRate
                     let premiumValue = ((krwPrice - usdtPriceInKRW) / usdtPriceInKRW) * 100
                     if departurePrice.coinTitle == "TON" {
-                        //print(departurePrice.price,arrivalPrice.price)
                         continue
                     }
                     let premium = CoinPremium(coinTitle: departurePrice.coinTitle, premium: String(format: "%.2f", premiumValue))

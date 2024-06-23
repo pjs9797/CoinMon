@@ -50,9 +50,9 @@ class HomeViewController: UIViewController, ReactorKit.View {
     
     private func layout(){
         view.addSubview(homeCategoryCollectionView)
-        addChild(pageViewController)
+        //addChild(pageViewController)
         view.addSubview(pageViewController.view)
-        pageViewController.didMove(toParent: self)
+        //pageViewController.didMove(toParent: self)
         
         homeCategoryCollectionView.snp.makeConstraints { make in
             make.width.equalTo(355*Constants.standardWidth)
@@ -102,7 +102,6 @@ extension HomeViewController {
             .bind(to: homeCategoryCollectionView.rx.items(cellIdentifier: "HomeCategoryCollectionViewCell", cellType: HomeCategoryCollectionViewCell.self)) { (index, categories, cell) in
                 let isSelected = index == reactor.currentState.selectedItem
                 cell.isSelected = isSelected
-                print("isSelected",index,isSelected)
                 if isSelected {
                     self.homeCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 }

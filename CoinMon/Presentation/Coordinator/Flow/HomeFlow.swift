@@ -48,8 +48,11 @@ class HomeFlow: Flow {
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
-            .contribute(withNextPresentable: premiumViewController, withNextStepper: premiumReactor),
+            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: premiumReactor),
+            .contribute(withNextPresentable: priceViewController, withNextStepper: priceReactor),
+            .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor),
+            //.contribute(withNextPresentable: premiumViewController, withNextStepper: premiumReactor),
+            .contribute(withNextPresentable: viewController, withNextStepper: reactor)
         ])
     }
     

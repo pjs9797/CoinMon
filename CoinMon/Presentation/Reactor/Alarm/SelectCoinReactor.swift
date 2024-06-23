@@ -68,7 +68,20 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
             self.steps.accept(AlarmStep.popViewController)
             return .empty()
         case .updateSearchText(let searchText):
-            let filteredCoins = searchText.isEmpty ? currentState.coins : currentState.coins.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            let filteredCoins: [OneCoinPrice]
+            if searchText.isEmpty {
+                var sortedCoins = currentState.coins
+                if self.currentState.coinSortOrder != SortOrder.none {
+                    sortedCoins = self.sortCoins(sortedCoins, by: \.coinTitle, order: self.currentState.coinSortOrder)
+                }
+                if self.currentState.setPriceSortOrder != SortOrder.none {
+                    sortedCoins = self.sortCoins(sortedCoins, by: \.price, order: self.currentState.setPriceSortOrder)
+                }
+                filteredCoins = sortedCoins
+            } 
+            else {
+                filteredCoins = currentState.coins.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            }
             return .concat([
                 .just(.setSearchText(searchText)),
                 .just(.setFilteredCoins(filteredCoins))

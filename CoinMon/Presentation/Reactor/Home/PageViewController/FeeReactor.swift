@@ -83,6 +83,7 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
                     if self?.currentState.feeSortOrder != SortOrder.none {
                         sortedFeeList = self?.sortFeeList(sortedFeeList, by: \.fee, order: self?.currentState.feeSortOrder ?? .none) ?? feeList
                     }
+                    sortedFeeList = self?.filterFeeList(priceList: sortedFeeList, searchText: self?.currentState.searchText ?? "") ?? feeList
                     return .concat([
                         .just(.setFeeList(feeList)),
                         .just(.setFilteredFeeList(sortedFeeList))
@@ -108,7 +109,8 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
                     return .concat([
                         .just(.setFeeList(feeList)),
                         .just(.setFilteredFeeList(sortedFeeList)),
-                        .just(.setSelectedMarket(index))
+                        .just(.setSelectedMarket(index)),
+                        .just(.setSearchText(""))
                     ])
                 }
                 .catch { [weak self] error in
@@ -128,7 +130,19 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
         case .saveOrder:
             return .just(.saveOrder)
         case .updateSearchText(let searchText):
-            let filteredFeeList = searchText.isEmpty ? currentState.feeList : currentState.feeList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            let filteredFeeList: [CoinFee]
+            if searchText.isEmpty {
+                var sortedFeeList = currentState.feeList
+                if self.currentState.coinSortOrder != SortOrder.none {
+                    sortedFeeList = self.sortFeeList(sortedFeeList, by: \.coinTitle, order: self.currentState.coinSortOrder)
+                }
+                if self.currentState.feeSortOrder != SortOrder.none {
+                    sortedFeeList = self.sortFeeList(sortedFeeList, by: \.fee, order: self.currentState.feeSortOrder)
+                }
+                filteredFeeList = sortedFeeList
+            } else {
+                filteredFeeList = currentState.feeList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            }
             return .concat([
                 .just(.setSearchText(searchText)),
                 .just(.setFilteredFeeList(filteredFeeList))
@@ -251,5 +265,10 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
         }
         
         return sortedFeeList
+    }
+    
+    private func filterFeeList(priceList: [CoinFee], searchText: String) -> [CoinFee] {
+        guard !searchText.isEmpty else { return priceList }
+        return priceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
     }
 }
