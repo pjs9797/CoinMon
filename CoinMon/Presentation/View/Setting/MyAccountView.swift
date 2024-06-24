@@ -13,6 +13,8 @@ class MyAccountView: UIView {
         textField.font = FontManager.H3_18
         textField.textColor = ColorManager.common_0
         textField.text = "CoinMon"
+        textField.layer.cornerRadius = 8*Constants.standardHeight
+        textField.layer.borderWidth = 1
         return textField
     }()
     let changeNicknameButton: UIButton = {
@@ -95,7 +97,7 @@ class MyAccountView: UIView {
         
         nicknameTextField.snp.makeConstraints { make in
             make.width.equalTo(220*Constants.standardWidth)
-            make.height.equalTo(26*Constants.standardHeight)
+            make.height.equalTo(40*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.top.equalTo(profileImageView.snp.bottom).offset(27*Constants.standardHeight)
         }

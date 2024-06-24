@@ -101,11 +101,18 @@ extension MyAccountViewController {
                     self?.myAccountView.nicknameErrorLabel.isHidden = true
                     self?.myAccountView.nicknameErrorLabel.isEnabled = false
                     self?.myAccountView.changeNicknameButton.setTitle(LocalizationManager.shared.localizedString(forKey: "닉네임 변경"), for: .normal)
+                    self?.myAccountView.nicknameTextField.layer.borderColor = ColorManager.common_100?.cgColor
+                    self?.myAccountView.nicknameTextField.leftView = nil
+                    self?.myAccountView.nicknameTextField.leftViewMode = .never
                 }
                 else {
                     self?.myAccountView.nicknameErrorLabel.isHidden = false
                     self?.myAccountView.nicknameErrorLabel.isEnabled = true
                     self?.myAccountView.changeNicknameButton.setTitle(LocalizationManager.shared.localizedString(forKey: "저장"), for: .normal)
+                    self?.myAccountView.nicknameTextField.layer.borderColor = ColorManager.orange_60?.cgColor
+                    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10*Constants.standardWidth, height: 40*Constants.standardHeight))
+                    self?.myAccountView.nicknameTextField.leftView = paddingView
+                    self?.myAccountView.nicknameTextField.leftViewMode = .always
                 }
             })
             .disposed(by: disposeBag)
