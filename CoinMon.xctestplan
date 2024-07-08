@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "0E04D125-565E-42A2-9CAF-731BAAC19B3D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:CoinMon.xcodeproj",
+        "identifier" : "3104F4E22C3A762F00DD40D6",
+        "name" : "CoinMonTests"
+      }
+    }
+  ],
+  "version" : 1
+}

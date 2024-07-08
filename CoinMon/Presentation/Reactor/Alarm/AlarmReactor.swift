@@ -127,8 +127,19 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .toggleAlarmSwitch(let alarm, let isOn):
             let updatedAlarm = Alarm(alarmId: alarm.alarmId, market: alarm.market, coinTitle: alarm.coinTitle, setPrice: alarm.setPrice, filter: alarm.filter, cycle: alarm.cycle, isOn: isOn)
             return alarmUseCase.updateAlarm(pushId: alarm.alarmId, market: alarm.market, symbol: alarm.coinTitle, targetPrice: alarm.setPrice, frequency: alarm.cycle, useYn: isOn ? "Y" : "N", filter: alarm.filter)
-                .flatMap { _ -> Observable<Mutation> in
-                    return .just(.updateAlarm(updatedAlarm))
+                .flatMap { [weak self] _ -> Observable<Mutation> in
+                    if isOn {
+                        return .concat([
+                            .just(.updateAlarm(updatedAlarm)),
+                            .just(.setOnCnt((self?.currentState.onCnt ?? 0)+1))
+                        ])
+                    }
+                    else {
+                        return .concat([
+                            .just(.updateAlarm(updatedAlarm)),
+                            .just(.setOnCnt((self?.currentState.onCnt ?? 0)-1))
+                        ])
+                    }
                 }
                 .catch { [weak self] _ in
                     self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)

@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3104F4C02C3942BA00DD40D6 /* CoinPriceTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4BF2C3942BA00DD40D6 /* CoinPriceTranslator.swift */; };
+		3104F4C22C39447D00DD40D6 /* SigninTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C12C39447D00DD40D6 /* SigninTranslator.swift */; };
+		3104F4C42C39453700DD40D6 /* SignupTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C32C39453700DD40D6 /* SignupTranslator.swift */; };
+		3104F4C62C3945B400DD40D6 /* UserTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C52C3945B400DD40D6 /* UserTranslator.swift */; };
+		3104F4C82C39496000DD40D6 /* AlarmTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C72C39496000DD40D6 /* AlarmTranslator.swift */; };
+		3104F4ED2C3A765000DD40D6 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3104F4EC2C3A765000DD40D6 /* RxTest */; };
+		3104F4EF2C3A765300DD40D6 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3104F4EE2C3A765300DD40D6 /* RxBlocking */; };
+		3104F4F12C3A765600DD40D6 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 3104F4F02C3A765600DD40D6 /* Nimble */; };
+		3104F4F32C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4F22C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift */; };
+		3104F4F52C3A7A2200DD40D6 /* SigninUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4F42C3A7A2200DD40D6 /* SigninUseCaseTests.swift */; };
+		3104F4F72C3A7A5200DD40D6 /* MockSigninRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4F62C3A7A5200DD40D6 /* MockSigninRepository.swift */; };
+		3104F4F92C3A7A6500DD40D6 /* SigninRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4F82C3A7A6500DD40D6 /* SigninRepositoryTests.swift */; };
 		31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */; };
 		31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */; };
 		31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */; };
@@ -40,16 +52,9 @@
 		315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C018C2C0B3B1000BE00E3 /* AlarmReactor.swift */; };
 		315C018F2C0B3D2C00BE00E3 /* AlarmStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C018E2C0B3D2C00BE00E3 /* AlarmStep.swift */; };
 		315C01912C0B3D3200BE00E3 /* AlarmFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01902C0B3D3200BE00E3 /* AlarmFlow.swift */; };
-		316025612C083E6F00EC0294 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 316025602C083E6F00EC0294 /* ReactorKit */; };
 		317779CA2BE1E67A006E8378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779C92BE1E67A006E8378 /* AppDelegate.swift */; };
 		317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779CB2BE1E67A006E8378 /* SceneDelegate.swift */; };
 		317779D32BE1E67B006E8378 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317779D22BE1E67B006E8378 /* ImageAssets.xcassets */; };
-		317779DF2BE1FA3B006E8378 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 317779DE2BE1FA3B006E8378 /* RxBlocking */; };
-		317779E12BE1FA3B006E8378 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 317779E02BE1FA3B006E8378 /* RxCocoa */; };
-		317779E32BE1FA3B006E8378 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 317779E22BE1FA3B006E8378 /* RxRelay */; };
-		317779E62BE1FA54006E8378 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 317779E52BE1FA54006E8378 /* ReactorKit */; };
-		317779E92BE1FA65006E8378 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 317779E82BE1FA65006E8378 /* SnapKit */; };
-		317779EC2BE1FA78006E8378 /* RxFlow in Frameworks */ = {isa = PBXBuildFile; productRef = 317779EB2BE1FA78006E8378 /* RxFlow */; };
 		317779F52BE200B4006E8378 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779F42BE200B4006E8378 /* Constants.swift */; };
 		317779F92BE20835006E8378 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317779F82BE20835006E8378 /* ColorManager.swift */; };
 		31777A072BE368D3006E8378 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 31777A032BE368D3006E8378 /* Pretendard-Medium.otf */; };
@@ -91,17 +96,28 @@
 		31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */; };
 		31BCE98D2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */; };
 		31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */; };
+		31BEAFA42C37BB24001B7A35 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFA32C37BB24001B7A35 /* RxCocoa */; };
+		31BEAFA62C37BB24001B7A35 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFA52C37BB24001B7A35 /* RxRelay */; };
+		31BEAFA82C37BB24001B7A35 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFA72C37BB24001B7A35 /* RxSwift */; };
+		31BEAFBA2C37BC6D001B7A35 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFB92C37BC6D001B7A35 /* SnapKit */; };
+		31BEAFBD2C37BCDE001B7A35 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFBC2C37BCDE001B7A35 /* Moya */; };
+		31BEAFBF2C37BCDE001B7A35 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFBE2C37BCDE001B7A35 /* ReactiveMoya */; };
+		31BEAFC12C37BCDE001B7A35 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFC02C37BCDE001B7A35 /* RxMoya */; };
+		31BEAFC42C37BD0A001B7A35 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFC32C37BD0A001B7A35 /* RxKakaoSDK */; };
+		31BEAFC62C37BD0A001B7A35 /* RxKakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFC52C37BD0A001B7A35 /* RxKakaoSDKAuth */; };
+		31BEAFC92C37BD58001B7A35 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFC82C37BD58001B7A35 /* FirebaseAnalytics */; };
+		31BEAFCB2C37BD58001B7A35 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFCA2C37BD58001B7A35 /* FirebaseAnalyticsSwift */; };
+		31BEAFCE2C37BD81001B7A35 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFCD2C37BD81001B7A35 /* ReactorKit */; };
+		31BEAFD12C37BD98001B7A35 /* RxFlow in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFD02C37BD98001B7A35 /* RxFlow */; };
+		31BEAFD72C37C051001B7A35 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFD62C37C051001B7A35 /* FirebaseAppCheck */; };
+		31BEAFD92C37C660001B7A35 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFD82C37C660001B7A35 /* FirebaseMessaging */; };
 		31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B02C1078DC00756DFD /* MyAccountView.swift */; };
 		31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B22C10838400756DFD /* MyAccountViewController.swift */; };
-		31E0A4C22C1086BB00756DFD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A4C12C1086BB00756DFD /* FirebaseMessaging */; };
 		31E0A4C52C108A8A00756DFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E0A4C42C108A8A00756DFD /* GoogleService-Info.plist */; };
 		31E0A4C72C108D9E00756DFD /* MyAccountReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4C62C108D9E00756DFD /* MyAccountReactor.swift */; };
 		31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4C82C10908400756DFD /* WithdrawalView.swift */; };
 		31E0A4CB2C130EB400756DFD /* WithdrawalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4CA2C130EB400756DFD /* WithdrawalViewController.swift */; };
 		31E0A4CD2C130EDD00756DFD /* WithdrawalReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4CC2C130EDD00756DFD /* WithdrawalReactor.swift */; };
-		31E0A4D62C158F2E00756DFD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A4D52C158F2E00756DFD /* Moya */; };
-		31E0A4D82C158F2E00756DFD /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A4D72C158F2E00756DFD /* ReactiveMoya */; };
-		31E0A4DA2C158F2E00756DFD /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A4D92C158F2E00756DFD /* RxMoya */; };
 		31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4DB2C158F3F00756DFD /* SignupService.swift */; };
 		31E0A4DF2C15BDF900756DFD /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4DE2C15BDF900756DFD /* TermsOfServiceView.swift */; };
 		31E0A4E12C15BE2100756DFD /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4E02C15BE2100756DFD /* PrivacyPolicyView.swift */; };
@@ -167,11 +183,6 @@
 		31E0A5602C201C4700756DFD /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A55F2C201C4700756DFD /* InquiryView.swift */; };
 		31E0A5622C201C6600756DFD /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5612C201C6600756DFD /* InquiryViewController.swift */; };
 		31E0A5642C201C7C00756DFD /* InquiryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5632C201C7C00756DFD /* InquiryReactor.swift */; };
-		31E0A5672C2547E900756DFD /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A5662C2547E900756DFD /* RxKakaoSDK */; };
-		31E0A5692C2547E900756DFD /* RxKakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A5682C2547E900756DFD /* RxKakaoSDKAuth */; };
-		31E0A56B2C2547E900756DFD /* RxKakaoSDKCert in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A56A2C2547E900756DFD /* RxKakaoSDKCert */; };
-		31E0A56D2C2547E900756DFD /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A56C2C2547E900756DFD /* RxKakaoSDKCommon */; };
-		31E0A56F2C2547E900756DFD /* RxKakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 31E0A56E2C2547E900756DFD /* RxKakaoSDKFriend */; };
 		31E0A5712C254CE500756DFD /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E0A5702C254CE500756DFD /* Secrets.plist */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
@@ -183,7 +194,34 @@
 		31F791722BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791712BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3104F4E72C3A763000DD40D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 317779BE2BE1E679006E8378 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 317779C52BE1E679006E8378;
+			remoteInfo = CoinMon;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		3104F4A72C392AA000DD40D6 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104F4AB2C392AAD00DD40D6 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104F4AC2C392AAD00DD40D6 /* RxRelay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxRelay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104F4AD2C392AAD00DD40D6 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104F4AE2C392AAD00DD40D6 /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104F4BF2C3942BA00DD40D6 /* CoinPriceTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPriceTranslator.swift; sourceTree = "<group>"; };
+		3104F4C12C39447D00DD40D6 /* SigninTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninTranslator.swift; sourceTree = "<group>"; };
+		3104F4C32C39453700DD40D6 /* SignupTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTranslator.swift; sourceTree = "<group>"; };
+		3104F4C52C3945B400DD40D6 /* UserTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTranslator.swift; sourceTree = "<group>"; };
+		3104F4C72C39496000DD40D6 /* AlarmTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTranslator.swift; sourceTree = "<group>"; };
+		3104F4E32C3A762F00DD40D6 /* CoinMonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinMonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104F4F22C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailEntryReactorTests.swift; sourceTree = "<group>"; };
+		3104F4F42C3A7A2200DD40D6 /* SigninUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninUseCaseTests.swift; sourceTree = "<group>"; };
+		3104F4F62C3A7A5200DD40D6 /* MockSigninRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSigninRepository.swift; sourceTree = "<group>"; };
+		3104F4F82C3A7A6500DD40D6 /* SigninRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninRepositoryTests.swift; sourceTree = "<group>"; };
+		3104F4FA2C3A7C3300DD40D6 /* CoinMon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoinMon.xctestplan; sourceTree = "<group>"; };
+		31382DE02C39276B00AE20D8 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +290,9 @@
 		31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberViewController.swift; sourceTree = "<group>"; };
 		31777A452BEA5A37006E8378 /* SignupCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedView.swift; sourceTree = "<group>"; };
 		31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewCell.swift; sourceTree = "<group>"; };
+		31B460E52C39282E007BFDB0 /* RxExpect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxExpect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31B460E92C392835007BFDB0 /* RxNimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxNimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31B460F22C39299F007BFDB0 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31BCE9762C04A02C00DA2FC6 /* FeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeView.swift; sourceTree = "<group>"; };
 		31BCE9782C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeePremiumTableViewCell.swift; sourceTree = "<group>"; };
 		31BCE97A2C04A07500DA2FC6 /* FeeTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeTableViewHeader.swift; sourceTree = "<group>"; };
@@ -349,32 +390,128 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3104F4E02C3A762F00DD40D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3104F4F12C3A765600DD40D6 /* Nimble in Frameworks */,
+				3104F4ED2C3A765000DD40D6 /* RxTest in Frameworks */,
+				3104F4EF2C3A765300DD40D6 /* RxBlocking in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		317779C32BE1E679006E8378 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31E0A4C22C1086BB00756DFD /* FirebaseMessaging in Frameworks */,
-				317779EC2BE1FA78006E8378 /* RxFlow in Frameworks */,
-				31E0A4D62C158F2E00756DFD /* Moya in Frameworks */,
-				31E0A56B2C2547E900756DFD /* RxKakaoSDKCert in Frameworks */,
-				31E0A4DA2C158F2E00756DFD /* RxMoya in Frameworks */,
-				31E0A4D82C158F2E00756DFD /* ReactiveMoya in Frameworks */,
-				31E0A56D2C2547E900756DFD /* RxKakaoSDKCommon in Frameworks */,
-				31E0A5672C2547E900756DFD /* RxKakaoSDK in Frameworks */,
-				31E0A5692C2547E900756DFD /* RxKakaoSDKAuth in Frameworks */,
-				317779E32BE1FA3B006E8378 /* RxRelay in Frameworks */,
-				316025612C083E6F00EC0294 /* ReactorKit in Frameworks */,
-				31E0A56F2C2547E900756DFD /* RxKakaoSDKFriend in Frameworks */,
-				317779E12BE1FA3B006E8378 /* RxCocoa in Frameworks */,
-				317779E62BE1FA54006E8378 /* ReactorKit in Frameworks */,
-				317779DF2BE1FA3B006E8378 /* RxBlocking in Frameworks */,
-				317779E92BE1FA65006E8378 /* SnapKit in Frameworks */,
+				31BEAFD72C37C051001B7A35 /* FirebaseAppCheck in Frameworks */,
+				31BEAFD12C37BD98001B7A35 /* RxFlow in Frameworks */,
+				31BEAFA82C37BB24001B7A35 /* RxSwift in Frameworks */,
+				31BEAFBA2C37BC6D001B7A35 /* SnapKit in Frameworks */,
+				31BEAFA62C37BB24001B7A35 /* RxRelay in Frameworks */,
+				31BEAFCB2C37BD58001B7A35 /* FirebaseAnalyticsSwift in Frameworks */,
+				31BEAFBD2C37BCDE001B7A35 /* Moya in Frameworks */,
+				31BEAFC12C37BCDE001B7A35 /* RxMoya in Frameworks */,
+				31BEAFC42C37BD0A001B7A35 /* RxKakaoSDK in Frameworks */,
+				31BEAFC62C37BD0A001B7A35 /* RxKakaoSDKAuth in Frameworks */,
+				31BEAFA42C37BB24001B7A35 /* RxCocoa in Frameworks */,
+				31BEAFC92C37BD58001B7A35 /* FirebaseAnalytics in Frameworks */,
+				31BEAFD92C37C660001B7A35 /* FirebaseMessaging in Frameworks */,
+				31BEAFCE2C37BD81001B7A35 /* ReactorKit in Frameworks */,
+				31BEAFBF2C37BCDE001B7A35 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3104F4BE2C3942A000DD40D6 /* Translator */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4C32C39453700DD40D6 /* SignupTranslator.swift */,
+				3104F4C12C39447D00DD40D6 /* SigninTranslator.swift */,
+				3104F4C52C3945B400DD40D6 /* UserTranslator.swift */,
+				3104F4BF2C3942BA00DD40D6 /* CoinPriceTranslator.swift */,
+				3104F4C72C39496000DD40D6 /* AlarmTranslator.swift */,
+			);
+			path = Translator;
+			sourceTree = "<group>";
+		};
+		3104F4E42C3A763000DD40D6 /* CoinMonTests */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4FD2C3A850000DD40D6 /* Domain */,
+				3104F4FC2C3A84F800DD40D6 /* Presentation */,
+				3104F4FB2C3A84F000DD40D6 /* Data */,
+			);
+			path = CoinMonTests;
+			sourceTree = "<group>";
+		};
+		3104F4FB2C3A84F000DD40D6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3104F5032C3A853A00DD40D6 /* Repository */,
+				3104F5022C3A853300DD40D6 /* MockRepository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3104F4FC2C3A84F800DD40D6 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3104F5002C3A852200DD40D6 /* Reactor */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3104F4FD2C3A850000DD40D6 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4FE2C3A850D00DD40D6 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		3104F4FE2C3A850D00DD40D6 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4F42C3A7A2200DD40D6 /* SigninUseCaseTests.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		3104F5002C3A852200DD40D6 /* Reactor */ = {
+			isa = PBXGroup;
+			children = (
+				3104F5012C3A852900DD40D6 /* Signin */,
+			);
+			path = Reactor;
+			sourceTree = "<group>";
+		};
+		3104F5012C3A852900DD40D6 /* Signin */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4F22C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift */,
+			);
+			path = Signin;
+			sourceTree = "<group>";
+		};
+		3104F5022C3A853300DD40D6 /* MockRepository */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4F62C3A7A5200DD40D6 /* MockSigninRepository.swift */,
+			);
+			path = MockRepository;
+			sourceTree = "<group>";
+		};
+		3104F5032C3A853A00DD40D6 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				3104F4F82C3A7A6500DD40D6 /* SigninRepositoryTests.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		31423C3B2BFB182E008AB6FD /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -536,7 +673,9 @@
 		317779BD2BE1E679006E8378 = {
 			isa = PBXGroup;
 			children = (
+				3104F4FA2C3A7C3300DD40D6 /* CoinMon.xctestplan */,
 				317779C82BE1E67A006E8378 /* CoinMon */,
+				3104F4E42C3A763000DD40D6 /* CoinMonTests */,
 				317779C72BE1E67A006E8378 /* Products */,
 				31E0A4C02C1086BB00756DFD /* Frameworks */,
 			);
@@ -546,6 +685,7 @@
 			isa = PBXGroup;
 			children = (
 				317779C62BE1E67A006E8378 /* CoinMon.app */,
+				3104F4E32C3A762F00DD40D6 /* CoinMonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -771,6 +911,7 @@
 		31A48FD52BFF3A8100ABEA2F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				3104F4BE2C3942A000DD40D6 /* Translator */,
 				31E0A4D32C15856500756DFD /* RepositoryInterface */,
 				31E0A4D22C15855800756DFD /* UseCase */,
 				31A48FD62BFF3AB500ABEA2F /* Entity */,
@@ -822,6 +963,15 @@
 		31E0A4C02C1086BB00756DFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3104F4AB2C392AAD00DD40D6 /* RxCocoa.framework */,
+				3104F4AC2C392AAD00DD40D6 /* RxRelay.framework */,
+				3104F4AD2C392AAD00DD40D6 /* RxSwift.framework */,
+				3104F4AE2C392AAD00DD40D6 /* RxTest.framework */,
+				3104F4A72C392AA000DD40D6 /* RxSwift.framework */,
+				31B460F22C39299F007BFDB0 /* RxSwift.framework */,
+				31B460E92C392835007BFDB0 /* RxNimble.framework */,
+				31B460E52C39282E007BFDB0 /* RxExpect.framework */,
+				31382DE02C39276B00AE20D8 /* RxSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -993,6 +1143,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3104F4E22C3A762F00DD40D6 /* CoinMonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3104F4E92C3A763000DD40D6 /* Build configuration list for PBXNativeTarget "CoinMonTests" */;
+			buildPhases = (
+				3104F4DF2C3A762F00DD40D6 /* Sources */,
+				3104F4E02C3A762F00DD40D6 /* Frameworks */,
+				3104F4E12C3A762F00DD40D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3104F4E82C3A763000DD40D6 /* PBXTargetDependency */,
+			);
+			name = CoinMonTests;
+			packageProductDependencies = (
+				3104F4EC2C3A765000DD40D6 /* RxTest */,
+				3104F4EE2C3A765300DD40D6 /* RxBlocking */,
+				3104F4F02C3A765600DD40D6 /* Nimble */,
+			);
+			productName = CoinMonTests;
+			productReference = 3104F4E32C3A762F00DD40D6 /* CoinMonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		317779C52BE1E679006E8378 /* CoinMon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 317779DA2BE1E67B006E8378 /* Build configuration list for PBXNativeTarget "CoinMon" */;
@@ -1007,22 +1180,21 @@
 			);
 			name = CoinMon;
 			packageProductDependencies = (
-				317779DE2BE1FA3B006E8378 /* RxBlocking */,
-				317779E02BE1FA3B006E8378 /* RxCocoa */,
-				317779E22BE1FA3B006E8378 /* RxRelay */,
-				317779E52BE1FA54006E8378 /* ReactorKit */,
-				317779E82BE1FA65006E8378 /* SnapKit */,
-				317779EB2BE1FA78006E8378 /* RxFlow */,
-				316025602C083E6F00EC0294 /* ReactorKit */,
-				31E0A4C12C1086BB00756DFD /* FirebaseMessaging */,
-				31E0A4D52C158F2E00756DFD /* Moya */,
-				31E0A4D72C158F2E00756DFD /* ReactiveMoya */,
-				31E0A4D92C158F2E00756DFD /* RxMoya */,
-				31E0A5662C2547E900756DFD /* RxKakaoSDK */,
-				31E0A5682C2547E900756DFD /* RxKakaoSDKAuth */,
-				31E0A56A2C2547E900756DFD /* RxKakaoSDKCert */,
-				31E0A56C2C2547E900756DFD /* RxKakaoSDKCommon */,
-				31E0A56E2C2547E900756DFD /* RxKakaoSDKFriend */,
+				31BEAFA32C37BB24001B7A35 /* RxCocoa */,
+				31BEAFA52C37BB24001B7A35 /* RxRelay */,
+				31BEAFA72C37BB24001B7A35 /* RxSwift */,
+				31BEAFB92C37BC6D001B7A35 /* SnapKit */,
+				31BEAFBC2C37BCDE001B7A35 /* Moya */,
+				31BEAFBE2C37BCDE001B7A35 /* ReactiveMoya */,
+				31BEAFC02C37BCDE001B7A35 /* RxMoya */,
+				31BEAFC32C37BD0A001B7A35 /* RxKakaoSDK */,
+				31BEAFC52C37BD0A001B7A35 /* RxKakaoSDKAuth */,
+				31BEAFC82C37BD58001B7A35 /* FirebaseAnalytics */,
+				31BEAFCA2C37BD58001B7A35 /* FirebaseAnalyticsSwift */,
+				31BEAFCD2C37BD81001B7A35 /* ReactorKit */,
+				31BEAFD02C37BD98001B7A35 /* RxFlow */,
+				31BEAFD62C37C051001B7A35 /* FirebaseAppCheck */,
+				31BEAFD82C37C660001B7A35 /* FirebaseMessaging */,
 			);
 			productName = CoinMon;
 			productReference = 317779C62BE1E67A006E8378 /* CoinMon.app */;
@@ -1038,6 +1210,11 @@
 				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					3104F4E22C3A762F00DD40D6 = {
+						CreatedOnToolsVersion = 15.1;
+						LastSwiftMigration = 1510;
+						TestTargetID = 317779C52BE1E679006E8378;
+					};
 					317779C52BE1E679006E8378 = {
 						CreatedOnToolsVersion = 15.1;
 					};
@@ -1053,24 +1230,34 @@
 			);
 			mainGroup = 317779BD2BE1E679006E8378;
 			packageReferences = (
-				317779DD2BE1FA3B006E8378 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				317779E42BE1FA54006E8378 /* XCRemoteSwiftPackageReference "ReactorKit" */,
-				317779E72BE1FA65006E8378 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				317779EA2BE1FA78006E8378 /* XCRemoteSwiftPackageReference "RxFlow" */,
-				31E0A4BF2C1086A800756DFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				31E0A4D42C158F2E00756DFD /* XCRemoteSwiftPackageReference "Moya" */,
-				31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				31BEAFAB2C37BB3D001B7A35 /* XCRemoteSwiftPackageReference "Quick" */,
+				31BEAFB22C37BB55001B7A35 /* XCRemoteSwiftPackageReference "Nimble" */,
+				31BEAFB82C37BC6D001B7A35 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				31BEAFBB2C37BCDE001B7A35 /* XCRemoteSwiftPackageReference "Moya" */,
+				31BEAFC22C37BD09001B7A35 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				31BEAFCC2C37BD80001B7A35 /* XCRemoteSwiftPackageReference "ReactorKit" */,
+				31BEAFCF2C37BD97001B7A35 /* XCRemoteSwiftPackageReference "RxFlow" */,
 			);
 			productRefGroup = 317779C72BE1E67A006E8378 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				317779C52BE1E679006E8378 /* CoinMon */,
+				3104F4E22C3A762F00DD40D6 /* CoinMonTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3104F4E12C3A762F00DD40D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		317779C42BE1E679006E8378 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1090,6 +1277,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3104F4DF2C3A762F00DD40D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3104F4F72C3A7A5200DD40D6 /* MockSigninRepository.swift in Sources */,
+				3104F4F92C3A7A6500DD40D6 /* SigninRepositoryTests.swift in Sources */,
+				3104F4F32C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift in Sources */,
+				3104F4F52C3A7A2200DD40D6 /* SigninUseCaseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		317779C22BE1E679006E8378 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1111,6 +1309,7 @@
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
 				31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
+				3104F4C42C39453700DD40D6 /* SignupTranslator.swift in Sources */,
 				31E0A5092C16FFE300756DFD /* SigninUseCase.swift in Sources */,
 				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,
 				31E0A5262C196E8D00756DFD /* CoinRepositoryInterface.swift in Sources */,
@@ -1164,6 +1363,7 @@
 				31E0A52A2C19849500756DFD /* CoinRepository.swift in Sources */,
 				31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */,
 				31E0A5582C1B28DF00756DFD /* ModifyAlarmViewController.swift in Sources */,
+				3104F4C22C39447D00DD40D6 /* SigninTranslator.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */,
 				31E0A5032C16CCB200756DFD /* PrivacyPolicyReactor.swift in Sources */,
@@ -1178,8 +1378,10 @@
 				31BCE98D2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31E0A51C2C182C4100756DFD /* UserData.swift in Sources */,
+				3104F4C62C3945B400DD40D6 /* UserTranslator.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
+				3104F4C82C39496000DD40D6 /* AlarmTranslator.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
@@ -1228,6 +1430,7 @@
 				31E0A4E32C15BF0B00756DFD /* SignupDTO.swift in Sources */,
 				31E0A4ED2C16B51900756DFD /* SignupEmailVerificationNumberReactor.swift in Sources */,
 				31E0A5072C16FEE500756DFD /* SigninService.swift in Sources */,
+				3104F4C02C3942BA00DD40D6 /* CoinPriceTranslator.swift in Sources */,
 				31E0A5052C16CCC100756DFD /* MarketingConsentReactor.swift in Sources */,
 				315C017D2C0B02DE00BE00E3 /* AlarmViewController.swift in Sources */,
 				31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */,
@@ -1248,6 +1451,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3104F4E82C3A763000DD40D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 317779C52BE1E679006E8378 /* CoinMon */;
+			targetProxy = 3104F4E72C3A763000DD40D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		31777A1A2BE3A676006E8378 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -1261,6 +1472,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3104F4EA2C3A763000DD40D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9YSRYRQWSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoinMon.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CoinMon";
+			};
+			name = Debug;
+		};
+		3104F4EB2C3A763000DD40D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9YSRYRQWSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoinMon.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CoinMon";
+			};
+			name = Release;
+		};
 		317779D82BE1E67B006E8378 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1449,6 +1707,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3104F4E92C3A763000DD40D6 /* Build configuration list for PBXNativeTarget "CoinMonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3104F4EA2C3A763000DD40D6 /* Debug */,
+				3104F4EB2C3A763000DD40D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		317779C12BE1E679006E8378 /* Build configuration list for PBXProject "CoinMon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1470,23 +1737,31 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		317779DD2BE1FA3B006E8378 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.7.0;
+				branch = main;
+				kind = branch;
 			};
 		};
-		317779E42BE1FA54006E8378 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+		31BEAFAB2C37BB3D001B7A35 /* XCRemoteSwiftPackageReference "Quick" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
+			repositoryURL = "https://github.com/Quick/Quick.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.0;
+				branch = main;
+				kind = branch;
 			};
 		};
-		317779E72BE1FA65006E8378 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		31BEAFB22C37BB55001B7A35 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		31BEAFB82C37BC6D001B7A35 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -1494,23 +1769,7 @@
 				minimumVersion = 5.7.1;
 			};
 		};
-		317779EA2BE1FA78006E8378 /* XCRemoteSwiftPackageReference "RxFlow" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxFlow.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.13.0;
-			};
-		};
-		31E0A4BF2C1086A800756DFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.27.0;
-			};
-		};
-		31E0A4D42C158F2E00756DFD /* XCRemoteSwiftPackageReference "Moya" */ = {
+		31BEAFBB2C37BCDE001B7A35 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
@@ -1518,7 +1777,7 @@
 				minimumVersion = 15.0.3;
 			};
 		};
-		31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
+		31BEAFC22C37BD09001B7A35 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk-rx";
 			requirement = {
@@ -1526,88 +1785,122 @@
 				minimumVersion = 2.22.3;
 			};
 		};
+		31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.1;
+			};
+		};
+		31BEAFCC2C37BD80001B7A35 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+		31BEAFCF2C37BD97001B7A35 /* XCRemoteSwiftPackageReference "RxFlow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxFlow.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.13.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		316025602C083E6F00EC0294 /* ReactorKit */ = {
+		3104F4EC2C3A765000DD40D6 /* RxTest */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779E42BE1FA54006E8378 /* XCRemoteSwiftPackageReference "ReactorKit" */;
-			productName = ReactorKit;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
 		};
-		317779DE2BE1FA3B006E8378 /* RxBlocking */ = {
+		3104F4EE2C3A765300DD40D6 /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779DD2BE1FA3B006E8378 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxBlocking;
 		};
-		317779E02BE1FA3B006E8378 /* RxCocoa */ = {
+		3104F4F02C3A765600DD40D6 /* Nimble */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779DD2BE1FA3B006E8378 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 31BEAFB22C37BB55001B7A35 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		31BEAFA32C37BB24001B7A35 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		317779E22BE1FA3B006E8378 /* RxRelay */ = {
+		31BEAFA52C37BB24001B7A35 /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779DD2BE1FA3B006E8378 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
 		};
-		317779E52BE1FA54006E8378 /* ReactorKit */ = {
+		31BEAFA72C37BB24001B7A35 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779E42BE1FA54006E8378 /* XCRemoteSwiftPackageReference "ReactorKit" */;
-			productName = ReactorKit;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
-		317779E82BE1FA65006E8378 /* SnapKit */ = {
+		31BEAFB92C37BC6D001B7A35 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779E72BE1FA65006E8378 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 31BEAFB82C37BC6D001B7A35 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		317779EB2BE1FA78006E8378 /* RxFlow */ = {
+		31BEAFBC2C37BCDE001B7A35 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317779EA2BE1FA78006E8378 /* XCRemoteSwiftPackageReference "RxFlow" */;
-			productName = RxFlow;
-		};
-		31E0A4C12C1086BB00756DFD /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31E0A4BF2C1086A800756DFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		31E0A4D52C158F2E00756DFD /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31E0A4D42C158F2E00756DFD /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 31BEAFBB2C37BCDE001B7A35 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
-		31E0A4D72C158F2E00756DFD /* ReactiveMoya */ = {
+		31BEAFBE2C37BCDE001B7A35 /* ReactiveMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A4D42C158F2E00756DFD /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 31BEAFBB2C37BCDE001B7A35 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = ReactiveMoya;
 		};
-		31E0A4D92C158F2E00756DFD /* RxMoya */ = {
+		31BEAFC02C37BCDE001B7A35 /* RxMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A4D42C158F2E00756DFD /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 31BEAFBB2C37BCDE001B7A35 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
 		};
-		31E0A5662C2547E900756DFD /* RxKakaoSDK */ = {
+		31BEAFC32C37BD0A001B7A35 /* RxKakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			package = 31BEAFC22C37BD09001B7A35 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDK;
 		};
-		31E0A5682C2547E900756DFD /* RxKakaoSDKAuth */ = {
+		31BEAFC52C37BD0A001B7A35 /* RxKakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			package = 31BEAFC22C37BD09001B7A35 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDKAuth;
 		};
-		31E0A56A2C2547E900756DFD /* RxKakaoSDKCert */ = {
+		31BEAFC82C37BD58001B7A35 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
-			productName = RxKakaoSDKCert;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
-		31E0A56C2C2547E900756DFD /* RxKakaoSDKCommon */ = {
+		31BEAFCA2C37BD58001B7A35 /* FirebaseAnalyticsSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
-			productName = RxKakaoSDKCommon;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
 		};
-		31E0A56E2C2547E900756DFD /* RxKakaoSDKFriend */ = {
+		31BEAFCD2C37BD81001B7A35 /* ReactorKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31E0A5652C2547E900756DFD /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
-			productName = RxKakaoSDKFriend;
+			package = 31BEAFCC2C37BD80001B7A35 /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
+		};
+		31BEAFD02C37BD98001B7A35 /* RxFlow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFCF2C37BD97001B7A35 /* XCRemoteSwiftPackageReference "RxFlow" */;
+			productName = RxFlow;
+		};
+		31BEAFD62C37C051001B7A35 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		31BEAFD82C37C660001B7A35 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -146,15 +146,17 @@ class PriceTableViewCell: UITableViewCell {
         gapLabel.text = "\(priceList.gap)%"
         if priceList.change == "-99.00" {
             changeLabel.text = "-"
+            changeLabel.textAlignment = .center
+        }
+        else {
+            changeLabel.textAlignment = .right
         }
         if priceList.gap == "-99.00" {
             gapLabel.text = "-"
-        }
-        if priceList.change == "-" {
-            changeLabel.textAlignment = .center
-        }
-        if priceList.gap == "-" {
             gapLabel.textAlignment = .center
+        }
+        else {
+            gapLabel.textAlignment = .right
         }
         if priceList.change.first == "-" && priceList.change.count > 1 {
             changeLabel.textColor = .blue

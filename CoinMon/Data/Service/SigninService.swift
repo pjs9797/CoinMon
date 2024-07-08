@@ -44,4 +44,61 @@ extension SigninService: TargetType {
     var headers: [String : String]? {
         return ["Content-Type": "application/json"]
     }
+    
+    var sampleData: Data {
+        switch self {
+        case .checkEmail(let email):
+            if(email == "test@gmail.com"){
+                return """
+                {
+                    "resultCode": "400",
+                    "resultMessage": ""
+                }
+                """.data(using: .utf8)!
+            }
+            else {
+                return """
+                {
+                    "resultCode": "200",
+                    "resultMessage": ""
+                }
+                """.data(using: .utf8)!
+            }
+            
+        case .loginCode:
+            return """
+                {
+                    "resultCode": "200",
+                    "resultMessage": ""
+                }
+                """.data(using: .utf8)!
+            
+        case .login(_, let number, _):
+            if(number == "102030"){
+                return """
+                {
+                    "resultCode": "200",
+                    "resultMessage": "OK",
+                    "data": {
+                        "imgIndex": "1",
+                        "phoneNumber": "1234567890",
+                        "nickname": "nickname",
+                        "userType": "user",
+                        "accessToken": "accessToken",
+                        "email": "test@gmail.com",
+                        "refreshToken": "refreshToken"
+                    }
+                }
+                """.data(using: .utf8)!
+            }
+            else{
+                return """
+                {
+                    "resultCode": "400",
+                    "resultMessage": ""
+                }
+                """.data(using: .utf8)!
+            }
+        }
+    }
 }

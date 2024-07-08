@@ -10,14 +10,17 @@ class SigninUseCase {
     
     func checkEmailIsExisted(email: String) -> Observable<String> {
         return repository.checkEmailIsExisted(email: email)
+            .map { SigninTranslator.toResultCode(dto: $0) }
     }
     
     func requestEmailVerificationCode(email: String) -> Observable<String> {
         return repository.requestEmailVerificationCode(email: email)
+            .map { SigninTranslator.toResultCode(dto: $0) }
     }
     
     func checkEmailVerificationCodeForLogin(email: String, number: String, deviceToken: String) -> Observable<String> {
         return repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken)
+            .map { SigninTranslator.toAuthTokens(dto: $0) }
             .flatMap { response -> Observable<String> in
                 if let response = response, response.resultCode == "200" {
                     TokenManager.shared.saveAccessToken(response.accessToken)

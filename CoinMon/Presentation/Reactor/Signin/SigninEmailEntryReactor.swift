@@ -25,7 +25,7 @@ class SigninEmailEntryReactor: ReactorKit.Reactor, Stepper {
         case setValid(Bool)
     }
     
-    struct State {
+    struct State: Equatable {
         var email: String = ""
         var isEmailValid: Bool = false
         var isClearButtonHidden: Bool = false

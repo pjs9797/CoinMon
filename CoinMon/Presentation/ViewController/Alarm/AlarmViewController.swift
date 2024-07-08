@@ -145,16 +145,17 @@ extension AlarmViewController {
             })
             .disposed(by: disposeBag)
         
-//                reactor.state.map{ $0.onCnt }
-//                    .distinctUntilChanged()
-//                    .bind(onNext: { [weak self] cnt in
+//        reactor.state.map{ $0.onCnt }
+//            .distinctUntilChanged()
+//            .bind(onNext: { [weak self] cnt in
 //                if cnt == 20 {
 //                    self?.alarmView.alarmTableViewHeader.onCntLabel.textColor = ColorManager.red_50
 //                }
 //                else {
 //                    self?.alarmView.alarmTableViewHeader.onCntLabel.textColor = ColorManager.gray_50
 //                }
-//                self?.alarmView.alarmTableViewHeader.onCntLabel.text = "\(cnt) / 20"
+//                var baseString = "💡 : \(cnt)"
+//                self?.alarmView.alarmTableViewHeader.onCntLabel.text = baseString
 //            })
 //            .disposed(by: disposeBag)
         
@@ -229,7 +230,7 @@ extension AlarmViewController: UICollectionViewDragDelegate, UICollectionViewDro
         dragItem.localObject = item
         return [dragItem]
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
