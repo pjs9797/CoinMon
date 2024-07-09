@@ -92,13 +92,13 @@ class FeePremiumTableViewCell: UITableViewCell {
         coinLabel.text = feeList.coinTitle
         feePremiumLabel.text = "\(feeList.fee)%"
         if feeList.fee.first == "-" {
-            feePremiumLabel.textColor = .blue
+            feePremiumLabel.textColor = ColorManager.blue_50
         }
         else if feeList.fee == "0" {
             feePremiumLabel.textColor = .black
         }
         else {
-            feePremiumLabel.textColor = .red
+            feePremiumLabel.textColor = ColorManager.red_50
         }
     }
     
@@ -107,13 +107,13 @@ class FeePremiumTableViewCell: UITableViewCell {
         coinLabel.text = premiumList.coinTitle
         feePremiumLabel.text = "\(premiumList.premium)%"
         if premiumList.premium.first == "-" {
-            feePremiumLabel.textColor = .blue
+            feePremiumLabel.textColor = ColorManager.blue_50
         }
         else if premiumList.premium == "0.00" {
             feePremiumLabel.textColor = .black
         }
         else {
-            feePremiumLabel.textColor = .red
+            feePremiumLabel.textColor = ColorManager.red_50
         }
     }
 }

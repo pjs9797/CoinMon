@@ -65,7 +65,10 @@ class SignupEmailEntryView: UIView {
     private func setLocalizedText(){
         enterEmailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일을 입력해주세요")
         emailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일 아이디")
-        emailTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "사용하는 이메일을 입력")
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: ColorManager.gray_70 ?? UIColor.gray
+        ]
+        emailTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "사용하는 이메일을 입력"), attributes: attributes)
         duplicateButton.setTitle(LocalizationManager.shared.localizedString(forKey: "중복확인"), for: .normal)
         emailErrorLabel.text = LocalizationManager.shared.localizedString(forKey: "올바른 이메일을 입력해주세요")
         nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)

@@ -7,6 +7,7 @@ class SelectCoinView: UIView {
     let selectCoinTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
         tableView.rowHeight = 52*Constants.standardHeight
@@ -25,7 +26,10 @@ class SelectCoinView: UIView {
     }
     
     func setLocalizedText(){
-        searchView.searchTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "코인 검색")
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: ColorManager.gray_70 ?? UIColor.gray
+        ]
+        searchView.searchTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "코인 검색"), attributes: attributes)
         selectCoinTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더",arguments: "USDT"), for: .normal)
     }

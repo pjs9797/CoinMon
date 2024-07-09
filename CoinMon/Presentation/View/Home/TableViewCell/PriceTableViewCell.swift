@@ -159,13 +159,13 @@ class PriceTableViewCell: UITableViewCell {
             gapLabel.textAlignment = .right
         }
         if priceList.change.first == "-" && priceList.change.count > 1 {
-            changeLabel.textColor = .blue
+            changeLabel.textColor = ColorManager.blue_50
         }
         else if priceList.change == "0.00" {
             changeLabel.textColor = .black
         }
         else {
-            changeLabel.textColor = .red
+            changeLabel.textColor = ColorManager.red_50
         }
     }
     

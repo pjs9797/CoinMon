@@ -82,7 +82,6 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
                 }
             }
             return alarmUseCase.createAlarm(market: currentState.market ?? "", symbol: currentState.coinTitle ?? "", targetPrice: currentState.setPrice ?? "", frequency: currentState.cycleForAPI, useYn: "Y", filter: filter)
-                .debug("createAlarm")
                 .flatMap { [weak self] _ -> Observable<Mutation> in
                     self?.steps.accept(AlarmStep.popViewController)
                     return .empty()

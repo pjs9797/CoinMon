@@ -29,6 +29,7 @@ class PremiumView: UIView {
     let premiumTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
         tableView.rowHeight = 52 * Constants.standardHeight

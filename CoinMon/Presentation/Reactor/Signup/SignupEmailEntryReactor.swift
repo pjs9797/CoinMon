@@ -43,7 +43,6 @@ class SignupEmailEntryReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .duplicateButtonTapped:
             return signupUseCase.checkEmailDuplication(email: currentState.email)
-                .debug("checkEmailDuplication")
                 .flatMap { resultCode -> Observable<Mutation> in
                     if resultCode == "200" {
                         return .just(.setEmailDuplicate(false))

@@ -18,7 +18,7 @@ class SettingView: UIView {
         let segmentedControl = UISegmentedControl(items: ["KR", "EN"])
         let normalAttributes: [NSAttributedString.Key: Any] = [
             .font: FontManager.H4_16,
-            .foregroundColor: UIColor.black
+            .foregroundColor: ColorManager.gray_70
         ]
         let selectedAttributes: [NSAttributedString.Key: Any] = [
             .font: FontManager.H4_16,

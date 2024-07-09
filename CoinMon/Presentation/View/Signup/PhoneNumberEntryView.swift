@@ -53,7 +53,10 @@ class PhoneNumberEntryView: UIView {
     private func setLocalizedText(){
         enterPhoneNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "휴대폰번호를 입력해주세요")
         phoneNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "휴대폰번호")
-        phoneNumberTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "숫자만 입력")
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: ColorManager.gray_70 ?? UIColor.gray
+        ]
+        phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "숫자만 입력"), attributes: attributes)
         nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     

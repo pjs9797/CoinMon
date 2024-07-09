@@ -10,7 +10,8 @@ class WithdrawalView: UIView {
     }()
     let secondNoticeLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.B5_14
+        //label.font = FontManager.B5_14
+        label.setAttributedText(FontsManager.B5_14)
         label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label

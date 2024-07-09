@@ -16,6 +16,7 @@ class SearchView: UIView {
     let searchTextField: UITextField = {
         let textField = UITextField()
         textField.font = FontManager.T4_15
+        textField.keyboardType = .asciiCapable
         return textField
     }()
     let clearButton: UIButton = {

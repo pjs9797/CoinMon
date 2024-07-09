@@ -12,6 +12,12 @@ class MarketTableViewCell: UITableViewCell {
         label.textAlignment = .left
         return label
     }()
+    let checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = ImageManager.check_Orange
+        imageView.isHidden = true
+        return imageView
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,7 +31,7 @@ class MarketTableViewCell: UITableViewCell {
     }
 
     private func layout(){
-        [marketImageView,marketLabel]
+        [marketImageView,marketLabel,checkImageView]
             .forEach {
                 contentView.addSubview($0)
             }
@@ -38,6 +44,12 @@ class MarketTableViewCell: UITableViewCell {
         marketLabel.snp.makeConstraints { make in
             make.leading.equalTo(marketImageView.snp.trailing).offset(8*Constants.standardWidth)
             make.centerY.equalTo(marketImageView)
+        }
+        
+        checkImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(24*Constants.standardHeight)
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     

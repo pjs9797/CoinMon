@@ -21,7 +21,7 @@ class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
         
         view = signupEmailEntryView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,23 +66,20 @@ extension SignupEmailEntryViewController {
     }
     
     func bindState(reactor: SignupEmailEntryReactor){
-        reactor.state.map { $0.email }
-            .distinctUntilChanged()
-            .bind(to: signupEmailEntryView.emailTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.isEmailValid }
-            .distinctUntilChanged()
-            .bind(onNext: { [weak self] isValid in
-                self?.signupEmailEntryView.emailErrorLabel.isHidden = isValid ? true : false
-                self?.signupEmailEntryView.emailDuplicateLabel.isHidden = isValid ? false : true
-                if reactor.currentState.isDuplicatedEmail == nil {
-                    self?.signupEmailEntryView.emailDuplicateLabel.isHidden = true
-                }
-                self?.signupEmailEntryView.duplicateButton.isEnabled = isValid ? true : false
-                self?.signupEmailEntryView.duplicateButton.backgroundColor = isValid ? ColorManager.gray_5 : ColorManager.gray_90
-            })
-            .disposed(by: disposeBag)
+        Observable.combineLatest(
+            reactor.state.map { $0.isEmailValid }.distinctUntilChanged(),
+            reactor.state.map { $0.email }.distinctUntilChanged()
+        )
+        .bind(onNext: { [weak self] isValid, email in
+            self?.signupEmailEntryView.emailErrorLabel.isHidden = isValid || email.isEmpty
+            self?.signupEmailEntryView.emailDuplicateLabel.isHidden = isValid ? false : true
+            if reactor.currentState.isDuplicatedEmail == nil {
+                self?.signupEmailEntryView.emailDuplicateLabel.isHidden = true
+            }
+            self?.signupEmailEntryView.duplicateButton.isEnabled = isValid ? true : false
+            self?.signupEmailEntryView.duplicateButton.backgroundColor = isValid ? ColorManager.gray_5 : ColorManager.gray_90
+        })
+        .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isDuplicatedEmail }
             .distinctUntilChanged()

@@ -41,7 +41,7 @@ class MarketListCollectionViewCell: UICollectionViewCell {
     
     private func updateUI() {
         marketLabel.textColor = isSelected ? ColorManager.common_100 : ColorManager.gray_60
-        self.backgroundColor = isSelected ? ColorManager.common_0 : ColorManager.gray_99
+        self.backgroundColor = isSelected ? ColorManager.gray_22 : ColorManager.gray_99
     }
     
     private func layout(){

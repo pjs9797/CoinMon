@@ -74,7 +74,10 @@ class VerificationNumberView: UIView {
             sentVerificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "에 인증번호를 보냈어요", arguments: UserCredentialsManager.shared.phoneNumber)
         }
         verificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "인증번호")
-        verificationNumberTextField.placeholder = LocalizationManager.shared.localizedString(forKey: "6자리 인증번호 입력")
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: ColorManager.gray_70 ?? UIColor.gray
+        ]
+        verificationNumberTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "6자리 인증번호 입력"), attributes: attributes)
         nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     
