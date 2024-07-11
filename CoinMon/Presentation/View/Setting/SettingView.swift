@@ -18,7 +18,7 @@ class SettingView: UIView {
         let segmentedControl = UISegmentedControl(items: ["KR", "EN"])
         let normalAttributes: [NSAttributedString.Key: Any] = [
             .font: FontManager.H4_16,
-            .foregroundColor: ColorManager.gray_70
+            .foregroundColor: ColorManager.gray_70!
         ]
         let selectedAttributes: [NSAttributedString.Key: Any] = [
             .font: FontManager.H4_16,
@@ -52,14 +52,14 @@ class SettingView: UIView {
         button.contentHorizontalAlignment = .leading
         return button
     }()
-    let termsOfServiceButton: UIButton = {
+    let privacyPolicyButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = FontManager.H4_16
         button.setTitleColor(ColorManager.common_0, for: .normal)
         button.contentHorizontalAlignment = .leading
         return button
     }()
-    let privacyPolicyButton: UIButton = {
+    let termsOfServiceButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = FontManager.H4_16
         button.setTitleColor(ColorManager.common_0, for: .normal)
@@ -131,25 +131,25 @@ class SettingView: UIView {
             make.top.equalTo(myAccountButton.snp.bottom)
         }
         
-        termsOfServiceButton.snp.makeConstraints { make in
+        privacyPolicyButton.snp.makeConstraints { make in
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
             make.top.equalTo(inquiryButton.snp.bottom)
         }
         
-        privacyPolicyButton.snp.makeConstraints { make in
+        termsOfServiceButton.snp.makeConstraints { make in
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(termsOfServiceButton.snp.bottom)
+            make.top.equalTo(privacyPolicyButton.snp.bottom)
         }
         
         versionLabel.snp.makeConstraints { make in
             make.width.equalTo(200*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(privacyPolicyButton.snp.bottom)
+            make.top.equalTo(termsOfServiceButton.snp.bottom)
         }
     }
 }

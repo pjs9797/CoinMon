@@ -59,7 +59,7 @@ extension WithdrawalViewController {
             .disposed(by: disposeBag)
         
         withdrawalView.withdrawalButton.rx.tap
-            .map{ Reactor.Action.withdrawAlertYesButtonTapped }
+            .map{ Reactor.Action.withdrawAlertButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

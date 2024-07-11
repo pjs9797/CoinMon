@@ -44,6 +44,8 @@ class SettingFlow: Flow {
             return popViewController()
         case .completeMainFlow:
             return .end(forwardToParentFlowWithStep: AppStep.completeMainFlow)
+        case .completeMainFlowAfterWithdrawal:
+            return .end(forwardToParentFlowWithStep: AppStep.completeMainFlowAfterWithdrawal)
         }
     }
     
@@ -135,18 +137,30 @@ class SettingFlow: Flow {
         }
         alertController.addAction(noAction)
         alertController.addAction(okAction)
-        self.rootViewController.present(alertController, animated: true, completion: nil)
+        //self.rootViewController.present(alertController, animated: true, completion: nil)
+        self.rootViewController.present(alertController, animated: true) {
+            guard let containerView = alertController.view.superview else { return }
+            if let dimmingView = containerView.subviews.first(where: { $0.isUserInteractionEnabled }) {
+//                UIView.transition(with: dimmingView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+//                    dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+//                }, completion: nil)
+                
+                UIView.animate(withDuration: 0.3) {
+                    dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+                }
+            }
+        }
         
         return .none
     }
     
     private func presentToWithdrawAlertController(reactor: WithdrawalReactor) -> FlowContributors {
-        let alertController = UIAlertController(title: nil,
-                                                message: LocalizationManager.shared.localizedString(forKey: "탈퇴알림"),
+        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "탈퇴알림"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "코인몬을 이용해 주셔서 감사합니다."),
                                                 preferredStyle: .alert)
         let noAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "아니요"), style: .default, handler: nil)
-        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "네"), style: .default) { _ in
-            reactor.action.onNext(.withdrawAlertYesButtonTapped)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default) { _ in
+            reactor.action.onNext(.withdrawAlertOkButtonTapped)
         }
         alertController.addAction(noAction)
         alertController.addAction(okAction)

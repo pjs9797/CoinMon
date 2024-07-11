@@ -4,14 +4,13 @@ import SnapKit
 class WithdrawalView: UIView {
     let firstNoticeLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.D5_18
+        label.attributedText = AttributedFontManager.D5_18
         label.textColor = ColorManager.common_0
         return label
     }()
     let secondNoticeLabel: UILabel = {
         let label = UILabel()
-        //label.font = FontManager.B5_14
-        label.setAttributedText(FontsManager.B5_14)
+        label.attributedText = AttributedFontManager.B5_14
         label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label
@@ -23,7 +22,7 @@ class WithdrawalView: UIView {
     }()
     let checkNoticeLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T4_15
+        label.attributedText = AttributedFontManager.T4_15
         label.textColor = ColorManager.common_0
         return label
     }()

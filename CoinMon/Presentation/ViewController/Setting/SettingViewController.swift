@@ -45,7 +45,7 @@ class SettingViewController: UIViewController, ReactorKit.View {
         settingView.alarmSettingButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 설정"), for: .normal)
         settingView.myAccountButton.setTitle(LocalizationManager.shared.localizedString(forKey: "내 계정"), for: .normal)
         settingView.inquiryButton.setTitle(LocalizationManager.shared.localizedString(forKey: "문의"), for: .normal)
-        settingView.termsOfServiceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "서비스 이용약관"), for: .normal)
+        settingView.termsOfServiceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "이용약관"), for: .normal)
         settingView.privacyPolicyButton.setTitle(LocalizationManager.shared.localizedString(forKey: "개인정보 처리방침"), for: .normal)
         settingView.versionLabel.text = LocalizationManager.shared.localizedString(forKey: "현재 버전")
     }

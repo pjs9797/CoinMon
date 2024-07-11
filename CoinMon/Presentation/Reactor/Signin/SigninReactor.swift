@@ -10,17 +10,24 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
     var steps = PublishRelay<Step>()
     
     enum Action {
+        case setShowToastMessage(Bool)
         case kakaoLoginButtonTapped
         case coinMonLoginButtonTapped
         case signupButtonTapped
     }
     
-    enum Mutation {}
+    enum Mutation {
+        case setShowToastMessage(Bool)
+    }
     
-    struct State {}
+    struct State {
+        var showToastMessage: Bool = false
+    }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .setShowToastMessage(let show):
+            return .just(.setShowToastMessage(show))
         case .kakaoLoginButtonTapped:
             self.kakaoLogin()
             return .empty()
@@ -31,6 +38,15 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(AppStep.goToSignupFlow)
             return .empty()
         }
+    }
+    
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        switch mutation {
+        case .setShowToastMessage(let show):
+            newState.showToastMessage = show
+        }
+        return newState
     }
     
     private func kakaoLogin(){

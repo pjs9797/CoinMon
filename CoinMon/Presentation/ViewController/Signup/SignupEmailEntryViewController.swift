@@ -66,6 +66,11 @@ extension SignupEmailEntryViewController {
     }
     
     func bindState(reactor: SignupEmailEntryReactor){
+        reactor.state.map { $0.email }
+            .distinctUntilChanged()
+            .bind(to: self.signupEmailEntryView.emailTextField.rx.text)
+            .disposed(by: disposeBag)
+        
         Observable.combineLatest(
             reactor.state.map { $0.isEmailValid }.distinctUntilChanged(),
             reactor.state.map { $0.email }.distinctUntilChanged()

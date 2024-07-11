@@ -51,7 +51,6 @@ class HomeFlow: Flow {
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: premiumReactor),
             .contribute(withNextPresentable: priceViewController, withNextStepper: priceReactor),
             .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor),
-            //.contribute(withNextPresentable: premiumViewController, withNextStepper: premiumReactor),
             .contribute(withNextPresentable: viewController, withNextStepper: reactor)
         ])
     }

@@ -8,7 +8,6 @@ class SelectCoinTableViewHeader: UIView {
     }()
     let coinButton: UIButton = {
         let button = UIButton()
-        button.setTitle("코인", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)
@@ -22,7 +21,6 @@ class SelectCoinTableViewHeader: UIView {
     }()
     let priceButton: UIButton = {
         let button = UIButton()
-        button.setTitle("시세", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)

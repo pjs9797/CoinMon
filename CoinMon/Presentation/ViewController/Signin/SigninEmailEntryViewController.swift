@@ -66,6 +66,11 @@ extension SigninEmailEntryViewController {
     }
     
     func bindState(reactor: SigninEmailEntryReactor){
+        reactor.state.map { $0.email }
+            .distinctUntilChanged()
+            .bind(to: self.signinEmailEntryView.emailTextField.rx.text)
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.isClearButtonHidden }
             .distinctUntilChanged()
             .bind(to: signinEmailEntryView.clearButton.rx.isHidden)

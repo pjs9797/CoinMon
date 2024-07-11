@@ -28,7 +28,7 @@ class TabBarController: UITabBarController {
         tabBar.tintColor = ColorManager.gray_30
         tabBar.unselectedItemTintColor = ColorManager.gray_90
         let textAttributes: [NSAttributedString.Key: Any] = [
-            .font: FontManager.T8_10
+            .font: AttributedFontManager.T8_10
         ]
         self.tabBarController?.tabBarItem.setTitleTextAttributes(textAttributes, for: .normal)
         self.tabBarController?.tabBarItem.setTitleTextAttributes(textAttributes, for: .selected)

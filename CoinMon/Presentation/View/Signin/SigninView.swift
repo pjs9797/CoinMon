@@ -57,6 +57,23 @@ class SigninView: UIView {
         button.titleLabel?.font = FontManager.B7_12
         return button
     }()
+    let completeWithdrawalToast: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.gray_10
+        view.layer.cornerRadius = 12*Constants.standardHeight
+        return view
+    }()
+    let checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = ImageManager.check?.withTintColor(ColorManager.common_100!)
+        return imageView
+    }()
+    let toastLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.T3_16
+        label.textColor = ColorManager.common_100
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,12 +91,18 @@ class SigninView: UIView {
         appleLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "애플로 계속하기"), for: .normal)
         coinMonLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 아이디로 계속하기"), for: .normal)
         signupButton.setTitle(LocalizationManager.shared.localizedString(forKey: "회원가입"), for: .normal)
+        toastLabel.text = LocalizationManager.shared.localizedString(forKey: "계정 삭제 toast")
     }
     
     private func layout() {
-        [coinMonImageView,kakaoLoginButton,appleLoginButton,coinMonLoginButton,signupButton]
+        [coinMonImageView,kakaoLoginButton,appleLoginButton,coinMonLoginButton,signupButton,completeWithdrawalToast]
             .forEach{
                 addSubview($0)
+            }
+        
+        [checkImageView,toastLabel]
+            .forEach{
+                completeWithdrawalToast.addSubview($0)
             }
         
         coinMonImageView.snp.makeConstraints { make in
@@ -127,6 +150,24 @@ class SigninView: UIView {
             make.height.equalTo(34*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(coinMonLoginButton.snp.bottom).offset(40*Constants.standardHeight)
+        }
+        
+        completeWithdrawalToast.snp.makeConstraints { make in
+            make.height.equalTo(48*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-24*Constants.standardHeight)
+        }
+        
+        checkImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.centerY.equalToSuperview()
+        }
+        
+        toastLabel.snp.makeConstraints { make in
+            make.leading.equalTo(checkImageView.snp.trailing).offset(8*Constants.standardWidth)
+            make.centerY.equalTo(checkImageView)
         }
     }
 }

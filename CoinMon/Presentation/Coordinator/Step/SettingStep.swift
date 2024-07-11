@@ -14,4 +14,5 @@ enum SettingStep: Step {
     case goToAlarmSetting
     case popViewController
     case completeMainFlow
+    case completeMainFlowAfterWithdrawal
 }

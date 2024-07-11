@@ -53,14 +53,14 @@ class MyAccountView: UIView {
     let logoutButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_0, for: .normal)
-        button.titleLabel?.font = FontManager.H6_14
+        button.titleLabel?.font = FontManager.H4_16
         button.contentHorizontalAlignment = .leading
         return button
     }()
     let withdrawalButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_0, for: .normal)
-        button.titleLabel?.font = FontManager.H6_14
+        button.titleLabel?.font = FontManager.H4_16
         button.contentHorizontalAlignment = .leading
         return button
     }()

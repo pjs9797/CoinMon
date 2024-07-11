@@ -6,7 +6,7 @@ class TermsOfServiceView: UIView {
     let contentView = UIView()
     let termsOfServiceLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T5_14
+        label.attributedText = AttributedFontManager.T5_14
         label.textColor = ColorManager.common_0
         label.numberOfLines = 0
         return label

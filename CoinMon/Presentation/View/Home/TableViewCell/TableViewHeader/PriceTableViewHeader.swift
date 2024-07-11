@@ -8,7 +8,6 @@ class PriceTableViewHeader: UIView {
     }()
     let coinButton: UIButton = {
         let button = UIButton()
-        button.setTitle("코인", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)
@@ -22,7 +21,6 @@ class PriceTableViewHeader: UIView {
     }()
     let priceButton: UIButton = {
         let button = UIButton()
-        button.setTitle("시세(USDT)", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)
@@ -36,7 +34,6 @@ class PriceTableViewHeader: UIView {
     }()
     let changeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("등락률", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)
@@ -50,7 +47,6 @@ class PriceTableViewHeader: UIView {
     }()
     let gapButton: UIButton = {
         let button = UIButton()
-        button.setTitle("시평갭", for: .normal)
         button.setTitleColor(ColorManager.gray_50, for: .normal)
         button.titleLabel?.font = FontManager.T7_12_read
         button.setImage(ImageManager.sort, for: .normal)

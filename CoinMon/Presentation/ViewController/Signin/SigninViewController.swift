@@ -21,7 +21,7 @@ class SigninViewController: UIViewController, ReactorKit.View {
         
         view = signinView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +65,23 @@ extension SigninViewController {
     }
     
     func bindState(reactor: SigninReactor){
+        reactor.state.map { $0.showToastMessage }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] show in
+                if show {
+                    self?.signinView.completeWithdrawalToast.isHidden = false
+                    self?.signinView.completeWithdrawalToast.alpha = 1.0
+                    UIView.animate(withDuration: 4.0, animations: {
+                        self?.signinView.completeWithdrawalToast.alpha = 0.0
+                    }, completion: {(isCompleted) in
+                        self?.signinView.completeWithdrawalToast.isHidden = true
+                    })
+                }
+                else {
+                    self?.signinView.completeWithdrawalToast.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

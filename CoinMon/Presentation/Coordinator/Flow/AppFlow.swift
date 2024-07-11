@@ -32,12 +32,24 @@ class AppFlow: Flow {
             return navigateToTabBarController()
         case .completeMainFlow:
             return navigateToSigninViewController()
+        case .completeMainFlowAfterWithdrawal:
+            return navigateToSigninViewControllerAfterWithdrawal()
         }
     }
     
     private func navigateToSigninViewController() -> FlowContributors {
         let reactor = SigninReactor()
         let viewController = SigninViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.setViewControllers([viewController], animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToSigninViewControllerAfterWithdrawal() -> FlowContributors {
+        let reactor = SigninReactor()
+        let viewController = SigninViewController(with: reactor)
+        reactor.action.onNext(.setShowToastMessage(true))
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.setViewControllers([viewController], animated: true)
 

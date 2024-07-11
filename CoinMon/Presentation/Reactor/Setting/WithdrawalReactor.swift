@@ -1,3 +1,4 @@
+import Foundation
 import ReactorKit
 import RxCocoa
 import RxFlow
@@ -12,9 +13,10 @@ class WithdrawalReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Action {
-        case withdrawAlertYesButtonTapped
+        case withdrawAlertOkButtonTapped
         case backButtonTapped
         case checkButtonTapped
+        case withdrawAlertButtonTapped
     }
     
     enum Mutation {
@@ -27,21 +29,25 @@ class WithdrawalReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .withdrawAlertYesButtonTapped:
+        case .backButtonTapped:
+            self.steps.accept(SettingStep.popViewController)
+            return .empty()
+        case .checkButtonTapped:
+            return .just(.setChecked)
+        case .withdrawAlertButtonTapped:
+            self.steps.accept(SettingStep.presentToWithdrawAlertController(reactor: self))
+            return .empty()
+        case .withdrawAlertOkButtonTapped:
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
             return userUseCase.withdraw()
                 .flatMap { [weak self] _ -> Observable<Mutation> in
-                    self?.steps.accept(SettingStep.completeMainFlow)
+                    self?.steps.accept(SettingStep.completeMainFlowAfterWithdrawal)
                     return .empty()
                 }
                 .catch { [weak self] _ in
                     self?.steps.accept(SettingStep.presentToNetworkErrorAlertController)
                     return .empty()
                 }
-        case .backButtonTapped:
-            self.steps.accept(SettingStep.popViewController)
-            return .empty()
-        case .checkButtonTapped:
-            return .just(.setChecked)
         }
     }
     
