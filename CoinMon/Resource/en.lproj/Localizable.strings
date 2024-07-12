@@ -61,6 +61,7 @@
 "알람 수정" = "Modify Alarm";
 "삭제" = "Delete";
 "알림 없음" = "You don't have an alarm yet.\nAdd it and get a notification!";
+"알람 삭제 toast" = "Deletion complete";
 //AddAlarm
 "거래소" = "Market";
 "현재가" = "Current Price";
@@ -83,7 +84,7 @@
 "내 계정" = "Account";
 "문의" = "Help";
 "이용약관" = "Terms Of Service";
-"현재 버전" = "Current Version 1.0";
+"현재 버전" = "Current Version 1.2";
 //Setting-Inquiry
 "으로 문의 바랍니다" = "Please contact %@";
 //Setting-MyAccount

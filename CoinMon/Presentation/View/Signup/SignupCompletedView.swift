@@ -17,7 +17,7 @@ class SignupCompletedView: UIView {
     }()
     let signupCompletedButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(ColorManager.common_100, for: .normal)
         button.backgroundColor = ColorManager.orange_60
         button.layer.cornerRadius = 12*Constants.standardHeight
         button.titleLabel?.font = FontManager.D6_16

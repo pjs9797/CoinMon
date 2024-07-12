@@ -26,7 +26,7 @@ class TermsOfServiceViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         setNavigationbar()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     private func setNavigationbar() {

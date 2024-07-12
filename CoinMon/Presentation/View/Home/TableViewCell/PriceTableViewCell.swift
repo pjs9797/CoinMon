@@ -162,7 +162,7 @@ class PriceTableViewCell: UITableViewCell {
             changeLabel.textColor = ColorManager.blue_50
         }
         else if priceList.change == "0.00" {
-            changeLabel.textColor = .black
+            changeLabel.textColor = ColorManager.common_0
         }
         else {
             changeLabel.textColor = ColorManager.red_50

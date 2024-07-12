@@ -95,7 +95,7 @@ class FeePremiumTableViewCell: UITableViewCell {
             feePremiumLabel.textColor = ColorManager.blue_50
         }
         else if feeList.fee == "0" {
-            feePremiumLabel.textColor = .black
+            feePremiumLabel.textColor = ColorManager.common_0
         }
         else {
             feePremiumLabel.textColor = ColorManager.red_50
@@ -110,7 +110,7 @@ class FeePremiumTableViewCell: UITableViewCell {
             feePremiumLabel.textColor = ColorManager.blue_50
         }
         else if premiumList.premium == "0.00" {
-            feePremiumLabel.textColor = .black
+            feePremiumLabel.textColor = ColorManager.common_0
         }
         else {
             feePremiumLabel.textColor = ColorManager.red_50

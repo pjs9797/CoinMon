@@ -137,19 +137,7 @@ class SettingFlow: Flow {
         }
         alertController.addAction(noAction)
         alertController.addAction(okAction)
-        //self.rootViewController.present(alertController, animated: true, completion: nil)
-        self.rootViewController.present(alertController, animated: true) {
-            guard let containerView = alertController.view.superview else { return }
-            if let dimmingView = containerView.subviews.first(where: { $0.isUserInteractionEnabled }) {
-//                UIView.transition(with: dimmingView, duration: 0.3, options: .transitionCrossDissolve, animations: {
-//                    dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-//                }, completion: nil)
-                
-                UIView.animate(withDuration: 0.3) {
-                    dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-                }
-            }
-        }
+        self.rootViewController.present(alertController, animated: true, completion: nil)
         
         return .none
     }

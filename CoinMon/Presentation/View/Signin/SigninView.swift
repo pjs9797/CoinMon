@@ -46,8 +46,6 @@ class SigninView: UIView {
         button.setTitleColor(ColorManager.common_0, for: .normal)
         button.titleLabel?.font = FontManager.D6_16
         button.layer.cornerRadius = 12*Constants.standardHeight
-        button.layer.borderWidth = 1
-        button.layer.borderColor = ColorManager.gray_95?.cgColor
         button.backgroundColor = ColorManager.gray_97
         return button
     }()
@@ -65,7 +63,7 @@ class SigninView: UIView {
     }()
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageManager.check?.withTintColor(ColorManager.common_100!)
+        imageView.image = ImageManager.check
         return imageView
     }()
     let toastLabel: UILabel = {

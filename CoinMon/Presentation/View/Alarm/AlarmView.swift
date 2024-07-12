@@ -37,6 +37,23 @@ class AlarmView: UIView {
         tableView.register(AlarmTableViewCell.self, forCellReuseIdentifier: "AlarmTableViewCell")
         return tableView
     }()
+    let completeDeleteAlarmToast: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.gray_10
+        view.layer.cornerRadius = 12*Constants.standardHeight
+        return view
+    }()
+    let checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = ImageManager.check
+        return imageView
+    }()
+    let toastLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.T3_16
+        label.textColor = ColorManager.common_100
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,14 +72,21 @@ class AlarmView: UIView {
         ]
         searchView.searchTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "코인 검색"), attributes: attributes)
         addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가버튼"), for: .normal)
+        alarmTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가 헤더",arguments: "USDT"), for: .normal)
         noneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "알림 없음")
+        toastLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 삭제 toast")
     }
     
     private func layout() {
-        [alarmLabel,addAlarmButton,marketCollectionView,searchView,alarmTableViewHeader,alarmTableView,noneAlarmView]
+        [alarmLabel,addAlarmButton,marketCollectionView,searchView,alarmTableViewHeader,alarmTableView,noneAlarmView,completeDeleteAlarmToast]
             .forEach{
                 addSubview($0)
+            }
+        
+        [checkImageView,toastLabel]
+            .forEach{
+                completeDeleteAlarmToast.addSubview($0)
             }
         
         alarmLabel.snp.makeConstraints { make in
@@ -109,6 +133,24 @@ class AlarmView: UIView {
             make.centerX.equalToSuperview()
             make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        completeDeleteAlarmToast.snp.makeConstraints { make in
+            make.height.equalTo(48*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-24*Constants.standardHeight)
+        }
+        
+        checkImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.centerY.equalToSuperview()
+        }
+        
+        toastLabel.snp.makeConstraints { make in
+            make.leading.equalTo(checkImageView.snp.trailing).offset(8*Constants.standardWidth)
+            make.centerY.equalTo(checkImageView)
         }
     }
 }

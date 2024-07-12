@@ -24,7 +24,7 @@ class FeeViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         hideKeyboard(disposeBag: disposeBag)
         feeView.marketCollectionView.dragDelegate = self
         feeView.marketCollectionView.dropDelegate = self

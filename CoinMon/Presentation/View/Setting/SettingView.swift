@@ -22,8 +22,8 @@ class SettingView: UIView {
         ]
         let selectedAttributes: [NSAttributedString.Key: Any] = [
             .font: FontManager.H4_16,
-            .foregroundColor: UIColor.black,
-            .backgroundColor: UIColor.white
+            .foregroundColor: ColorManager.common_0!,
+            .backgroundColor: ColorManager.common_100!
         ]
         segmentedControl.setTitleTextAttributes(normalAttributes, for: .normal)
         segmentedControl.setTitleTextAttributes(selectedAttributes, for: .selected)

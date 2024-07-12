@@ -25,7 +25,7 @@ class SigninViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
 }
 
@@ -73,7 +73,7 @@ extension SigninViewController {
                     self?.signinView.completeWithdrawalToast.alpha = 1.0
                     UIView.animate(withDuration: 4.0, animations: {
                         self?.signinView.completeWithdrawalToast.alpha = 0.0
-                    }, completion: {(isCompleted) in
+                    }, completion: { _ in
                         self?.signinView.completeWithdrawalToast.isHidden = true
                     })
                 }

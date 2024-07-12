@@ -28,7 +28,7 @@ class ModifyAlarmViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
         LocalizationManager.shared.rxLanguage

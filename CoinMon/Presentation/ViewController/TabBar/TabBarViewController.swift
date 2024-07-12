@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
-        tabBar.backgroundColor = .white
+        tabBar.backgroundColor = .systemBackground
         tabBar.layer.shadowColor = ColorManager.common_0?.cgColor
         tabBar.layer.shadowOpacity = 0.06
         tabBar.layer.shadowRadius = 12

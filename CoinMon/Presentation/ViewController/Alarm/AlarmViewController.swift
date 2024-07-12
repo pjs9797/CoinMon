@@ -26,7 +26,7 @@ class AlarmViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         hideKeyboard(disposeBag: disposeBag)
         alarmView.marketCollectionView.dragDelegate = self
         alarmView.marketCollectionView.dropDelegate = self
@@ -202,6 +202,25 @@ extension AlarmViewController {
                     self?.alarmView.alarmTableViewHeader.setPriceButton.setImage(ImageManager.sort_descending, for: .normal)
                 case .none:
                     self?.alarmView.alarmTableViewHeader.setPriceButton.setImage(ImageManager.sort, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isAlarmDeleted }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] show in
+                if show {
+                    self?.alarmView.completeDeleteAlarmToast.isHidden = false
+                    self?.alarmView.completeDeleteAlarmToast.alpha = 1.0
+                    UIView.animate(withDuration: 2.0, animations: {
+                        self?.alarmView.completeDeleteAlarmToast.alpha = 0.0
+                    }, completion: { _ in
+                        self?.alarmView.completeDeleteAlarmToast.isHidden = true
+                        self?.reactor?.action.onNext(.setAlarmDeleted(false))
+                    })
+                }
+                else {
+                    self?.alarmView.completeDeleteAlarmToast.isHidden = true
                 }
             })
             .disposed(by: disposeBag)

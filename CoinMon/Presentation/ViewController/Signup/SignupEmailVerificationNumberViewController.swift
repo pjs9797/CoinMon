@@ -25,7 +25,7 @@ class SignupEmailVerificationNumberViewController: UIViewController, ReactorKit.
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
         bindKeyboardNotifications(to: verificationNumberView.nextButton, disposeBag: disposeBag)

@@ -43,6 +43,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case clearButtonTapped
         case sortByCoin
         case sortBySetPrice
+        case setAlarmDeleted(Bool)
     }
     
     enum Mutation {
@@ -56,6 +57,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case setTotalCnt(Int)
         case updateAlarm(Alarm)
         case deleteAlarm(Int)
+        case setAlarmDeleted(Bool)
         case setSearchText(String)
         case setFilteredAlarms([Alarm])
         case setCoinSortOrder(SortOrder)
@@ -73,6 +75,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         var filteredAlarms: [Alarm] = []
         var coinSortOrder: SortOrder = .none
         var setPriceSortOrder: SortOrder = .none
+        var isAlarmDeleted: Bool = false
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -94,15 +97,27 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                 .flatMap { [weak self] (alarmList, totalCnt, onCnt) -> Observable<Mutation> in
                     let market = self?.currentState.markets[index].localizationKey
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
-                    return .concat([
-                        .just(.setSelectedMarket(index)),
-                        .just(.setAlarms(alarmList)),
-                        .just(.setOnCnt(onCnt)),
-                        .just(.setTotalCnt(totalCnt)),
-                        .just(.setFilteredAlarms(alarmList)),
-                        .just(.setUnit(unit)),
-                        .just(.setSearchText(""))
-                    ])
+                    if self?.currentState.searchText == "" {
+                        return .concat([
+                            .just(.setSelectedMarket(index)),
+                            .just(.setAlarms(alarmList)),
+                            .just(.setOnCnt(onCnt)),
+                            .just(.setTotalCnt(totalCnt)),
+                            .just(.setFilteredAlarms(alarmList)),
+                            .just(.setUnit(unit)),
+                        ])
+                    }
+                    else {
+                        let filteredAlarms = alarmList.filter { $0.coinTitle.lowercased().contains(self?.currentState.searchText.lowercased() ?? "") }
+                        return .concat([
+                            .just(.setSelectedMarket(index)),
+                            .just(.setAlarms(alarmList)),
+                            .just(.setOnCnt(onCnt)),
+                            .just(.setTotalCnt(totalCnt)),
+                            .just(.setFilteredAlarms(filteredAlarms)),
+                            .just(.setUnit(unit)),
+                        ])
+                    }
                 }
                 .catch { [weak self] error in
                     self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
@@ -150,7 +165,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                 .flatMap { [weak self] _ -> Observable<Mutation> in
                     return .concat([
                         .just(.deleteAlarm(index)),
-                        .just(.setTotalCnt((self?.currentState.totalCnt ?? 0) - 1))
+                        .just(.setTotalCnt((self?.currentState.totalCnt ?? 0) - 1)),
+                        .just(.setAlarmDeleted(true))
                     ])
                 }
                 .catch { [weak self] _ in
@@ -207,6 +223,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                 .just(.setSetPriceSortOrder(newOrder)),
                 .just(.setFilteredAlarms(sortedAlarms))
             ])
+        case .setAlarmDeleted(let isDeleted):
+            return .just(.setAlarmDeleted(isDeleted))
         }
     }
     
@@ -250,6 +268,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .setSetPriceSortOrder(let order):
             newState.setPriceSortOrder = order
             newState.coinSortOrder = .none
+        case .setAlarmDeleted(let isDeleted):
+            newState.isAlarmDeleted = isDeleted
         }
         return newState
     }
