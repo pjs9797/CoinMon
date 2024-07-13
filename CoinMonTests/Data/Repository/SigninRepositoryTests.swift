@@ -37,7 +37,7 @@ class SigninRepositoryTests: XCTestCase {
         let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
         
         // Then
-        expect(result?.resultCode).toNot(equal("200"))
+        expect(result).toNot(equal("200"))
     }
     
     func test_checkEmailIsExisted_이메일_존재_여부_요청_존재하지_않음() {
@@ -48,7 +48,7 @@ class SigninRepositoryTests: XCTestCase {
         let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
         
         // Then
-        expect(result?.resultCode).to(equal("200"))
+        expect(result).to(equal("200"))
     }
     
     func test_checkEmailIsExisted_이메일_존재_여부_요청_네트워크_에러() {
@@ -72,7 +72,7 @@ class SigninRepositoryTests: XCTestCase {
         let result = try? repository.requestEmailVerificationCode(email: email).toBlocking().single()
         
         // Then
-        expect(result?.resultCode).to(equal("200"))
+        expect(result).to(equal("200"))
     }
     
     func test_requestEmailVerificationCode_이메일_인증_코드_요청_네트워크_에러() {
@@ -111,7 +111,7 @@ class SigninRepositoryTests: XCTestCase {
         let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
         
         // Then
-        expect(result?.resultCode).toNot(equal("200"))
+        expect(result).to(beNil())
     }
     
     func test_checkEmailVerificationCodeForLogin_로그인_이메일_인증_코드_네트워크_에러() {

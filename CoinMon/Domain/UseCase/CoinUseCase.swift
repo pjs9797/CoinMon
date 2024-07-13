@@ -7,28 +7,16 @@ class CoinUseCase {
         self.repository = repository
     }
     
-    func fetchCoinsPriceListAtHome(market: String) -> Observable<[CoinPrice]> {
+    func fetchCoinPriceChangeGapList(market: String) -> Observable<[CoinPriceChangeGap]> {
         let marketUpper = market.uppercased()
-        return repository.fetchCoinsPriceAtHome(exchange: marketUpper)
-            .map { CoinPriceTranslator.toPriceListsAtHome(dto: $0) }
-    }
-    
-    func fetchCoinsPriceListAtAlarm(market: String) -> Observable<[OneCoinPrice]> {
-        let marketUpper = market.uppercased()
-        return repository.fetchCoinsPriceAtAlarm(exchange: marketUpper)
-            .map { CoinPriceTranslator.toPriceListsAtAlarm(dto: $0) }
-    }
-    
-    func fetchOneCoinPrice(market: String, symbol: String) -> Observable<OneCoinPrice> {
-        let marketUpper = market.uppercased()
-        return repository.fetchOneCoinPrice(exchange: marketUpper, symbol: symbol)
-            .map { CoinPriceTranslator.toOnePriceListsAtAlarm(dto: $0) }
+        return repository.fetchCoinPriceChangeGapList(exchange: marketUpper)
+            .map { $0.sorted { Double($0.price) ?? 0 > Double($1.price) ?? 0 } }
     }
     
     func fetchCoinFeeList(market: String) -> Observable<[CoinFee]> {
         let marketUpper = market.uppercased()
-        return repository.fetchCoinFee(exchange: marketUpper)
-            .map { CoinPriceTranslator.toFeeList(dto: $0) }
+        return repository.fetchCoinFeeList(exchange: marketUpper)
+            .map { $0.sorted { $0.price > $1.price } }
     }
     
     func fetchCoinPremiumList(departureMarket: String, arrivalMarket: String) -> Observable<[CoinPremium]> {
@@ -39,9 +27,7 @@ class CoinUseCase {
             repository.fetchExchangeRate()
         )
         .map { (prices, exchangeRate) in
-            let (departureDTO, arrivalDTO) = prices
-            let departurePrices = CoinPriceTranslator.toPremiumLists(dto: departureDTO)
-            let arrivalPrices = CoinPriceTranslator.toPremiumLists(dto: arrivalDTO)
+            let (departurePrices, arrivalPrices) = prices
             var premiums: [CoinPremium] = []
             for departurePrice in departurePrices {
                 if let arrivalPrice = arrivalPrices.first(where: { $0.coinTitle == departurePrice.coinTitle }) {
@@ -52,11 +38,22 @@ class CoinUseCase {
                     if departurePrice.coinTitle == "TON" {
                         continue
                     }
-                    let premium = CoinPremium(coinTitle: departurePrice.coinTitle, premium: String(format: "%.2f", premiumValue))
+                    let premium = CoinPremium(coinTitle: departurePrice.coinTitle, premium: String(format: "%.2f", premiumValue), price: krwPrice)
                     premiums.append(premium)
                 }
             }
-            return premiums
+            return premiums.sorted { $0.price > $1.price }
         }
+    }
+    
+    func fetchCoinPriceForSelectCoinsAtAlarm(market: String) -> Observable<[CoinPrice]> {
+        let marketUpper = market.uppercased()
+        return repository.fetchCoinPriceForSelectCoinsAtAlarm(exchange: marketUpper)
+            .map { $0.sorted { Double($0.price) ?? 0 > Double($1.price) ?? 0 } }
+    }
+    
+    func fetchOnlyOneCoinPrice(market: String, symbol: String) -> Observable<CoinPrice> {
+        let marketUpper = market.uppercased()
+        return repository.fetchOnlyOneCoinPrice(exchange: marketUpper, symbol: symbol)
     }
 }

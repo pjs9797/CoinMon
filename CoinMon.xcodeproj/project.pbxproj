@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3104F4C02C3942BA00DD40D6 /* CoinPriceTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4BF2C3942BA00DD40D6 /* CoinPriceTranslator.swift */; };
-		3104F4C22C39447D00DD40D6 /* SigninTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C12C39447D00DD40D6 /* SigninTranslator.swift */; };
-		3104F4C42C39453700DD40D6 /* SignupTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C32C39453700DD40D6 /* SignupTranslator.swift */; };
-		3104F4C62C3945B400DD40D6 /* UserTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C52C3945B400DD40D6 /* UserTranslator.swift */; };
-		3104F4C82C39496000DD40D6 /* AlarmTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F4C72C39496000DD40D6 /* AlarmTranslator.swift */; };
 		3104F4ED2C3A765000DD40D6 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3104F4EC2C3A765000DD40D6 /* RxTest */; };
 		3104F4EF2C3A765300DD40D6 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3104F4EE2C3A765300DD40D6 /* RxBlocking */; };
 		3104F4F12C3A765600DD40D6 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 3104F4F02C3A765600DD40D6 /* Nimble */; };
@@ -210,11 +205,6 @@
 		3104F4AC2C392AAD00DD40D6 /* RxRelay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxRelay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3104F4AD2C392AAD00DD40D6 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3104F4AE2C392AAD00DD40D6 /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3104F4BF2C3942BA00DD40D6 /* CoinPriceTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPriceTranslator.swift; sourceTree = "<group>"; };
-		3104F4C12C39447D00DD40D6 /* SigninTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninTranslator.swift; sourceTree = "<group>"; };
-		3104F4C32C39453700DD40D6 /* SignupTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTranslator.swift; sourceTree = "<group>"; };
-		3104F4C52C3945B400DD40D6 /* UserTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTranslator.swift; sourceTree = "<group>"; };
-		3104F4C72C39496000DD40D6 /* AlarmTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTranslator.swift; sourceTree = "<group>"; };
 		3104F4E32C3A762F00DD40D6 /* CoinMonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinMonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3104F4F22C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailEntryReactorTests.swift; sourceTree = "<group>"; };
 		3104F4F42C3A7A2200DD40D6 /* SigninUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninUseCaseTests.swift; sourceTree = "<group>"; };
@@ -425,18 +415,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3104F4BE2C3942A000DD40D6 /* Translator */ = {
-			isa = PBXGroup;
-			children = (
-				3104F4C32C39453700DD40D6 /* SignupTranslator.swift */,
-				3104F4C12C39447D00DD40D6 /* SigninTranslator.swift */,
-				3104F4C52C3945B400DD40D6 /* UserTranslator.swift */,
-				3104F4BF2C3942BA00DD40D6 /* CoinPriceTranslator.swift */,
-				3104F4C72C39496000DD40D6 /* AlarmTranslator.swift */,
-			);
-			path = Translator;
-			sourceTree = "<group>";
-		};
 		3104F4E42C3A763000DD40D6 /* CoinMonTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,6 +488,14 @@
 				3104F4F82C3A7A6500DD40D6 /* SigninRepositoryTests.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		3104F5042C42BAB000DD40D6 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				315C01892C0B2C9D00BE00E3 /* AlarmEntity.swift */,
+			);
+			path = Alarm;
 			sourceTree = "<group>";
 		};
 		31423C3B2BFB182E008AB6FD /* TabBar */ = {
@@ -911,7 +897,6 @@
 		31A48FD52BFF3A8100ABEA2F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				3104F4BE2C3942A000DD40D6 /* Translator */,
 				31E0A4D32C15856500756DFD /* RepositoryInterface */,
 				31E0A4D22C15855800756DFD /* UseCase */,
 				31A48FD62BFF3AB500ABEA2F /* Entity */,
@@ -925,6 +910,7 @@
 				31E0A51A2C182C3500756DFD /* User */,
 				31E0A5132C1824A500756DFD /* AuthToken */,
 				31BCE98E2C05CFFA00DA2FC6 /* Home */,
+				3104F5042C42BAB000DD40D6 /* Alarm */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -955,7 +941,6 @@
 			isa = PBXGroup;
 			children = (
 				31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */,
-				315C01892C0B2C9D00BE00E3 /* AlarmEntity.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1309,7 +1294,6 @@
 				31777A272BE3B319006E8378 /* AppFlow.swift in Sources */,
 				31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
-				3104F4C42C39453700DD40D6 /* SignupTranslator.swift in Sources */,
 				31E0A5092C16FFE300756DFD /* SigninUseCase.swift in Sources */,
 				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,
 				31E0A5262C196E8D00756DFD /* CoinRepositoryInterface.swift in Sources */,
@@ -1363,7 +1347,6 @@
 				31E0A52A2C19849500756DFD /* CoinRepository.swift in Sources */,
 				31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */,
 				31E0A5582C1B28DF00756DFD /* ModifyAlarmViewController.swift in Sources */,
-				3104F4C22C39447D00DD40D6 /* SigninTranslator.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
 				31777A1E2BE3B1FB006E8378 /* SigninViewController.swift in Sources */,
 				31E0A5032C16CCB200756DFD /* PrivacyPolicyReactor.swift in Sources */,
@@ -1378,10 +1361,8 @@
 				31BCE98D2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift in Sources */,
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				31E0A51C2C182C4100756DFD /* UserData.swift in Sources */,
-				3104F4C62C3945B400DD40D6 /* UserTranslator.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
-				3104F4C82C39496000DD40D6 /* AlarmTranslator.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
@@ -1430,7 +1411,6 @@
 				31E0A4E32C15BF0B00756DFD /* SignupDTO.swift in Sources */,
 				31E0A4ED2C16B51900756DFD /* SignupEmailVerificationNumberReactor.swift in Sources */,
 				31E0A5072C16FEE500756DFD /* SigninService.swift in Sources */,
-				3104F4C02C3942BA00DD40D6 /* CoinPriceTranslator.swift in Sources */,
 				31E0A5052C16CCC100756DFD /* MarketingConsentReactor.swift in Sources */,
 				315C017D2C0B02DE00BE00E3 /* AlarmViewController.swift in Sources */,
 				31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */,

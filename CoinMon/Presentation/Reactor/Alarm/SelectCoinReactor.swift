@@ -25,20 +25,20 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
     }
     
     enum Mutation {
-        case setCoinData([OneCoinPrice])
+        case setCoinData([CoinPrice])
         case setUnit(String)
         case setSearchText(String)
-        case setFilteredCoins([OneCoinPrice])
+        case setFilteredCoins([CoinPrice])
         case setCoinSortOrder(SortOrder)
         case setSetPriceSortOrder(SortOrder)
     }
     
     struct State {
         var market: String
-        var coins: [OneCoinPrice] = []
+        var coins: [CoinPrice] = []
         var unit: String = "USDT"
         var searchText: String = ""
-        var filteredCoins: [OneCoinPrice] = []
+        var filteredCoins: [CoinPrice] = []
         var coinSortOrder: SortOrder = .none
         var setPriceSortOrder: SortOrder = .none
     }
@@ -46,7 +46,7 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .loadCoinData:
-            return coinUseCase.fetchCoinsPriceListAtAlarm(market: currentState.market)
+            return coinUseCase.fetchCoinPriceForSelectCoinsAtAlarm(market: currentState.market)
                 .flatMap { [weak self] coinData -> Observable<Mutation> in
                     let market = self?.currentState.market
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
@@ -68,7 +68,7 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
             self.steps.accept(AlarmStep.popViewController)
             return .empty()
         case .updateSearchText(let searchText):
-            let filteredCoins: [OneCoinPrice]
+            let filteredCoins: [CoinPrice]
             if searchText.isEmpty {
                 var sortedCoins = currentState.coins
                 if self.currentState.coinSortOrder != SortOrder.none {
@@ -94,24 +94,27 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedCoins = self.sortCoins(currentState.filteredCoins, by: \.coinTitle, order: newOrder)
             return .concat([
                 .just(.setCoinSortOrder(newOrder)),
                 .just(.setFilteredCoins(sortedCoins))
             ])
-            
         case .sortByPrice:
             let newOrder: SortOrder
             switch currentState.setPriceSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedCoins = self.sortCoins(currentState.filteredCoins, by: \.price, order: newOrder)
             return .concat([
@@ -136,26 +139,28 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
             newState.coinSortOrder = order
             newState.setPriceSortOrder = .none
         case .setSetPriceSortOrder(let order):
-            newState.setPriceSortOrder = order
             newState.coinSortOrder = .none
+            newState.setPriceSortOrder = order
         }
         return newState
     }
     
-    private func sortCoins(_ coins: [OneCoinPrice], by keyPath: PartialKeyPath<OneCoinPrice>, order: SortOrder) -> [OneCoinPrice] {
+    private func sortCoins(_ coins: [CoinPrice], by keyPath: PartialKeyPath<CoinPrice>, order: SortOrder) -> [CoinPrice] {
         var sortedCoins = coins
         
         sortedCoins.sort {
             let lhs: Any
             let rhs: Any
             
-            if keyPath == \OneCoinPrice.price, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            let actualKeyPath = order == .none ? \CoinPrice.price : keyPath
+            
+            if actualKeyPath == \CoinPrice.price, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
             }
             else {
-                lhs = $0[keyPath: keyPath]
-                rhs = $1[keyPath: keyPath]
+                lhs = $0[keyPath: actualKeyPath]
+                rhs = $1[keyPath: actualKeyPath]
             }
             
             switch order {
@@ -176,10 +181,12 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
                 }
                 return false
             case .none:
-                return true
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs > rhs
+                }
+                return false
             }
         }
-        
         return sortedCoins
     }
 }

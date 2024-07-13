@@ -114,7 +114,7 @@ class ModifyAlarmReactor: ReactorKit.Reactor, Stepper {
                     return .empty()
                 }
         case .updateCurrentPrice:
-            return coinUseCase.fetchOneCoinPrice(market: currentState.market, symbol: currentState.coinTitle)
+            return coinUseCase.fetchOnlyOneCoinPrice(market: currentState.market, symbol: currentState.coinTitle)
                 .flatMap { coin -> Observable<Mutation> in
                     return .just(.setCurrentPrice(coin.price))
                 }

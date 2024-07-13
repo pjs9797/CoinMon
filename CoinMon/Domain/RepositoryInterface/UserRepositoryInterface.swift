@@ -1,7 +1,7 @@
 import RxSwift
 
 protocol UserRepositoryInterface {
-    func withdraw() -> Observable<UserDTO>
-    func changeNickname(nickname: String) -> Observable<UserDTO>
-    func fetchUserData() -> Observable<UserResponseDTO>
+    func withdraw() -> Observable<String>
+    func changeNickname(nickname: String) -> Observable<String>
+    func fetchUserData() -> Observable<UserData>
 }

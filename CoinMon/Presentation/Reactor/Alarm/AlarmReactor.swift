@@ -93,7 +93,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))
         case .selectMarket(let index):
-            return alarmUseCase.getAlarms(market: currentState.markets[index].localizationKey)
+            return alarmUseCase.fetchAlarmList(market: currentState.markets[index].localizationKey)
                 .flatMap { [weak self] (alarmList, totalCnt, onCnt) -> Observable<Mutation> in
                     let market = self?.currentState.markets[index].localizationKey
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
@@ -200,10 +200,12 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedAlarms = self.sortAlarms(currentState.filteredAlarms, by: \.coinTitle, order: newOrder)
             return .concat([
@@ -213,10 +215,12 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .sortBySetPrice:
             let newOrder: SortOrder
             switch currentState.setPriceSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedAlarms = self.sortAlarms(currentState.filteredAlarms, by: \.setPrice, order: newOrder)
             return .concat([
@@ -266,8 +270,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
             newState.coinSortOrder = order
             newState.setPriceSortOrder = .none
         case .setSetPriceSortOrder(let order):
-            newState.setPriceSortOrder = order
             newState.coinSortOrder = .none
+            newState.setPriceSortOrder = order
         case .setAlarmDeleted(let isDeleted):
             newState.isAlarmDeleted = isDeleted
         }
@@ -281,13 +285,15 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
             let lhs: Any
             let rhs: Any
             
-            if keyPath == \Alarm.setPrice, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            let actualKeyPath = order == .none ? \Alarm.setPrice : keyPath
+            
+            if actualKeyPath == \Alarm.setPrice, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
-            }
+            } 
             else {
-                lhs = $0[keyPath: keyPath]
-                rhs = $1[keyPath: keyPath]
+                lhs = $0[keyPath: actualKeyPath]
+                rhs = $1[keyPath: actualKeyPath]
             }
             
             switch order {
@@ -308,7 +314,10 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                 }
                 return false
             case .none:
-                return true
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs > rhs
+                }
+                return false
             }
         }
         

@@ -84,10 +84,12 @@ class PremiumReactor: ReactorKit.Reactor, Stepper {
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedPremiumList = self.sortPremiumList(currentState.filteredpremiumList, by: \.coinTitle, order: newOrder)
             return .concat([
@@ -97,10 +99,12 @@ class PremiumReactor: ReactorKit.Reactor, Stepper {
         case .sortByPremium:
             let newOrder: SortOrder
             switch currentState.premiumSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedPremiumList = self.sortPremiumList(currentState.filteredpremiumList, by: \.premium, order: newOrder)
             return .concat([
@@ -152,13 +156,19 @@ class PremiumReactor: ReactorKit.Reactor, Stepper {
             let lhs: Any
             let rhs: Any
             
-            if keyPath == \CoinPremium.premium, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            let actualKeyPath = order == .none ? \CoinPremium.price : keyPath
+            
+            if keyPath == \CoinPremium.premium, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
             }
+            else if keyPath == \CoinPremium.price {
+                lhs = $0[keyPath: actualKeyPath] as? Double ?? 0.0
+                rhs = $1[keyPath: actualKeyPath] as? Double ?? 0.0
+            }
             else {
-                lhs = $0[keyPath: keyPath]
-                rhs = $1[keyPath: keyPath]
+                lhs = $0[keyPath: actualKeyPath]
+                rhs = $1[keyPath: actualKeyPath]
             }
             
             switch order {
@@ -179,7 +189,10 @@ class PremiumReactor: ReactorKit.Reactor, Stepper {
                 }
                 return false
             case .none:
-                return true
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs > rhs
+                }
+                return false
             }
         }
         

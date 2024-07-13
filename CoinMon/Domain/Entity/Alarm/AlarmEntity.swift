@@ -7,8 +7,3 @@ struct Alarm: Equatable {
     let cycle: String
     let isOn: Bool
 }
-
-struct OneCoinPrice: Equatable{
-    let coinTitle: String
-    let price: String
-}

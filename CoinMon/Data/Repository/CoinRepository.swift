@@ -6,50 +6,33 @@ class CoinRepository: CoinRepositoryInterface {
     private let coinProvider = MoyaProvider<CoinService>()
     private let exchangeRateProvider = MoyaProvider<ExchangeRateService>()
     
-    func fetchCoinsPriceAtHome(exchange: String) -> Observable<CoinPriceResponseDTO> {
+    func fetchCoinPriceChangeGapList(exchange: String) -> Observable<[CoinPriceChangeGap]> {
         return coinProvider.rx.request(.getCoinData(exchange: exchange))
             .filterSuccessfulStatusCodes()
             .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toCoinPriceChangeGapList(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)
             }
     }
     
-    func fetchCoinsPriceAtAlarm(exchange: String) -> Observable<CoinPriceResponseDTO> {
+    func fetchCoinFeeList(exchange: String) -> Observable<[CoinFee]> {
         return coinProvider.rx.request(.getCoinData(exchange: exchange))
             .filterSuccessfulStatusCodes()
             .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toCoinFeeList(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)
             }
     }
     
-    func fetchOneCoinPrice(exchange: String, symbol: String) -> Observable<CoinPriceResponseDTO> {
-        return coinProvider.rx.request(.getOneCoinData(exchange: exchange, symbol: symbol))
-            .filterSuccessfulStatusCodes()
-            .map(CoinPriceResponseDTO.self)
-            .asObservable()
-            .catch { error in
-                return Observable.error(error)
-            }
-    }
-    
-    func fetchCoinFee(exchange: String) -> Observable<CoinPriceResponseDTO> {
-        return coinProvider.rx.request(.getCoinData(exchange: exchange))
-            .filterSuccessfulStatusCodes()
-            .map(CoinPriceResponseDTO.self)
-            .asObservable()
-            .catch { error in
-                return Observable.error(error)
-            }
-    }
-    
-    func fetchCoinPremiumList(departureExchange: String, arrivalExchange: String) -> Observable<(departureDTO: CoinPriceResponseDTO, arrivalDTO: CoinPriceResponseDTO)> {
+    func fetchCoinPremiumList(departureExchange: String, arrivalExchange: String) -> Observable<(departurePrices: [CoinPrice], arrivalPrices: [CoinPrice])> {
         let departureObservable = coinProvider.rx.request(.getCoinData(exchange: departureExchange))
             .filterSuccessfulStatusCodes()
             .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toCoinPriceListForPremium(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)
@@ -58,13 +41,36 @@ class CoinRepository: CoinRepositoryInterface {
         let arrivalObservable = coinProvider.rx.request(.getCoinData(exchange: arrivalExchange))
             .filterSuccessfulStatusCodes()
             .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toCoinPriceListForPremium(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)
             }
         
         return Observable.zip(departureObservable, arrivalObservable)
-            .map { (departureDTO: $0.0, arrivalDTO: $0.1) }
+            .map { (departurePrices: $0.0, arrivalPrices: $0.1) }
+    }
+    
+    func fetchCoinPriceForSelectCoinsAtAlarm(exchange: String) -> Observable<[CoinPrice]> {
+        return coinProvider.rx.request(.getCoinData(exchange: exchange))
+            .filterSuccessfulStatusCodes()
+            .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toCoinPriceListForSelectCoinsAtAlarm(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func fetchOnlyOneCoinPrice(exchange: String, symbol: String) -> Observable<CoinPrice> {
+        return coinProvider.rx.request(.getOneCoinData(exchange: exchange, symbol: symbol))
+            .filterSuccessfulStatusCodes()
+            .map(CoinPriceResponseDTO.self)
+            .map { CoinPriceResponseDTO.toCoinPrice(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
     }
     
     func fetchExchangeRate() -> Observable<Double> {

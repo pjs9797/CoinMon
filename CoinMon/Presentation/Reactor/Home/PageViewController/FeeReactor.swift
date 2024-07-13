@@ -106,11 +106,11 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
                     if self?.currentState.feeSortOrder != SortOrder.none {
                         sortedFeeList = self?.sortFeeList(sortedFeeList, by: \.fee, order: self?.currentState.feeSortOrder ?? .none) ?? feeList
                     }
+                    sortedFeeList = self?.filterFeeList(priceList: sortedFeeList, searchText: self?.currentState.searchText ?? "") ?? feeList
                     return .concat([
                         .just(.setFeeList(feeList)),
                         .just(.setFilteredFeeList(sortedFeeList)),
-                        .just(.setSelectedMarket(index)),
-                        .just(.setSearchText(""))
+                        .just(.setSelectedMarket(index))
                     ])
                 }
                 .catch { [weak self] error in
@@ -155,10 +155,12 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedFeeList = self.sortFeeList(currentState.filteredFeeList, by: \.coinTitle, order: newOrder)
             return .concat([
@@ -168,10 +170,12 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
         case .sortByFee:
             let newOrder: SortOrder
             switch currentState.feeSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedFeeList = self.sortFeeList(currentState.filteredFeeList, by: \.fee, order: newOrder)
             return .concat([
@@ -206,8 +210,8 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
             newState.coinSortOrder = order
             newState.feeSortOrder = .none
         case .setFeeSortOrder(let order):
-            newState.feeSortOrder = order
             newState.coinSortOrder = .none
+            newState.feeSortOrder = order
         }
         return newState
     }
@@ -233,13 +237,19 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
             let lhs: Any
             let rhs: Any
             
-            if keyPath == \CoinFee.fee, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            let actualKeyPath = order == .none ? \CoinFee.price : keyPath
+            
+            if keyPath == \CoinFee.fee, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
             }
+            else if keyPath == \CoinFee.price {
+                lhs = $0[keyPath: keyPath] as? Double ?? 0.0
+                rhs = $1[keyPath: keyPath] as? Double ?? 0.0
+            }
             else {
-                lhs = $0[keyPath: keyPath]
-                rhs = $1[keyPath: keyPath]
+                lhs = $0[keyPath: actualKeyPath]
+                rhs = $1[keyPath: actualKeyPath]
             }
             
             switch order {
@@ -260,7 +270,10 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
                 }
                 return false
             case .none:
-                return true
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs > rhs
+                }
+                return false
             }
         }
         

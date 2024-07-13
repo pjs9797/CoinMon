@@ -1,12 +1,26 @@
 struct SigninDTO: Codable {
     let resultCode: String
     let resultMessage: String
+    
+    static func toResultCode(dto: SigninDTO) -> String {
+        let resultCode = dto.resultCode
+        return resultCode
+    }
 }
 
 struct SigninResponseDTO: Codable {
     let resultCode: String
     let resultMessage: String
     let data: SigninDataDTO?
+    
+    static func toAuthTokens(dto: SigninResponseDTO) -> AuthTokens? {
+        if let data = dto.data {
+            return AuthTokens(resultCode: dto.resultCode, accessToken: data.accessToken, refreshToken: data.refreshToken)
+        }
+        else {
+            return nil
+        }
+    }
 }
 
 struct SigninDataDTO: Codable {

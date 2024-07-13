@@ -52,10 +52,10 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case setSelectedMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
-        case setPriceList([CoinPrice])
+        case setPriceList([CoinPriceChangeGap])
         case setUnit(String)
         case setSearchText(String)
-        case setFilteredPriceList([CoinPrice])
+        case setFilteredPriceList([CoinPriceChangeGap])
         case setCoinSortOrder(SortOrder)
         case setPriceSortOrder(SortOrder)
         case setChangeSortOrder(SortOrder)
@@ -65,10 +65,10 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     struct State {
         var selectedMarket: Int = 0
         var markets: [Market]
-        var priceList: [CoinPrice] = []
+        var priceList: [CoinPriceChangeGap] = []
         var searchText: String = ""
         var unit: String = "USDT"
-        var filteredPriceList: [CoinPrice] = []
+        var filteredPriceList: [CoinPriceChangeGap] = []
         var coinSortOrder: SortOrder = .none
         var priceSortOrder: SortOrder = .none
         var changeSortOrder: SortOrder = .none
@@ -84,7 +84,7 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             stopTimer()
             return .empty()
         case .loadPriceList:
-            return coinUseCase.fetchCoinsPriceListAtHome(market: currentState.markets[currentState.selectedMarket].localizationKey)
+            return coinUseCase.fetchCoinPriceChangeGapList(market: currentState.markets[currentState.selectedMarket].localizationKey)
                 .flatMap { [weak self] priceList -> Observable<Mutation> in
                     var sortedPriceList = priceList
                     if self?.currentState.coinSortOrder != SortOrder.none {
@@ -113,7 +113,7 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))
         case .selectMarket(let index):
-            return coinUseCase.fetchCoinsPriceListAtHome(market: currentState.markets[index].localizationKey)
+            return coinUseCase.fetchCoinPriceChangeGapList(market: currentState.markets[index].localizationKey)
                 .flatMap { [weak self] priceList -> Observable<Mutation> in
                     let market = self?.currentState.markets[index].localizationKey
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
@@ -130,12 +130,12 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                     if self?.currentState.gapSortOrder != SortOrder.none {
                         sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.gap, order: self?.currentState.gapSortOrder ?? .none) ?? priceList
                     }
+                    sortedPriceList = self?.filterPriceList(priceList: sortedPriceList, searchText: self?.currentState.searchText ?? "") ?? priceList
                     return .concat([
                         .just(.setPriceList(priceList)),
                         .just(.setFilteredPriceList(sortedPriceList)),
                         .just(.setUnit(unit)),
                         .just(.setSelectedMarket(index)),
-                        .just(.setSearchText(""))
                     ])
                 }
                 .catch { [weak self] error in
@@ -155,7 +155,7 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .saveOrder:
             return .just(.saveOrder)
         case .updateSearchText(let searchText):
-            let filteredPriceList: [CoinPrice]
+            let filteredPriceList: [CoinPriceChangeGap]
             if searchText.isEmpty {
                 var sortedPriceList = currentState.priceList
                 if currentState.coinSortOrder != .none {
@@ -186,10 +186,12 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.coinTitle, order: newOrder)
             return .concat([
@@ -199,10 +201,12 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .sortByPrice:
             let newOrder: SortOrder
             switch currentState.priceSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.price, order: newOrder)
             return .concat([
@@ -212,10 +216,12 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .sortByChange:
             let newOrder: SortOrder
             switch currentState.changeSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.change, order: newOrder)
             return .concat([
@@ -225,10 +231,12 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .sortByGap:
             let newOrder: SortOrder
             switch currentState.gapSortOrder {
-            case .none, .descending:
+            case .none:
                 newOrder = .ascending
             case .ascending:
                 newOrder = .descending
+            case .descending:
+                newOrder = .none
             }
             let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.gap, order: newOrder)
             return .concat([
@@ -267,8 +275,8 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             newState.changeSortOrder = .none
             newState.gapSortOrder = .none
         case .setPriceSortOrder(let order):
-            newState.priceSortOrder = order
             newState.coinSortOrder = .none
+            newState.priceSortOrder = order
             newState.changeSortOrder = .none
             newState.gapSortOrder = .none
         case .setChangeSortOrder(let order):
@@ -299,28 +307,30 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         timerDisposable = nil
     }
     
-    private func sortPriceList(_ priceList: [CoinPrice], by keyPath: PartialKeyPath<CoinPrice>, order: SortOrder) -> [CoinPrice] {
+    private func sortPriceList(_ priceList: [CoinPriceChangeGap], by keyPath: PartialKeyPath<CoinPriceChangeGap>, order: SortOrder) -> [CoinPriceChangeGap] {
         var sortedPriceList = priceList
         
         sortedPriceList.sort {
             let lhs: Any
             let rhs: Any
             
-            if keyPath == \CoinPrice.price, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            let actualKeyPath = order == .none ? \CoinPriceChangeGap.price : keyPath
+            
+            if actualKeyPath == \CoinPriceChangeGap.price, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
             }
-            else if keyPath == \CoinPrice.change, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            else if keyPath == \CoinPriceChangeGap.change, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
             }
-            else if keyPath == \CoinPrice.gap, let lhsValue = $0[keyPath: keyPath] as? String, let rhsValue = $1[keyPath: keyPath] as? String {
+            else if keyPath == \CoinPriceChangeGap.gap, let lhsValue = $0[keyPath: actualKeyPath] as? String, let rhsValue = $1[keyPath: actualKeyPath] as? String {
                 lhs = Double(lhsValue) ?? 0.0
                 rhs = Double(rhsValue) ?? 0.0
             }
             else {
-                lhs = $0[keyPath: keyPath]
-                rhs = $1[keyPath: keyPath]
+                lhs = $0[keyPath: actualKeyPath]
+                rhs = $1[keyPath: actualKeyPath]
             }
             
             switch order {
@@ -341,14 +351,17 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                 }
                 return false
             case .none:
-                return true
+                if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                    return lhs > rhs
+                }
+                return false
             }
         }
         
         return sortedPriceList
     }
     
-    private func filterPriceList(priceList: [CoinPrice], searchText: String) -> [CoinPrice] {
+    private func filterPriceList(priceList: [CoinPriceChangeGap], searchText: String) -> [CoinPriceChangeGap] {
         guard !searchText.isEmpty else { return priceList }
         return priceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
     }

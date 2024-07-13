@@ -31,7 +31,7 @@ class SigninUseCaseTests: XCTestCase {
     func test_checkEmailIsExisted_이메일_존재_여부() {
         // Given
         let email = "test@gmail.com"
-        repository.checkEmailIsExistedResult = .just(SigninDTO(resultCode: "200", resultMessage: "OK"))
+        repository.checkEmailIsExistedResult = .just("200")
         
         // When
         let result = try! useCase.checkEmailIsExisted(email: email).toBlocking().single()
@@ -55,13 +55,13 @@ class SigninUseCaseTests: XCTestCase {
     func test_requestEmailVerificationCode_이메일_인증_코드_요청() {
         // Given
         let email = "test@gmail.com"
-        repository.requestEmailVerificationCodeResult = .just(SigninDTO(resultCode: "201", resultMessage: "Verification code sent"))
+        repository.requestEmailVerificationCodeResult = .just("200")
         
         // When
         let result = try! useCase.requestEmailVerificationCode(email: email).toBlocking().single()
         
         // Then
-        expect(result).to(equal("201"))
+        expect(result).to(equal("200"))
     }
     
     func test_requestEmailVerificationCode_이메일_인증_코드_요청_실패() {
@@ -81,7 +81,7 @@ class SigninUseCaseTests: XCTestCase {
         let email = "test@gmail.com"
         let number = "102030"
         let deviceToken = "deviceToken"
-        repository.checkEmailVerificationCodeForLoginResult = .just(SigninResponseDTO(resultCode: "200", resultMessage: "OK", data: SigninDataDTO(imgIndex: "1", phoneNumber: "1234567890", nickname: "nickname", userType: "user", accessToken: "accessToken", email: "test@gmail.com", refreshToken: "refreshToken")))
+        repository.checkEmailVerificationCodeForLoginResult = .just(AuthTokens(resultCode: "200", accessToken: "accessToken", refreshToken: "refreshToken"))
         
         // When
         let result = try! useCase.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()

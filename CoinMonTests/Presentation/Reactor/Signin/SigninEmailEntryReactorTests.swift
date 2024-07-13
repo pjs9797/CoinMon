@@ -130,7 +130,7 @@ class SigninEmailEntryReactorTests: XCTestCase {
         reactor.action.onNext(.updateEmail(email))
         
         // When
-        signinRepository.checkEmailIsExistedResult = .just(SigninDTO(resultCode: "200", resultMessage: ""))
+        signinRepository.checkEmailIsExistedResult = .just("200")
         scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.nextButtonTapped)])
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -157,7 +157,7 @@ class SigninEmailEntryReactorTests: XCTestCase {
         reactor.action.onNext(.updateEmail(email))
         
         // When
-        signinRepository.checkEmailIsExistedResult = .just(SigninDTO(resultCode: "400", resultMessage: ""))
+        signinRepository.checkEmailIsExistedResult = .just("400")
         scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.nextButtonTapped)])
             .bind(to: reactor.action)
             .disposed(by: disposeBag)

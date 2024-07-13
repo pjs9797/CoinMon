@@ -87,7 +87,7 @@ class SelectCoinTableViewCell: UITableViewCell {
         }
     }
     
-    func configurePrice(with coinPriceAtAlarm: OneCoinPrice) {
+    func configurePrice(with coinPriceAtAlarm: CoinPrice) {
         coinImageView.image = UIImage(named: coinPriceAtAlarm.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = coinPriceAtAlarm.coinTitle
         priceLabel.text = coinPriceAtAlarm.price

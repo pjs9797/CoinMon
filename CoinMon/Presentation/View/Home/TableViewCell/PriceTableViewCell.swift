@@ -133,7 +133,7 @@ class PriceTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with priceList: CoinPrice) {
+    func configure(with priceList: CoinPriceChangeGap) {
         coinImageView.image = UIImage(named: priceList.coinTitle) ?? ImageManager.login_coinmon
         coinLabel.text = priceList.coinTitle
         if let formattedPrice = formatPrice(priceList.price) {
