@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class AgreeToTermsOfServiceViewController: UIViewController, ReactorKit.View {
+class AgreeToTermsOfServiceViewController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let agreeToTermsOfServiceView = AgreeToTermsOfServiceView()
     

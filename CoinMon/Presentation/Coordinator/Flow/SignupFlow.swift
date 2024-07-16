@@ -139,7 +139,7 @@ class SignupFlow: Flow {
     }
     
     private func presentToNetworkErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
             message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
             preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
@@ -150,7 +150,7 @@ class SignupFlow: Flow {
     }
     
     private func presentToAuthenticationNumberErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: nil,
+        let alertController = CustomDimAlertController(title: nil,
             message: LocalizationManager.shared.localizedString(forKey: "인증번호 불일치"),
             preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
@@ -161,7 +161,7 @@ class SignupFlow: Flow {
     }
     
     private func presentToAlreadysubscribedNumberErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: nil,
+        let alertController = CustomDimAlertController(title: nil,
             message: LocalizationManager.shared.localizedString(forKey: "가입된 번호"),
             preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)

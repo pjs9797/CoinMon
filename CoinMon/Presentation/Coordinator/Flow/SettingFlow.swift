@@ -106,7 +106,7 @@ class SettingFlow: Flow {
     }
     
     private func presentToNetworkErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
@@ -117,7 +117,7 @@ class SettingFlow: Flow {
     }
     
     private func presentToDuplicatedNicknameErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: nil,
+        let alertController = CustomDimAlertController(title: nil,
                                                 message: LocalizationManager.shared.localizedString(forKey: "중복되는 닉네임이에요"),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
@@ -128,7 +128,7 @@ class SettingFlow: Flow {
     }
     
     private func presentToLogoutAlertController(reactor: MyAccountReactor) -> FlowContributors {
-        let alertController = UIAlertController(title: nil,
+        let alertController = CustomDimAlertController(title: nil,
                                                 message: LocalizationManager.shared.localizedString(forKey: "로그아웃알림"),
                                                 preferredStyle: .alert)
         let noAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "아니요"), style: .default, handler: nil)
@@ -138,12 +138,12 @@ class SettingFlow: Flow {
         alertController.addAction(noAction)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
-        
+
         return .none
     }
     
     private func presentToWithdrawAlertController(reactor: WithdrawalReactor) -> FlowContributors {
-        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "탈퇴알림"),
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "탈퇴알림"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "코인몬을 이용해 주셔서 감사합니다."),
                                                 preferredStyle: .alert)
         let noAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "아니요"), style: .default, handler: nil)

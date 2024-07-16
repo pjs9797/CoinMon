@@ -46,7 +46,7 @@
 "Upbit" = "Upbit";
 "Bithumb" = "Bithumb";
 //Home-Price
-"코인 검색" = "Search Coin";
+"코인 검색" = "Search";
 "코인" = "Coin";
 "시세 헤더" = "Price (%@)";
 "등락률" = "Change";
@@ -54,6 +54,7 @@
 //Home-Premium
 "거래소 선택" = "Select Market";
 //Alarm
+"알림 받는 코인 검색" = "Search";
 "지정가 알람" = "Alarm";
 "알람 추가버튼" = "Add";
 "설정가 헤더" = "Set Price (%@)";

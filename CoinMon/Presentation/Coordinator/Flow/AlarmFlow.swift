@@ -133,7 +133,7 @@ class AlarmFlow: Flow {
     }
     
     private func presentToNetworkErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
@@ -144,7 +144,7 @@ class AlarmFlow: Flow {
     }
     
     private func presentToRestrictedAlarmErrorAlertController() -> FlowContributors {
-        let alertController = UIAlertController(title: nil,
+        let alertController = CustomDimAlertController(title: nil,
                                                 message: LocalizationManager.shared.localizedString(forKey: "알람 제한"),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)

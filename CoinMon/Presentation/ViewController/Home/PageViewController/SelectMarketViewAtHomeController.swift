@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SelectMarketViewAtHomeController: UIViewController, ReactorKit.View {
+class SelectMarketViewAtHomeController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectMarketView = SelectMarketView()
     

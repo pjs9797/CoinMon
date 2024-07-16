@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SelectFirstAlarmConditionViewController: UIViewController, ReactorKit.View {
+class SelectFirstAlarmConditionViewController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectAlarmConditionView = SelectAlarmConditionView()
     

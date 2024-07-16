@@ -7,13 +7,7 @@ import FirebaseCore
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
-           let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
-           let nativeAppKey = dict["KAKAO_NATIVE_APP_KEY"] as? String {
-            KakaoSDK.initSDK(appKey: nativeAppKey)
-        } else {
-            fatalError("KAKAO_NATIVE_APP_KEY not found in Secrets.plist")
-        }
+        KakaoSDK.initSDK(appKey: ConfigManager.kakaoNativeAppKey)
         
         FirebaseApp.configure()
         

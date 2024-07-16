@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SelectMarketAtAlarmViewController: UIViewController, ReactorKit.View {
+class SelectMarketAtAlarmViewController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectMarketView = SelectMarketView()
     

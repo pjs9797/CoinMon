@@ -66,6 +66,18 @@
             ReferencedContainer = "container:CoinMon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "KAKAO_NATIVE_APP_KEY"
+            value = "cab8839350bf6ba7e360554d8fc460df"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SERVER_BASE_URL"
+            value = "52.78.66.213:8080"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

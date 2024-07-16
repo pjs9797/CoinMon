@@ -9,7 +9,7 @@ enum AlarmService {
 }
 
 extension AlarmService: TargetType {
-    var baseURL: URL { return URL(string: "http://52.78.66.213:8080/api/v1/push/")! }
+    var baseURL: URL { return URL(string: "http://\(ConfigManager.serverBaseURL)/api/v1/push/")! }
     var path: String {
         switch self {
         case .createAlarm:
