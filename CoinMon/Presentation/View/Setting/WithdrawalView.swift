@@ -29,7 +29,7 @@ class WithdrawalView: UIView {
     let withdrawalButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         return button
     }()
@@ -58,32 +58,32 @@ class WithdrawalView: UIView {
             }
         
         firstNoticeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(32*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(32*ConstantsManager.standardHeight)
         }
         
         secondNoticeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(firstNoticeLabel.snp.bottom).offset(30*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(firstNoticeLabel.snp.bottom).offset(30*ConstantsManager.standardHeight)
         }
         
         checkButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(secondNoticeLabel.snp.bottom).offset(50*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(secondNoticeLabel.snp.bottom).offset(50*ConstantsManager.standardHeight)
         }
         
         checkNoticeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(checkButton.snp.trailing).offset(10*Constants.standardWidth)
+            make.leading.equalTo(checkButton.snp.trailing).offset(10*ConstantsManager.standardWidth)
             make.centerY.equalTo(checkButton)
         }
         
         withdrawalButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
 }

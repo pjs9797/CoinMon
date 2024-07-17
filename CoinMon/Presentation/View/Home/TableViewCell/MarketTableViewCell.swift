@@ -42,12 +42,12 @@ class MarketTableViewCell: UITableViewCell {
         }
         
         marketLabel.snp.makeConstraints { make in
-            make.leading.equalTo(marketImageView.snp.trailing).offset(8*Constants.standardWidth)
+            make.leading.equalTo(marketImageView.snp.trailing).offset(8*ConstantsManager.standardWidth)
             make.centerY.equalTo(marketImageView)
         }
         
         checkImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
         }

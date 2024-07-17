@@ -110,7 +110,7 @@ extension MyAccountViewController {
                     self?.myAccountView.nicknameErrorLabel.isEnabled = true
                     self?.myAccountView.changeNicknameButton.setTitle(LocalizationManager.shared.localizedString(forKey: "저장"), for: .normal)
                     self?.myAccountView.nicknameTextField.layer.borderColor = ColorManager.orange_60?.cgColor
-                    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10*Constants.standardWidth, height: 40*Constants.standardHeight))
+                    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10*ConstantsManager.standardWidth, height: 40*ConstantsManager.standardHeight))
                     self?.myAccountView.nicknameTextField.leftView = paddingView
                     self?.myAccountView.nicknameTextField.leftViewMode = .always
                 }

@@ -73,7 +73,7 @@ class AgreeToTermsOfServiceView: UIView {
     let nextButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         return button
     }()
@@ -101,82 +101,82 @@ class AgreeToTermsOfServiceView: UIView {
         super.layoutSubviews()
         
         agreeToTermsOfServiceLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalToSuperview().offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(40*ConstantsManager.standardHeight)
         }
         
         selectAllButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(agreeToTermsOfServiceLabel.snp.bottom).offset(26*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(agreeToTermsOfServiceLabel.snp.bottom).offset(26*ConstantsManager.standardHeight)
         }
         
         agreeAllLabel.snp.makeConstraints { make in
-            make.leading.equalTo(selectAllButton.snp.trailing).offset(8*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.leading.equalTo(selectAllButton.snp.trailing).offset(8*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalTo(selectAllButton)
         }
         
         termsOfServiceCheckButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
         }
         
         termsOfServiceDetailButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalTo(termsOfServiceCheckButton)
         }
         
         termsOfServiceLabel.snp.makeConstraints { make in
             make.leading.equalTo(agreeAllLabel.snp.leading)
-            make.trailing.equalTo(termsOfServiceDetailButton.snp.leading).offset(-8*Constants.standardWidth)
-            make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*Constants.standardHeight)
+            make.trailing.equalTo(termsOfServiceDetailButton.snp.leading).offset(-8*ConstantsManager.standardWidth)
+            make.top.equalTo(agreeAllLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
         }
         
         privacyPolicyViewLabel.snp.makeConstraints { make in
             make.leading.equalTo(termsOfServiceLabel.snp.leading)
             make.trailing.equalTo(termsOfServiceLabel.snp.trailing)
-            make.top.equalTo(termsOfServiceLabel.snp.bottom).offset(24*Constants.standardHeight)
+            make.top.equalTo(termsOfServiceLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
         }
         
         privacyPolicyViewCheckButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.centerY.equalTo(privacyPolicyViewLabel)
         }
         
         privacyPolicyViewDetailButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalTo(privacyPolicyViewLabel)
         }
         
         marketingConsentViewLabel.snp.makeConstraints { make in
             make.leading.equalTo(privacyPolicyViewLabel.snp.leading)
             make.trailing.equalTo(privacyPolicyViewLabel.snp.trailing)
-            make.top.equalTo(privacyPolicyViewLabel.snp.bottom).offset(24*Constants.standardHeight)
+            make.top.equalTo(privacyPolicyViewLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
         }
         
         marketingConsentViewCheckButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.centerY.equalTo(marketingConsentViewLabel)
         }
         
         marketingConsentViewDetailButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalTo(marketingConsentViewLabel)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
     

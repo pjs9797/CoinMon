@@ -9,10 +9,10 @@ class NoneAlarmView: UIView {
     }()
     let noneAlarmLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.B3_16
+        label.font = FontManager.B4_15
         label.textColor = ColorManager.gray_70
         label.textAlignment = .center
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     
@@ -34,15 +34,15 @@ class NoneAlarmView: UIView {
             }
         
         noneAlarmImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(50*Constants.standardHeight)
+            make.width.height.equalTo(50*ConstantsManager.standardHeight)
+            make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
         }
         
         noneAlarmLabel.snp.makeConstraints { make in
-            make.width.equalTo(230*Constants.standardWidth)
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.top.equalTo(noneAlarmImageView.snp.bottom).offset(16*Constants.standardHeight)
+            make.top.equalTo(noneAlarmImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
         }
     }
 }

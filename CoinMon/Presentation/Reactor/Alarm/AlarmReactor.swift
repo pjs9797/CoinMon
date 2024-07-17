@@ -62,6 +62,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case setFilteredAlarms([Alarm])
         case setCoinSortOrder(SortOrder)
         case setSetPriceSortOrder(SortOrder)
+        case setMarketAlarmCounts([String: Int])
     }
     
     struct State {
@@ -76,6 +77,7 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         var coinSortOrder: SortOrder = .none
         var setPriceSortOrder: SortOrder = .none
         var isAlarmDeleted: Bool = false
+        var marketAlarmCounts: [String: Int] = [:]
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -94,17 +96,17 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
             return .just(.setLocalizedMarkets(localizedMarkets))
         case .selectMarket(let index):
             return alarmUseCase.fetchAlarmList(market: currentState.markets[index].localizationKey)
-                .flatMap { [weak self] (alarmList, totalCnt, onCnt) -> Observable<Mutation> in
+                .flatMap { [weak self] (alarmList, totalCnt, marketAlarmCounts) -> Observable<Mutation> in
                     let market = self?.currentState.markets[index].localizationKey
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
                     if self?.currentState.searchText == "" {
                         return .concat([
                             .just(.setSelectedMarket(index)),
                             .just(.setAlarms(alarmList)),
-                            .just(.setOnCnt(onCnt)),
                             .just(.setTotalCnt(totalCnt)),
                             .just(.setFilteredAlarms(alarmList)),
                             .just(.setUnit(unit)),
+                            .just(.setMarketAlarmCounts(marketAlarmCounts))
                         ])
                     }
                     else {
@@ -112,10 +114,10 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                         return .concat([
                             .just(.setSelectedMarket(index)),
                             .just(.setAlarms(alarmList)),
-                            .just(.setOnCnt(onCnt)),
                             .just(.setTotalCnt(totalCnt)),
                             .just(.setFilteredAlarms(filteredAlarms)),
                             .just(.setUnit(unit)),
+                            .just(.setMarketAlarmCounts(marketAlarmCounts))
                         ])
                     }
                 }
@@ -163,10 +165,18 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .deleteAlarm(let id, let index):
             return alarmUseCase.deleteAlarm(pushId: id)
                 .flatMap { [weak self] _ -> Observable<Mutation> in
+                    let market = self?.currentState.alarms[index].market
+                    var marketAlarmCounts = self?.currentState.marketAlarmCounts
+                    
+                    if let currentCount = marketAlarmCounts?[market!] {
+                        marketAlarmCounts?[market!] = max(currentCount - 1, 0)
+                    }
+                    
                     return .concat([
                         .just(.deleteAlarm(index)),
-                        .just(.setTotalCnt((self?.currentState.totalCnt ?? 0) - 1)),
-                        .just(.setAlarmDeleted(true))
+                        .just(.setTotalCnt((self?.currentState.totalCnt)! - 1)),
+                        .just(.setAlarmDeleted(true)),
+                        .just(.setMarketAlarmCounts(marketAlarmCounts!))
                     ])
                 }
                 .catch { [weak self] _ in
@@ -274,6 +284,8 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
             newState.setPriceSortOrder = order
         case .setAlarmDeleted(let isDeleted):
             newState.isAlarmDeleted = isDeleted
+        case .setMarketAlarmCounts(let marketAlarmCounts):
+            newState.marketAlarmCounts = marketAlarmCounts
         }
         return newState
     }

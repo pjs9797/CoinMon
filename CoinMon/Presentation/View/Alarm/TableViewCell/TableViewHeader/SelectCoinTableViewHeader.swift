@@ -49,8 +49,8 @@ class SelectCoinTableViewHeader: UIView {
         priceView.addSubview(priceButton)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(121*Constants.standardWidth)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.equalTo(121*ConstantsManager.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
@@ -59,8 +59,8 @@ class SelectCoinTableViewHeader: UIView {
         }
         
         priceView.snp.makeConstraints { make in
-            make.width.equalTo(100*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.equalTo(100*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         

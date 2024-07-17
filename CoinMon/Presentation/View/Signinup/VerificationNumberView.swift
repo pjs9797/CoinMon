@@ -49,7 +49,7 @@ class VerificationNumberView: UIView {
     let nextButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         return button
     }()
@@ -88,27 +88,27 @@ class VerificationNumberView: UIView {
             }
         
         enterVerificationNumberLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*ConstantsManager.standardHeight)
         }
         
         sentVerificationNumberLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(enterVerificationNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(enterVerificationNumberLabel.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         verificationNumberLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(sentVerificationNumberLabel.snp.bottom).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(sentVerificationNumberLabel.snp.bottom).offset(40*ConstantsManager.standardHeight)
         }
         
         verificationNumberTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(verificationNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(verificationNumberLabel.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         timerLabel.snp.makeConstraints { make in
@@ -117,23 +117,23 @@ class VerificationNumberView: UIView {
         }
         
         clearButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.trailing.equalTo(timerLabel.snp.leading).offset(-5*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.trailing.equalTo(timerLabel.snp.leading).offset(-5*ConstantsManager.standardWidth)
             make.centerY.equalTo(verificationNumberTextField)
         }
         
         textFieldLineView.snp.makeConstraints { make in
             make.height.equalTo(1)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(verificationNumberTextField.snp.bottom).offset(6*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(verificationNumberTextField.snp.bottom).offset(6*ConstantsManager.standardHeight)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
 }

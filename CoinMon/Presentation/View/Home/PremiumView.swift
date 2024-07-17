@@ -7,7 +7,7 @@ class PremiumView: UIView {
         button.setTitle(LocalizationManager.shared.localizedString(forKey: "업비트"), for: .normal)
         button.titleLabel?.font = FontManager.H6_14
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 8 * Constants.standardHeight
+        button.layer.cornerRadius = 8 * ConstantsManager.standardHeight
         button.backgroundColor = ColorManager.gray_22
         return button
     }()
@@ -21,7 +21,7 @@ class PremiumView: UIView {
         button.setTitle(LocalizationManager.shared.localizedString(forKey: "바이낸스"), for: .normal)
         button.titleLabel?.font = FontManager.H6_14
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 8 * Constants.standardHeight
+        button.layer.cornerRadius = 8 * ConstantsManager.standardHeight
         button.backgroundColor = ColorManager.gray_22
         return button
     }()
@@ -32,7 +32,7 @@ class PremiumView: UIView {
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
-        tableView.rowHeight = 52 * Constants.standardHeight
+        tableView.rowHeight = 52 * ConstantsManager.standardHeight
         tableView.register(FeePremiumTableViewCell.self, forCellReuseIdentifier: "FeePremiumTableViewCell")
         return tableView
     }()
@@ -60,25 +60,25 @@ class PremiumView: UIView {
             }
         
         leftRightImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(24 * Constants.standardHeight)
+            make.width.height.equalTo(24 * ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(13 * Constants.standardHeight)
+            make.top.equalToSuperview().offset(13 * ConstantsManager.standardHeight)
         }
 
         departureMarketButton.snp.makeConstraints { make in
-            make.trailing.equalTo(leftRightImageView.snp.leading).offset(-8 * Constants.standardWidth)
+            make.trailing.equalTo(leftRightImageView.snp.leading).offset(-8 * ConstantsManager.standardWidth)
             make.centerY.equalTo(leftRightImageView)
         }
 
         arrivalMarketButton.snp.makeConstraints { make in
-            make.leading.equalTo(leftRightImageView.snp.trailing).offset(8 * Constants.standardWidth)
+            make.leading.equalTo(leftRightImageView.snp.trailing).offset(8 * ConstantsManager.standardWidth)
             make.centerY.equalTo(leftRightImageView)
         }
         
         premiumTableViewHeader.snp.makeConstraints { make in
-            make.height.equalTo(32*Constants.standardHeight)
+            make.height.equalTo(32*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(leftRightImageView.snp.bottom).offset(13 * Constants.standardHeight)
+            make.top.equalTo(leftRightImageView.snp.bottom).offset(13 * ConstantsManager.standardHeight)
         }
 
         premiumTableView.snp.makeConstraints { make in

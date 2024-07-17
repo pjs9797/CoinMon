@@ -4,7 +4,7 @@ import SnapKit
 class SearchView: UIView {
     let searchView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 12*Constants.standardHeight
+        view.layer.cornerRadius = 12*ConstantsManager.standardHeight
         view.backgroundColor = ColorManager.gray_99
         return view
     }()
@@ -43,25 +43,25 @@ class SearchView: UIView {
             }
         
         searchView.snp.makeConstraints { make in
-            make.width.equalTo(335*Constants.standardWidth)
-            make.height.equalTo(43*Constants.standardHeight)
+            make.width.equalTo(335*ConstantsManager.standardWidth)
+            make.height.equalTo(43*ConstantsManager.standardHeight)
             make.center.equalToSuperview()
         }
         
         searchImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(16.67*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(12*Constants.standardWidth)
+            make.width.height.equalTo(16.67*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(12*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         searchTextField.snp.makeConstraints { make in
-            make.leading.equalTo(searchImageView.snp.trailing).offset(4*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-12*Constants.standardWidth)
+            make.leading.equalTo(searchImageView.snp.trailing).offset(4*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         clearButton.snp.makeConstraints { make in
-            make.width.height.equalTo(20*Constants.standardHeight)
+            make.width.height.equalTo(20*ConstantsManager.standardHeight)
             make.trailing.equalTo(searchTextField.snp.trailing)
             make.centerY.equalTo(searchTextField)
         }

@@ -69,7 +69,7 @@ extension UIFont {
 
 extension UIImage {
     func resizeTo20() -> UIImage? {
-        let size = CGSize(width: 20*Constants.standardHeight, height: 20*Constants.standardHeight)
+        let size = CGSize(width: 20*ConstantsManager.standardHeight, height: 20*ConstantsManager.standardHeight)
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         self.draw(in: CGRect(origin: .zero, size: size))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -88,7 +88,7 @@ extension UIButton {
         attributedString.addAttributes([
             .underlineStyle: NSUnderlineStyle.single.rawValue,
             .paragraphStyle: paragraphStyle,
-            .baselineOffset: 3*Constants.standardHeight
+            .baselineOffset: 3*ConstantsManager.standardHeight
         ], range: NSRange(location: 0, length: title.count))
         
         setAttributedTitle(attributedString, for: .normal)

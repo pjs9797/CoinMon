@@ -18,6 +18,8 @@ class AppFlow: Flow {
             return navigateToSigninViewController()
         case .navigateToTabBarController:
             return navigateToTabBarController()
+        case .presentToLanguageSettingAlertController(let reactor):
+            return presentToLanguageSettingAlertController(reactor: reactor)
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
@@ -54,6 +56,26 @@ class AppFlow: Flow {
         self.rootViewController.setViewControllers([viewController], animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToLanguageSettingAlertController(reactor: SigninReactor) -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "언어변경"),
+                                                message: nil,
+                                                preferredStyle: .actionSheet)
+        let koAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "한국어"), style: .default) { _ in
+            reactor.action.onNext(.setLanguage("ko"))
+        }
+        let enAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "English"), style: .default) { _ in
+            reactor.action.onNext(.setLanguage("en"))
+        }
+        let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "취소"), style: .cancel, handler: nil)
+
+        alertController.addAction(koAction)
+        alertController.addAction(enAction)
+        alertController.addAction(cancelAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
     }
     
     private func navigateToTabBarController() -> FlowContributors {

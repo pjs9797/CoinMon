@@ -47,18 +47,18 @@ class HomeCategoryCollectionViewCell: UICollectionViewCell {
             }
         
         categoryLabel.snp.makeConstraints { make in
-            make.height.equalTo(30*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(6*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-6*Constants.standardWidth)
-            make.top.equalToSuperview().offset(4*Constants.standardHeight)
+            make.height.equalTo(30*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(6*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-6*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(4*ConstantsManager.standardHeight)
         }
         
         underLineView.snp.makeConstraints { make in
             make.width.equalTo(categoryLabel.snp.width)
-            make.height.equalTo(2*Constants.standardHeight)
+            make.height.equalTo(2*ConstantsManager.standardHeight)
             make.centerX.equalTo(categoryLabel)
-            make.top.equalTo(categoryLabel.snp.bottom).offset(2*Constants.standardHeight)
-            make.bottom.equalToSuperview().offset(-4*Constants.standardHeight)
+            make.top.equalTo(categoryLabel.snp.bottom).offset(2*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-4*ConstantsManager.standardHeight)
         }
     }
 }

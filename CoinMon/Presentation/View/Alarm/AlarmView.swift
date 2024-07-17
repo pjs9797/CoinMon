@@ -12,19 +12,27 @@ class AlarmView: UIView {
         let button = UIButton()
         button.titleLabel?.font = FontManager.T3_16
         button.setTitleColor(ColorManager.gray_15, for: .normal)
+        button.contentHorizontalAlignment = .trailing
         return button
+    }()
+    let remainingAlarmCntLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.B4_15
+        label.textColor = ColorManager.common_0
+        return label
     }()
     let searchView = SearchView()
     let marketCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 8*Constants.standardWidth
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20*Constants.standardWidth, bottom: 0, right: 20*Constants.standardWidth)
+        layout.minimumInteritemSpacing = 8*ConstantsManager.standardWidth
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20*ConstantsManager.standardWidth, bottom: 0, right: 20*ConstantsManager.standardWidth)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(MarketListCollectionViewCell.self, forCellWithReuseIdentifier: "MarketListCollectionViewCell")
+        collectionView.register(MarketListAtAlarmCollectionViewCell.self, forCellWithReuseIdentifier: "MarketListAtAlarmCollectionViewCell")
         return collectionView
     }()
+    let allNoneAlarmView = AllNoneAlarmView()
     let noneAlarmView = NoneAlarmView()
     let alarmTableViewHeader = AlarmTableViewHeader()
     let alarmTableView: UITableView = {
@@ -33,14 +41,14 @@ class AlarmView: UIView {
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
-        tableView.rowHeight = 60*Constants.standardHeight
+        tableView.rowHeight = 60*ConstantsManager.standardHeight
         tableView.register(AlarmTableViewCell.self, forCellReuseIdentifier: "AlarmTableViewCell")
         return tableView
     }()
     let completeDeleteAlarmToast: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.gray_10
-        view.layer.cornerRadius = 12*Constants.standardHeight
+        view.layer.cornerRadius = 12*ConstantsManager.standardHeight
         return view
     }()
     let checkImageView: UIImageView = {
@@ -74,12 +82,14 @@ class AlarmView: UIView {
         addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가버튼"), for: .normal)
         alarmTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가 헤더",arguments: "USDT"), for: .normal)
-        noneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "알림 없음")
+        allNoneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아작 추가한 알람이 없어요")
+        allNoneAlarmView.addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가하기"), for: .normal)
+        noneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아작 추가한 알람이 없어요\n알람 추가하면 지정가일 때 바로 알 수 있어요!")
         toastLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 삭제 toast")
     }
     
     private func layout() {
-        [alarmLabel,addAlarmButton,marketCollectionView,searchView,alarmTableViewHeader,alarmTableView,noneAlarmView,completeDeleteAlarmToast]
+        [alarmLabel,addAlarmButton,remainingAlarmCntLabel,searchView,marketCollectionView,alarmTableViewHeader,alarmTableView,allNoneAlarmView,noneAlarmView,completeDeleteAlarmToast]
             .forEach{
                 addSubview($0)
             }
@@ -90,36 +100,42 @@ class AlarmView: UIView {
             }
         
         alarmLabel.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.height.equalTo(42*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(5*ConstantsManager.standardHeight)
         }
         
         addAlarmButton.snp.makeConstraints { make in
-            make.width.equalTo(60*Constants.standardWidth)
-            make.height.equalTo(42*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.equalTo(60*ConstantsManager.standardWidth)
+            make.height.equalTo(42*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalTo(alarmLabel)
         }
         
+        remainingAlarmCntLabel.snp.makeConstraints { make in
+            make.height.equalTo(23*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(alarmLabel.snp.bottom).offset(4*ConstantsManager.standardHeight)
+        }
+        
         searchView.snp.makeConstraints { make in
-            make.height.equalTo(53*Constants.standardHeight)
+            make.height.equalTo(53*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(alarmLabel.snp.bottom)
+            make.top.equalTo(remainingAlarmCntLabel.snp.bottom).offset(13*ConstantsManager.standardHeight)
         }
         
         marketCollectionView.snp.makeConstraints { make in
-            make.height.equalTo(35*Constants.standardHeight)
+            make.height.equalTo(35*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(searchView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         alarmTableViewHeader.snp.makeConstraints { make in
-            make.height.equalTo(32*Constants.standardHeight)
+            make.height.equalTo(32*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(marketCollectionView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         alarmTableView.snp.makeConstraints { make in
@@ -128,28 +144,35 @@ class AlarmView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
         
+        allNoneAlarmView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(marketCollectionView.snp.bottom).offset(118*ConstantsManager.standardHeight)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
         noneAlarmView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(marketCollectionView.snp.bottom).offset(118*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
         
         completeDeleteAlarmToast.snp.makeConstraints { make in
-            make.height.equalTo(48*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-24*Constants.standardHeight)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-24*ConstantsManager.standardHeight)
         }
         
         checkImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         toastLabel.snp.makeConstraints { make in
-            make.leading.equalTo(checkImageView.snp.trailing).offset(8*Constants.standardWidth)
+            make.leading.equalTo(checkImageView.snp.trailing).offset(8*ConstantsManager.standardWidth)
             make.centerY.equalTo(checkImageView)
         }
     }

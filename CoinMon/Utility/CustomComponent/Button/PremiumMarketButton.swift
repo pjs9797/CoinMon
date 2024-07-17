@@ -3,7 +3,7 @@ import SnapKit
 
 class PremiumMarketButton: UIButton {
     let leftImageView = UIImageView()
-    private let rightImageView = UIImageView()
+    let rightImageView = UIImageView()
 
     init(leftImage: UIImage?, rightImage: UIImage?) {
         super.init(frame: .zero)
@@ -21,31 +21,34 @@ class PremiumMarketButton: UIButton {
         addSubview(rightImageView)
 
         leftImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(8)
+            make.width.height.equalTo(20*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(8*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(20)
         }
 
         rightImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-8)
+            make.width.height.equalTo(20*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-8*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(20)
         }
 
         titleLabel?.snp.makeConstraints { make in
-            make.leading.equalTo(leftImageView.snp.trailing).offset(2)
-            make.trailing.equalTo(rightImageView.snp.leading).offset(-2)
+            make.leading.equalTo(leftImageView.snp.trailing).offset(2*ConstantsManager.standardWidth)
+            make.trailing.equalTo(rightImageView.snp.leading).offset(-2*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
 
-        titleLabel?.adjustsFontSizeToFitWidth = true
-        titleLabel?.lineBreakMode = .byTruncatingTail
     }
 
     override var intrinsicContentSize: CGSize {
         let titleSize = titleLabel?.intrinsicContentSize ?? .zero
-        let width = 8 + 20 + 2 + titleSize.width + 2 + 20 + 8
-        let height = max(35, titleSize.height + 16)
+        let width = (8 + 20 + 2 + titleSize.width + 2 + 20 + 8)//*ConstantsManager.standardWidth
+        let height = 35.0//*ConstantsManager.standardHeight
         return CGSize(width: width, height: height)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        titleLabel?.preferredMaxLayoutWidth = titleLabel?.frame.width ?? 0
     }
 }

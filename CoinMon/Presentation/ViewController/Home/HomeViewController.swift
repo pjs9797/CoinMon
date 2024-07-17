@@ -8,7 +8,7 @@ class HomeViewController: UIViewController, ReactorKit.View {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 2*Constants.standardWidth
+        layout.minimumInteritemSpacing = 2*ConstantsManager.standardWidth
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(HomeCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCategoryCollectionViewCell")
@@ -49,15 +49,15 @@ class HomeViewController: UIViewController, ReactorKit.View {
         //pageViewController.didMove(toParent: self)
         
         homeCategoryCollectionView.snp.makeConstraints { make in
-            make.width.equalTo(355*Constants.standardWidth)
-            make.height.equalTo(42*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7*Constants.standardHeight)
+            make.width.equalTo(355*ConstantsManager.standardWidth)
+            make.height.equalTo(42*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7*ConstantsManager.standardHeight)
         }
         
         pageViewController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(homeCategoryCollectionView.snp.bottom).offset(3*Constants.standardHeight)
+            make.top.equalTo(homeCategoryCollectionView.snp.bottom).offset(3*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
     }
@@ -134,8 +134,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         label.text = text
         label.font = FontManager.D3_22
         label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 42*Constants.standardHeight)
+        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 42*ConstantsManager.standardHeight)
         let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+12)*Constants.standardWidth, height: 42*Constants.standardHeight)
+        return CGSize(width: (size.width+12)*ConstantsManager.standardWidth, height: 42*ConstantsManager.standardHeight)
     }
 }

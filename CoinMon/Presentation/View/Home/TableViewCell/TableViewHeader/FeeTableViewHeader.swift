@@ -49,8 +49,8 @@ class FeeTableViewHeader: UIView {
         feeView.addSubview(feeButton)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(121*Constants.standardWidth)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.equalTo(121*ConstantsManager.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
@@ -59,8 +59,8 @@ class FeeTableViewHeader: UIView {
         }
         
         feeView.snp.makeConstraints { make in
-            make.width.equalTo(100*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.equalTo(100*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         

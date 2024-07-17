@@ -31,9 +31,9 @@ class InquiryView: UIView {
             }
         
         inquiryLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(32*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(32*ConstantsManager.standardHeight)
         }
     }
 }

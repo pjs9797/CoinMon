@@ -11,7 +11,7 @@ class SignupCompletedView: UIView {
     }()
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 50*Constants.standardHeight
+        imageView.layer.cornerRadius = 50*ConstantsManager.standardHeight
         imageView.image = ImageManager.check_Yellow
         return imageView
     }()
@@ -19,7 +19,7 @@ class SignupCompletedView: UIView {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
         button.backgroundColor = ColorManager.orange_60
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         return button
     }()
@@ -46,22 +46,22 @@ class SignupCompletedView: UIView {
             }
         
         signupCompletedLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*ConstantsManager.standardHeight)
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(100*Constants.standardHeight)
+            make.width.height.equalTo(100*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(signupCompletedLabel.snp.bottom).offset(80*Constants.standardHeight)
+            make.top.equalTo(signupCompletedLabel.snp.bottom).offset(80*ConstantsManager.standardHeight)
         }
         
         signupCompletedButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
 }

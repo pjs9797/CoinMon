@@ -39,7 +39,7 @@ class SigninEmailEntryView: UIView {
     let nextButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         return button
     }()
@@ -72,47 +72,47 @@ class SigninEmailEntryView: UIView {
             }
         
         enterEmailLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*ConstantsManager.standardHeight)
         }
         
         emailLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(enterEmailLabel.snp.bottom).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(enterEmailLabel.snp.bottom).offset(40*ConstantsManager.standardHeight)
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(emailLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(emailLabel.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         clearButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
             make.trailing.equalTo(emailTextField)
             make.centerY.equalTo(emailTextField)
         }
         
         textFieldLineView.snp.makeConstraints { make in
             make.height.equalTo(1)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(emailTextField.snp.bottom).offset(6*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(emailTextField.snp.bottom).offset(6*ConstantsManager.standardHeight)
         }
         
         emailErrorLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
 }

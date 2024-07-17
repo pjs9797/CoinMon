@@ -28,18 +28,6 @@ class AlarmTableViewHeader: UIView {
         button.semanticContentAttribute = .forceRightToLeft
         return button
     }()
-    let onCntLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T7_12_read
-        label.textColor = ColorManager.gray_50
-        return label
-    }()
-    let totalCntLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T7_12_read
-        label.textColor = ColorManager.gray_50
-        return label
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +40,7 @@ class AlarmTableViewHeader: UIView {
     }
     
     private func layout(){
-        [coinView,setPriceView,totalCntLabel,onCntLabel]
+        [coinView,setPriceView]
             .forEach {
                 addSubview($0)
             }
@@ -61,8 +49,8 @@ class AlarmTableViewHeader: UIView {
         setPriceView.addSubview(setPriceButton)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(121*Constants.standardWidth)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.equalTo(121*ConstantsManager.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
@@ -71,7 +59,7 @@ class AlarmTableViewHeader: UIView {
         }
         
         setPriceView.snp.makeConstraints { make in
-            make.width.equalTo(108*Constants.standardWidth)
+            make.width.equalTo(108*ConstantsManager.standardWidth)
             make.leading.equalTo(coinView.snp.trailing)
             make.centerY.equalToSuperview()
         }
@@ -80,16 +68,6 @@ class AlarmTableViewHeader: UIView {
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
-        }
-        
-        totalCntLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.centerY.equalToSuperview()
-        }
-        
-        onCntLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(totalCntLabel.snp.leading).offset(-10*Constants.standardWidth)
-            make.centerY.equalToSuperview()
         }
     }
 }

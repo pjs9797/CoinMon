@@ -10,7 +10,7 @@ class SelectCoinView: UIView {
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
-        tableView.rowHeight = 52*Constants.standardHeight
+        tableView.rowHeight = 52*ConstantsManager.standardHeight
         tableView.register(SelectCoinTableViewCell.self, forCellReuseIdentifier: "SelectCoinTableViewCell")
         return tableView
     }()
@@ -41,13 +41,13 @@ class SelectCoinView: UIView {
             }
         
         searchView.snp.makeConstraints { make in
-            make.height.equalTo(59*Constants.standardHeight)
+            make.height.equalTo(59*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
         }
         
         selectCoinTableViewHeader.snp.makeConstraints { make in
-            make.height.equalTo(32*Constants.standardHeight)
+            make.height.equalTo(32*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(searchView.snp.bottom)
         }

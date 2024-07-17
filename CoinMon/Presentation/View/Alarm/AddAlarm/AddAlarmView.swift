@@ -12,8 +12,8 @@ class AddAlarmView: UIView {
         let button = UIButton()
         button.titleLabel?.font = FontManager.D7_15
         button.backgroundColor = ColorManager.gray_99
-        button.layer.cornerRadius = 12*Constants.standardHeight
-        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*Constants.standardWidth)
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
+        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*ConstantsManager.standardWidth)
         button.isEnabled = true
         return button
     }()
@@ -27,8 +27,8 @@ class AddAlarmView: UIView {
         let button = UIButton()
         button.titleLabel?.font = FontManager.D7_15
         button.backgroundColor = ColorManager.gray_99
-        button.layer.cornerRadius = 12*Constants.standardHeight
-        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*Constants.standardWidth)
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
+        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 5*ConstantsManager.standardWidth)
         button.isEnabled = true
         return button
     }()
@@ -41,7 +41,7 @@ class AddAlarmView: UIView {
     let currentCoinPriceView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.gray_99
-        view.layer.cornerRadius = 12*Constants.standardHeight
+        view.layer.cornerRadius = 12*ConstantsManager.standardHeight
         return view
     }()
     let currentCoinPriceLabel: UILabel = {
@@ -66,7 +66,7 @@ class AddAlarmView: UIView {
     let setPriceView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.gray_99
-        view.layer.cornerRadius = 12*Constants.standardHeight
+        view.layer.cornerRadius = 12*ConstantsManager.standardHeight
         return view
     }()
     let setPriceTextField: UITextField = {
@@ -94,7 +94,7 @@ class AddAlarmView: UIView {
         let button = UIButton()
         button.titleLabel?.font = FontManager.D7_15
         button.backgroundColor = ColorManager.gray_99
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         return button
     }()
     let cycleLabel: UILabel = {
@@ -107,13 +107,13 @@ class AddAlarmView: UIView {
         let button = UIButton()
         button.titleLabel?.font = FontManager.D7_15
         button.backgroundColor = ColorManager.gray_99
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         return button
     }()
     let completeButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         button.backgroundColor = ColorManager.orange_60
         return button
@@ -156,113 +156,113 @@ class AddAlarmView: UIView {
             }
         
         marketButton.snp.makeConstraints { make in
-            make.width.equalTo(232*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(22*Constants.standardHeight)
+            make.width.equalTo(232*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(22*ConstantsManager.standardHeight)
         }
         
         marketLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalTo(marketButton.snp.leading).offset(-12*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalTo(marketButton.snp.leading).offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalTo(marketButton)
         }
         
         coinButton.snp.makeConstraints { make in
-            make.width.equalTo(232*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(marketButton.snp.bottom).offset(12*Constants.standardHeight)
+            make.width.equalTo(232*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(marketButton.snp.bottom).offset(12*ConstantsManager.standardHeight)
         }
         
         coinLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalTo(coinButton.snp.leading).offset(-12*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalTo(coinButton.snp.leading).offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalTo(coinButton)
         }
         
         currentCoinPriceView.snp.makeConstraints { make in
-            make.width.equalTo(232*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(coinButton.snp.bottom).offset(12*Constants.standardHeight)
+            make.width.equalTo(232*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(coinButton.snp.bottom).offset(12*ConstantsManager.standardHeight)
         }
         
         currentCoinPriceUnitLabel.snp.makeConstraints { make in
-            make.width.equalTo(60*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-5*Constants.standardWidth)
+            make.width.equalTo(60*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-5*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         currentCoinPriceLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-10*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(10*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-10*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         currentPriceLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalTo(currentCoinPriceLabel.snp.leading).offset(-12*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalTo(currentCoinPriceLabel.snp.leading).offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalTo(currentCoinPriceLabel)
         }
         
         setPriceView.snp.makeConstraints { make in
-            make.width.equalTo(232*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(currentCoinPriceView.snp.bottom).offset(12*Constants.standardHeight)
+            make.width.equalTo(232*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(currentCoinPriceView.snp.bottom).offset(12*ConstantsManager.standardHeight)
         }
         
         setPriceUnitLabel.snp.makeConstraints { make in
-            make.width.equalTo(60*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-5*Constants.standardWidth)
+            make.width.equalTo(60*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-5*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         setPriceTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-10*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(10*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-10*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         setPriceLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalTo(setPriceTextField.snp.leading).offset(-12*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalTo(setPriceTextField.snp.leading).offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalTo(setPriceTextField)
         }
         
         comparePriceButton.snp.makeConstraints { make in
-            make.width.equalTo(232*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(setPriceView.snp.bottom).offset(12*Constants.standardHeight)
+            make.width.equalTo(232*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(setPriceView.snp.bottom).offset(12*ConstantsManager.standardHeight)
         }
         
         comparePriceLabel.snp.makeConstraints { make in
             make.height.equalTo(comparePriceButton.snp.height)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalTo(comparePriceButton.snp.leading).offset(-12*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalTo(comparePriceButton.snp.leading).offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalTo(comparePriceButton)
         }
         
         cycleButton.snp.makeConstraints { make in
-            make.width.equalTo(232*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(comparePriceButton.snp.bottom).offset(12*Constants.standardHeight)
+            make.width.equalTo(232*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(comparePriceButton.snp.bottom).offset(12*ConstantsManager.standardHeight)
         }
         
         cycleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalTo(cycleButton.snp.leading).offset(-12*Constants.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalTo(cycleButton.snp.leading).offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalTo(cycleButton)
         }
         
         completeButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
 }

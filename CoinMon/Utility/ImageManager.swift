@@ -9,6 +9,7 @@ struct ImageManager {
     static let arrow_Chevron_Right = UIImage(named: "Arrow_Chevron_Right")
     static let chevron_Down = UIImage(named: "Chevron_Down")
     static let arrow_Left_Right = UIImage(named: "Arrow_Left_Right")
+    static let arrow_Down = UIImage(named: "Arrow_Down")
     //tabbar
     static let home = UIImage(named: "home")
     static let alarm = UIImage(named: "alarm")
@@ -42,4 +43,5 @@ struct ImageManager {
     static let iconClear = UIImage(named: "iconClear")
     static let search = UIImage(named: "search")
     static let noneAlarm = UIImage(named: "noneAlarm")
+    static let global = UIImage(named: "global")
 }

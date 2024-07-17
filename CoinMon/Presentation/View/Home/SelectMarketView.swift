@@ -12,7 +12,7 @@ class SelectMarketView: UIView {
     let marketTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.rowHeight = 56*Constants.standardHeight
+        tableView.rowHeight = 56*ConstantsManager.standardHeight
         tableView.register(MarketTableViewCell.self, forCellReuseIdentifier: "MarketTableViewCell")
         return tableView
     }()
@@ -34,15 +34,15 @@ class SelectMarketView: UIView {
             }
         
         selectMarketLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalToSuperview().offset(32*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(32*ConstantsManager.standardHeight)
         }
         
         marketTableView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(selectMarketLabel.snp.bottom).offset(12*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(selectMarketLabel.snp.bottom).offset(12*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }

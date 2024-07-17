@@ -62,6 +62,11 @@ extension SigninViewController {
             .map{ Reactor.Action.signupButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        signinView.languageSettingButton.rx.tap
+            .map{ Reactor.Action.languageSettingButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: SigninReactor){
@@ -80,6 +85,19 @@ extension SigninViewController {
                 else {
                     self?.signinView.completeWithdrawalToast.isHidden = true
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.currentLanguage }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] language in
+                if language == "ko" {
+                    self?.signinView.languageSettingButton.setTitle("한국어", for: .normal)
+                }
+                else {
+                    self?.signinView.languageSettingButton.setTitle("English", for: .normal)
+                }
+                self?.signinView.setLocalizedText()
             })
             .disposed(by: disposeBag)
     }

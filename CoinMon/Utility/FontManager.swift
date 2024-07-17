@@ -59,14 +59,14 @@ struct FontManager {
             fontName = "Pretendard-Regular"
         }
         
-        let font = UIFont(name: fontName, size: size * Constants.standardWidth) ?? UIFont.systemFont(ofSize: size * Constants.standardWidth)
+        let font = UIFont(name: fontName, size: size * ConstantsManager.standardWidth) ?? UIFont.systemFont(ofSize: size * ConstantsManager.standardWidth)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.minimumLineHeight = lineHeight * Constants.standardHeight
-        paragraphStyle.maximumLineHeight = lineHeight * Constants.standardHeight
+        paragraphStyle.minimumLineHeight = lineHeight * ConstantsManager.standardHeight
+        paragraphStyle.maximumLineHeight = lineHeight * ConstantsManager.standardHeight
         
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
-            .kern: letterSpacing * Constants.standardWidth,
+            .kern: letterSpacing * ConstantsManager.standardWidth,
             .paragraphStyle: paragraphStyle
         ]
         
@@ -134,14 +134,14 @@ struct AttributedFontManager {
             fontName = "Pretendard-Regular"
         }
         
-        let font = UIFont(name: fontName, size: size * Constants.standardWidth) ?? UIFont.systemFont(ofSize: size * Constants.standardWidth)
+        let font = UIFont(name: fontName, size: size * ConstantsManager.standardWidth) ?? UIFont.systemFont(ofSize: size * ConstantsManager.standardWidth)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.minimumLineHeight = lineHeight * Constants.standardHeight
-        paragraphStyle.maximumLineHeight = lineHeight * Constants.standardHeight
+        paragraphStyle.minimumLineHeight = lineHeight * ConstantsManager.standardHeight
+        paragraphStyle.maximumLineHeight = lineHeight * ConstantsManager.standardHeight
         
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
-            .kern: letterSpacing * Constants.standardWidth,
+            .kern: letterSpacing * ConstantsManager.standardWidth,
             .paragraphStyle: paragraphStyle
         ]
         

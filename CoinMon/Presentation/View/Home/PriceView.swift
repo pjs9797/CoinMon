@@ -6,11 +6,11 @@ class PriceView: UIView {
     let marketCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 8 * Constants.standardWidth
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20*Constants.standardWidth, bottom: 0, right: 20*Constants.standardWidth)
+        layout.minimumInteritemSpacing = 8 * ConstantsManager.standardWidth
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20*ConstantsManager.standardWidth, bottom: 0, right: 20*ConstantsManager.standardWidth)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(MarketListCollectionViewCell.self, forCellWithReuseIdentifier: "MarketListCollectionViewCell")
+        collectionView.register(MarketListAtHomeCollectionViewCell.self, forCellWithReuseIdentifier: "MarketListAtHomeCollectionViewCell")
         return collectionView
     }()
     let priceTableViewHeader = PriceTableViewHeader()
@@ -20,7 +20,7 @@ class PriceView: UIView {
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
-        tableView.rowHeight = 52*Constants.standardHeight
+        tableView.rowHeight = 52*ConstantsManager.standardHeight
         tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "PriceTableViewCell")
         return tableView
     }()
@@ -53,22 +53,22 @@ class PriceView: UIView {
             }
         
         searchView.snp.makeConstraints { make in
-            make.height.equalTo(59*Constants.standardHeight)
+            make.height.equalTo(59*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview()
         }
         
         marketCollectionView.snp.makeConstraints { make in
-            make.height.equalTo(35*Constants.standardHeight)
+            make.height.equalTo(35*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(searchView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         priceTableViewHeader.snp.makeConstraints { make in
-            make.height.equalTo(32*Constants.standardHeight)
+            make.height.equalTo(32*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(marketCollectionView.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(marketCollectionView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         priceTableView.snp.makeConstraints { make in

@@ -13,7 +13,7 @@ class AlarmTableViewCell: UITableViewCell {
     }()
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 12*Constants.standardHeight
+        imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = ColorManager.gray_99?.cgColor
         return imageView
@@ -39,7 +39,7 @@ class AlarmTableViewCell: UITableViewCell {
         let uiSwitch = UISwitch()
         uiSwitch.onTintColor = ColorManager.orange_60
         uiSwitch.tintColor = ColorManager.gray_90
-        uiSwitch.layer.cornerRadius = 18*Constants.standardHeight
+        uiSwitch.layer.cornerRadius = 18*ConstantsManager.standardHeight
         return uiSwitch
     }()
     
@@ -72,41 +72,41 @@ class AlarmTableViewCell: UITableViewCell {
         setPriceView.addSubview(setPriceLabel)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(121*Constants.standardWidth)
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.equalTo(121*ConstantsManager.standardWidth)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
         }
 
         coinImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
 
         coinLabel.snp.makeConstraints { make in
-            make.height.equalTo(42*Constants.standardHeight)
-            make.leading.equalTo(coinImageView.snp.trailing).offset(6*Constants.standardWidth)
+            make.height.equalTo(42*ConstantsManager.standardHeight)
+            make.leading.equalTo(coinImageView.snp.trailing).offset(6*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
         }
         
         setPriceView.snp.makeConstraints { make in
-            make.width.equalTo(108*Constants.standardWidth)
-            make.height.equalTo(36*Constants.standardHeight)
+            make.width.equalTo(108*ConstantsManager.standardWidth)
+            make.height.equalTo(36*ConstantsManager.standardHeight)
             make.leading.equalTo(coinView.snp.trailing)
             make.centerY.equalToSuperview()
         }
         
         setPriceLabel.snp.makeConstraints { make in
-            make.width.equalTo(108*Constants.standardWidth)
+            make.width.equalTo(108*ConstantsManager.standardWidth)
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
         
         alarmSwitch.snp.makeConstraints { make in
-            make.width.equalTo(50*Constants.standardWidth)
-            make.height.equalTo(28*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.width.equalTo(50*ConstantsManager.standardWidth)
+            make.height.equalTo(28*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
     }

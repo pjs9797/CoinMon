@@ -30,7 +30,7 @@ class SignupEmailEntryView: UIView {
         button.setTitleColor(ColorManager.common_100, for: .normal)
         button.titleLabel?.font = FontManager.H4_16
         button.backgroundColor = ColorManager.gray_5
-        button.layer.cornerRadius = 8*Constants.standardHeight
+        button.layer.cornerRadius = 8*ConstantsManager.standardHeight
         return button
     }()
     let emailErrorLabel: UILabel = {
@@ -47,7 +47,7 @@ class SignupEmailEntryView: UIView {
     let nextButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*Constants.standardHeight
+        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
         return button
     }()
@@ -81,54 +81,54 @@ class SignupEmailEntryView: UIView {
             }
         
         enterEmailLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40*ConstantsManager.standardHeight)
         }
         
         emailLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(enterEmailLabel.snp.bottom).offset(40*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(enterEmailLabel.snp.bottom).offset(40*ConstantsManager.standardHeight)
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.width.equalTo(247*Constants.standardWidth)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(emailLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.width.equalTo(247*ConstantsManager.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(emailLabel.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         textFieldLineView.snp.makeConstraints { make in
             make.width.equalTo(emailTextField.snp.width)
             make.height.equalTo(1)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalTo(emailTextField.snp.bottom).offset(6*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalTo(emailTextField.snp.bottom).offset(6*ConstantsManager.standardHeight)
         }
         
         duplicateButton.snp.makeConstraints { make in
-            make.width.equalTo(80*Constants.standardWidth)
-            make.height.equalTo(36*Constants.standardHeight)
-            make.leading.equalTo(emailTextField.snp.trailing).offset(8*Constants.standardWidth)
+            make.width.equalTo(80*ConstantsManager.standardWidth)
+            make.height.equalTo(36*ConstantsManager.standardHeight)
+            make.leading.equalTo(emailTextField.snp.trailing).offset(8*ConstantsManager.standardWidth)
             make.centerY.equalTo(emailTextField)
         }
         
         emailErrorLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         emailDuplicateLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(textFieldLineView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
         }
     }
 }

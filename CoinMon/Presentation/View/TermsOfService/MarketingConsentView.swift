@@ -44,10 +44,10 @@ class MarketingConsentView: UIView {
         }
         
         marketingConsentLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
-            make.top.equalToSuperview().offset(20*Constants.standardHeight)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
-            make.bottom.equalToSuperview().offset(-20*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalToSuperview().offset(-20*ConstantsManager.standardHeight)
         }
     }
 }

@@ -96,18 +96,33 @@ extension AlarmViewController {
             .map{ Reactor.Action.sortBySetPrice }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        alarmView.allNoneAlarmView.addAlarmButton.rx.tap
+            .map{ Reactor.Action.addAlarmButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: AlarmReactor){
-        reactor.state.map { $0.markets }
-            .distinctUntilChanged()
-            .bind(to: alarmView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
+        Observable.combineLatest(reactor.state.map { $0.markets }.distinctUntilChanged(),
+                                 reactor.state.map { $0.marketAlarmCounts }.distinctUntilChanged())
+            .flatMapLatest { (markets, marketAlarmCounts) -> Observable<[(Market, Int)]> in
+                let marketsWithCounts = markets.map { market in
+                    return (market, marketAlarmCounts[market.localizationKey] ?? 0)
+                }
+                return Observable.just(marketsWithCounts)
+            }
+            .bind(to: alarmView.marketCollectionView.rx.items(cellIdentifier: "MarketListAtAlarmCollectionViewCell", cellType: MarketListAtAlarmCollectionViewCell.self)) { index, element, cell in
+                let (market, alarmCount) = element
+
                 let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
+
+                cell.configure(with: market, alarmCount: alarmCount)
+
                 if isSelected {
                     self.alarmView.marketCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 }
-                cell.configure(with: markets)
             }
             .disposed(by: disposeBag)
         
@@ -145,38 +160,35 @@ extension AlarmViewController {
             })
             .disposed(by: disposeBag)
         
-//        reactor.state.map{ $0.onCnt }
-//            .distinctUntilChanged()
-//            .bind(onNext: { [weak self] cnt in
-//                if cnt == 20 {
-//                    self?.alarmView.alarmTableViewHeader.onCntLabel.textColor = ColorManager.red_50
-//                }
-//                else {
-//                    self?.alarmView.alarmTableViewHeader.onCntLabel.textColor = ColorManager.gray_50
-//                }
-//                var baseString = "💡 : \(cnt)"
-//                self?.alarmView.alarmTableViewHeader.onCntLabel.text = baseString
-//            })
-//            .disposed(by: disposeBag)
-        
         reactor.state.map{ $0.totalCnt }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] cnt in
                 if cnt == 0 {
-                    self?.alarmView.noneAlarmView.isHidden = false
+                    self?.alarmView.allNoneAlarmView.isHidden = false
+                    self?.alarmView.remainingAlarmCntLabel.text = "최대 20개까지 설정할 수 있어요"
                 }
                 else {
-                    self?.alarmView.noneAlarmView.isHidden = true
+                    self?.alarmView.allNoneAlarmView.isHidden = true
+                    self?.alarmView.remainingAlarmCntLabel.text = "알람 \(20-cnt)개 더 추가할 수 있어요"
                 }
-                if cnt == 20 {
-                    self?.alarmView.alarmTableViewHeader.totalCntLabel.textColor = ColorManager.red_50
-                }
-                else {
-                    self?.alarmView.alarmTableViewHeader.totalCntLabel.textColor = ColorManager.gray_50
-                }
-                self?.alarmView.alarmTableViewHeader.totalCntLabel.text = "\(cnt) / 20"
             })
             .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map { $0.selectedMarket }.distinctUntilChanged(),
+            reactor.state.map { $0.marketAlarmCounts }.distinctUntilChanged()
+        )
+        .bind(onNext: { [weak self] selectedMarketIndex, marketAlarmCounts in
+            let selectedMarket = reactor.currentState.markets[selectedMarketIndex]
+            let alarmCount = marketAlarmCounts[selectedMarket.localizationKey] ?? 0
+            if self?.alarmView.allNoneAlarmView.isHidden == true {
+                self?.alarmView.noneAlarmView.isHidden = alarmCount != 0
+            }
+            else {
+                self?.alarmView.noneAlarmView.isHidden = true
+            }
+        })
+        .disposed(by: disposeBag)
         
         reactor.state.map{ $0.coinSortOrder }
             .distinctUntilChanged()
@@ -230,16 +242,32 @@ extension AlarmViewController {
 extension AlarmViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let index = indexPath.item
-        let text = (reactor?.currentState.markets[index].marketTitle) ?? ""
-        let label = UILabel()
-        label.text = text
-        label.font = FontManager.H6_14
-        label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 34*Constants.standardHeight)
-        let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+42)*Constants.standardWidth, height: 34*Constants.standardHeight)
+        guard let reactor = reactor else { return .zero }
+        
+        let market = reactor.currentState.markets[index]
+        let alarmCount = reactor.currentState.marketAlarmCounts[market.localizationKey] ?? 0
+        
+        let marketLabel = UILabel()
+        marketLabel.text = market.marketTitle
+        marketLabel.font = FontManager.H6_14
+        marketLabel.sizeToFit()
+        marketLabel.numberOfLines = 1
+        let maxMarketLabelSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 34 * ConstantsManager.standardHeight)
+        let marketLabelSize = marketLabel.sizeThatFits(maxMarketLabelSize)
+        
+        let alarmCntLabel = UILabel()
+        alarmCntLabel.text = "\(alarmCount)"
+        alarmCntLabel.font = FontManager.H6_14
+        alarmCntLabel.numberOfLines = 1
+        let maxAlarmCntLabelSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 34 * ConstantsManager.standardHeight)
+        let alarmCntLabelSize = alarmCntLabel.sizeThatFits(maxAlarmCntLabelSize)
+        
+        let totalWidth = (marketLabelSize.width + alarmCntLabelSize.width + 45) * ConstantsManager.standardWidth
+        
+        return CGSize(width: totalWidth, height: 34 * ConstantsManager.standardHeight)
     }
 }
+
 
 extension AlarmViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {

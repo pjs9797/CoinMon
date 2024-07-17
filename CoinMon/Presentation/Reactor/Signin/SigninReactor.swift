@@ -5,23 +5,31 @@ import RxCocoa
 import RxFlow
 
 class SigninReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+    let initialState: State
     let disposeBag = DisposeBag()
     var steps = PublishRelay<Step>()
+    
+    init() {
+        self.initialState = State(currentLanguage: LocalizationManager.shared.language)
+    }
     
     enum Action {
         case setShowToastMessage(Bool)
         case kakaoLoginButtonTapped
         case coinMonLoginButtonTapped
         case signupButtonTapped
+        case languageSettingButtonTapped
+        case setLanguage(String)
     }
     
     enum Mutation {
         case setShowToastMessage(Bool)
+        case setLanguage(String)
     }
     
     struct State {
         var showToastMessage: Bool = false
+        var currentLanguage: String
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -37,6 +45,12 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
         case .signupButtonTapped:
             self.steps.accept(AppStep.goToSignupFlow)
             return .empty()
+        case .languageSettingButtonTapped:
+            self.steps.accept(AppStep.presentToLanguageSettingAlertController(reactor: self))
+            return .empty()
+        case .setLanguage(let newLanguage):
+            LocalizationManager.shared.setLanguage(newLanguage)
+            return .just(.setLanguage(newLanguage))
         }
     }
     
@@ -45,6 +59,8 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setShowToastMessage(let show):
             newState.showToastMessage = show
+        case .setLanguage(let newLanguage):
+            newState.currentLanguage = newLanguage
         }
         return newState
     }

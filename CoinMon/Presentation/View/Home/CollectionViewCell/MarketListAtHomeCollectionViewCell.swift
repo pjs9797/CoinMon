@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import SnapKit
 
-class MarketListCollectionViewCell: UICollectionViewCell {
+class MarketListAtHomeCollectionViewCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
     let marketImageView: UIImageView = {
         let imageView = UIImageView()
@@ -18,7 +18,7 @@ class MarketListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 8*Constants.standardHeight
+        self.layer.cornerRadius = 8*ConstantsManager.standardHeight
         self.backgroundColor = ColorManager.gray_99
         layout()
     }
@@ -51,14 +51,14 @@ class MarketListCollectionViewCell: UICollectionViewCell {
             }
         
         marketImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(20*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(8*Constants.standardWidth)
+            make.width.height.equalTo(20*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(8*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
         marketLabel.snp.makeConstraints { make in
-            make.leading.equalTo(marketImageView.snp.trailing).offset(2*Constants.standardWidth)
-            make.trailing.equalToSuperview().offset(-12*Constants.standardWidth)
+            make.leading.equalTo(marketImageView.snp.trailing).offset(2*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-12*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
     }

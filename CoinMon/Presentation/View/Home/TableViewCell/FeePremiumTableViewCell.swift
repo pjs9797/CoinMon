@@ -8,7 +8,7 @@ class FeePremiumTableViewCell: UITableViewCell {
     }()
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 12*Constants.standardHeight
+        imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = ColorManager.gray_99?.cgColor
         return imageView
@@ -56,33 +56,33 @@ class FeePremiumTableViewCell: UITableViewCell {
         feePremiumView.addSubview(feePremiumLabel)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(170*Constants.standardWidth)
-            make.height.equalTo(52*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.equalTo(170*ConstantsManager.standardWidth)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
         }
 
         coinImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(24*Constants.standardHeight)
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
 
         coinLabel.snp.makeConstraints { make in
-            make.height.equalTo(42*Constants.standardHeight)
-            make.leading.equalTo(coinImageView.snp.trailing).offset(6*Constants.standardWidth)
+            make.height.equalTo(42*ConstantsManager.standardHeight)
+            make.leading.equalTo(coinImageView.snp.trailing).offset(6*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
         }
         
         feePremiumView.snp.makeConstraints { make in
-            make.height.equalTo(52*Constants.standardHeight)
+            make.height.equalTo(52*ConstantsManager.standardHeight)
             make.leading.equalTo(coinView.snp.trailing)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
         }
 
         feePremiumLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-4*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-4*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
     }

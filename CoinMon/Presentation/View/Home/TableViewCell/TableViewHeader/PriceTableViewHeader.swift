@@ -77,8 +77,8 @@ class PriceTableViewHeader: UIView {
         gapView.addSubview(gapButton)
         
         coinView.snp.makeConstraints { make in
-            make.width.equalTo(121*Constants.standardWidth)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.width.equalTo(121*ConstantsManager.standardWidth)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         
@@ -87,7 +87,7 @@ class PriceTableViewHeader: UIView {
         }
         
         priceView.snp.makeConstraints { make in
-            make.width.equalTo(90*Constants.standardWidth)
+            make.width.equalTo(90*ConstantsManager.standardWidth)
             make.leading.equalTo(coinView.snp.trailing)
             make.centerY.equalToSuperview()
         }
@@ -97,7 +97,7 @@ class PriceTableViewHeader: UIView {
         }
         
         changeView.snp.makeConstraints { make in
-            make.width.equalTo(68*Constants.standardWidth)
+            make.width.equalTo(68*ConstantsManager.standardWidth)
             make.leading.equalTo(priceView.snp.trailing)
             make.centerY.equalToSuperview()
         }
@@ -108,7 +108,7 @@ class PriceTableViewHeader: UIView {
         
         gapView.snp.makeConstraints { make in
             make.leading.equalTo(changeView.snp.trailing)
-            make.trailing.equalToSuperview().offset(-20*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         

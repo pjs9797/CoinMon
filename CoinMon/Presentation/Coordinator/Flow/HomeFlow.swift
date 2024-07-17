@@ -60,12 +60,12 @@ class HomeFlow: Flow {
         let viewController = SelectMarketViewAtHomeController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
-                return 228*Constants.standardHeight
+                return 228*ConstantsManager.standardHeight
             }
             
             sheet.detents = [customDetent]
             sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 16*Constants.standardHeight
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
         }
         self.rootViewController.present(viewController, animated: true)
         
@@ -77,12 +77,12 @@ class HomeFlow: Flow {
         let viewController = SelectMarketViewAtHomeController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
-                return 228*Constants.standardHeight
+                return 228*ConstantsManager.standardHeight
             }
             
             sheet.detents = [customDetent]
             sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 16*Constants.standardHeight
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
         }
         self.rootViewController.present(viewController, animated: true)
         

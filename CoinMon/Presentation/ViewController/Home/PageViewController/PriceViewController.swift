@@ -99,7 +99,7 @@ extension PriceViewController {
     func bindState(reactor: PriceReactor){
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
-            .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
+            .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListAtHomeCollectionViewCell", cellType: MarketListAtHomeCollectionViewCell.self)) { index, markets, cell in
                 let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
                 if isSelected {
@@ -201,9 +201,9 @@ extension PriceViewController: UICollectionViewDelegateFlowLayout {
         label.text = text
         label.font = FontManager.H6_14
         label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 34*Constants.standardHeight)
+        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 34*ConstantsManager.standardHeight)
         let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+42)*Constants.standardWidth, height: 34*Constants.standardHeight)
+        return CGSize(width: (size.width+42)*ConstantsManager.standardWidth, height: 34*ConstantsManager.standardHeight)
     }
 }
 
