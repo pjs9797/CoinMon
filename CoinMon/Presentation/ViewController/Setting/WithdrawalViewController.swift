@@ -30,13 +30,13 @@ class WithdrawalViewController: UIViewController, ReactorKit.View {
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.withdrawalView.setLocalizedText()
-                self?.title = LocalizationManager.shared.localizedString(forKey: "회원탈퇴")
+                self?.title = LocalizationManager.shared.localizedString(forKey: "회원탈퇴네비타이틀")
             })
             .disposed(by: disposeBag)
     }
     
     private func setNavigationbar() {
-        self.title = LocalizationManager.shared.localizedString(forKey: "회원탈퇴")
+        self.title = LocalizationManager.shared.localizedString(forKey: "회원탈퇴네비타이틀")
         navigationItem.leftBarButtonItem = backButton
     }
 }

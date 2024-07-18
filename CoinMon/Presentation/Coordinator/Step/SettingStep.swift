@@ -12,6 +12,7 @@ enum SettingStep: Step {
     case presentToLogoutAlertController(reactor: MyAccountReactor)
     case presentToWithdrawAlertController(reactor: WithdrawalReactor)
     case goToAlarmSetting
+    case goToOpenURL(url: String, fallbackUrl: String)
     case popViewController
     case completeMainFlow
     case completeMainFlowAfterWithdrawal

@@ -166,10 +166,12 @@ extension AlarmViewController {
                 if cnt == 0 {
                     self?.alarmView.allNoneAlarmView.isHidden = false
                     self?.alarmView.remainingAlarmCntLabel.text = "최대 20개까지 설정할 수 있어요"
+                    self?.alarmView.alarmTableViewHeader.isHidden = true
                 }
                 else {
                     self?.alarmView.allNoneAlarmView.isHidden = true
                     self?.alarmView.remainingAlarmCntLabel.text = "알람 \(20-cnt)개 더 추가할 수 있어요"
+                    self?.alarmView.alarmTableViewHeader.isHidden = false
                 }
             })
             .disposed(by: disposeBag)
@@ -183,6 +185,7 @@ extension AlarmViewController {
             let alarmCount = marketAlarmCounts[selectedMarket.localizationKey] ?? 0
             if self?.alarmView.allNoneAlarmView.isHidden == true {
                 self?.alarmView.noneAlarmView.isHidden = alarmCount != 0
+                self?.alarmView.alarmTableViewHeader.isHidden = alarmCount == 0
             }
             else {
                 self?.alarmView.noneAlarmView.isHidden = true

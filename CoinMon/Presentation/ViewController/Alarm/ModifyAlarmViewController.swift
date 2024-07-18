@@ -42,8 +42,8 @@ class ModifyAlarmViewController: UIViewController, ReactorKit.View {
     private func setNavigationbar() {
         self.title = LocalizationManager.shared.localizedString(forKey: "알람 수정")
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: AttributedFontManager.T3_16,
-            .foregroundColor: ColorManager.gray_15 ?? .black
+            .font: FontManager.T3_16,
+            .foregroundColor: ColorManager.gray_15 ?? .black,
         ]
         deleteButton.setTitleTextAttributes(attributes, for: .normal)
         navigationItem.leftBarButtonItem = backButton

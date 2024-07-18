@@ -41,14 +41,6 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.navigateToMyAccountViewController)
             return .empty()
         case .inquiryButtonTapped:
-            let chatURL = URL(string: "https://open.kakao.com/o/gxZ2CNtg")!
-            let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id362057947")!
-
-            if UIApplication.shared.canOpenURL(chatURL) {
-                UIApplication.shared.open(chatURL, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
-            }
             self.steps.accept(SettingStep.navigateToInquiryViewController)
             return .empty()
         case .termsOfServiceButtonTapped:

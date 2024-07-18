@@ -44,7 +44,7 @@ struct CoinPriceInfoDTO: Codable {
         var gap = -99.0
         if let standardPrice = dto.standardPrice {
             if standardPrice != 0.0 || standardPrice != -100.0 {
-                change = (standardPrice - dto.limitPrice) / standardPrice * 100
+                change = (dto.limitPrice - standardPrice) / standardPrice * 100
             }
         }
         if dto.marketPrice != 0.0 {

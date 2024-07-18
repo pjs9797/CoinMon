@@ -40,6 +40,8 @@ class SettingFlow: Flow {
             return presentToWithdrawAlertController(reactor: reactor)
         case .goToAlarmSetting:
             return goToAlarmSetting()
+        case .goToOpenURL(let url, let fallbackUrl):
+            return goToOpenURL(url: url, fallbackUrl: fallbackUrl)
         case .popViewController:
             return popViewController()
         case .completeMainFlow:
@@ -160,6 +162,17 @@ class SettingFlow: Flow {
     private func goToAlarmSetting() -> FlowContributors {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        return .none
+    }
+    
+    private func goToOpenURL(url: String, fallbackUrl: String) -> FlowContributors {
+        let url = URL(string: url)!
+        let fallbackUrl = URL(string: fallbackUrl)!
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.open(fallbackUrl, options: [:], completionHandler: nil)
         }
         return .none
     }

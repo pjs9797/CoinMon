@@ -51,8 +51,24 @@ extension InquiryViewController {
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        inquiryView.discordButton.rx.tap
+            .map{ Reactor.Action.discordButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        inquiryView.kakaoButton.rx.tap
+            .map{ Reactor.Action.kakaoButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        inquiryView.telegramButton.rx.tap
+            .map{ Reactor.Action.telegramButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: InquiryReactor){
+        
     }
 }

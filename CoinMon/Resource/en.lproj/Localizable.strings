@@ -93,12 +93,13 @@
 "최대 12자까지 가능해요" = "Up to 12 characters are possible";
 "로그인 계정" = "Login Account";
 "로그아웃" = "Log Out";
-"회원탈퇴" = "Withdrawal";
+"회원탈퇴" = "Resign";
+"회원탈퇴네비타이틀" = "Account Deletion";
 //Setting-Withdrawal
-"회원탈퇴설명1" = "Please check before Withdrawal";
+"회원탈퇴설명1" = "Please check before Resign";
 "회원탈퇴설명2" = "· If you unsubscribe, all notifications you have set will disappear.\n· Even if you have participated or applied for an event held within the Coinmon service, your record will be deleted if you withdraw before the results are announced.";
 "회원탈퇴설명3" = "Delete and cancel your Coinmon account";
-"탈퇴하기" = "Withdraw";
+"탈퇴하기" = "OK";
 //AlertController
 "네트워크 오류" = "Network Error";
 "네트워크 오류 설명" = "Please check your network connection.";

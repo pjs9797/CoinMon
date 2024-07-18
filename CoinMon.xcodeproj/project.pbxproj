@@ -188,6 +188,7 @@
 		31E1C1D02C46845C009F99B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E1C1CF2C46845C009F99B9 /* LaunchScreen.storyboard */; };
 		31E1C1D32C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */; };
 		31E1C1D52C46AC1D009F99B9 /* AllNoneAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D42C46AC1D009F99B9 /* AllNoneAlarmView.swift */; };
+		31E1C1D72C47BC66009F99B9 /* InquiryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -386,6 +387,7 @@
 		31E1C1CF2C46845C009F99B9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketListAtAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		31E1C1D42C46AC1D009F99B9 /* AllNoneAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNoneAlarmView.swift; sourceTree = "<group>"; };
+		31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryButton.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 			children = (
 				3104F5092C43AB1500DD40D6 /* PremiumMarketButton.swift */,
 				3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */,
+				31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -1463,6 +1466,7 @@
 				31E0A5302C1994D800756DFD /* AddAlarmReactor.swift in Sources */,
 				31F791722BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift in Sources */,
 				31777A0C2BE3741A006E8378 /* FontManager.swift in Sources */,
+				31E1C1D72C47BC66009F99B9 /* InquiryButton.swift in Sources */,
 				31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */,
 				31E0A50F2C17120300756DFD /* TokenManager.swift in Sources */,
 				31E0A5562C1B096B00756DFD /* AlarmUseCase.swift in Sources */,
