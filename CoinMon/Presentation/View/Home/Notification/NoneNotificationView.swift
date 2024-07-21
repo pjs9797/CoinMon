@@ -1,13 +1,13 @@
 import UIKit
 import SnapKit
 
-class NoneAlarmView: UIView {
-    let noneAlarmImageView: UIImageView = {
+class NoneNotificationView: UIView {
+    let noneNotificationImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = ImageManager.noneAlarm
         return imageView
     }()
-    let noneAlarmLabel: UILabel = {
+    let noneNotificationLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.B4_15
         label.textColor = ColorManager.gray_70
@@ -28,25 +28,25 @@ class NoneAlarmView: UIView {
     }
     
     func setLocalizedText(){
-        noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아직 추가한 알람이 없어요\n알람 추가하면 지정가일 때 바로 알 수 있어요!")
+        noneNotificationLabel.text = LocalizationManager.shared.localizedString(forKey: "아직 새로운 알림이 없어요")
     }
     
     private func layout() {
-        [noneAlarmImageView,noneAlarmLabel]
+        [noneNotificationImageView,noneNotificationLabel]
             .forEach{
                 addSubview($0)
             }
         
-        noneAlarmImageView.snp.makeConstraints { make in
+        noneNotificationImageView.snp.makeConstraints { make in
             make.width.height.equalTo(50*ConstantsManager.standardHeight)
             make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
         }
         
-        noneAlarmLabel.snp.makeConstraints { make in
+        noneNotificationLabel.snp.makeConstraints { make in
             make.width.equalTo(273*ConstantsManager.standardWidth)
             make.centerX.equalToSuperview()
-            make.top.equalTo(noneAlarmImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
+            make.top.equalTo(noneNotificationImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
         }
     }
 }

@@ -24,6 +24,7 @@ class PriceView: UIView {
         tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "PriceTableViewCell")
         return tableView
     }()
+    let noneCoinView = NoneCoinView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,10 +45,11 @@ class PriceView: UIView {
         priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더",arguments: "USDT"), for: .normal)
         priceTableViewHeader.changeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "등락률"), for: .normal)
         priceTableViewHeader.gapButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시평갭"), for: .normal)
+        noneCoinView.setLocalizedText()
     }
     
     private func layout() {
-        [searchView,marketCollectionView,priceTableViewHeader,priceTableView]
+        [searchView,marketCollectionView,priceTableViewHeader,priceTableView,noneCoinView]
             .forEach{
                 addSubview($0)
             }
@@ -74,6 +76,13 @@ class PriceView: UIView {
         priceTableView.snp.makeConstraints { make in
             make.top.equalTo(priceTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        noneCoinView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchView.snp.bottom)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }

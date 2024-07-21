@@ -110,9 +110,22 @@ extension PriceViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.filteredPriceList }
+            .distinctUntilChanged()
             .bind(to: priceView.priceTableView.rx.items(cellIdentifier: "PriceTableViewCell", cellType: PriceTableViewCell.self)){ row, priceList, cell in
                 cell.configure(with: priceList)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.filteredPriceList }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] filteredPriceList in
+                if filteredPriceList.isEmpty {
+                    self?.priceView.noneCoinView.isHidden = false
+                }
+                else {
+                    self?.priceView.noneCoinView.isHidden = true
+                }
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.unit }

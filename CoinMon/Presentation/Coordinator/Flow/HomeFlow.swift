@@ -22,14 +22,20 @@ class HomeFlow: Flow {
         switch step {
         case .navigateToHomeViewController:
             return navigateToHomeViewController()
+        case .navigateToNotificationViewController:
+            return navigateToNotificationViewController()
         case .presentToSelectDepartureMarketViewController(let selectedMarketRelay):
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay):
             return presentToSelectArrivalMarketViewController(selectedMarketRelay: selectedMarketRelay)
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
+        case .goToAlarmSetting:
+            return goToAlarmSetting()
         case .dismissSelectMarketViewController:
             return dismissSelectMarketViewController()
+        case .popViewController:
+            return popViewController()
         }
     }
     
@@ -55,9 +61,19 @@ class HomeFlow: Flow {
         ])
     }
     
+    private func navigateToNotificationViewController() -> FlowContributors {
+        let reactor = NotificationReactor()
+        let viewController = NotificationViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay)
-        let viewController = SelectMarketViewAtHomeController(with: reactor)
+        let viewController = SelectMarketViewAtHomeSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 228*ConstantsManager.standardHeight
@@ -74,7 +90,7 @@ class HomeFlow: Flow {
     
     private func presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .arrival, selectedMarketRelay: selectedMarketRelay)
-        let viewController = SelectMarketViewAtHomeController(with: reactor)
+        let viewController = SelectMarketViewAtHomeSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 228*ConstantsManager.standardHeight
@@ -100,8 +116,21 @@ class HomeFlow: Flow {
         return .none
     }
     
+    private func goToAlarmSetting() -> FlowContributors {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        return .none
+    }
+    
     private func dismissSelectMarketViewController() -> FlowContributors{
         self.rootViewController.dismiss(animated: true)
+        
+        return .none
+    }
+    
+    private func popViewController() -> FlowContributors {
+        self.rootViewController.popViewController(animated: true)
         
         return .none
     }

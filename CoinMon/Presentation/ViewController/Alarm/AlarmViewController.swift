@@ -35,6 +35,13 @@ class AlarmViewController: UIViewController, ReactorKit.View {
             .subscribe(onNext: { [weak self] _ in
                 self?.reactor?.action.onNext(.updateLocalizedMarkets)
                 self?.alarmView.setLocalizedText()
+                let cnt = self?.reactor?.currentState.totalCnt
+                if cnt == 20 {
+                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "최대 개까지 설정할 수 있어요", arguments: "20")
+                }
+                else {
+                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 개 더 추가할 수 있어요", arguments: "\(20-(cnt ?? 0))")
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -165,12 +172,12 @@ extension AlarmViewController {
             .bind(onNext: { [weak self] cnt in
                 if cnt == 0 {
                     self?.alarmView.allNoneAlarmView.isHidden = false
-                    self?.alarmView.remainingAlarmCntLabel.text = "최대 20개까지 설정할 수 있어요"
+                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "최대 개까지 설정할 수 있어요", arguments: "20")
                     self?.alarmView.alarmTableViewHeader.isHidden = true
                 }
                 else {
                     self?.alarmView.allNoneAlarmView.isHidden = true
-                    self?.alarmView.remainingAlarmCntLabel.text = "알람 \(20-cnt)개 더 추가할 수 있어요"
+                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 개 더 추가할 수 있어요", arguments: "\(20-cnt)")
                     self?.alarmView.alarmTableViewHeader.isHidden = false
                 }
             })
@@ -185,7 +192,6 @@ extension AlarmViewController {
             let alarmCount = marketAlarmCounts[selectedMarket.localizationKey] ?? 0
             if self?.alarmView.allNoneAlarmView.isHidden == true {
                 self?.alarmView.noneAlarmView.isHidden = alarmCount != 0
-                self?.alarmView.alarmTableViewHeader.isHidden = alarmCount == 0
             }
             else {
                 self?.alarmView.noneAlarmView.isHidden = true

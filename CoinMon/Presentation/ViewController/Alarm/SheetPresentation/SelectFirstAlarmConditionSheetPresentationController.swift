@@ -1,11 +1,11 @@
 import UIKit
 import ReactorKit
 
-class SelectSecondAlarmConditionViewController: CustomDimSheetPresentationController, ReactorKit.View {
+class SelectFirstAlarmConditionSheetPresentationController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectAlarmConditionView = SelectAlarmConditionView()
     
-    init(with reactor: SelectSecondAlarmConditionReactor) {
+    init(with reactor: SelectFirstAlarmConditionReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -25,28 +25,30 @@ class SelectSecondAlarmConditionViewController: CustomDimSheetPresentationContro
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        selectAlarmConditionView.alarmConditionTableView.goToMiddle()
     }
 }
 
-extension SelectSecondAlarmConditionViewController {
-    func bind(reactor: SelectSecondAlarmConditionReactor) {
+extension SelectFirstAlarmConditionSheetPresentationController {
+    func bind(reactor: SelectFirstAlarmConditionReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectSecondAlarmConditionReactor){
+    func bindAction(reactor: SelectFirstAlarmConditionReactor){
         selectAlarmConditionView.alarmConditionTableView.rx.itemSelected
             .map { Reactor.Action.selectCondition($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: SelectSecondAlarmConditionReactor){
+    func bindState(reactor: SelectFirstAlarmConditionReactor){
         reactor.state.map { $0.conditions }
             .distinctUntilChanged()
             .bind(to: selectAlarmConditionView.alarmConditionTableView.rx.items(cellIdentifier: "AlarmConditionTableViewCell", cellType: AlarmConditionTableViewCell.self)){ row, condition, cell in
-
-                cell.configure(with: condition)
+                let conditionToString = "\(condition)%"
+                cell.configure(with: conditionToString)
+                cell.configureTextColor(with: condition)
             }
             .disposed(by: disposeBag)
     }

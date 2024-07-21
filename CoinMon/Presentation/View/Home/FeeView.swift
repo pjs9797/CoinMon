@@ -24,6 +24,7 @@ class FeeView: UIView {
         tableView.register(FeePremiumTableViewCell.self, forCellReuseIdentifier: "FeePremiumTableViewCell")
         return tableView
     }()
+    let noneCoinView = NoneCoinView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,10 +43,11 @@ class FeeView: UIView {
         searchView.searchTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "코인 검색"), attributes: attributes)
         feeTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         feeTableViewHeader.feeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "펀비"), for: .normal)
+        noneCoinView.setLocalizedText()
     }
     
     private func layout() {
-        [marketCollectionView,searchView,feeTableViewHeader,feeTableView]
+        [marketCollectionView,searchView,feeTableViewHeader,feeTableView,noneCoinView]
             .forEach{
                 addSubview($0)
             }
@@ -72,6 +74,13 @@ class FeeView: UIView {
         feeTableView.snp.makeConstraints { make in
             make.top.equalTo(feeTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        noneCoinView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchView.snp.bottom)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }

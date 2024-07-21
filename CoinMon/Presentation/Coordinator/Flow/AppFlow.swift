@@ -91,7 +91,7 @@ class AppFlow: Flow {
         Flows.use(homeFlow,alarmFlow,settingFlow, when: .created) { [weak self] (homeNavigationController,alarmNavigationController,settingNavigationController) in
             
             homeNavigationController.tabBarItem = UITabBarItem(title: LocalizationManager.shared.localizedString(forKey: "홈"), image: ImageManager.home_Select?.withRenderingMode(.alwaysOriginal), tag: 0)
-            alarmNavigationController.tabBarItem = UITabBarItem(title: LocalizationManager.shared.localizedString(forKey: "알림"), image: ImageManager.alarm?.withRenderingMode(.alwaysOriginal), tag: 1)
+            alarmNavigationController.tabBarItem = UITabBarItem(title: LocalizationManager.shared.localizedString(forKey: "알람"), image: ImageManager.alarm?.withRenderingMode(.alwaysOriginal), tag: 1)
             settingNavigationController.tabBarItem = UITabBarItem(title: LocalizationManager.shared.localizedString(forKey: "설정"), image: ImageManager.setting?.withRenderingMode(.alwaysOriginal), tag: 2)
 
             tabBarController.viewControllers = [homeNavigationController,alarmNavigationController,settingNavigationController]

@@ -43,7 +43,7 @@ class TabBarController: UITabBarController {
                 case 0:
                     tabItem.title = LocalizationManager.shared.localizedString(forKey: "홈")
                 case 1:
-                    tabItem.title = LocalizationManager.shared.localizedString(forKey: "알림")
+                    tabItem.title = LocalizationManager.shared.localizedString(forKey: "알람")
                 case 2:
                     tabItem.title = LocalizationManager.shared.localizedString(forKey: "설정")
                 default:

@@ -1,15 +1,15 @@
 import UIKit
 import SnapKit
 
-class NoneAlarmView: UIView {
-    let noneAlarmImageView: UIImageView = {
+class NoneCoinView: UIView {
+    let noneCoinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageManager.noneAlarm
+        imageView.image = ImageManager.noneCoin
         return imageView
     }()
-    let noneAlarmLabel: UILabel = {
+    let noneCoinLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.B4_15
+        label.font = FontManager.B3_16
         label.textColor = ColorManager.gray_70
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -28,25 +28,25 @@ class NoneAlarmView: UIView {
     }
     
     func setLocalizedText(){
-        noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아직 추가한 알람이 없어요\n알람 추가하면 지정가일 때 바로 알 수 있어요!")
+        noneCoinLabel.text = LocalizationManager.shared.localizedString(forKey: "검색한 코인이 없어요")
     }
     
     private func layout() {
-        [noneAlarmImageView,noneAlarmLabel]
+        [noneCoinImageView,noneCoinLabel]
             .forEach{
                 addSubview($0)
             }
         
-        noneAlarmImageView.snp.makeConstraints { make in
+        noneCoinImageView.snp.makeConstraints { make in
             make.width.height.equalTo(50*ConstantsManager.standardHeight)
-            make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
+            make.top.equalToSuperview().offset(120*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
         }
         
-        noneAlarmLabel.snp.makeConstraints { make in
-            make.width.equalTo(273*ConstantsManager.standardWidth)
+        noneCoinLabel.snp.makeConstraints { make in
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.top.equalTo(noneAlarmImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
+            make.top.equalTo(noneCoinImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
         }
     }
 }

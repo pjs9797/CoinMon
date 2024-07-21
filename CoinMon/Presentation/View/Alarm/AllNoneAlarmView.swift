@@ -36,6 +36,11 @@ class AllNoneAlarmView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setLocalizedText(){
+        noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아직 추가한 알람이 없어요")
+        addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가하기"), for: .normal)
+    }
+    
     private func layout() {
         [noneAlarmImageView,noneAlarmLabel,addAlarmButton]
             .forEach{
@@ -49,7 +54,7 @@ class AllNoneAlarmView: UIView {
         }
         
         noneAlarmLabel.snp.makeConstraints { make in
-            make.width.equalToSuperview()
+            make.width.equalTo(263*ConstantsManager.standardWidth)
             make.centerX.equalToSuperview()
             make.top.equalTo(noneAlarmImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
         }

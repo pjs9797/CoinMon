@@ -82,9 +82,8 @@ class AlarmView: UIView {
         addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가버튼"), for: .normal)
         alarmTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         alarmTableViewHeader.setPriceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "설정가 헤더",arguments: "USDT"), for: .normal)
-        allNoneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아작 추가한 알람이 없어요")
-        allNoneAlarmView.addAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가하기"), for: .normal)
-        noneAlarmView.noneAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "아작 추가한 알람이 없어요\n알람 추가하면 지정가일 때 바로 알 수 있어요!")
+        allNoneAlarmView.setLocalizedText()
+        noneAlarmView.setLocalizedText()
         toastLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 삭제 toast")
     }
     

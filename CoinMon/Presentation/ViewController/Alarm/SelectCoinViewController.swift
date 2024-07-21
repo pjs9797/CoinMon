@@ -92,6 +92,18 @@ extension SelectCoinViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.filteredCoins }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] filteredCoins in
+                if filteredCoins.isEmpty {
+                    self?.selectCoinView.noneCoinView.isHidden = false
+                }
+                else {
+                    self?.selectCoinView.noneCoinView.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.unit }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] unit in

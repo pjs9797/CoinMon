@@ -102,9 +102,22 @@ extension FeeViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.filteredFeeList }
+            .distinctUntilChanged()
             .bind(to: feeView.feeTableView.rx.items(cellIdentifier: "FeePremiumTableViewCell", cellType: FeePremiumTableViewCell.self)){ row, feeList, cell in
                 cell.configureFee(with: feeList)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.filteredFeeList }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] filteredFeeList in
+                if filteredFeeList.isEmpty {
+                    self?.feeView.noneCoinView.isHidden = false
+                }
+                else {
+                    self?.feeView.noneCoinView.isHidden = true
+                }
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.searchText }

@@ -1,11 +1,11 @@
 import UIKit
 import ReactorKit
 
-class SelectMarketViewAtHomeController: CustomDimSheetPresentationController, ReactorKit.View {
+class SelectMarketAtAlarmSheetPresentationController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectMarketView = SelectMarketView()
     
-    init(with reactor: SelectMarketAtHomeReactor) {
+    init(with reactor: SelectMarketAtAlarmReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -20,7 +20,7 @@ class SelectMarketViewAtHomeController: CustomDimSheetPresentationController, Re
         
         view = selectMarketView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,29 +28,20 @@ class SelectMarketViewAtHomeController: CustomDimSheetPresentationController, Re
     }
 }
 
-extension SelectMarketViewAtHomeController {
-    func bind(reactor: SelectMarketAtHomeReactor) {
+extension SelectMarketAtAlarmSheetPresentationController {
+    func bind(reactor: SelectMarketAtAlarmReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectMarketAtHomeReactor){
+    func bindAction(reactor: SelectMarketAtAlarmReactor){
         selectMarketView.marketTableView.rx.itemSelected
             .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        selectMarketView.marketTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                if let cell = self.selectMarketView.marketTableView.cellForRow(at: indexPath) as? MarketTableViewCell {
-                    cell.checkImageView.isHidden = false
-                }
-            })
-            .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: SelectMarketAtHomeReactor){
+    func bindState(reactor: SelectMarketAtAlarmReactor){
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, market, cell in

@@ -1,11 +1,11 @@
 import UIKit
 import ReactorKit
 
-class SelectFirstAlarmConditionViewController: CustomDimSheetPresentationController, ReactorKit.View {
+class SelectSecondAlarmConditionSheetPresentationController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let selectAlarmConditionView = SelectAlarmConditionView()
     
-    init(with reactor: SelectFirstAlarmConditionReactor) {
+    init(with reactor: SelectSecondAlarmConditionReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -25,30 +25,28 @@ class SelectFirstAlarmConditionViewController: CustomDimSheetPresentationControl
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        selectAlarmConditionView.alarmConditionTableView.goToMiddle()
     }
 }
 
-extension SelectFirstAlarmConditionViewController {
-    func bind(reactor: SelectFirstAlarmConditionReactor) {
+extension SelectSecondAlarmConditionSheetPresentationController {
+    func bind(reactor: SelectSecondAlarmConditionReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectFirstAlarmConditionReactor){
+    func bindAction(reactor: SelectSecondAlarmConditionReactor){
         selectAlarmConditionView.alarmConditionTableView.rx.itemSelected
             .map { Reactor.Action.selectCondition($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: SelectFirstAlarmConditionReactor){
+    func bindState(reactor: SelectSecondAlarmConditionReactor){
         reactor.state.map { $0.conditions }
             .distinctUntilChanged()
             .bind(to: selectAlarmConditionView.alarmConditionTableView.rx.items(cellIdentifier: "AlarmConditionTableViewCell", cellType: AlarmConditionTableViewCell.self)){ row, condition, cell in
-                let conditionToString = "\(condition)%"
-                cell.configure(with: conditionToString)
-                cell.configureTextColor(with: condition)
+
+                cell.configure(with: condition)
             }
             .disposed(by: disposeBag)
     }

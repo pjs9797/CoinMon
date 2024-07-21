@@ -75,7 +75,7 @@ class AlarmFlow: Flow {
     
     private func presentToSelectMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectMarketAtAlarmReactor( selectedMarketRelay: selectedMarketRelay)
-        let viewController = SelectMarketAtAlarmViewController(with: reactor)
+        let viewController = SelectMarketAtAlarmSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 348*ConstantsManager.standardHeight
@@ -100,7 +100,7 @@ class AlarmFlow: Flow {
     
     private func presentToSelectFirstAlarmConditionViewController(firstAlarmConditionRelay: PublishRelay<Int>) -> FlowContributors {
         let reactor = SelectFirstAlarmConditionReactor(firstAlarmConditionRelay: firstAlarmConditionRelay)
-        let viewController = SelectFirstAlarmConditionViewController(with: reactor)
+        let viewController = SelectFirstAlarmConditionSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 348*ConstantsManager.standardHeight
@@ -117,7 +117,7 @@ class AlarmFlow: Flow {
     
     private func presentToSelectSecondAlarmConditionViewController(secondAlarmConditionRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectSecondAlarmConditionReactor(secondAlarmConditionRelay: secondAlarmConditionRelay)
-        let viewController = SelectSecondAlarmConditionViewController(with: reactor)
+        let viewController = SelectSecondAlarmConditionSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 348*ConstantsManager.standardHeight

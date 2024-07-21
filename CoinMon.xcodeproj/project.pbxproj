@@ -95,7 +95,7 @@
 		31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */; };
 		31BCE9852C04AFA100DA2FC6 /* SelectMarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */; };
 		31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */; };
-		31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */; };
+		31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift */; };
 		31BCE98D2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */; };
 		31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */; };
 		31BEAFA42C37BB24001B7A35 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFA32C37BB24001B7A35 /* RxCocoa */; };
@@ -160,13 +160,13 @@
 		31E0A52C2C1984E400756DFD /* CoinUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A52B2C1984E400756DFD /* CoinUseCase.swift */; };
 		31E0A52E2C19937200756DFD /* AddAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A52D2C19937200756DFD /* AddAlarmViewController.swift */; };
 		31E0A5302C1994D800756DFD /* AddAlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A52F2C1994D800756DFD /* AddAlarmReactor.swift */; };
-		31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift */; };
+		31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift */; };
 		31E0A5342C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5332C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift */; };
 		31E0A5362C19B6D600756DFD /* AlarmConditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5352C19B6D500756DFD /* AlarmConditionTableViewCell.swift */; };
 		31E0A5382C19BC2500756DFD /* SelectAlarmConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5372C19BC2500756DFD /* SelectAlarmConditionView.swift */; };
-		31E0A53A2C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift */; };
+		31E0A53A2C19BCCB00756DFD /* SelectFirstAlarmConditionSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionSheetPresentationController.swift */; };
 		31E0A53E2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A53D2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift */; };
-		31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift */; };
+		31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionSheetPresentationController.swift */; };
 		31E0A5422C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5412C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift */; };
 		31E0A5442C19CB3D00756DFD /* SelectCoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5432C19CB3D00756DFD /* SelectCoinView.swift */; };
 		31E0A5462C19CB5D00756DFD /* SelectCoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5452C19CB5D00756DFD /* SelectCoinTableViewCell.swift */; };
@@ -189,12 +189,18 @@
 		31E1C1D32C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */; };
 		31E1C1D52C46AC1D009F99B9 /* AllNoneAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D42C46AC1D009F99B9 /* AllNoneAlarmView.swift */; };
 		31E1C1D72C47BC66009F99B9 /* InquiryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */; };
+		31E1C1D92C48E684009F99B9 /* NoneCoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D82C48E684009F99B9 /* NoneCoinView.swift */; };
+		31E1C1DD2C4B851D009F99B9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1DC2C4B851D009F99B9 /* NotificationViewController.swift */; };
+		31E1C1DF2C4B8537009F99B9 /* NotificationReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1DE2C4B8537009F99B9 /* NotificationReactor.swift */; };
+		31E1C1E22C4B857A009F99B9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E12C4B857A009F99B9 /* NotificationView.swift */; };
+		31E1C1E52C4B9589009F99B9 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */; };
+		31E1C1E72C4BA3AE009F99B9 /* NoneNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
 		31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791642BECB14000A7CABB /* SigninFlow.swift */; };
 		31F791682BECD0F600A7CABB /* FlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791672BECD0F600A7CABB /* FlowState.swift */; };
-		31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916D2BECED1B00A7CABB /* AgreeToTermsOfServiceViewController.swift */; };
+		31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916D2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift */; };
 		31F791702BECED2700A7CABB /* AgreeToTermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7916F2BECED2700A7CABB /* AgreeToTermsOfServiceView.swift */; };
 		31F791722BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791712BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift */; };
 /* End PBXBuildFile section */
@@ -308,7 +314,7 @@
 		31BCE9822C04AB7400DA2FC6 /* PrimiumReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimiumReactor.swift; sourceTree = "<group>"; };
 		31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketView.swift; sourceTree = "<group>"; };
 		31BCE9862C04B0AC00DA2FC6 /* MarketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketTableViewCell.swift; sourceTree = "<group>"; };
-		31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewAtHomeController.swift; sourceTree = "<group>"; };
+		31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewAtHomeSheetPresentationController.swift; sourceTree = "<group>"; };
 		31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtHomeReactor.swift; sourceTree = "<group>"; };
 		31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
 		31E0A4B02C1078DC00756DFD /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
@@ -359,13 +365,13 @@
 		31E0A52B2C1984E400756DFD /* CoinUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinUseCase.swift; sourceTree = "<group>"; };
 		31E0A52D2C19937200756DFD /* AddAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmViewController.swift; sourceTree = "<group>"; };
 		31E0A52F2C1994D800756DFD /* AddAlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmReactor.swift; sourceTree = "<group>"; };
-		31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtAlarmViewController.swift; sourceTree = "<group>"; };
+		31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtAlarmSheetPresentationController.swift; sourceTree = "<group>"; };
 		31E0A5332C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtAlarmReactor.swift; sourceTree = "<group>"; };
 		31E0A5352C19B6D500756DFD /* AlarmConditionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmConditionTableViewCell.swift; sourceTree = "<group>"; };
 		31E0A5372C19BC2500756DFD /* SelectAlarmConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlarmConditionView.swift; sourceTree = "<group>"; };
-		31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFirstAlarmConditionViewController.swift; sourceTree = "<group>"; };
+		31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFirstAlarmConditionSheetPresentationController.swift; sourceTree = "<group>"; };
 		31E0A53D2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFirstAlarmConditionReactor.swift; sourceTree = "<group>"; };
-		31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSecondAlarmConditionViewController.swift; sourceTree = "<group>"; };
+		31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSecondAlarmConditionSheetPresentationController.swift; sourceTree = "<group>"; };
 		31E0A5412C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSecondAlarmConditionReactor.swift; sourceTree = "<group>"; };
 		31E0A5432C19CB3D00756DFD /* SelectCoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinView.swift; sourceTree = "<group>"; };
 		31E0A5452C19CB5D00756DFD /* SelectCoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinTableViewCell.swift; sourceTree = "<group>"; };
@@ -388,12 +394,18 @@
 		31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketListAtAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		31E1C1D42C46AC1D009F99B9 /* AllNoneAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNoneAlarmView.swift; sourceTree = "<group>"; };
 		31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryButton.swift; sourceTree = "<group>"; };
+		31E1C1D82C48E684009F99B9 /* NoneCoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneCoinView.swift; sourceTree = "<group>"; };
+		31E1C1DC2C4B851D009F99B9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		31E1C1DE2C4B8537009F99B9 /* NotificationReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationReactor.swift; sourceTree = "<group>"; };
+		31E1C1E12C4B857A009F99B9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneNotificationView.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
 		31F791642BECB14000A7CABB /* SigninFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninFlow.swift; sourceTree = "<group>"; };
 		31F791672BECD0F600A7CABB /* FlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowState.swift; sourceTree = "<group>"; };
-		31F7916D2BECED1B00A7CABB /* AgreeToTermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeToTermsOfServiceViewController.swift; sourceTree = "<group>"; };
+		31F7916D2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeToTermsOfServiceSheetPresentationController.swift; sourceTree = "<group>"; };
 		31F7916F2BECED2700A7CABB /* AgreeToTermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeToTermsOfServiceView.swift; sourceTree = "<group>"; };
 		31F791712BEDE3DE00A7CABB /* AgreeToTermsOfServiceReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeToTermsOfServiceReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -575,6 +587,7 @@
 			children = (
 				31BCE98B2C05B1BB00DA2FC6 /* PageViewController */,
 				31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */,
+				31E1C1DC2C4B851D009F99B9 /* NotificationViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -584,6 +597,7 @@
 			children = (
 				31BCE98A2C05B1B300DA2FC6 /* PageViewController */,
 				31423C422BFB332E008AB6FD /* HomeReactor.swift */,
+				31E1C1DE2C4B8537009F99B9 /* NotificationReactor.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -591,12 +605,13 @@
 		31423C4B2BFB572E008AB6FD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				31E1C1E32C4B9567009F99B9 /* Notification */,
+				31E1C1E02C4B855D009F99B9 /* Search */,
 				31423C552BFB7E46008AB6FD /* TableViewCell */,
 				31423C4C2BFB575C008AB6FD /* CollectionViewCell */,
 				31423C4F2BFB5946008AB6FD /* PriceView.swift */,
 				31BCE9762C04A02C00DA2FC6 /* FeeView.swift */,
 				31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */,
-				31423C532BFB5DE2008AB6FD /* SearchView.swift */,
 				31BCE9842C04AFA100DA2FC6 /* SelectMarketView.swift */,
 			);
 			path = Home;
@@ -939,10 +954,10 @@
 		31777A2B2BE76351006E8378 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				31E1C1DA2C48F266009F99B9 /* SheetPresentation */,
 				315C01752C09BAE300BE00E3 /* SignupEmailEntryViewController.swift */,
 				31E0A4EA2C16B4EB00756DFD /* SignupEmailVerificationNumberViewController.swift */,
 				31777A372BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift */,
-				31F7916D2BECED1B00A7CABB /* AgreeToTermsOfServiceViewController.swift */,
 				31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */,
 				31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */,
 			);
@@ -997,10 +1012,10 @@
 		31BCE98B2C05B1BB00DA2FC6 /* PageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				31E1C1DB2C48F293009F99B9 /* SheetPresentation */,
 				31423C442BFB4EBC008AB6FD /* PriceViewController.swift */,
 				31423C462BFB4F27008AB6FD /* FeeViewController.swift */,
 				31423C482BFB4F65008AB6FD /* PremiumViewController.swift */,
-				31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift */,
 			);
 			path = PageViewController;
 			sourceTree = "<group>";
@@ -1160,9 +1175,9 @@
 		31E0A53B2C19BCE000756DFD /* SheetPresentation */ = {
 			isa = PBXGroup;
 			children = (
-				31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift */,
-				31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift */,
-				31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift */,
+				31E0A5312C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift */,
+				31E0A5392C19BCCB00756DFD /* SelectFirstAlarmConditionSheetPresentationController.swift */,
+				31E0A53F2C19C42500756DFD /* SelectSecondAlarmConditionSheetPresentationController.swift */,
 			);
 			path = SheetPresentation;
 			sourceTree = "<group>";
@@ -1183,6 +1198,41 @@
 				31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		31E1C1DA2C48F266009F99B9 /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31F7916D2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31E1C1DB2C48F293009F99B9 /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31E1C1E02C4B855D009F99B9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				31423C532BFB5DE2008AB6FD /* SearchView.swift */,
+				31E1C1D82C48E684009F99B9 /* NoneCoinView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		31E1C1E32C4B9567009F99B9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				31E1C1E12C4B857A009F99B9 /* NotificationView.swift */,
+				31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */,
+				31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
@@ -1355,6 +1405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31E1C1E52C4B9589009F99B9 /* NotificationTableViewCell.swift in Sources */,
 				31BCE97D2C04A1C200DA2FC6 /* FeeReactor.swift in Sources */,
 				31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */,
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
@@ -1386,6 +1437,7 @@
 				31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */,
 				31E0A5222C182D7A00756DFD /* UserUseCase.swift in Sources */,
 				31E0A4DF2C15BDF900756DFD /* TermsOfServiceView.swift in Sources */,
+				31E1C1D92C48E684009F99B9 /* NoneCoinView.swift in Sources */,
 				31BCE9812C04A6F000DA2FC6 /* PrimiumTableViewHeader.swift in Sources */,
 				31E0A5522C1B064900756DFD /* AlarmRepositoryInterface.swift in Sources */,
 				31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */,
@@ -1433,7 +1485,7 @@
 				31423C502BFB5946008AB6FD /* PriceView.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
 				31E0A52E2C19937200756DFD /* AddAlarmViewController.swift in Sources */,
-				31E0A53A2C19BCCB00756DFD /* SelectFirstAlarmConditionViewController.swift in Sources */,
+				31E0A53A2C19BCCB00756DFD /* SelectFirstAlarmConditionSheetPresentationController.swift in Sources */,
 				31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */,
 				314636A02C05FB9D008A5629 /* SettingFlow.swift in Sources */,
 				31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */,
@@ -1446,20 +1498,22 @@
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
-				31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmViewController.swift in Sources */,
+				31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */,
 				31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
 				31E0A5462C19CB5D00756DFD /* SelectCoinTableViewCell.swift in Sources */,
+				31E1C1DD2C4B851D009F99B9 /* NotificationViewController.swift in Sources */,
 				31777A252BE3B313006E8378 /* AppStep.swift in Sources */,
 				31777A2E2BE76668006E8378 /* SigninEmailEntryViewController.swift in Sources */,
 				3104F50A2C43AB1500DD40D6 /* PremiumMarketButton.swift in Sources */,
-				31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeController.swift in Sources */,
+				31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift in Sources */,
 				31E0A54A2C19D1F500756DFD /* SelectCoinViewController.swift in Sources */,
-				31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceViewController.swift in Sources */,
+				31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
+				31E1C1DF2C4B8537009F99B9 /* NotificationReactor.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
 				31E0A5152C1824BC00756DFD /* AuthTokens.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
@@ -1491,9 +1545,10 @@
 				31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* SigninEmailEntryView.swift in Sources */,
 				31E1C1D52C46AC1D009F99B9 /* AllNoneAlarmView.swift in Sources */,
-				31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionViewController.swift in Sources */,
+				31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionSheetPresentationController.swift in Sources */,
 				315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */,
 				31E0A4E32C15BF0B00756DFD /* SignupDTO.swift in Sources */,
+				31E1C1E22C4B857A009F99B9 /* NotificationView.swift in Sources */,
 				31E0A4ED2C16B51900756DFD /* SignupEmailVerificationNumberReactor.swift in Sources */,
 				31E0A5072C16FEE500756DFD /* SigninService.swift in Sources */,
 				31E0A5052C16CCC100756DFD /* MarketingConsentReactor.swift in Sources */,
@@ -1501,6 +1556,7 @@
 				31BCE9832C04AB7400DA2FC6 /* PrimiumReactor.swift in Sources */,
 				31E0A5202C182CFD00756DFD /* UserRepository.swift in Sources */,
 				31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */,
+				31E1C1E72C4BA3AE009F99B9 /* NoneNotificationView.swift in Sources */,
 				31E0A4FE2C16CC7400756DFD /* MarketingConsentViewController.swift in Sources */,
 				31E0A5602C201C4700756DFD /* InquiryView.swift in Sources */,
 				3104F5112C43C28400DD40D6 /* ConfigManager.swift in Sources */,

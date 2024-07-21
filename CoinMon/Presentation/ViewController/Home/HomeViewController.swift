@@ -14,6 +14,11 @@ class HomeViewController: UIViewController, ReactorKit.View {
         collectionView.register(HomeCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCategoryCollectionViewCell")
         return collectionView
     }()
+    let notificationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(ImageManager.notExistAlarm, for: .normal)
+        return button
+    }()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     var viewControllers: [UIViewController]
     
@@ -42,17 +47,31 @@ class HomeViewController: UIViewController, ReactorKit.View {
             .disposed(by: disposeBag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     private func layout(){
-        view.addSubview(homeCategoryCollectionView)
-        //addChild(pageViewController)
+        [homeCategoryCollectionView,notificationButton]
+            .forEach{
+                view.addSubview($0)
+            }
+        
         view.addSubview(pageViewController.view)
-        //pageViewController.didMove(toParent: self)
         
         homeCategoryCollectionView.snp.makeConstraints { make in
             make.width.equalTo(355*ConstantsManager.standardWidth)
             make.height.equalTo(42*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7*ConstantsManager.standardHeight)
+        }
+        
+        notificationButton.snp.makeConstraints { make in
+            make.width.height.equalTo(24*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.centerY.equalTo(homeCategoryCollectionView)
         }
         
         pageViewController.view.snp.makeConstraints { make in
@@ -75,6 +94,11 @@ extension HomeViewController {
         
         homeCategoryCollectionView.rx.itemSelected
             .map { Reactor.Action.selectItem($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        notificationButton.rx.tap
+            .map{ Reactor.Action.alarmCenterButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

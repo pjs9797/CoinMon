@@ -12,6 +12,7 @@ class InquiryView: UIView {
         let label = UILabel()
         label.textColor = ColorManager.gray_15
         label.font = FontManager.T5_14
+        label.numberOfLines = 0
         return label
     }()
     let discordButton: InquiryButton = {
@@ -59,7 +60,7 @@ class InquiryView: UIView {
         inquiryLabelBackView.addSubview(inquiryLabel)
         
         inquiryLabelBackView.snp.makeConstraints { make in
-            make.height.equalTo(54*ConstantsManager.standardHeight)
+            make.height.greaterThanOrEqualTo(54*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(8*ConstantsManager.standardHeight)
@@ -67,6 +68,7 @@ class InquiryView: UIView {
         
         inquiryLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.centerY.equalToSuperview()
         }
         

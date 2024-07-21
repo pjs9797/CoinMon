@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class AgreeToTermsOfServiceViewController: CustomDimSheetPresentationController, ReactorKit.View {
+class AgreeToTermsOfServiceSheetPresentationController: CustomDimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let agreeToTermsOfServiceView = AgreeToTermsOfServiceView()
     
@@ -28,7 +28,7 @@ class AgreeToTermsOfServiceViewController: CustomDimSheetPresentationController,
     }
 }
 
-extension AgreeToTermsOfServiceViewController {
+extension AgreeToTermsOfServiceSheetPresentationController {
     func bind(reactor: AgreeToTermsOfServiceReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)

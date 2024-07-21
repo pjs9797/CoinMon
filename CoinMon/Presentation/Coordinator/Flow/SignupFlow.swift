@@ -79,7 +79,7 @@ class SignupFlow: Flow {
     
     private func presentToAgreeToTermsOfServiceViewController() -> FlowContributors {
         let reactor = AgreeToTermsOfServiceReactor(signupUseCase: signupUseCase)
-        let viewController = AgreeToTermsOfServiceViewController(with: reactor)
+        let viewController = AgreeToTermsOfServiceSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 348*ConstantsManager.standardHeight

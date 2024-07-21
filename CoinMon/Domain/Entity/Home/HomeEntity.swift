@@ -32,3 +32,12 @@ enum SortOrder {
     case ascending
     case descending
 }
+
+struct NotificationAlert: Equatable{
+    let id: Int
+    let market: String
+    let symbol: String
+    let targetPrice: String
+    let date: String
+    let dateType: String
+}

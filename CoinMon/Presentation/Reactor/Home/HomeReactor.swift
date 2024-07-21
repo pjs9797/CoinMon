@@ -11,6 +11,7 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
         case updateLocalizedCategories
         case selectItem(Int)
         case setPreviousIndex(Int)
+        case alarmCenterButtonTapped
     }
     
     enum Mutation {
@@ -38,6 +39,9 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
             return .just(.setSelectedItem(index))
         case .setPreviousIndex(let index):
             return .just(.setPreviousIndex(index))
+        case .alarmCenterButtonTapped:
+            self.steps.accept(HomeStep.navigateToNotificationViewController)
+            return .empty()
         }
     }
     

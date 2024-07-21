@@ -14,6 +14,7 @@ class SelectCoinView: UIView {
         tableView.register(SelectCoinTableViewCell.self, forCellReuseIdentifier: "SelectCoinTableViewCell")
         return tableView
     }()
+    let noneCoinView = NoneCoinView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,10 +33,11 @@ class SelectCoinView: UIView {
         searchView.searchTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "코인 검색"), attributes: attributes)
         selectCoinTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
         selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더",arguments: "USDT"), for: .normal)
+        noneCoinView.setLocalizedText()
     }
     
     private func layout() {
-        [searchView,selectCoinTableViewHeader,selectCoinTableView]
+        [searchView,selectCoinTableViewHeader,selectCoinTableView,noneCoinView]
             .forEach{
                 addSubview($0)
             }
@@ -55,6 +57,13 @@ class SelectCoinView: UIView {
         selectCoinTableView.snp.makeConstraints { make in
             make.top.equalTo(selectCoinTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        noneCoinView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchView.snp.bottom)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }
