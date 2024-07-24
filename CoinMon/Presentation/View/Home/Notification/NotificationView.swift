@@ -26,32 +26,34 @@ class NotificationView: UIView {
         button.titleLabel?.font = FontManager.H6_14
         return button
     }()
-    let notificationTableViewFooter: UIView = {
-        let view = UIView()
-        return view
-    }()
-    let notificationTableViewFooterLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = ColorManager.gray_70
-        label.font = FontManager.T6_13
-        return label
-    }()
     let notificationTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
+        tableView.showsVerticalScrollIndicator = false
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: "NotificationTableViewCell")
         return tableView
+    }()
+    let upButton: UIButton = {
+        let button = UIButton()
+        button.setImage(ImageManager.chevron_Up, for: .normal)
+        button.layer.cornerRadius = 22*ConstantsManager.standardHeight
+        button.layer.borderWidth = 1
+        button.layer.borderColor = ColorManager.gray_95?.cgColor
+        button.isHidden = true
+        return button
     }()
     let noneNotificationView = NoneNotificationView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        notificationTableView.tableFooterView = notificationTableViewFooter
         layout()
+        let footerView = NotificationTableViewFooter()
+        footerView.frame.size.height = 98 * ConstantsManager.standardHeight
+        notificationTableView.tableFooterView = footerView
     }
     
     required init?(coder: NSCoder) {
@@ -61,12 +63,11 @@ class NotificationView: UIView {
     func setLocalizedText(){
         setAlarmLabel.text = LocalizationManager.shared.localizedString(forKey: "휴대폰 앱 알림이 꺼져있어요")
         setAlarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 켜기"), for: .normal)
-        notificationTableViewFooterLabel.text = LocalizationManager.shared.localizedString(forKey: "최근 30일간 알림을 표시합니다")
         noneNotificationView.noneNotificationLabel.text = LocalizationManager.shared.localizedString(forKey: "아직 새로운 알림이 없어요")
     }
     
     private func layout() {
-        [setAlarmView,notificationTableView,noneNotificationView]
+        [setAlarmView,notificationTableView,upButton,noneNotificationView]
             .forEach{
                 addSubview($0)
             }
@@ -75,9 +76,7 @@ class NotificationView: UIView {
             .forEach {
                 setAlarmView.addSubview($0)
             }
-        
-        notificationTableViewFooter.addSubview(notificationTableViewFooterLabel)
-        
+                
         cautionImageView.snp.makeConstraints { make in
             make.width.height.equalTo(20*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
@@ -94,10 +93,10 @@ class NotificationView: UIView {
             make.leading.equalTo(cautionImageView.snp.trailing).offset(6*ConstantsManager.standardWidth)
             make.trailing.equalTo(setAlarmButton.snp.leading).offset(-16*ConstantsManager.standardWidth)
             make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-16*ConstantsManager.standardHeight)
         }
         
         setAlarmView.snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(54*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(8*ConstantsManager.standardHeight)
@@ -110,13 +109,10 @@ class NotificationView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
         
-        notificationTableViewFooter.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(98*ConstantsManager.standardHeight)
-        }
-        
-        notificationTableViewFooterLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        upButton.snp.makeConstraints { make in
+            make.width.height.equalTo(44*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20*ConstantsManager.standardHeight)
         }
         
         noneNotificationView.snp.makeConstraints { make in
@@ -127,13 +123,6 @@ class NotificationView: UIView {
     }
     
     func updateLayoutNotSetAlarm(){
-        setAlarmView.snp.remakeConstraints { make in
-            make.height.greaterThanOrEqualTo(54*ConstantsManager.standardHeight)
-            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(8*ConstantsManager.standardHeight)
-        }
-        
         notificationTableView.snp.remakeConstraints { make in
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
@@ -143,17 +132,10 @@ class NotificationView: UIView {
     }
     
     func updateLayoutSetAlarm(){
-        setAlarmView.snp.remakeConstraints { make in
-            make.height.equalTo(0)
-            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-        }
-        
         notificationTableView.snp.remakeConstraints { make in
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(setAlarmView.snp.bottom)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }

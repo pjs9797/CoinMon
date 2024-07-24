@@ -1,23 +1,32 @@
+import Foundation
 import ReactorKit
 import RxCocoa
 import RxFlow
 
 class HomeReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+    let initialState: State
     var steps = PublishRelay<Step>()
     let baseCategories = ["시세","펀비","김프"]
+    
+    init(){
+        let didReceiveNotificationAtBackground = UserDefaults.standard.bool(forKey: "didReceiveNotificationAtBackground")
+        self.initialState = State(hasNewNotifications: didReceiveNotificationAtBackground)
+    }
     
     enum Action {
         case updateLocalizedCategories
         case selectItem(Int)
         case setPreviousIndex(Int)
         case alarmCenterButtonTapped
+        case receivedNewNotification
+        case viewedNotifications
     }
     
     enum Mutation {
         case setLocalizedCategories([String])
         case setSelectedItem(Int)
         case setPreviousIndex(Int)
+        case setNewNotificationStatus(Bool)
     }
     
     struct State {
@@ -28,6 +37,7 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
             LocalizationManager.shared.localizedString(forKey: "펀비"),
             LocalizationManager.shared.localizedString(forKey: "김프")
         ]
+        var hasNewNotifications: Bool
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -42,6 +52,10 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
         case .alarmCenterButtonTapped:
             self.steps.accept(HomeStep.navigateToNotificationViewController)
             return .empty()
+        case .receivedNewNotification:
+            return .just(.setNewNotificationStatus(true))
+        case .viewedNotifications:
+            return .just(.setNewNotificationStatus(false))
         }
     }
     
@@ -54,6 +68,8 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
             newState.selectedItem = index
         case .setPreviousIndex(let index):
             newState.previousIndex = index
+        case .setNewNotificationStatus(let hasNewNotifications):
+            newState.hasNewNotifications = hasNewNotifications
         }
         return newState
     }

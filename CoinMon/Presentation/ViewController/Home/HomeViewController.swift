@@ -33,6 +33,10 @@ class HomeViewController: UIViewController, ReactorKit.View {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,17 +44,41 @@ class HomeViewController: UIViewController, ReactorKit.View {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         layout()
+        notificationCheck()
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.reactor?.action.onNext(.updateLocalizedCategories)
             })
             .disposed(by: disposeBag)
+        
+        if let accessToken = TokenManager.shared.loadAccessToken(){
+            print("accessToken : ",accessToken)
+        }
+        if let refreshToken = TokenManager.shared.loadRefreshToken(){
+            print("refreshToken : ",refreshToken)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    private func notificationCheck(){
+        NotificationCenter.default.rx.notification(Notification.Name("didReceiveRemoteNotification"))
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.receivedNewNotification)
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name("notificationViewControllerDidAppear"))
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.viewedNotifications)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func layout(){
@@ -125,6 +153,15 @@ extension HomeViewController {
                 }
                 cell.categoryLabel.text = categories
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.hasNewNotifications }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] hasNewNotifications in
+                let image = hasNewNotifications ? ImageManager.existAlarm : ImageManager.notExistAlarm
+                self?.notificationButton.setImage(image, for: .normal)
+            })
             .disposed(by: disposeBag)
     }
 }

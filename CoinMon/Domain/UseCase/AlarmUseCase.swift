@@ -32,4 +32,8 @@ class AlarmUseCase {
                 return (filteredAlarms, totalAlarmsCount, marketAlarmCounts)
             }
     }
+    
+    func fetchNotificationList() -> Observable<[NotificationAlert]> {
+        return repository.fetchNotificationList()
+    }
 }

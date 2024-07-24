@@ -8,13 +8,16 @@ class HomeFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
-    private let coinUseCase = CoinUseCase(repository: CoinRepository())
+    private let coinUseCase: CoinUseCase
+    private let alarmUseCase: AlarmUseCase
     
-    init(with rootViewController: UINavigationController) {
+    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
         self.rootViewController.isNavigationBarHidden = true
+        self.coinUseCase = coinUseCase
+        self.alarmUseCase = alarmUseCase
     }
     
     func navigate(to step: Step) -> FlowContributors {
@@ -40,13 +43,13 @@ class HomeFlow: Flow {
     }
     
     private func navigateToHomeViewController() -> FlowContributors {
-        let priceReactor = PriceReactor(coinUseCase: coinUseCase)
+        let priceReactor = PriceReactor(coinUseCase: self.coinUseCase)
         let priceViewController = PriceViewController(with: priceReactor)
         
-        let feeReactor = FeeReactor(coinUseCase: coinUseCase)
+        let feeReactor = FeeReactor(coinUseCase: self.coinUseCase)
         let feeViewController = FeeViewController(with: feeReactor)
         
-        let premiumReactor = PremiumReactor(coinUseCase: coinUseCase)
+        let premiumReactor = PremiumReactor(coinUseCase: self.coinUseCase)
         let premiumViewController = PremiumViewController(with: premiumReactor)
         
         let reactor = HomeReactor()
@@ -54,20 +57,19 @@ class HomeFlow: Flow {
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .multiple(flowContributors: [
+            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: premiumReactor),
             .contribute(withNextPresentable: priceViewController, withNextStepper: priceReactor),
-            .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor),
-            .contribute(withNextPresentable: viewController, withNextStepper: reactor)
+            .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor)
         ])
     }
     
     private func navigateToNotificationViewController() -> FlowContributors {
-        let reactor = NotificationReactor()
+        let reactor = NotificationReactor(alarmUseCase: self.alarmUseCase)
         let viewController = NotificationViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
-
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     

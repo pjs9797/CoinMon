@@ -195,6 +195,7 @@
 		31E1C1E22C4B857A009F99B9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E12C4B857A009F99B9 /* NotificationView.swift */; };
 		31E1C1E52C4B9589009F99B9 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */; };
 		31E1C1E72C4BA3AE009F99B9 /* NoneNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */; };
+		31E1C1EA2C50E6F0009F99B9 /* NotificationTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E92C50E6F0009F99B9 /* NotificationTableViewFooter.swift */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -400,6 +401,7 @@
 		31E1C1E12C4B857A009F99B9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneNotificationView.swift; sourceTree = "<group>"; };
+		31E1C1E92C50E6F0009F99B9 /* NotificationTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewFooter.swift; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -1228,11 +1230,20 @@
 		31E1C1E32C4B9567009F99B9 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				31E1C1E82C50E6D7009F99B9 /* TableViewCell */,
 				31E1C1E12C4B857A009F99B9 /* NotificationView.swift */,
-				31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */,
 				31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		31E1C1E82C50E6D7009F99B9 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */,
+				31E1C1E92C50E6F0009F99B9 /* NotificationTableViewFooter.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
@@ -1468,6 +1479,7 @@
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
 				31E0A5242C196E4800756DFD /* CoinService.swift in Sources */,
 				31E0A5542C1B071600756DFD /* AlarmRepository.swift in Sources */,
+				31E1C1EA2C50E6F0009F99B9 /* NotificationTableViewFooter.swift in Sources */,
 				31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */,
 				31E0A55C2C20101D00756DFD /* ExchangeRateService.swift in Sources */,
 				31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */,
@@ -1793,7 +1805,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1827,7 +1839,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

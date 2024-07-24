@@ -6,6 +6,7 @@ enum AlarmService {
     case deleteAlarm(pushId: Int)
     case updateAlarm(pushId: Int, exchange: String, symbol: String, targetPrice: String, frequency: String, useYn: String, filter: String)
     case getAlarms
+    case getNotifications
 }
 
 extension AlarmService: TargetType {
@@ -20,6 +21,8 @@ extension AlarmService: TargetType {
             return "update"
         case .getAlarms:
             return "get"
+        case .getNotifications:
+            return "getHistory"
         }
     }
     
@@ -27,7 +30,7 @@ extension AlarmService: TargetType {
         switch self {
         case .createAlarm, .deleteAlarm, .updateAlarm:
             return .post
-        case .getAlarms:
+        case .getAlarms, .getNotifications:
             return .get
         }
     }
@@ -44,6 +47,8 @@ extension AlarmService: TargetType {
             let parameters = ["pushId": pushId, "exchange": exchange, "symbol": symbol, "targetPrice":targetPrice, "frequency":frequency, "useYn":useYn, "filter":filter] as [String : Any]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .getAlarms:
+            return .requestPlain
+        case .getNotifications:
             return .requestPlain
         }
     }

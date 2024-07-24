@@ -39,20 +39,23 @@ class NotificationTableViewCell: UITableViewCell {
             }
         
         titleLabel.snp.makeConstraints { make in
-            make.height.equalTo(23*ConstantsManager.standardHeight)
+            make.height.greaterThanOrEqualTo(23*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
         }
         
         bodyLabel.snp.makeConstraints { make in
             make.height.equalTo(22*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(4*ConstantsManager.standardHeight)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.height.equalTo(18*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(bodyLabel.snp.bottom).offset(10*ConstantsManager.standardHeight)
             make.bottom.equalToSuperview().offset(-16*ConstantsManager.standardHeight)
         }
@@ -64,7 +67,7 @@ class NotificationTableViewCell: UITableViewCell {
             bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 usdt", arguments: notifications.market, notifications.symbol, notifications.targetPrice)
         }
         else {
-            bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 krw", arguments: notifications.symbol, notifications.symbol, notifications.targetPrice)
+            bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 krw", arguments: notifications.market, notifications.symbol, notifications.targetPrice)
         }
         if notifications.dateType == "일" {
             dateLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 타임 일", arguments: notifications.date)

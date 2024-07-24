@@ -6,6 +6,10 @@ class AppFlow: Flow {
         return self.rootViewController
     }
     
+    private let coinUseCase = CoinUseCase(repository: CoinRepository())
+    private let alarmUseCase = AlarmUseCase(repository: AlarmRepository())
+    private let userUseCase = UserUseCase(repository: UserRepository())
+    
     private lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
         return navigationController
@@ -84,9 +88,9 @@ class AppFlow: Flow {
         let homeNavigationController = UINavigationController()
         let alarmNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
-        let homeFlow = HomeFlow(with: homeNavigationController)
-        let alarmFlow = AlarmFlow(with: alarmNavigationController)
-        let settingFlow = SettingFlow(with: settingNavigationController)
+        let homeFlow = HomeFlow(with: homeNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase)
+        let alarmFlow = AlarmFlow(with: alarmNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase)
+        let settingFlow = SettingFlow(with: settingNavigationController, userUseCase: self.userUseCase)
         
         Flows.use(homeFlow,alarmFlow,settingFlow, when: .created) { [weak self] (homeNavigationController,alarmNavigationController,settingNavigationController) in
             

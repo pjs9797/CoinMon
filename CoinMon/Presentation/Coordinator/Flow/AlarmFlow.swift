@@ -8,13 +8,15 @@ class AlarmFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
-    private let alarmUseCase = AlarmUseCase(repository: AlarmRepository())
-    private let coinUseCase = CoinUseCase(repository: CoinRepository())
+    private let coinUseCase: CoinUseCase
+    private let alarmUseCase: AlarmUseCase
     
-    init(with rootViewController: UINavigationController) {
+    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
+        self.coinUseCase = coinUseCase
+        self.alarmUseCase = alarmUseCase
     }
     
     func navigate(to step: Step) -> FlowContributors {
@@ -46,7 +48,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToAlarmViewController() -> FlowContributors {
-        let reactor = AlarmReactor(alarmUseCase: alarmUseCase)
+        let reactor = AlarmReactor(alarmUseCase: self.alarmUseCase)
         let viewController = AlarmViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
@@ -54,7 +56,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToAddAlarmViewController() -> FlowContributors {
-        let reactor = AddAlarmReactor(alarmUseCase: alarmUseCase)
+        let reactor = AddAlarmReactor(alarmUseCase: self.alarmUseCase)
         let viewController = AddAlarmViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -64,7 +66,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToModifyAlarmViewController(market: String, alarm: Alarm) -> FlowContributors {
-        let reactor = ModifyAlarmReactor(alarmUseCase: alarmUseCase, coinUseCase: coinUseCase, market: market, alarm: alarm)
+        let reactor = ModifyAlarmReactor(alarmUseCase: self.alarmUseCase, coinUseCase: self.coinUseCase, market: market, alarm: alarm)
         let viewController = ModifyAlarmViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -91,7 +93,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToSelectCoinViewController(selectedCoinRelay: PublishRelay<(String,String)>, market: String) -> FlowContributors {
-        let reactor = SelectCoinReactor(coinUseCase: coinUseCase, selectedCoinRelay: selectedCoinRelay, market: market)
+        let reactor = SelectCoinReactor(coinUseCase: self.coinUseCase, selectedCoinRelay: selectedCoinRelay, market: market)
         let viewController = SelectCoinViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 

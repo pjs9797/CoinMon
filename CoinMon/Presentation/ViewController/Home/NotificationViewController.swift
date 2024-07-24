@@ -16,6 +16,10 @@ class NotificationViewController: UIViewController, ReactorKit.View {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func loadView() {
         super.loadView()
         
@@ -26,7 +30,11 @@ class NotificationViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        reactor?.action.onNext(.loadNotifications)
+        reactor?.action.onNext(.checkNotificationStatus)
         setNavigationbar()
+        notificationCheck()
+        UserDefaults.standard.setValue(false, forKey: "didReceiveNotificationAtBackground")
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.notificationView.setLocalizedText()
@@ -37,6 +45,17 @@ class NotificationViewController: UIViewController, ReactorKit.View {
     private func setNavigationbar() {
         self.title = LocalizationManager.shared.localizedString(forKey: "알림")
         navigationItem.leftBarButtonItem = backButton
+    }
+    
+    private func notificationCheck(){
+        NotificationCenter.default.post(name: Notification.Name("notificationViewControllerDidAppear"), object: nil)
+
+        NotificationCenter.default.rx.notification(UIApplication.willEnterForegroundNotification)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.checkNotificationStatus)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -56,11 +75,22 @@ extension NotificationViewController {
             .map{ Reactor.Action.alarmSettingButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        notificationView.upButton.rx.tap
+            .map{ Reactor.Action.upButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        notificationView.notificationTableView.rx.contentOffset
+            .map { Reactor.Action.scrollViewDidScroll($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: NotificationReactor){
         reactor.state.map{ $0.isNotificationEnabled }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] isEnabled in
                 if isEnabled {
                     self?.notificationView.updateLayoutSetAlarm()
@@ -83,14 +113,27 @@ extension NotificationViewController {
             .bind(onNext: { [weak self] notifications in
                 if notifications.isEmpty {
                     self?.notificationView.noneNotificationView.isHidden = false
-                    self?.notificationView.notificationTableViewFooter.isHidden = true
+                    self?.notificationView.notificationTableView.tableFooterView!.isHidden = true
                 }
                 else {
                     self?.notificationView.noneNotificationView.isHidden = true
-                    self?.notificationView.notificationTableViewFooter.isHidden = false
+                    self?.notificationView.notificationTableView.tableFooterView!.isHidden = false
                 }
             })
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.isScrolledToTop }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] shouldScroll in
+                self?.notificationView.notificationTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.scrollPosition.y <= 0 }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(to: notificationView.upButton.rx.isHidden)
+            .disposed(by: disposeBag)
     }
 }

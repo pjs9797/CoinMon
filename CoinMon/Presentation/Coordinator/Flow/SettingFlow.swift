@@ -7,12 +7,13 @@ class SettingFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
-    private let userUseCase = UserUseCase(repository: UserRepository())
+    private let userUseCase: UserUseCase
     
-    init(with rootViewController: UINavigationController) {
+    init(with rootViewController: UINavigationController, userUseCase: UserUseCase) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
+        self.userUseCase = userUseCase
     }
     
     func navigate(to step: Step) -> FlowContributors {
@@ -60,7 +61,7 @@ class SettingFlow: Flow {
     }
     
     private func navigateToMyAccountViewController() -> FlowContributors {
-        let reactor = MyAccountReactor(userUseCase: userUseCase)
+        let reactor = MyAccountReactor(userUseCase: self.userUseCase)
         let viewController = MyAccountViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -80,7 +81,7 @@ class SettingFlow: Flow {
     }
     
     private func navigateToWithdrawalViewController() -> FlowContributors {
-        let reactor = WithdrawalReactor(userUseCase: userUseCase)
+        let reactor = WithdrawalReactor(userUseCase: self.userUseCase)
         let viewController = WithdrawalViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
         
