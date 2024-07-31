@@ -1,0 +1,26 @@
+{
+  "configurations" : [
+    {
+      "id" : "72D233CF-B3F1-4D4A-A905-59F5C912DD05",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+
+    ]
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:CoinMon.xcodeproj",
+        "identifier" : "31E1C1F62C5780C5009F99B9",
+        "name" : "CoinMonUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

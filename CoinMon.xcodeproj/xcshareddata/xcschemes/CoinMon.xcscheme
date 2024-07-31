@@ -29,7 +29,10 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:CoinMon.xctestplan"
+            reference = "container:CoinMon.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:CoinMonUITest.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -41,6 +44,17 @@
                BlueprintIdentifier = "3104F4E22C3A762F00DD40D6"
                BuildableName = "CoinMonTests.xctest"
                BlueprintName = "CoinMonTests"
+               ReferencedContainer = "container:CoinMon.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "31E1C1F62C5780C5009F99B9"
+               BuildableName = "CoinMonUITests.xctest"
+               BlueprintName = "CoinMonUITests"
                ReferencedContainer = "container:CoinMon.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, ReactorKit.View {
     let notificationButton: UIButton = {
         let button = UIButton()
         button.setImage(ImageManager.notExistAlarm, for: .normal)
+        button.accessibilityIdentifier = "notificationButton"
         return button
     }()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)

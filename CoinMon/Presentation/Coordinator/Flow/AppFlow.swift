@@ -10,7 +10,7 @@ class AppFlow: Flow {
     private let alarmUseCase = AlarmUseCase(repository: AlarmRepository())
     private let userUseCase = UserUseCase(repository: UserRepository())
     
-    private lazy var rootViewController: UINavigationController = {
+    lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
         return navigationController
     }()

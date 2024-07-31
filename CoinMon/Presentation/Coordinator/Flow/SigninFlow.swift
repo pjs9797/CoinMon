@@ -81,6 +81,8 @@ class SigninFlow: Flow {
             preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
+        alertController.view.accessibilityIdentifier = "NoRegisteredEmailErrorAlertController"
+        okAction.accessibilityIdentifier = "NoRegisteredEmailErrorAlertControllerOKButton"
         self.rootViewController.present(alertController, animated: true, completion: nil)
         
         return .none

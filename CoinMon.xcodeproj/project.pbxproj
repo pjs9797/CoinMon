@@ -21,6 +21,11 @@
 		3104F5152C44056D00DD40D6 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3104F5142C44056D00DD40D6 /* Secrets.xcconfig */; };
 		3104F5162C44056D00DD40D6 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3104F5142C44056D00DD40D6 /* Secrets.xcconfig */; };
 		3104F51D2C46381B00DD40D6 /* LanguageSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */; };
+		311E24662C59363300C61202 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24652C59363300C61202 /* FirebaseAnalytics */; };
+		311E24682C59363700C61202 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24672C59363700C61202 /* FirebaseAnalyticsSwift */; };
+		311E246A2C59363D00C61202 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24692C59363D00C61202 /* FirebaseAppCheck */; };
+		311E246C2C59364300C61202 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 311E246B2C59364300C61202 /* FirebaseMessaging */; };
+		311E24702C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E246F2C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift */; };
 		31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */; };
 		31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */; };
 		31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */; };
@@ -196,6 +201,10 @@
 		31E1C1E52C4B9589009F99B9 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */; };
 		31E1C1E72C4BA3AE009F99B9 /* NoneNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */; };
 		31E1C1EA2C50E6F0009F99B9 /* NotificationTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1E92C50E6F0009F99B9 /* NotificationTableViewFooter.swift */; };
+		31E1C1FC2C5780C5009F99B9 /* CoinMonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1FB2C5780C5009F99B9 /* CoinMonUITestsLaunchTests.swift */; };
+		31E1C2022C5780D6009F99B9 /* SigninEmailEntryViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1ED2C576451009F99B9 /* SigninEmailEntryViewControllerUITests.swift */; };
+		31E1C2122C58DAED009F99B9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31E1C2112C58DAED009F99B9 /* RxSwift */; };
+		31E1C2142C58DAF1009F99B9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31E1C2132C58DAF1009F99B9 /* RxCocoa */; };
 		31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */; };
 		31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */; };
 		31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F791622BECB12D00A7CABB /* SigninStep.swift */; };
@@ -208,6 +217,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		3104F4E72C3A763000DD40D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 317779BE2BE1E679006E8378 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 317779C52BE1E679006E8378;
+			remoteInfo = CoinMon;
+		};
+		31E1C1FD2C5780C5009F99B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 317779BE2BE1E679006E8378 /* Project object */;
 			proxyType = 1;
@@ -234,6 +250,7 @@
 		3104F5102C43C28400DD40D6 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		3104F5142C44056D00DD40D6 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingButton.swift; sourceTree = "<group>"; };
+		311E246F2C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailEntryViewControllerTests.swift; sourceTree = "<group>"; };
 		31382DE02C39276B00AE20D8 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -402,6 +419,10 @@
 		31E1C1E42C4B9589009F99B9 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		31E1C1E62C4BA3AE009F99B9 /* NoneNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneNotificationView.swift; sourceTree = "<group>"; };
 		31E1C1E92C50E6F0009F99B9 /* NotificationTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewFooter.swift; sourceTree = "<group>"; };
+		31E1C1ED2C576451009F99B9 /* SigninEmailEntryViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailEntryViewControllerUITests.swift; sourceTree = "<group>"; };
+		31E1C1F72C5780C5009F99B9 /* CoinMonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinMonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E1C1FB2C5780C5009F99B9 /* CoinMonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		31E1C20D2C5787CA009F99B9 /* CoinMonUITest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoinMonUITest.xctestplan; sourceTree = "<group>"; };
 		31F7915B2BECA56A00A7CABB /* SignupCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedViewController.swift; sourceTree = "<group>"; };
 		31F7915D2BECA58500A7CABB /* SignupCompletedReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedReactor.swift; sourceTree = "<group>"; };
 		31F791622BECB12D00A7CABB /* SigninStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninStep.swift; sourceTree = "<group>"; };
@@ -445,6 +466,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E1C1F42C5780C5009F99B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311E246C2C59364300C61202 /* FirebaseMessaging in Frameworks */,
+				311E24682C59363700C61202 /* FirebaseAnalyticsSwift in Frameworks */,
+				31E1C2142C58DAF1009F99B9 /* RxCocoa in Frameworks */,
+				31E1C2122C58DAED009F99B9 /* RxSwift in Frameworks */,
+				311E246A2C59363D00C61202 /* FirebaseAppCheck in Frameworks */,
+				311E24662C59363300C61202 /* FirebaseAnalytics in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -470,6 +504,7 @@
 		3104F4FC2C3A84F800DD40D6 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				31E1C1EB2C5763DB009F99B9 /* ViewController */,
 				3104F5002C3A852200DD40D6 /* Reactor */,
 			);
 			path = Presentation;
@@ -742,9 +777,11 @@
 		317779BD2BE1E679006E8378 = {
 			isa = PBXGroup;
 			children = (
+				31E1C20D2C5787CA009F99B9 /* CoinMonUITest.xctestplan */,
 				3104F4FA2C3A7C3300DD40D6 /* CoinMon.xctestplan */,
 				317779C82BE1E67A006E8378 /* CoinMon */,
 				3104F4E42C3A763000DD40D6 /* CoinMonTests */,
+				31E1C1F82C5780C5009F99B9 /* CoinMonUITests */,
 				317779C72BE1E67A006E8378 /* Products */,
 				31E0A4C02C1086BB00756DFD /* Frameworks */,
 			);
@@ -755,6 +792,7 @@
 			children = (
 				317779C62BE1E67A006E8378 /* CoinMon.app */,
 				3104F4E32C3A762F00DD40D6 /* CoinMonTests.xctest */,
+				31E1C1F72C5780C5009F99B9 /* CoinMonUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1246,6 +1284,31 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		31E1C1EB2C5763DB009F99B9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				31E1C1EC2C5763EF009F99B9 /* Signin */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		31E1C1EC2C5763EF009F99B9 /* Signin */ = {
+			isa = PBXGroup;
+			children = (
+				311E246F2C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift */,
+			);
+			path = Signin;
+			sourceTree = "<group>";
+		};
+		31E1C1F82C5780C5009F99B9 /* CoinMonUITests */ = {
+			isa = PBXGroup;
+			children = (
+				31E1C1ED2C576451009F99B9 /* SigninEmailEntryViewControllerUITests.swift */,
+				31E1C1FB2C5780C5009F99B9 /* CoinMonUITestsLaunchTests.swift */,
+			);
+			path = CoinMonUITests;
+			sourceTree = "<group>";
+		};
 		31F791662BECD0DD00A7CABB /* FlowState */ = {
 			isa = PBXGroup;
 			children = (
@@ -1322,6 +1385,32 @@
 			productReference = 317779C62BE1E67A006E8378 /* CoinMon.app */;
 			productType = "com.apple.product-type.application";
 		};
+		31E1C1F62C5780C5009F99B9 /* CoinMonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31E1C1FF2C5780C5009F99B9 /* Build configuration list for PBXNativeTarget "CoinMonUITests" */;
+			buildPhases = (
+				31E1C1F32C5780C5009F99B9 /* Sources */,
+				31E1C1F42C5780C5009F99B9 /* Frameworks */,
+				31E1C1F52C5780C5009F99B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				31E1C1FE2C5780C5009F99B9 /* PBXTargetDependency */,
+			);
+			name = CoinMonUITests;
+			packageProductDependencies = (
+				31E1C2112C58DAED009F99B9 /* RxSwift */,
+				31E1C2132C58DAF1009F99B9 /* RxCocoa */,
+				311E24652C59363300C61202 /* FirebaseAnalytics */,
+				311E24672C59363700C61202 /* FirebaseAnalyticsSwift */,
+				311E24692C59363D00C61202 /* FirebaseAppCheck */,
+				311E246B2C59364300C61202 /* FirebaseMessaging */,
+			);
+			productName = CoinMonUITests;
+			productReference = 31E1C1F72C5780C5009F99B9 /* CoinMonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1340,6 +1429,10 @@
 					317779C52BE1E679006E8378 = {
 						CreatedOnToolsVersion = 15.1;
 					};
+					31E1C1F62C5780C5009F99B9 = {
+						CreatedOnToolsVersion = 15.1;
+						TestTargetID = 317779C52BE1E679006E8378;
+					};
 				};
 			};
 			buildConfigurationList = 317779C12BE1E679006E8378 /* Build configuration list for PBXProject "CoinMon" */;
@@ -1353,7 +1446,6 @@
 			mainGroup = 317779BD2BE1E679006E8378;
 			packageReferences = (
 				31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				31BEAFAB2C37BB3D001B7A35 /* XCRemoteSwiftPackageReference "Quick" */,
 				31BEAFB22C37BB55001B7A35 /* XCRemoteSwiftPackageReference "Nimble" */,
 				31BEAFB82C37BC6D001B7A35 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				31BEAFBB2C37BCDE001B7A35 /* XCRemoteSwiftPackageReference "Moya" */,
@@ -1368,6 +1460,7 @@
 			targets = (
 				317779C52BE1E679006E8378 /* CoinMon */,
 				3104F4E22C3A762F00DD40D6 /* CoinMonTests */,
+				31E1C1F62C5780C5009F99B9 /* CoinMonUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1398,6 +1491,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E1C1F52C5780C5009F99B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1407,6 +1507,7 @@
 			files = (
 				3104F4F72C3A7A5200DD40D6 /* MockSigninRepository.swift in Sources */,
 				3104F4F92C3A7A6500DD40D6 /* SigninRepositoryTests.swift in Sources */,
+				311E24702C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift in Sources */,
 				3104F4F32C3A79FC00DD40D6 /* SigninEmailEntryReactorTests.swift in Sources */,
 				3104F4F52C3A7A2200DD40D6 /* SigninUseCaseTests.swift in Sources */,
 			);
@@ -1583,6 +1684,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E1C1F32C5780C5009F99B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E1C2022C5780D6009F99B9 /* SigninEmailEntryViewControllerUITests.swift in Sources */,
+				31E1C1FC2C5780C5009F99B9 /* CoinMonUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1590,6 +1700,11 @@
 			isa = PBXTargetDependency;
 			target = 317779C52BE1E679006E8378 /* CoinMon */;
 			targetProxy = 3104F4E72C3A763000DD40D6 /* PBXContainerItemProxy */;
+		};
+		31E1C1FE2C5780C5009F99B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 317779C52BE1E679006E8378 /* CoinMon */;
+			targetProxy = 31E1C1FD2C5780C5009F99B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1799,8 +1914,8 @@
 				INFOPLIST_FILE = CoinMon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1833,8 +1948,8 @@
 				INFOPLIST_FILE = CoinMon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1849,6 +1964,42 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		31E1C2002C5780C5009F99B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9YSRYRQWSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CoinMon;
+			};
+			name = Debug;
+		};
+		31E1C2012C5780C5009F99B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9YSRYRQWSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CoinMon;
 			};
 			name = Release;
 		};
@@ -1882,20 +2033,21 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		31E1C1FF2C5780C5009F99B9 /* Build configuration list for PBXNativeTarget "CoinMonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31E1C2002C5780C5009F99B9 /* Debug */,
+				31E1C2012C5780C5009F99B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		31BEAFAB2C37BB3D001B7A35 /* XCRemoteSwiftPackageReference "Quick" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Quick/Quick.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -1975,6 +2127,26 @@
 			package = 31BEAFB22C37BB55001B7A35 /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
 		};
+		311E24652C59363300C61202 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		311E24672C59363700C61202 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		311E24692C59363D00C61202 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		311E246B2C59364300C61202 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		31BEAFA32C37BB24001B7A35 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
@@ -2049,6 +2221,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		31E1C2112C58DAED009F99B9 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		31E1C2132C58DAF1009F99B9 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

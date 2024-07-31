@@ -41,11 +41,13 @@ class SigninEmailEntryView: UIView {
         button.setTitleColor(ColorManager.common_100, for: .normal)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
+        button.accessibilityIdentifier = "signin_nextButton"
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setAccessibilityIdentifier()
         setLocalizedText()
         layout()
     }
@@ -54,7 +56,15 @@ class SigninEmailEntryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setLocalizedText(){
+    private func setAccessibilityIdentifier() {
+        enterEmailLabel.accessibilityIdentifier = "signin_enterEmailLabel"
+        emailLabel.accessibilityIdentifier = "signin_emailLabel"
+        emailTextField.accessibilityIdentifier = "signin_emailTextField"
+        clearButton.accessibilityIdentifier = "signin_clearButton"
+        emailErrorLabel.accessibilityIdentifier = "signin_emailErrorLabel"
+    }
+    
+    func setLocalizedText(){
         enterEmailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일을 입력해주세요")
         emailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일 아이디")
         let attributes: [NSAttributedString.Key: Any] = [

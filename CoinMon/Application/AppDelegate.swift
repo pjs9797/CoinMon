@@ -39,12 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Remote notification received: \(userInfo)")
         NotificationCenter.default.post(name: Notification.Name("didReceiveRemoteNotification"), object: nil)
         UserDefaults.standard.setValue(true, forKey: "didReceiveNotificationAtBackground")
-        if application.applicationState == .background || application.applicationState == .inactive {
-            print("App is in background or inactive state")
-            incrementBadgeCount()
-        } else {
-            print("App is in active state")
-        }
+//        if application.applicationState == .background || application.applicationState == .inactive {
+//            print("App is in background or inactive state")
+//            incrementBadgeCount()
+//        } else {
+//            print("App is in active state")
+//        }
+        incrementBadgeCount()
         completionHandler(.newData)
     }
     

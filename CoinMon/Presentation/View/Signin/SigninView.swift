@@ -47,6 +47,7 @@ class SigninView: UIView {
         button.titleLabel?.font = FontManager.D6_16
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.backgroundColor = ColorManager.gray_97
+        button.accessibilityIdentifier = "coinMonLoginButton"
         return button
     }()
     let signupButton: UIButton = {

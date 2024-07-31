@@ -29,10 +29,16 @@ class SigninEmailEntryViewController: UIViewController, ReactorKit.View {
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
         bindKeyboardNotifications(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)
+        LocalizationManager.shared.rxLanguage
+            .subscribe(onNext: { [weak self] aa in
+                self?.signinEmailEntryView.setLocalizedText()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setNavigationbar() {
         self.title = LocalizationManager.shared.localizedString(forKey: "로그인")
+        backButton.accessibilityIdentifier = "signin_backButton"
         navigationItem.leftBarButtonItem = backButton
     }
 }
