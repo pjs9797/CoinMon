@@ -26,6 +26,7 @@
 		311E246A2C59363D00C61202 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24692C59363D00C61202 /* FirebaseAppCheck */; };
 		311E246C2C59364300C61202 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 311E246B2C59364300C61202 /* FirebaseMessaging */; };
 		311E24702C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E246F2C59FBB400C61202 /* SigninEmailEntryViewControllerTests.swift */; };
+		311E24752C5A6EE100C61202 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24742C5A6EE100C61202 /* Quick */; };
 		31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */; };
 		31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */; };
 		31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */; };
@@ -440,6 +441,7 @@
 			files = (
 				3104F4F12C3A765600DD40D6 /* Nimble in Frameworks */,
 				3104F4ED2C3A765000DD40D6 /* RxTest in Frameworks */,
+				311E24752C5A6EE100C61202 /* Quick in Frameworks */,
 				3104F4EF2C3A765300DD40D6 /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1346,6 +1348,7 @@
 				3104F4EC2C3A765000DD40D6 /* RxTest */,
 				3104F4EE2C3A765300DD40D6 /* RxBlocking */,
 				3104F4F02C3A765600DD40D6 /* Nimble */,
+				311E24742C5A6EE100C61202 /* Quick */,
 			);
 			productName = CoinMonTests;
 			productReference = 3104F4E32C3A762F00DD40D6 /* CoinMonTests.xctest */;
@@ -1453,6 +1456,7 @@
 				31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				31BEAFCC2C37BD80001B7A35 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				31BEAFCF2C37BD97001B7A35 /* XCRemoteSwiftPackageReference "RxFlow" */,
+				311E24732C5A6EE100C61202 /* XCRemoteSwiftPackageReference "Quick" */,
 			);
 			productRefGroup = 317779C72BE1E67A006E8378 /* Products */;
 			projectDirPath = "";
@@ -1810,6 +1814,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1876,6 +1881,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -2045,6 +2051,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		311E24732C5A6EE100C61202 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -2057,8 +2071,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Quick/Nimble.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
 			};
 		};
 		31BEAFB82C37BC6D001B7A35 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -2146,6 +2160,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31BEAFC72C37BD58001B7A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		311E24742C5A6EE100C61202 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 311E24732C5A6EE100C61202 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
 		};
 		31BEAFA32C37BB24001B7A35 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

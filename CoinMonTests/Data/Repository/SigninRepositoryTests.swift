@@ -1,143 +1,138 @@
-import XCTest
+import Quick
+import Nimble
 import RxSwift
 import RxCocoa
 import RxTest
 import RxBlocking
-import Nimble
 import Moya
+import Foundation
 @testable import CoinMon
 
-class SigninRepositoryTests: XCTestCase {
-    var disposeBag: DisposeBag!
-    var scheduler: TestScheduler!
-    var provider: MoyaProvider<SigninService>!
-    var repository: SigninRepository!
-    
-    override func setUp() {
-        super.setUp()
-        disposeBag = DisposeBag()
-        scheduler = TestScheduler(initialClock: 0)
-        provider = MoyaProvider<SigninService>(stubClosure: MoyaProvider.immediatelyStub)
-        repository = SigninRepository(provider: provider)
-    }
-    
-    override func tearDown() {
-        disposeBag = nil
-        scheduler = nil
-        provider = nil
-        repository = nil
-        super.tearDown()
-    }
-    
-    func test_checkEmailIsExisted_이메일_존재_여부_요청_존재() {
-        // Given
-        let email = "test@gmail.com"
+class SigninRepositorySpec: QuickSpec {
+    override class func spec() {
+        var provider: MoyaProvider<SigninService>!
+        var repository: SigninRepository!
+        let networkErrorEndpointClosure = { (target: SigninService) -> Endpoint in
+            return Endpoint(
+                url: URL(target: target).absoluteString,
+                sampleResponseClosure: {
+                    .networkError(NSError(domain: "NetworkError", code: -1, userInfo: nil))
+                },
+                method: target.method,
+                task: target.task,
+                httpHeaderFields: target.headers
+            )
+        }
         
-        // When
-        let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
-        
-        // Then
-        expect(result).toNot(equal("200"))
-    }
-    
-    func test_checkEmailIsExisted_이메일_존재_여부_요청_존재하지_않음() {
-        // Given
-        let email = "1234@gmail.com"
-        
-        // When
-        let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
-        
-        // Then
-        expect(result).to(equal("200"))
-    }
-    
-    func test_checkEmailIsExisted_이메일_존재_여부_요청_네트워크_에러() {
-        // Given
-        provider = MoyaProvider<SigninService>(endpointClosure: networkErrorEndpointClosure, stubClosure: MoyaProvider.immediatelyStub)
-        repository = SigninRepository(provider: provider)
-        let email = "test@gmail.com"
-        
-        // When
-        let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
-        
-        // Then
-        expect(result).to(beNil())
-    }
-    
-    func test_requestEmailVerificationCode_이메일_인증_코드_요청_성공() {
-        // Given
-        let email = "test@gmail.com"
-        
-        // When
-        let result = try? repository.requestEmailVerificationCode(email: email).toBlocking().single()
-        
-        // Then
-        expect(result).to(equal("200"))
-    }
-    
-    func test_requestEmailVerificationCode_이메일_인증_코드_요청_네트워크_에러() {
-        // Given
-        provider = MoyaProvider<SigninService>(endpointClosure: networkErrorEndpointClosure, stubClosure: MoyaProvider.immediatelyStub)
-        repository = SigninRepository(provider: provider)
-        let email = "test@gmail.com"
-        
-        // When
-        let result = try? repository.requestEmailVerificationCode(email: email).toBlocking().single()
-        
-        // Then
-        expect(result).to(beNil())
-    }
-    
-    func test_checkEmailVerificationCodeForLogin_로그인_이메일_인증_코드_요청_성공() {
-        // Given
-        let email = "test@gmail.com"
-        let number = "102030"
-        let deviceToken = "deviceToken"
-        
-        // When
-        let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
-        
-        // Then
-        expect(result?.resultCode).to(equal("200"))
-    }
-    
-    func test_checkEmailVerificationCodeForLogin_로그인_이메일_인증_코드_요청_실패() {
-        // Given
-        let email = "test@gmail.com"
-        let number = "123456"
-        let deviceToken = "deviceToken"
-        
-        // When
-        let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
-        
-        // Then
-        expect(result).to(beNil())
-    }
-    
-    func test_checkEmailVerificationCodeForLogin_로그인_이메일_인증_코드_네트워크_에러() {
-        // Given
-        provider = MoyaProvider<SigninService>(endpointClosure: networkErrorEndpointClosure, stubClosure: MoyaProvider.immediatelyStub)
-        repository = SigninRepository(provider: provider)
-        let email = "test@gmail.com"
-        let number = "123456"
-        let deviceToken = "deviceToken"
-        
-        // When
-        let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
-        
-        // Then
-        expect(result).to(beNil())
-    }
-    
-    let networkErrorEndpointClosure = { (target: SigninService) -> Endpoint in
-        return Endpoint(
-            url: URL(target: target).absoluteString,
-            sampleResponseClosure: {
-                .networkError(NSError(domain: "NetworkError", code: -1, userInfo: nil))
-            },
-            method: target.method,
-            task: target.task,
-            httpHeaderFields: target.headers
-        )
+        describe("SigninRepository") {
+            beforeEach {
+                provider = MoyaProvider<SigninService>(stubClosure: MoyaProvider.immediatelyStub)
+                repository = SigninRepository(provider: provider)
+            }
+            
+            afterEach {
+                provider = nil
+                repository = nil
+            }
+            
+            context("이메일 존재 여부 요청") {
+                context("이메일이 존재하는 경우") {
+                    it("200을 반환하지 않는다") {
+                        let email = "test@gmail.com"
+                        let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
+                        
+                        expect(result).toNot(equal("200"))
+                    }
+                }
+                
+                context("이메일이 존재하지 않는 경우") {
+                    it("200을 반환한다") {
+                        let email = "1234@gmail.com"
+                        let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
+                        
+                        expect(result).to(equal("200"))
+                    }
+                }
+                
+                context("네트워크 오류 발생 시") {
+                    beforeEach {
+                        provider = MoyaProvider<SigninService>(endpointClosure: networkErrorEndpointClosure, stubClosure: MoyaProvider.immediatelyStub)
+                        repository = SigninRepository(provider: provider)
+                    }
+                    
+                    it("결과가 nil이다") {
+                        let email = "test@gmail.com"
+                        let result = try? repository.checkEmailIsExisted(email: email).toBlocking().single()
+                        
+                        expect(result).to(beNil())
+                    }
+                }
+            }
+            
+            context("이메일 인증 코드 요청") {
+                context("인증 코드 요청이 성공하는 경우") {
+                    it("200을 반환한다") {
+                        let email = "test@gmail.com"
+                        let result = try? repository.requestEmailVerificationCode(email: email).toBlocking().single()
+                        
+                        expect(result).to(equal("200"))
+                    }
+                }
+                
+                context("네트워크 오류 발생 시") {
+                    beforeEach {
+                        provider = MoyaProvider<SigninService>(endpointClosure: networkErrorEndpointClosure, stubClosure: MoyaProvider.immediatelyStub)
+                        repository = SigninRepository(provider: provider)
+                    }
+                    
+                    it("결과가 nil이다") {
+                        let email = "test@gmail.com"
+                        let result = try? repository.requestEmailVerificationCode(email: email).toBlocking().single()
+                        
+                        expect(result).to(beNil())
+                    }
+                }
+            }
+            
+            context("로그인 이메일 인증 코드 확인") {
+                context("로그인 인증 코드 확인이 성공하는 경우") {
+                    it("200을 반환한다") {
+                        let email = "test@gmail.com"
+                        let number = "102030"
+                        let deviceToken = "deviceToken"
+                        let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
+                        
+                        expect(result?.resultCode).to(equal("200"))
+                    }
+                }
+                
+                context("로그인 인증 코드 확인이 실패하는 경우") {
+                    it("200을 반환하지 않는다") {
+                        let email = "test@gmail.com"
+                        let number = "123456"
+                        let deviceToken = "deviceToken"
+                        let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
+                        
+                        expect(result?.resultCode).toNot(equal("200"))
+                    }
+                }
+                
+                context("네트워크 오류 발생 시") {
+                    beforeEach {
+                        provider = MoyaProvider<SigninService>(endpointClosure: networkErrorEndpointClosure, stubClosure: MoyaProvider.immediatelyStub)
+                        repository = SigninRepository(provider: provider)
+                    }
+                    
+                    it("결과가 nil이다") {
+                        let email = "test@gmail.com"
+                        let number = "123456"
+                        let deviceToken = "deviceToken"
+                        let result = try? repository.checkEmailVerificationCodeForLogin(email: email, number: number, deviceToken: deviceToken).toBlocking().single()
+                        
+                        expect(result).to(beNil())
+                    }
+                }
+            }
+        }
     }
 }

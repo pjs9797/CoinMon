@@ -18,7 +18,7 @@ struct SigninResponseDTO: Codable {
             return AuthTokens(resultCode: dto.resultCode, accessToken: data.accessToken, refreshToken: data.refreshToken)
         }
         else {
-            return nil
+            return AuthTokens(resultCode: dto.resultCode, accessToken: "", refreshToken: "")
         }
     }
 }

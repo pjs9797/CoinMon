@@ -17,13 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.rootViewController = root
             self.window?.makeKeyAndVisible()
         }
-        
-        let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-        if isLoggedIn {
-            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+        if CommandLine.arguments.contains("UItesting--isLoggedIn") {
+            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
         }
         else {
-            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
+            let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+            if isLoggedIn {
+                coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+            }
+            else {
+                coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
+            }
         }
     }
     
@@ -39,4 +43,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 }
-    

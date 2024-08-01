@@ -1,77 +1,80 @@
-import XCTest
+import Quick
+import Nimble
 import RxSwift
 import RxCocoa
 import RxTest
 import RxBlocking
-import Nimble
 @testable import CoinMon
 
-class SigninEmailEntryViewControllerTests: XCTestCase {
-    var disposeBag: DisposeBag!
-    var scheduler: TestScheduler!
-    var viewController: SigninEmailEntryViewController!
-    var reactor: SigninEmailEntryReactor!
-    var signinRepository: MockSigninRepository!
-    var signinUseCase: SigninUseCase!
-    
-    override func setUp() {
-        super.setUp()
-        disposeBag = DisposeBag()
-        scheduler = TestScheduler(initialClock: 0)
-        signinRepository = MockSigninRepository()
-        signinUseCase = SigninUseCase(repository: signinRepository)
-        reactor = SigninEmailEntryReactor(signinUseCase: signinUseCase)
-        viewController = SigninEmailEntryViewController(with: reactor)
-        viewController.loadViewIfNeeded()
-    }
-    
-    override func tearDown() {
-        disposeBag = nil
-        scheduler = nil
-        viewController = nil
-        reactor = nil
-        signinRepository = nil
-        signinUseCase = nil
-        super.tearDown()
-    }
-    
-    func test_이메일_입력시_다음버튼_활성화() {
-        // Given
-        let validEmail = "test@gmail.com"
-        
-        // When
-        reactor.action.onNext(.updateEmail(validEmail))
-        
-        // Then
-        let nextButton = viewController.signinEmailEntryView.nextButton
-        expect(nextButton.isEnabled).to(beTrue())
-        expect(nextButton.backgroundColor).to(equal(ColorManager.orange_60))
-    }
-    
-    func test_유효하지_않은_이메일_입력시_에러라벨_표시() {
-        // Given
-        let invalidEmail = "invalid-email"
-        
-        // When
-        reactor.action.onNext(.updateEmail(invalidEmail))
-        
-        // Then
-        let errorLabel = viewController.signinEmailEntryView.emailErrorLabel
-        let nextButton = viewController.signinEmailEntryView.nextButton
-        expect(errorLabel.isHidden).to(beFalse())
-        expect(nextButton.isEnabled).to(beFalse())
-        expect(nextButton.backgroundColor).to(equal(ColorManager.gray_90))
-    }
-    
-    func test_이메일_입력시_클리어버튼_표시() {
-        // Given
-        let email = "test@gmail.com"
-        
-        // When
-        reactor.action.onNext(.updateEmail(email))
-        
-        // Then
-        let clearButton = viewController.signinEmailEntryView.clearButton
-        expect(clearButton.isHidden).to(beFalse())
+class SigninEmailEntryViewControllerSpec: QuickSpec {
+    override class func spec() {
+        var viewController: SigninEmailEntryViewController!
+        var reactor: SigninEmailEntryReactor!
+        var signinRepository: MockSigninRepository!
+        var signinUseCase: SigninUseCase!
+
+        describe("SigninEmailEntryViewController") {
+            beforeEach {
+                signinRepository = MockSigninRepository()
+                signinUseCase = SigninUseCase(repository: signinRepository)
+                reactor = SigninEmailEntryReactor(signinUseCase: signinUseCase)
+                viewController = SigninEmailEntryViewController(with: reactor)
+                //viewController.loadViewIfNeeded()
+            }
+
+            afterEach {
+                viewController = nil
+                reactor = nil
+                signinRepository = nil
+                signinUseCase = nil
+            }
+
+            context("유효한 이메일 입력 시") {
+                beforeEach {
+                    let validEmail = "test@gmail.com"
+                    reactor.action.onNext(.updateEmail(validEmail))
+                }
+
+                it("다음 버튼이 활성화된다") {
+                    let nextButton = viewController.signinEmailEntryView.nextButton
+                    
+                    expect(nextButton.isEnabled).to(beTrue())
+                    expect(nextButton.backgroundColor).to(equal(ColorManager.orange_60))
+                }
+            }
+
+            context("유효하지 않은 이메일 입력 시") {
+                beforeEach {
+                    let invalidEmail = "invalid-email"
+                    reactor.action.onNext(.updateEmail(invalidEmail))
+                }
+
+                it("에러 라벨이 표시된다") {
+                    let errorLabel = viewController.signinEmailEntryView.emailErrorLabel
+                    
+                    expect(errorLabel.isHidden).to(beFalse())
+                }
+
+                it("다음 버튼이 비활성화된다") {
+                    let nextButton = viewController.signinEmailEntryView.nextButton
+                    
+                    expect(nextButton.isEnabled).to(beFalse())
+                    expect(nextButton.backgroundColor).to(equal(ColorManager.gray_90))
+                }
+            }
+
+            context("이메일 입력 시") {
+                beforeEach {
+                    let email = "test@gmail.com"
+                    reactor.action.onNext(.updateEmail(email))
+                }
+
+                it("클리어 버튼이 표시된다") {
+                    let clearButton = viewController.signinEmailEntryView.clearButton
+                    
+                    expect(clearButton.isHidden).to(beFalse())
+                }
+            }
+        }
     }
 }

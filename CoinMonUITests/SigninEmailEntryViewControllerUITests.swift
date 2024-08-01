@@ -14,6 +14,7 @@ class SigninEmailEntryUITests: XCTestCase {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
+        app.launchArguments.append("UItesting--isLoggedIn")
         app.launch()
         backButton = app.navigationBars.buttons["signin_backButton"]
         enterEmailLabel = app.staticTexts["signin_enterEmailLabel"]

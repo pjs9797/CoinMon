@@ -43,30 +43,3 @@ class SigninRepository: SigninRepositoryInterface {
             }
     }
 }
-
-class MockSigninRepository: SigninRepositoryInterface {
-    var shouldReturnError = false
-    var emailExists = true
-    
-    func checkEmailIsExisted(email: String) -> Observable<String> {
-        if shouldReturnError {
-            return Observable.error(NSError(domain: "Network Error", code: -1, userInfo: nil))
-        } else {
-            if emailExists {
-                return Observable.just("200")
-            } else {
-                return Observable.just("400")
-            }
-        }
-    }
-    
-    func requestEmailVerificationCode(email: String) -> Observable<String> {
-        // Implement similar logic for other methods if needed
-        return Observable.just("200")
-    }
-    
-    func checkEmailVerificationCodeForLogin(email: String, number: String, deviceToken: String) -> Observable<AuthTokens?> {
-        // Implement similar logic for other methods if needed
-        return Observable.just(nil)
-    }
-}

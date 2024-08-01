@@ -1,207 +1,154 @@
-import XCTest
-import RxSwift
-import RxCocoa
-import RxTest
-import RxBlocking
+import Quick
 import Nimble
+import RxSwift
+import RxTest
+import Foundation
 @testable import CoinMon
 
-class SigninEmailEntryReactorTests: XCTestCase {
-    var disposeBag: DisposeBag!
-    var scheduler: TestScheduler!
-    var reactor: SigninEmailEntryReactor!
-    var signinRepository: MockSigninRepository!
-    var signinUseCase: SigninUseCase!
-    
-    override func setUp() {
-        super.setUp()
-        disposeBag = DisposeBag()
-        scheduler = TestScheduler(initialClock: 0)
-        signinRepository = MockSigninRepository()
-        signinUseCase = SigninUseCase(repository: signinRepository)
-        reactor = SigninEmailEntryReactor(signinUseCase: signinUseCase)
-    }
-    
-    override func tearDown() {
-        disposeBag = nil
-        scheduler = nil
-        reactor = nil
-        signinRepository = nil
-        signinUseCase = nil
-        super.tearDown()
-    }
-    
-    func test_updateEmail_유효한_이메일() {
-        // Given
-        let validEmail = "test@gmail.com"
+class SigninEmailEntryReactorSpec: QuickSpec {
+    override class func spec() {
+        var scheduler: TestScheduler!
+        var disposeBag: DisposeBag!
+        var reactor: SigninEmailEntryReactor!
+        var signinRepository: MockSigninRepository!
+        var signinUseCase: SigninUseCase!
         
-        // When
-        scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.updateEmail(validEmail))])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let observer = scheduler.createObserver(SigninEmailEntryReactor.State.self)
-        
-        reactor.state
-            .bind(to: observer)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        // Then
-        let expectedState = Recorded.next(210, SigninEmailEntryReactor.State(email: validEmail, isEmailValid: true, isClearButtonHidden: false))
-        
-        expect(observer.events.last).to(equal(expectedState))
-    }
-    
-    func test_updateEmail_유효하지_않은_이메일() {
-        // Given
-        let invalidEmail = "invalid-email"
-        
-        // When
-        scheduler.createHotObservable([.next(220, SigninEmailEntryReactor.Action.updateEmail(invalidEmail))])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let observer = scheduler.createObserver(SigninEmailEntryReactor.State.self)
-        
-        reactor.state
-            .bind(to: observer)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        // Then
-        let expectedState = Recorded.next(220, SigninEmailEntryReactor.State(email: invalidEmail, isEmailValid: false, isClearButtonHidden: false))
-        
-        expect(observer.events.last).to(equal(expectedState))
-    }
-    
-    func test_updateEmail_이메일_업데이트() {
-        // Given
-        let email = "test@gmail.com"
-        
-        // When
-        scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.updateEmail(email))])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let observer = scheduler.createObserver(SigninEmailEntryReactor.State.self)
-        
-        reactor.state
-            .bind(to: observer)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        // Then
-        let expectedStates = Recorded.next(210, SigninEmailEntryReactor.State(email: email, isEmailValid: true, isClearButtonHidden: false))
-        
-        expect(observer.events.last).to(equal(expectedStates))
-    }
-    
-    func test_clearButtonTapped_클리어_버튼_탭() {
-        // When
-        scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.clearButtonTapped)])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let observer = scheduler.createObserver(SigninEmailEntryReactor.State.self)
-        
-        reactor.state
-            .bind(to: observer)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        // Then
-        let expectedStates = Recorded.next(210, SigninEmailEntryReactor.State(email: "", isEmailValid: false, isClearButtonHidden: true))
-        
-        expect(observer.events.last).to(equal(expectedStates))
-    }
-    
-    func test_nextButtonTapped_이메일_존재() {
-        // Given
-        let email = "test@gmail.com"
-        reactor.action.onNext(.updateEmail(email))
-        
-        // When
-        signinRepository.checkEmailIsExistedResult = .just("200")
-        scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.nextButtonTapped)])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let expectedSteps: [SigninStep] = [
-            .presentToNoRegisteredEmailErrorAlertController
-        ]
-        
-        let stepsObserver = scheduler.createObserver(SigninStep.self)
-        reactor.steps
-            .compactMap { $0 as? SigninStep }
-            .subscribe(stepsObserver)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        expect(stepsObserver.events.map { $0.value.element }).toEventually(equal(expectedSteps))
-    }
-    
-    func test_nextButtonTapped_이메일_존재하지_않음() {
-        // Given
-        let email = "test@gmail.com"
-        reactor.action.onNext(.updateEmail(email))
-        
-        // When
-        signinRepository.checkEmailIsExistedResult = .just("400")
-        scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.nextButtonTapped)])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let expectedSteps: [SigninStep] = [
-            .navigateToSigninEmailVerificationNumberViewController
-        ]
-        
-        let stepsObserver = scheduler.createObserver(SigninStep.self)
-        reactor.steps
-            .compactMap { $0 as? SigninStep }
-            .subscribe(stepsObserver)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        expect(stepsObserver.events.map { $0.value.element }).toEventually(equal(expectedSteps))
-    }
-    
-    func test_nextButtonTapped_네트워크오류발생() {
-        // Given
-        let email = "test@gmail.com"
-        reactor.action.onNext(.updateEmail(email))
-        
-        // When
-        signinRepository.checkEmailIsExistedResult = Observable.error(NSError(domain: "NetworkError", code: -1, userInfo: nil))
-        scheduler.createHotObservable([.next(210, SigninEmailEntryReactor.Action.nextButtonTapped)])
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // Then
-        let expectedSteps: [SigninStep] = [
-            .presentToNetworkErrorAlertController
-        ]
-        
-        let stepsObserver = scheduler.createObserver(SigninStep.self)
-        reactor.steps
-            .compactMap { $0 as? SigninStep }
-            .subscribe(stepsObserver)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        expect(stepsObserver.events.map { $0.value.element }).toEventually(equal(expectedSteps))
+        describe("SigninEmailEntryReactor") {
+            beforeEach {
+                scheduler = TestScheduler(initialClock: 0)
+                disposeBag = DisposeBag()
+                signinRepository = MockSigninRepository()
+                signinUseCase = SigninUseCase(repository: signinRepository)
+                reactor = SigninEmailEntryReactor(signinUseCase: signinUseCase)
+            }
+            
+            afterEach {
+                scheduler = nil
+                disposeBag = nil
+                reactor = nil
+                signinRepository = nil
+                signinUseCase = nil
+            }
+            
+            context("유효한 이메일 입력 시") {
+                beforeEach {
+                    let validEmail = "test@gmail.com"
+                    reactor.action.onNext(.updateEmail(validEmail))
+                }
+                
+                it("이메일이 업데이트되고 유효한 상태가 된다") {
+                    let expectedState = SigninEmailEntryReactor.State(email: "test@gmail.com", isEmailValid: true, isClearButtonHidden: false)
+                    
+                    expect(reactor.currentState.email).to(equal(expectedState.email))
+                    expect(reactor.currentState.isEmailValid).to(equal(expectedState.isEmailValid))
+                    expect(reactor.currentState.isClearButtonHidden).to(equal(expectedState.isClearButtonHidden))
+                }
+            }
+            
+            context("유효하지 않은 이메일 입력 시") {
+                beforeEach {
+                    let invalidEmail = "invalid-email"
+                    reactor.action.onNext(.updateEmail(invalidEmail))
+                }
+                
+                it("이메일이 업데이트되고 유효하지 않은 상태가 된다") {
+                    let expectedState = SigninEmailEntryReactor.State(email: "invalid-email", isEmailValid: false, isClearButtonHidden: false)
+                    
+                    expect(reactor.currentState.email).to(equal(expectedState.email))
+                    expect(reactor.currentState.isEmailValid).to(equal(expectedState.isEmailValid))
+                    expect(reactor.currentState.isClearButtonHidden).to(equal(expectedState.isClearButtonHidden))
+                }
+            }
+            
+            context("클리어 버튼 탭 시") {
+                beforeEach {
+                    reactor.action.onNext(.clearButtonTapped)
+                }
+                
+                it("이메일이 지워지고 클리어 버튼이 숨겨진다") {
+                    let expectedState = SigninEmailEntryReactor.State(email: "", isEmailValid: false, isClearButtonHidden: true)
+                    
+                    expect(reactor.currentState.email).to(equal(expectedState.email))
+                    expect(reactor.currentState.isEmailValid).to(equal(expectedState.isEmailValid))
+                    expect(reactor.currentState.isClearButtonHidden).to(equal(expectedState.isClearButtonHidden))
+                }
+            }
+            
+            context("다음 버튼 탭 시") {
+                context("이메일이 존재하지 않으면") {
+                    beforeEach {
+                        let email = "aaa@gmail.com"
+                        reactor.action.onNext(.updateEmail(email))
+                        signinRepository.checkEmailIsExistedResult = Observable.just("200")
+                    }
+                    
+                    it("NoRegisteredEmailErrorAlertController를 표시한다") {
+                        let expectedStep: SigninStep = .presentToNoRegisteredEmailErrorAlertController
+                        
+                        let stepObserver = scheduler.createObserver(SigninStep.self)
+                        reactor.steps
+                            .compactMap { $0 as? SigninStep }
+                            .subscribe(stepObserver)
+                            .disposed(by: disposeBag)
+                        
+                        reactor.action.onNext(.nextButtonTapped)
+                        scheduler.start()
+                        
+                        let lastStep = stepObserver.events
+                        expect(lastStep.last?.value.element).toEventually(equal(expectedStep))
+                    }
+                }
+                
+                context("이메일이 존재하면") {
+                    beforeEach {
+                        let email = "test@gmail.com"
+                        reactor.action.onNext(.updateEmail(email))
+                        signinRepository.checkEmailIsExistedResult = Observable.just("400")
+                        reactor.action.onNext(.nextButtonTapped)
+                    }
+                    
+                    it("SigninEmailVerificationNumberViewController로 이동한다") {
+                        let expectedStep: SigninStep = .navigateToSigninEmailVerificationNumberViewController
+                        
+                        let stepObserver = scheduler.createObserver(SigninStep.self)
+                        reactor.steps
+                            .compactMap { $0 as? SigninStep }
+                            .subscribe(stepObserver)
+                            .disposed(by: disposeBag)
+                        
+                        reactor.action.onNext(.nextButtonTapped)
+                        scheduler.start()
+                        
+                        let lastStep = stepObserver.events
+                        expect(lastStep.last?.value.element).toEventually(equal(expectedStep))
+                    }
+                }
+                
+                context("네트워크 오류 발생 시") {
+                    beforeEach {
+                        let email = "test@gmail.com"
+                        reactor.action.onNext(.updateEmail(email))
+                        signinRepository.checkEmailIsExistedResult = Observable.error(NSError(domain: "NetworkError", code: -1, userInfo: nil))
+                        reactor.action.onNext(.nextButtonTapped)
+                    }
+                    
+                    it("NetworkErrorAlertController를 표시한다") {
+                        let expectedStep: SigninStep = .presentToNetworkErrorAlertController
+                        
+                        let stepObserver = scheduler.createObserver(SigninStep.self)
+                        reactor.steps
+                            .compactMap { $0 as? SigninStep }
+                            .subscribe(stepObserver)
+                            .disposed(by: disposeBag)
+                        
+                        reactor.action.onNext(.nextButtonTapped)
+                        scheduler.start()
+                        
+                        let lastStep = stepObserver.events
+                        expect(lastStep.last?.value.element).toEventually(equal(expectedStep))
+                    }
+                }
+            }
+        }
     }
 }
