@@ -1,7 +1,9 @@
 import UIKit
 import SnapKit
+import RxSwift
 
 class MarketTableViewCell: UITableViewCell {
+    var disposeBag = DisposeBag()
     let marketImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -29,6 +31,12 @@ class MarketTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag = DisposeBag()
+    }
 
     private func layout(){
         [marketImageView,marketLabel,checkImageView]
@@ -53,8 +61,11 @@ class MarketTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with market: Market) {
+    func configure(with market: Market, localizationKey: String) {
         marketImageView.image = UIImage(named: market.localizationKey)
         marketLabel.text = market.marketTitle
+        if localizationKey != "" && market.localizationKey == localizationKey {
+            checkImageView.isHidden = false
+        }
     }
 }

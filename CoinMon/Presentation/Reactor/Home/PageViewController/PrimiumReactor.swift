@@ -72,10 +72,10 @@ class PremiumReactor: ReactorKit.Reactor, Stepper {
                     return .empty()
                 }
         case .departureMarketButtonTapped:
-            self.steps.accept(HomeStep.presentToSelectDepartureMarketViewController(selectedMarketRelay: selectDepartureMarketRelay))
+            self.steps.accept(HomeStep.presentToSelectDepartureMarketViewController(selectedMarketRelay: selectDepartureMarketRelay, selectedMarketLocalizationKey: currentState.departureMarketButtonTitle))
             return .empty()
         case .arrivalMarketButtonTapped:
-            self.steps.accept(HomeStep.presentToSelectArrivalMarketViewController(selectedMarketRelay: selectArrivalMarketRelay))
+            self.steps.accept(HomeStep.presentToSelectArrivalMarketViewController(selectedMarketRelay: selectArrivalMarketRelay, selectedMarketLocalizationKey: currentState.arrivalMarketButtonTitle))
             return .empty()
         case .setDepartureMarket(let market):
             return .just(.setDepartureMarket(market))

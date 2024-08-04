@@ -46,7 +46,7 @@ extension SelectMarketAtAlarmSheetPresentationController {
             .distinctUntilChanged()
             .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, market, cell in
                 
-                cell.configure(with: market)
+                cell.configure(with: market, localizationKey: reactor.currentState.selectedMarketLocalizationKey)
             }
             .disposed(by: disposeBag)
     }

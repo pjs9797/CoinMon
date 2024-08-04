@@ -39,15 +39,6 @@ extension SelectMarketViewAtHomeSheetPresentationController {
             .map { Reactor.Action.selectMarket($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        selectMarketView.marketTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                if let cell = self.selectMarketView.marketTableView.cellForRow(at: indexPath) as? MarketTableViewCell {
-                    cell.checkImageView.isHidden = false
-                }
-            })
-            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: SelectMarketAtHomeReactor){
@@ -55,7 +46,7 @@ extension SelectMarketViewAtHomeSheetPresentationController {
             .distinctUntilChanged()
             .bind(to: selectMarketView.marketTableView.rx.items(cellIdentifier: "MarketTableViewCell", cellType: MarketTableViewCell.self)){ row, market, cell in
                 
-                cell.configure(with: market)
+                cell.configure(with: market, localizationKey: reactor.currentState.selectedMarketLocalizationKey)
             }
             .disposed(by: disposeBag)
     }

@@ -63,7 +63,7 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(AlarmStep.popViewController)
             return .empty()
         case .marketButtonTapped:
-            self.steps.accept(AlarmStep.presentToSelectMarketViewController(selectedMarketRelay: selectMarketRelay))
+            self.steps.accept(AlarmStep.presentToSelectMarketViewController(selectedMarketRelay: selectMarketRelay, selectedMarketLocalizationKey: currentState.market ?? ""))
             return .empty()
         case .coinButtonTapped:
             self.steps.accept(AlarmStep.navigateToSelectCoinViewController(selectedCoinRelay: selectCoinRelay, market: currentState.market ?? "BINANCE"))

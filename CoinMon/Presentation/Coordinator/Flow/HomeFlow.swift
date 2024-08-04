@@ -27,10 +27,10 @@ class HomeFlow: Flow {
             return navigateToHomeViewController()
         case .navigateToNotificationViewController:
             return navigateToNotificationViewController()
-        case .presentToSelectDepartureMarketViewController(let selectedMarketRelay):
-            return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay)
-        case .presentToSelectArrivalMarketViewController(let selectedMarketRelay):
-            return presentToSelectArrivalMarketViewController(selectedMarketRelay: selectedMarketRelay)
+        case .presentToSelectDepartureMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
+            return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
+        case .presentToSelectArrivalMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
+            return presentToSelectArrivalMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
         case .goToAlarmSetting:
@@ -60,7 +60,8 @@ class HomeFlow: Flow {
             .contribute(withNextPresentable: viewController, withNextStepper: reactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: premiumReactor),
             .contribute(withNextPresentable: priceViewController, withNextStepper: priceReactor),
-            .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor)
+            .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor),
+            .contribute(withNextPresentable: premiumViewController, withNextStepper: premiumReactor),
         ])
     }
     
@@ -73,8 +74,8 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay)
+    private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String) -> FlowContributors {
+        let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         let viewController = SelectMarketViewAtHomeSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -90,8 +91,8 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .arrival, selectedMarketRelay: selectedMarketRelay)
+    private func presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String) -> FlowContributors {
+        let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .arrival, selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         let viewController = SelectMarketViewAtHomeSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in

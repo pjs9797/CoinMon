@@ -28,8 +28,8 @@ class AlarmFlow: Flow {
             return navigateToAddAlarmViewController()
         case .navigateToModifyAlarmViewController(let market, let alarm):
             return navigateToModifyAlarmViewController(market: market, alarm: alarm)
-        case .presentToSelectMarketViewController(let selectedMarketRelay):
-            return presentToSelectMarketViewController(selectedMarketRelay: selectedMarketRelay)
+        case .presentToSelectMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
+            return presentToSelectMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .navigateToSelectCoinViewController(let selectedCoinRelay, let market):
             return navigateToSelectCoinViewController(selectedCoinRelay: selectedCoinRelay, market: market)
         case .presentToSelectFirstAlarmConditionViewController(let firstAlarmConditionRelay):
@@ -75,8 +75,8 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectMarketViewController(selectedMarketRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectMarketAtAlarmReactor( selectedMarketRelay: selectedMarketRelay)
+    private func presentToSelectMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String) -> FlowContributors {
+        let reactor = SelectMarketAtAlarmReactor(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         let viewController = SelectMarketAtAlarmSheetPresentationController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
