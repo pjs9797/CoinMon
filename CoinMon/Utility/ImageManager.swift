@@ -50,4 +50,9 @@ struct ImageManager {
     static let existAlarm = UIImage(named: "existAlarm")
     static let notExistAlarm = UIImage(named: "notExistAlarm")
     static let caution = UIImage(named: "caution")
+    static let change_up = UIImage(named: "change_up")
+    static let change_down = UIImage(named: "change_down")
+    static let icon_star = UIImage(named: "icon_star")
+    static let icon_star_select = UIImage(named: "icon_star_select")
+    static let icon_search24 = UIImage(named: "icon_search24")
 }

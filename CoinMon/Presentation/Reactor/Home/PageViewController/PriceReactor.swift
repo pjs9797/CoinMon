@@ -45,6 +45,7 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case sortByPrice
         case sortByChange
         case sortByGap
+        case selectCoin(Int)
     }
     
     enum Mutation {
@@ -243,6 +244,10 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                 .just(.setGapSortOrder(newOrder)),
                 .just(.setFilteredPriceList(sortedPriceList))
             ])
+        case .selectCoin(let index):
+            let market = currentState.markets[currentState.selectedMarket].localizationKey.uppercased()
+            self.steps.accept(HomeStep.navigateToDetailCoinInfoViewController(market: market, coin: currentState.filteredPriceList[index].coinTitle))
+            return .empty()
         }
     }
     

@@ -54,6 +54,18 @@
 "검색한 코인이 없어요" = "There are no coins searched";
 //Home-Premium
 "거래소 선택" = "Select Market";
+//Detail
+"차트" = "Chart";
+"종목정보" = "Info";
+"커뮤니티" = "Community";
+"지정가 알림 받기" = "Price Alarm Settings";
+"시세 변동" = "Price Change";
+"24시간" = "24H";
+"7일" = "7D";
+"30일" = "30D";
+"90일" = "90D";
+"1년" = "1Y";
+"종목 정보 보기" = "View Info";
 //Notification
 "알림" = "Notification";
 "휴대폰 앱 알림이 꺼져있어요" = "App notifications are Currently disabled. You can enable them in ‘Settings’.";

@@ -27,6 +27,8 @@ class HomeFlow: Flow {
             return navigateToHomeViewController()
         case .navigateToNotificationViewController:
             return navigateToNotificationViewController()
+        case .navigateToDetailCoinInfoViewController(let market, let coin):
+            return navigateToDetailCoinInfoViewController(market: market, coin: coin)
         case .presentToSelectDepartureMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
@@ -54,15 +56,10 @@ class HomeFlow: Flow {
         
         let reactor = HomeReactor()
         let viewController = HomeViewController(with: reactor, viewControllers: [priceViewController,feeViewController,premiumViewController])
+        let compositeStepper = CompositeStepper(steppers: [priceReactor, feeReactor, premiumReactor, reactor])
         self.rootViewController.pushViewController(viewController, animated: true)
 
-        return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: premiumReactor),
-            .contribute(withNextPresentable: priceViewController, withNextStepper: priceReactor),
-            .contribute(withNextPresentable: feeViewController, withNextStepper: feeReactor),
-            .contribute(withNextPresentable: premiumViewController, withNextStepper: premiumReactor),
-        ])
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper))
     }
     
     private func navigateToNotificationViewController() -> FlowContributors {
@@ -72,6 +69,25 @@ class HomeFlow: Flow {
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToDetailCoinInfoViewController(market: String, coin: String) -> FlowContributors {
+        let chartReactor = ChartReactor()
+        let chartViewController = ChartViewController(with: chartReactor)
+        
+        //let feeReactor = FeeReactor(coinUseCase: self.coinUseCase)
+        let infoViewController = UIViewController()
+        
+        //let premiumReactor = PremiumReactor(coinUseCase: self.coinUseCase)
+        let premiumViewController = UIViewController()
+        
+        let reactor = DetailCoinInfoReactor(coinUseCase: self.coinUseCase, market: market, coin: coin)
+        let viewController = DetailCoinInfoViewController(with: reactor, viewControllers: [chartViewController,infoViewController,premiumViewController])
+        viewController.hidesBottomBarWhenPushed = true
+        let compositeStepper = CompositeStepper(steppers: [chartReactor, reactor])
+        self.rootViewController.pushViewController(viewController, animated: true)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper))
     }
     
     private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String) -> FlowContributors {

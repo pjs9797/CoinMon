@@ -45,9 +45,9 @@ class WithdrawalView: UIView {
     }
     
     func setLocalizedText(){
-        firstNoticeLabel.text = LocalizationManager.shared.localizedString(forKey: "회원탈퇴설명1")
-        secondNoticeLabel.text = LocalizationManager.shared.localizedString(forKey: "회원탈퇴설명2")
-        checkNoticeLabel.text = LocalizationManager.shared.localizedString(forKey: "회원탈퇴설명3")
+        firstNoticeLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "회원탈퇴설명1"))
+        secondNoticeLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "회원탈퇴설명2"))
+        checkNoticeLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "회원탈퇴설명3"))
         withdrawalButton.setTitle(LocalizationManager.shared.localizedString(forKey: "탈퇴하기"), for: .normal)
     }
     

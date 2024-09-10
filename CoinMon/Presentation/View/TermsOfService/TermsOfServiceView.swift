@@ -23,7 +23,7 @@ class TermsOfServiceView: UIView {
     }
     
     func setLocalizedText(){
-        termsOfServiceLabel.text = LocalizationManager.shared.localizedString(forKey: "서비스이용약관")
+        termsOfServiceLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "서비스이용약관"))
     }
     
     private func layout() {

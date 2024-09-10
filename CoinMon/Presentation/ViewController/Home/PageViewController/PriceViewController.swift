@@ -94,6 +94,11 @@ extension PriceViewController {
             .map{ Reactor.Action.sortByGap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        priceView.priceTableView.rx.itemSelected
+            .map { Reactor.Action.selectCoin($0.row) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: PriceReactor){

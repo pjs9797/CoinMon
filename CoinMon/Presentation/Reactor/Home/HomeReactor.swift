@@ -50,7 +50,8 @@ class HomeReactor: ReactorKit.Reactor, Stepper {
         case .setPreviousIndex(let index):
             return .just(.setPreviousIndex(index))
         case .alarmCenterButtonTapped:
-            self.steps.accept(HomeStep.navigateToNotificationViewController)
+            self.steps.accept(HomeStep.navigateToDetailCoinInfoViewController(market: "BINANCE", coin: "BTC"))
+            //self.steps.accept(HomeStep.navigateToNotificationViewController)
             return .empty()
         case .receivedNewNotification:
             return .just(.setNewNotificationStatus(true))

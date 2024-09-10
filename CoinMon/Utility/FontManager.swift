@@ -60,18 +60,8 @@ struct FontManager {
         }
         
         let font = UIFont(name: fontName, size: size * ConstantsManager.standardWidth) ?? UIFont.systemFont(ofSize: size * ConstantsManager.standardWidth)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.minimumLineHeight = lineHeight * ConstantsManager.standardHeight
-        paragraphStyle.maximumLineHeight = lineHeight * ConstantsManager.standardHeight
         
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .kern: letterSpacing * ConstantsManager.standardWidth,
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        let attributedString = NSAttributedString(string: " ", attributes: attributes)
-        return font.withAttributes(attributes)
+        return font
     }
 }
 
@@ -144,7 +134,7 @@ struct AttributedFontManager {
             .kern: letterSpacing * ConstantsManager.standardWidth,
             .paragraphStyle: paragraphStyle
         ]
-        
-        return NSAttributedString(string: "text", attributes: attributes)
+        //return attributes
+        return NSAttributedString(string: "test", attributes: attributes)
     }
 }

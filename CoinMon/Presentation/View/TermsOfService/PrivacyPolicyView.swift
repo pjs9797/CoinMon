@@ -23,7 +23,7 @@ class PrivacyPolicyView: UIView {
     }
     
     func setLocalizedText(){
-        privacyPolicyLabel.text = LocalizationManager.shared.localizedString(forKey: "개인정보처리방침")
+        privacyPolicyLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "개인정보처리방침"))
     }
     
     private func layout() {
