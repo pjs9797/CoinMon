@@ -37,7 +37,6 @@
 		31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */; };
 		31423C502BFB5946008AB6FD /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C4F2BFB5946008AB6FD /* PriceView.swift */; };
 		31423C522BFB5998008AB6FD /* MarketListAtHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C512BFB5998008AB6FD /* MarketListAtHomeCollectionViewCell.swift */; };
-		31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C532BFB5DE2008AB6FD /* SearchView.swift */; };
 		31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */; };
 		31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C592BFC8146008AB6FD /* PriceReactor.swift */; };
 		31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C5B2BFC817B008AB6FD /* HomeStep.swift */; };
@@ -106,6 +105,16 @@
 		31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */; };
 		31777A422BE884A1006E8378 /* PhoneVerificationNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */; };
 		31777A462BEA5A37006E8378 /* SignupCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31777A452BEA5A37006E8378 /* SignupCompletedView.swift */; };
+		31946D5C2CA1651200237156 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D5B2CA1651200237156 /* SearchView.swift */; };
+		31946D5F2CA1665400237156 /* PriceCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D5E2CA1665400237156 /* PriceCategoryView.swift */; };
+		31946D612CA16DB400237156 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D602CA16DB400237156 /* InfoViewController.swift */; };
+		31946D632CA3BB9900237156 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D622CA3BB9900237156 /* InfoView.swift */; };
+		31946D652CA3BBF200237156 /* FirstInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D642CA3BBF200237156 /* FirstInfoView.swift */; };
+		31946D672CA3BBFA00237156 /* SecondInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D662CA3BBFA00237156 /* SecondInfoView.swift */; };
+		31946D692CA3BC0100237156 /* ThirdInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D682CA3BC0100237156 /* ThirdInfoView.swift */; };
+		31946D6B2CA3CE1300237156 /* InfoReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D6A2CA3CE1300237156 /* InfoReactor.swift */; };
+		31946D6D2CA3CE5E00237156 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D6C2CA3CE5E00237156 /* CommunityViewController.swift */; };
+		31946D6F2CA3D65800237156 /* CoinDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31946D6E2CA3D65800237156 /* CoinDetailDTO.swift */; };
 		31A48FD32BFF006E00ABEA2F /* PriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */; };
 		31BCE9772C04A02C00DA2FC6 /* FeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9762C04A02C00DA2FC6 /* FeeView.swift */; };
 		31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCE9782C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift */; };
@@ -278,7 +287,6 @@
 		31423C4D2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		31423C4F2BFB5946008AB6FD /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
 		31423C512BFB5998008AB6FD /* MarketListAtHomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketListAtHomeCollectionViewCell.swift; sourceTree = "<group>"; };
-		31423C532BFB5DE2008AB6FD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		31423C572BFB858B008AB6FD /* PriceTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewHeader.swift; sourceTree = "<group>"; };
 		31423C592BFC8146008AB6FD /* PriceReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceReactor.swift; sourceTree = "<group>"; };
 		31423C5B2BFC817B008AB6FD /* HomeStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStep.swift; sourceTree = "<group>"; };
@@ -350,6 +358,16 @@
 		31777A3F2BE7C39E006E8378 /* UserCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsManager.swift; sourceTree = "<group>"; };
 		31777A412BE884A1006E8378 /* PhoneVerificationNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberViewController.swift; sourceTree = "<group>"; };
 		31777A452BEA5A37006E8378 /* SignupCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompletedView.swift; sourceTree = "<group>"; };
+		31946D5B2CA1651200237156 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		31946D5E2CA1665400237156 /* PriceCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCategoryView.swift; sourceTree = "<group>"; };
+		31946D602CA16DB400237156 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		31946D622CA3BB9900237156 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		31946D642CA3BBF200237156 /* FirstInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstInfoView.swift; sourceTree = "<group>"; };
+		31946D662CA3BBFA00237156 /* SecondInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondInfoView.swift; sourceTree = "<group>"; };
+		31946D682CA3BC0100237156 /* ThirdInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdInfoView.swift; sourceTree = "<group>"; };
+		31946D6A2CA3CE1300237156 /* InfoReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoReactor.swift; sourceTree = "<group>"; };
+		31946D6C2CA3CE5E00237156 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		31946D6E2CA3D65800237156 /* CoinDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailDTO.swift; sourceTree = "<group>"; };
 		31A48FD22BFF006E00ABEA2F /* PriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewCell.swift; sourceTree = "<group>"; };
 		31B460E52C39282E007BFDB0 /* RxExpect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxExpect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31B460E92C392835007BFDB0 /* RxNimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxNimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -601,6 +619,7 @@
 		3104F5052C43AA8500DD40D6 /* CustomComponent */ = {
 			isa = PBXGroup;
 			children = (
+				31946D5A2CA1650200237156 /* View */,
 				3104F5082C43AAC900DD40D6 /* SheetPresentationController */,
 				3104F5072C43AAA500DD40D6 /* AlertViewController */,
 				3104F5062C43AA9200DD40D6 /* Button */,
@@ -682,7 +701,7 @@
 				317154262C8C1AA5007CCD6D /* DetailPageView */,
 				317154222C8C1A65007CCD6D /* PageView */,
 				31E1C1E32C4B9567009F99B9 /* Notification */,
-				31E1C1E02C4B855D009F99B9 /* Search */,
+				31E1C1E02C4B855D009F99B9 /* NoData */,
 				31423C552BFB7E46008AB6FD /* TableViewCell */,
 				31423C4C2BFB575C008AB6FD /* CollectionViewCell */,
 				317154202C8C17AD007CCD6D /* DetailCoinInfoView.swift */,
@@ -828,8 +847,8 @@
 		317154222C8C1A65007CCD6D /* PageView */ = {
 			isa = PBXGroup;
 			children = (
+				31946D5D2CA165A900237156 /* PriceView */,
 				317154232C8C1A87007CCD6D /* SheetPresentation */,
-				31423C4F2BFB5946008AB6FD /* PriceView.swift */,
 				31BCE9762C04A02C00DA2FC6 /* FeeView.swift */,
 				31BCE97E2C04A49400DA2FC6 /* PremiumView.swift */,
 			);
@@ -848,6 +867,10 @@
 			isa = PBXGroup;
 			children = (
 				317154292C8C1FEC007CCD6D /* ChartView.swift */,
+				31946D622CA3BB9900237156 /* InfoView.swift */,
+				31946D642CA3BBF200237156 /* FirstInfoView.swift */,
+				31946D662CA3BBFA00237156 /* SecondInfoView.swift */,
+				31946D682CA3BC0100237156 /* ThirdInfoView.swift */,
 			);
 			path = DetailPageView;
 			sourceTree = "<group>";
@@ -856,6 +879,8 @@
 			isa = PBXGroup;
 			children = (
 				317154302C8C3265007CCD6D /* ChartViewController.swift */,
+				31946D602CA16DB400237156 /* InfoViewController.swift */,
+				31946D6C2CA3CE5E00237156 /* CommunityViewController.swift */,
 			);
 			path = DetailPageViewController;
 			sourceTree = "<group>";
@@ -864,6 +889,7 @@
 			isa = PBXGroup;
 			children = (
 				317154372C8C607F007CCD6D /* ChartReactor.swift */,
+				31946D6A2CA3CE1300237156 /* InfoReactor.swift */,
 			);
 			path = DetailPageViewController;
 			sourceTree = "<group>";
@@ -1111,6 +1137,23 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
+		31946D5A2CA1650200237156 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				31946D5B2CA1651200237156 /* SearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		31946D5D2CA165A900237156 /* PriceView */ = {
+			isa = PBXGroup;
+			children = (
+				31423C4F2BFB5946008AB6FD /* PriceView.swift */,
+				31946D5E2CA1665400237156 /* PriceCategoryView.swift */,
+			);
+			path = PriceView;
+			sourceTree = "<group>";
+		};
 		31A48FD52BFF3A8100ABEA2F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,6 +1251,7 @@
 				31E0A4F22C16C22300756DFD /* SigninDTO.swift */,
 				31E0A5182C182BE300756DFD /* UserDTO.swift */,
 				31E0A5272C196F5200756DFD /* CoinDTO.swift */,
+				31946D6E2CA3D65800237156 /* CoinDetailDTO.swift */,
 				31E0A54F2C1B05F500756DFD /* AlarmDTO.swift */,
 				31E0A55D2C20105100756DFD /* ExchangeRateDTO.swift */,
 			);
@@ -1351,13 +1395,12 @@
 			path = SheetPresentation;
 			sourceTree = "<group>";
 		};
-		31E1C1E02C4B855D009F99B9 /* Search */ = {
+		31E1C1E02C4B855D009F99B9 /* NoData */ = {
 			isa = PBXGroup;
 			children = (
-				31423C532BFB5DE2008AB6FD /* SearchView.swift */,
 				31E1C1D82C48E684009F99B9 /* NoneCoinView.swift */,
 			);
-			path = Search;
+			path = NoData;
 			sourceTree = "<group>";
 		};
 		31E1C1E32C4B9567009F99B9 /* Notification */ = {
@@ -1639,7 +1682,6 @@
 				31E0A5262C196E8D00756DFD /* CoinRepositoryInterface.swift in Sources */,
 				31F791652BECB14000A7CABB /* SigninFlow.swift in Sources */,
 				31777A3A2BE7A2D5006E8378 /* SignupPhoneNumberEntryReactor.swift in Sources */,
-				31423C542BFB5DE2008AB6FD /* SearchView.swift in Sources */,
 				31423C472BFB4F27008AB6FD /* FeeViewController.swift in Sources */,
 				31E0A5362C19B6D600756DFD /* AlarmConditionTableViewCell.swift in Sources */,
 				314636A72C060056008A5629 /* SettingViewController.swift in Sources */,
@@ -1681,6 +1723,7 @@
 				31777A212BE3B220006E8378 /* SigninReactor.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
 				31E0A5242C196E4800756DFD /* CoinService.swift in Sources */,
+				31946D6B2CA3CE1300237156 /* InfoReactor.swift in Sources */,
 				31E0A5542C1B071600756DFD /* AlarmRepository.swift in Sources */,
 				31E1C1EA2C50E6F0009F99B9 /* NotificationTableViewFooter.swift in Sources */,
 				31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */,
@@ -1693,6 +1736,7 @@
 				31F7915C2BECA56A00A7CABB /* SignupCompletedViewController.swift in Sources */,
 				31E0A52A2C19849500756DFD /* CoinRepository.swift in Sources */,
 				31E0A54C2C19D21300756DFD /* SelectCoinReactor.swift in Sources */,
+				31946D692CA3BC0100237156 /* ThirdInfoView.swift in Sources */,
 				31E0A5582C1B28DF00756DFD /* ModifyAlarmViewController.swift in Sources */,
 				3171541A2C86D98F007CCD6D /* UITableView+Extension.swift in Sources */,
 				317779F92BE20835006E8378 /* ColorManager.swift in Sources */,
@@ -1710,10 +1754,13 @@
 				31777A3D2BE7B154006E8378 /* VerificationNumberView.swift in Sources */,
 				317154332C8C327D007CCD6D /* DetailCoinInfoViewController.swift in Sources */,
 				31E0A51C2C182C4100756DFD /* UserData.swift in Sources */,
+				31946D6D2CA3CE5E00237156 /* CommunityViewController.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
+				31946D612CA16DB400237156 /* InfoViewController.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
+				31946D5C2CA1651200237156 /* SearchView.swift in Sources */,
 				3171542C2C8C20D0007CCD6D /* BottomButton.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
 				31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift in Sources */,
@@ -1728,11 +1775,14 @@
 				3104F50A2C43AB1500DD40D6 /* PremiumMarketButton.swift in Sources */,
 				31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift in Sources */,
 				31E0A54A2C19D1F500756DFD /* SelectCoinViewController.swift in Sources */,
+				31946D5F2CA1665400237156 /* PriceCategoryView.swift in Sources */,
 				31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift in Sources */,
+				31946D652CA3BBF200237156 /* FirstInfoView.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				3171543A2C8C9028007CCD6D /* DetailCoinInfoEntity.swift in Sources */,
 				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
 				31E1C1DF2C4B8537009F99B9 /* NotificationReactor.swift in Sources */,
+				31946D672CA3BBFA00237156 /* SecondInfoView.swift in Sources */,
 				31423C492BFB4F65008AB6FD /* PremiumViewController.swift in Sources */,
 				31E0A5152C1824BC00756DFD /* AuthTokens.swift in Sources */,
 				31423C432BFB332E008AB6FD /* HomeReactor.swift in Sources */,
@@ -1784,8 +1834,10 @@
 				31E0A5602C201C4700756DFD /* InquiryView.swift in Sources */,
 				317154282C8C1F39007CCD6D /* DetailCoinInfoCategoryCollectionViewCell.swift in Sources */,
 				317154162C86D94F007CCD6D /* UIImage+Extension.swift in Sources */,
+				31946D6F2CA3D65800237156 /* CoinDetailDTO.swift in Sources */,
 				3104F5112C43C28400DD40D6 /* ConfigManager.swift in Sources */,
 				315C01882C0B134500BE00E3 /* AlarmTableViewHeader.swift in Sources */,
+				31946D632CA3BB9900237156 /* InfoView.swift in Sources */,
 				31777A402BE7C39E006E8378 /* UserCredentialsManager.swift in Sources */,
 				31E0A4CB2C130EB400756DFD /* WithdrawalViewController.swift in Sources */,
 				315C01822C0B04B400BE00E3 /* NoneAlarmView.swift in Sources */,

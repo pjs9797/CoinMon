@@ -27,7 +27,6 @@ class ChartViewController: UIViewController, ReactorKit.View, WKNavigationDelega
         
         view.backgroundColor = ColorManager.common_100
         chartView.chartWebView.navigationDelegate = self
-//        chartView.scrollView.delegate = self
     }
 }
 
@@ -38,10 +37,6 @@ extension ChartViewController {
     }
     
     func bindAction(reactor: ChartReactor){
-        chartView.receiveNotiButton.rx.tap
-            .map{ Reactor.Action.receiveNotiButtonTapped }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: ChartReactor){
@@ -55,23 +50,5 @@ extension ChartViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.priceChangeList }
-            .distinctUntilChanged()
-            .observe(on: MainScheduler.asyncInstance)
-            .bind(to: chartView.priceChangeCollectionView.rx.items(cellIdentifier: "PriceChangeCollectionViewCell", cellType: PriceChangeCollectionViewCell.self)) { index, data, cell in
-                
-                cell.configure(with: data)
-            }
-            .disposed(by: disposeBag)
     }
 }
-
-
-//extension ChartViewController: UIScrollViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if let parentVC = parent as? DetailCoinInfoViewController {
-//            parentVC.scrollViewDidScroll(scrollView)
-//        }
-//    }
-//}

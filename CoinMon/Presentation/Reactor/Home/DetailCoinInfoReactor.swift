@@ -16,6 +16,7 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Action {
+        case backButtonTapped
         case setCoinPrice
         case selectItem(Int)
         case setPreviousIndex(Int)
@@ -37,13 +38,15 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
         ]
         var market: String
         var coin: String
-        var priceChange: [Double] = [51.21,4.21,42.62,-94.21,42.64]
         var coinTitle: String
         var coinPrice: String = ""
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .backButtonTapped:
+            self.steps.accept(HomeStep.popViewController)
+            return .empty()
         case .selectItem(let index):
             return .just(.setSelectedItem(index))
         case .setPreviousIndex(let index):

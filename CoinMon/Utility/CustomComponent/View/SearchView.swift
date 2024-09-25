@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 
 class SearchView: UIView {
-    let searchView: UIView = {
+    let searchBar: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 12*ConstantsManager.standardHeight
         view.backgroundColor = ColorManager.gray_99
@@ -36,13 +36,13 @@ class SearchView: UIView {
     }
     
     private func layout() {
-        addSubview(searchView)
+        addSubview(searchBar)
         [searchImageView,searchTextField,clearButton]
             .forEach{
-                searchView.addSubview($0)
+                searchBar.addSubview($0)
             }
         
-        searchView.snp.makeConstraints { make in
+        searchBar.snp.makeConstraints { make in
             make.width.equalTo(335*ConstantsManager.standardWidth)
             make.height.equalTo(43*ConstantsManager.standardHeight)
             make.center.equalToSuperview()

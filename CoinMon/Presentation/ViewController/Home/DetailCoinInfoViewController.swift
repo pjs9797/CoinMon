@@ -25,17 +25,23 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         collectionView.register(DetailCoinInfoCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCoinInfoCategoryCollectionViewCell")
         return collectionView
     }()
+    let grayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.gray_98
+        return view
+    }()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     var viewControllers: [UIViewController]
     var innerScrollingDownDueToOuterScroll = false
-//    var visibleHeight: CGFloat = 0.0
     var innerScrollViewContentSize: CGFloat = 0.0
     var initialInnerScrollViewContentSize: CGFloat = 0.0
-    var aa = false
-    var bb = false
+    var isSetInnerScrollViewContentSize = false
+    var isSetInitialInnerScrollViewContentSize = false
+    let infoViewController: InfoViewController
     
     init(with reactor: DetailCoinInfoReactor, viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
+        infoViewController = viewControllers[1] as! InfoViewController
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -45,16 +51,6 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        let collectionViewBottom = detailCoinInfoCategoryCollectionView.frame.maxY
-//        let bottomSafeArea = view.safeAreaInsets.bottom
-//        visibleHeight = view.frame.height - collectionViewBottom - bottomSafeArea
-//
-//        print("Visible height: \(visibleHeight)")
-//    }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,12 +60,10 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         scrollView.delegate = self
+        infoViewController.infoView.scrollView.delegate = self
         reactor?.action.onNext(.setCoinPrice)
         layout()
         
-        if let chartViewController = viewControllers.first as? ChartViewController {
-            chartViewController.chartView.scrollView.delegate = self
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +80,7 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
     private func layout(){
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [detailCoinInfoView,detailCoinInfoCategoryCollectionView,pageViewController.view]
+        [detailCoinInfoView,grayView,detailCoinInfoCategoryCollectionView,pageViewController.view]
             .forEach{
                 contentView.addSubview($0)
             }
@@ -114,6 +108,13 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
             make.top.equalTo(detailCoinInfoView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
+        grayView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(2*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(detailCoinInfoCategoryCollectionView.snp.bottom)
+        }
+        
         pageViewController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(detailCoinInfoCategoryCollectionView.snp.bottom)
@@ -130,6 +131,11 @@ extension DetailCoinInfoViewController {
     }
     
     func bindAction(reactor: DetailCoinInfoReactor){
+        backButton.rx.tap
+            .map{ Reactor.Action.backButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         detailCoinInfoCategoryCollectionView.rx.itemSelected
             .map { Reactor.Action.selectItem($0.item) }
             .bind(to: reactor.action)
@@ -145,6 +151,9 @@ extension DetailCoinInfoViewController {
                 self?.pageViewController.setViewControllers([self!.viewControllers[index]], direction: direction, animated: true, completion: nil)
                 self?.detailCoinInfoCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 reactor.action.onNext(.setPreviousIndex(index))
+                if index == 0 {
+                    self?.scrollView.contentOffset.y = 0
+                }
             })
             .disposed(by: disposeBag)
         
@@ -165,19 +174,6 @@ extension DetailCoinInfoViewController {
                 cell.categoryLabel.text = categories
             }
             .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map { $0.market }.distinctUntilChanged(),
-            reactor.state.map { $0.coin }.distinctUntilChanged(),
-            reactor.state.map { $0.priceChange }.distinctUntilChanged()
-        )
-        .bind(onNext: { [weak self] market,coin,priceChange in
-            if let chartViewController = self?.viewControllers.first as? ChartViewController {
-                chartViewController.reactor?.action.onNext(.updateData(market,coin,priceChange))
-            }
-        })
-        .disposed(by: disposeBag)
-        
     }
 }
 
@@ -198,6 +194,9 @@ extension DetailCoinInfoViewController: UIPageViewControllerDataSource, UIPageVi
             detailCoinInfoCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: true, scrollPosition: .centeredHorizontally)
             reactor?.action.onNext(.setPreviousIndex(index))
             reactor?.action.onNext(.selectItem(index))
+            if visibleViewController is ChartViewController {
+                self.scrollView.contentOffset.y = 0
+            }
         }
     }
 }
@@ -205,125 +204,116 @@ extension DetailCoinInfoViewController: UIPageViewControllerDataSource, UIPageVi
 extension DetailCoinInfoViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let outerScrollView = self.scrollView
+        let innerScrollView = self.infoViewController.infoView.scrollView
         let outerScroll = scrollView == outerScrollView
-        let innerScroll = !outerScroll
+        let innerScroll = scrollView == self.infoViewController.infoView.scrollView
         let moreScroll = scrollView.panGestureRecognizer.translation(in: scrollView).y < 0
         let lessScroll = !moreScroll
-
-        guard let chartViewController = pageViewController.viewControllers?.first as? ChartViewController else { return }
-        let innerScrollView = chartViewController.chartView.scrollView
-        let outerScrollMaxOffsetY = detailCoinInfoCategoryCollectionView.frame.origin.y - 8*ConstantsManager.standardHeight
+        
+        let outerScrollMaxOffsetY = detailCoinInfoCategoryCollectionView.frame.origin.y - 8 * ConstantsManager.standardHeight
         
         let collectionViewBottom = detailCoinInfoCategoryCollectionView.frame.maxY
         let visibleHeight = view.frame.height - collectionViewBottom
         
-        if !aa {
+        if !isSetInnerScrollViewContentSize {
             initialInnerScrollViewContentSize = innerScrollView.contentSize.height
-            aa = true
+            isSetInnerScrollViewContentSize = true
+            print("Inner ScrollView Content Size 설정 완료")
         }
         
-        let innerScrollMaxOffsetY = initialInnerScrollViewContentSize - visibleHeight
+        let innerScrollMaxOffsetY = visibleHeight
         
-        print()
-        if scrollView == outerScrollView{
-            print("아우터 스크롤뷰")
-        }
-        else {
-            print("이너 스크롤뷰")
-        }
-        print("outerScrollMaxOffsetY",outerScrollMaxOffsetY,"outerScrollView.contentOffset.y",outerScrollView.contentOffset.y+0.1)
-        print("innerScrollMaxOffsetY",innerScrollMaxOffsetY,"innerScrollView.contentOffset.y",innerScrollView.contentOffset.y+0.1)
-        if !bb {
+        if !isSetInitialInnerScrollViewContentSize {
             innerScrollView.contentSize.height += detailCoinInfoView.frame.height + view.safeAreaInsets.top
-            bb = true
+            isSetInitialInnerScrollViewContentSize = true
+            print("Initial Inner ScrollView Content Size 설정 완료")
         }
-        print("outerScrollView.contentSize.height",outerScrollView.contentSize.height)
-        print("innerScrollView.contentSize.height",innerScrollView.contentSize.height)
+        
         if outerScroll && moreScroll {
-            print(1111)
-            guard outerScrollMaxOffsetY < outerScrollView.contentOffset.y + 0.1 else { return }
+            print("Outer Scroll을 더 내림")
+            guard outerScrollMaxOffsetY < outerScrollView.contentOffset.y + 0.1 else {
+                print("Outer Scroll이 Max Offset에 도달하지 않음")
+                return
+            }
             
             innerScrollingDownDueToOuterScroll = true
             defer { innerScrollingDownDueToOuterScroll = false }
             
-            // innerScrollView를 모두 스크롤 한 경우 stop
-            guard innerScrollView.contentOffset.y < innerScrollMaxOffsetY else {
-                print("멈춰")
-                innerScrollView.contentOffset.y = innerScrollMaxOffsetY
+            guard outerScrollView.contentOffset.y < outerScrollMaxOffsetY else {
+                print("Inner Scroll이 Max Offset에 도달: 고정")
+                outerScrollView.contentOffset.y = outerScrollMaxOffsetY
                 return
             }
-            print("안멈춰")
-            innerScrollView.contentOffset.y = innerScrollView.contentOffset.y + outerScrollView.contentOffset.y - outerScrollMaxOffsetY
+            
+            innerScrollView.contentOffset.y += outerScrollView.contentOffset.y - outerScrollMaxOffsetY
             outerScrollView.contentOffset.y = outerScrollMaxOffsetY
+            print("Outer에서 Inner로 스크롤 전환")
         }
         
         if outerScroll && lessScroll {
-            print(222)
-            guard innerScrollView.contentOffset.y > 0 && outerScrollView.contentOffset.y < outerScrollMaxOffsetY else { return }
+            print("Outer Scroll을 덜 내림")
+            guard innerScrollView.contentOffset.y > 0 && outerScrollView.contentOffset.y < outerScrollMaxOffsetY else {
+                print("스크롤 조정 필요 없음")
+                return
+            }
+            
             innerScrollingDownDueToOuterScroll = true
             defer { innerScrollingDownDueToOuterScroll = false }
             
-            // outer scroll에서 스크롤한 만큼 inner scroll에 적용
             innerScrollView.contentOffset.y = max(innerScrollView.contentOffset.y - (outerScrollMaxOffsetY - outerScrollView.contentOffset.y), 0)
-            
-            // outer scroll은 스크롤 되지 않고 고정
             outerScrollView.contentOffset.y = outerScrollMaxOffsetY
+            print("Inner Scroll이 동작, Outer는 고정")
         }
         
         if innerScroll && lessScroll {
-            print(333)
-            defer { innerScrollView.lastOffsetY = innerScrollView.contentOffset.y }
-            guard innerScrollView.contentOffset.y < 0 && outerScrollView.contentOffset.y > 0 else { return }
-            
-            // innerScrollView의 bounces에 의하여 다시 outerScrollView가 당겨질수 있으므로 bounces로 다시 되돌아가는 offset 방지
-            guard innerScrollView.lastOffsetY > innerScrollView.contentOffset.y else { return }
-            
-            let moveOffset = outerScrollMaxOffsetY - abs(innerScrollView.contentOffset.y) * 3
-            guard moveOffset < outerScrollView.contentOffset.y else { return }
-            print(moveOffset)
-            
-            outerScrollView.contentOffset.y = max(moveOffset, 0)
+            print("Inner Scroll을 덜 내림")
+            if innerScrollView.contentOffset.y <= 0 {
+                let overscroll = max(-innerScrollView.contentOffset.y, 0)
+                if outerScrollView.contentOffset.y > 0 {
+                    outerScrollView.contentOffset.y = max(outerScrollView.contentOffset.y - overscroll, 0)
+                }
+                innerScrollView.contentOffset.y = 0
+                print("Inner가 최상단에 도달, Outer로 전환")
+            }
         }
         
+//        if innerScroll && moreScroll {
+//            print("Inner Scroll을 더 내림")
+//            
+//            if !innerScrollingDownDueToOuterScroll {
+//                if outerScrollView.contentOffset.y + 0.1 < outerScrollMaxOffsetY {
+//                    // 외부 스크롤 뷰가 아직 최대 Offset에 도달하지 않았다면, 자연스럽게 스크롤을 넘김
+//                    let remainingOuterScroll = outerScrollMaxOffsetY - outerScrollView.contentOffset.y
+//                    let scrollAmount = min(innerScrollView.contentOffset.y, remainingOuterScroll) // 스크롤을 부드럽게 넘기기 위한 최소값 계산
+//                    outerScrollView.contentOffset.y += scrollAmount
+//                    innerScrollView.contentOffset.y -= scrollAmount // 내부 스크롤을 그만큼 줄임
+//                    
+//                    print("Outer Scroll로 자연스럽게 스크롤 전환 중, scrollAmount: \(scrollAmount)")
+//                } else {
+//                    // Inner Scroll이 최대 Offset에 도달했을 때 고정
+//                    if innerScrollView.contentOffset.y + 0.1 > innerScrollMaxOffsetY {
+//                        innerScrollView.contentOffset.y = innerScrollMaxOffsetY
+//                        print("Inner Scroll이 Max Offset에 도달: 고정")
+//                    }
+//                }
+//            }
+//        }
+
         if innerScroll && moreScroll {
-            print(4444)
-            if !innerScrollingDownDueToOuterScroll{
+            print("Inner Scroll을 더 내림")
+            if !innerScrollingDownDueToOuterScroll {
                 if outerScrollView.contentOffset.y + 0.1 < outerScrollMaxOffsetY {
-                    // outer scroll를 more 스크롤
-                    print("아우터 스크롤 몰 스크롤중")
-                    let minOffetY = min(outerScrollView.contentOffset.y + innerScrollView.contentOffset.y, outerScrollMaxOffsetY)
-                    let offsetY = max(minOffetY, 0)
+                    let minOffsetY = min(outerScrollView.contentOffset.y + innerScrollView.contentOffset.y, outerScrollMaxOffsetY)
+                    let offsetY = max(minOffsetY, 0)
                     outerScrollView.contentOffset.y = offsetY
-                    
-                    // inner scroll은 스크롤 되지 않아야 하므로 0으로 고정
                     innerScrollView.contentOffset.y = 0
-                }
-                else {
-                    if innerScrollView.contentOffset.y + 0.1 < innerScrollMaxOffsetY {
-                        
-                        print("이너 스크롤 몰 스크롤중",innerScrollView.contentSize.height)
-                    }
-                    else {
-                        print("이너 스크롤 맥스치")
-                        innerScrollView.contentOffset.y = innerScrollMaxOffsetY
-                    }
+                } 
+                else if innerScrollView.contentOffset.y + 0.1 > innerScrollMaxOffsetY {
+                    innerScrollView.contentOffset.y = innerScrollMaxOffsetY
+                    print("Inner Scroll이 Max Offset에 도달: 고정")
                 }
             }
         }
-    }
-}
-
-private struct AssociatedKeys {
-    static var lastOffsetY = "lastOffsetY"
-}
-
-extension UIScrollView {
-    var lastOffsetY: CGFloat {
-        get {
-            (objc_getAssociatedObject(self, &AssociatedKeys.lastOffsetY) as? CGFloat) ?? contentOffset.y
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedKeys.lastOffsetY, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        
     }
 }

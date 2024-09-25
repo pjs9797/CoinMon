@@ -5,6 +5,7 @@ class DetailCoinInfoCategoryCollectionViewCell: UICollectionViewCell {
     let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H4_16
+        label.textColor = ColorManager.gray_80
         label.textAlignment = .center
         return label
     }()

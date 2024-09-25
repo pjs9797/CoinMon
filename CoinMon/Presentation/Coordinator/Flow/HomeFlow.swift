@@ -72,19 +72,19 @@ class HomeFlow: Flow {
     }
     
     private func navigateToDetailCoinInfoViewController(market: String, coin: String) -> FlowContributors {
-        let chartReactor = ChartReactor()
+        let chartReactor = ChartReactor(market: market, coin: coin)
         let chartViewController = ChartViewController(with: chartReactor)
         
-        //let feeReactor = FeeReactor(coinUseCase: self.coinUseCase)
-        let infoViewController = UIViewController()
+        let infoReactor = InfoReactor()
+        let infoViewController = InfoViewController(with: infoReactor)
         
         //let premiumReactor = PremiumReactor(coinUseCase: self.coinUseCase)
-        let premiumViewController = UIViewController()
+        let communityViewController = CommunityViewController()
         
         let reactor = DetailCoinInfoReactor(coinUseCase: self.coinUseCase, market: market, coin: coin)
-        let viewController = DetailCoinInfoViewController(with: reactor, viewControllers: [chartViewController,infoViewController,premiumViewController])
+        let viewController = DetailCoinInfoViewController(with: reactor, viewControllers: [chartViewController,infoViewController,communityViewController])
         viewController.hidesBottomBarWhenPushed = true
-        let compositeStepper = CompositeStepper(steppers: [chartReactor, reactor])
+        let compositeStepper = CompositeStepper(steppers: [infoReactor, chartReactor, reactor])
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper))

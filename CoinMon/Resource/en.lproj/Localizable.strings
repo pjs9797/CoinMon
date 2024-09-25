@@ -58,14 +58,21 @@
 "차트" = "Chart";
 "종목정보" = "Info";
 "커뮤니티" = "Community";
-"지정가 알림 받기" = "Price Alarm Settings";
+"정보" = "Info";
+"시가 총액" = "Market Cap";
+"총 발행 수량" = "Total Supply";
+"미제공" = "Not provided";
+"시세" = "Market Price";
+"전일 거래 금액" = "Previous Day's Volume";
+"전일 고가" = "Previous Day's High";
+"전일 저가" = "Previous Day's Low";
 "시세 변동" = "Price Change";
 "24시간" = "24H";
 "7일" = "7D";
 "30일" = "30D";
 "90일" = "90D";
 "1년" = "1Y";
-"종목 정보 보기" = "View Info";
+"코인몬에서 제공하는 정보는 고객의 투자 판단을 위한 단순 참고용일 뿐, 투자 제안 및 권유•특정 가상자산 추천을 하지 않습니다." = "The information provided by Coinmon is merely for reference to help customers make investment decisions, and does not constitute investment suggestions or recommendations or recommendations for specific virtual assets.";
 //Notification
 "알림" = "Notification";
 "휴대폰 앱 알림이 꺼져있어요" = "App notifications are Currently disabled. You can enable them in ‘Settings’.";

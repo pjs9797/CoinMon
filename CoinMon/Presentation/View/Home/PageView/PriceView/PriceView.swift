@@ -2,6 +2,16 @@ import UIKit
 import SnapKit
 
 class PriceView: UIView {
+    let priceCategoryView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 2*ConstantsManager.standardWidth
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(HomeCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCategoryCollectionViewCell")
+        return collectionView
+    }()
     let searchView = SearchView()
     let marketCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

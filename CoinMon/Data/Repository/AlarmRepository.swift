@@ -56,15 +56,7 @@ class AlarmRepository: AlarmRepositoryInterface {
             .map{ NotificationAlertDTO.toNotificationAlert(dto: $0) }
             .asObservable()
             .catch { error in
-                        return Observable.error(error)
-                    }
-//        let mockNotificationData: [NotificationAlertInfoDTO] = [
-//            NotificationAlertInfoDTO(pushId: 1, exchange: "BINANCE", symbol: "BTC", targetPrice: "66556.7", sendTime: [2024, 7, 24, 17, 31, 27]),
-//            NotificationAlertInfoDTO(pushId: 2, exchange: "BYBIT", symbol: "ETH", targetPrice: "2000.5", sendTime: [2024, 7, 24, 15, 50, 36])
-//        ]
-//        
-//        let mockNotificationDTO = NotificationAlertDTO(resultCode: "200", resultMessage: "Success", data: .init(info: mockNotificationData))
-//        let notifications = NotificationAlertDTO.toNotificationAlert(dto: mockNotificationDTO)
-//        return Observable.just(notifications)
+                return Observable.error(error)
+            }
     }
 }
