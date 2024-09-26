@@ -4,7 +4,7 @@ import SnapKit
 class NoneCoinView: UIView {
     let noneCoinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageManager.noneCoin
+        imageView.image = ImageManager.nosearch
         return imageView
     }()
     let noneCoinLabel: UILabel = {
@@ -39,14 +39,15 @@ class NoneCoinView: UIView {
         
         noneCoinImageView.snp.makeConstraints { make in
             make.width.height.equalTo(50*ConstantsManager.standardHeight)
-            make.top.equalToSuperview().offset(120*ConstantsManager.standardHeight)
+            make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
         }
         
         noneCoinLabel.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.top.equalTo(noneCoinImageView.snp.bottom).offset(16*ConstantsManager.standardHeight)
+            make.top.equalTo(noneCoinImageView.snp.bottom).offset(14*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-46*ConstantsManager.standardHeight)
         }
     }
 }

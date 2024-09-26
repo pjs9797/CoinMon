@@ -2,15 +2,13 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class SelectCoinReactor: ReactorKit.Reactor,Stepper {
+class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    var selectedCoinRelay: PublishRelay<(String,String)>
     private let coinUseCase: CoinUseCase
     
-    init(coinUseCase: CoinUseCase, selectedCoinRelay: PublishRelay<(String,String)>, market: String){
+    init(coinUseCase: CoinUseCase, market: String){
         self.coinUseCase = coinUseCase
-        self.selectedCoinRelay = selectedCoinRelay
         initialState = State(market: market)
     }
     
@@ -57,15 +55,15 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
                     return .empty()
                 }
         case .backButtonTapped:
-            self.steps.accept(AlarmStep.popViewController)
+            self.steps.accept(HomeStep.popViewController)
             return .empty()
         case .selectCoin(let index):
-            selectedCoinRelay.accept((currentState.filteredCoins[index].coinTitle,currentState.filteredCoins[index].price))
-            self.steps.accept(AlarmStep.popViewController)
+            let coin = currentState.filteredCoins[index].coinTitle
+            self.steps.accept(HomeStep.navigateToDetailCoinInfoViewController(market: currentState.market, coin: coin))
             return .empty()
         case .updateSearchText(let searchText):
             let filteredCoins: [CoinPrice]
@@ -78,7 +76,7 @@ class SelectCoinReactor: ReactorKit.Reactor,Stepper {
                     sortedCoins = self.sortCoins(sortedCoins, by: \.price, order: self.currentState.setPriceSortOrder)
                 }
                 filteredCoins = sortedCoins
-            } 
+            }
             else {
                 filteredCoins = currentState.coins.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
             }

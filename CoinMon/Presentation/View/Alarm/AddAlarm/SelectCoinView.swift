@@ -61,10 +61,10 @@ class SelectCoinView: UIView {
         }
         
         noneCoinView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
+            make.width.equalTo(335*ConstantsManager.standardWidth)
+            make.height.equalTo(150*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(selectCoinTableViewHeader.snp.bottom).offset(120*ConstantsManager.standardHeight)
         }
     }
 }

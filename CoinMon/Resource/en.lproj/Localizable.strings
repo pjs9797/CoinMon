@@ -45,6 +45,12 @@
 "Bybit" = "Bybit";
 "Upbit" = "Upbit";
 "Bithumb" = "Bithumb";
+//Home-Favorites
+"마켓" = "Market";
+"관심" = "Favorites";
+"추가" = "Add";
+"편집" = "Edit";
+"관심 코인 추가" = "Add to Favorites";
 //Home-Price
 "코인 검색" = "Search";
 "코인" = "Coin";

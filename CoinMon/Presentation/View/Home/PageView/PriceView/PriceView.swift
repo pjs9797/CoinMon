@@ -2,16 +2,7 @@ import UIKit
 import SnapKit
 
 class PriceView: UIView {
-    let priceCategoryView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 2*ConstantsManager.standardWidth
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(HomeCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCategoryCollectionViewCell")
-        return collectionView
-    }()
+    let priceCategoryView = PriceCategoryView()
     let searchView = SearchView()
     let marketCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -56,18 +47,25 @@ class PriceView: UIView {
         priceTableViewHeader.changeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "등락률"), for: .normal)
         priceTableViewHeader.gapButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시평갭"), for: .normal)
         noneCoinView.setLocalizedText()
+        priceCategoryView.setLocalizedText()
     }
     
     private func layout() {
-        [searchView,marketCollectionView,priceTableViewHeader,priceTableView,noneCoinView]
+        [priceCategoryView,searchView,marketCollectionView,priceTableViewHeader,priceTableView,noneCoinView]
             .forEach{
                 addSubview($0)
             }
         
+        priceCategoryView.snp.makeConstraints { make in
+            make.height.equalTo(38*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+        
         searchView.snp.makeConstraints { make in
             make.height.equalTo(59*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview()
+            make.top.equalTo(priceCategoryView.snp.bottom)
         }
         
         marketCollectionView.snp.makeConstraints { make in
@@ -90,10 +88,10 @@ class PriceView: UIView {
         }
         
         noneCoinView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
+            make.width.equalTo(335*ConstantsManager.standardWidth)
+            make.height.equalTo(150*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(priceTableViewHeader.snp.bottom).offset(120*ConstantsManager.standardHeight)
         }
     }
 }

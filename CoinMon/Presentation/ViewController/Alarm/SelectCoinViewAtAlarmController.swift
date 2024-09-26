@@ -3,12 +3,12 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 
-class SelectCoinViewController: UIViewController, ReactorKit.View {
+class SelectCoinViewAtAlarmController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let selectCoinView = SelectCoinView()
     
-    init(with reactor: SelectCoinReactor) {
+    init(with reactor: SelectCoinAtAlarmReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -44,13 +44,13 @@ class SelectCoinViewController: UIViewController, ReactorKit.View {
     }
 }
 
-extension SelectCoinViewController {
-    func bind(reactor: SelectCoinReactor) {
+extension SelectCoinViewAtAlarmController {
+    func bind(reactor: SelectCoinAtAlarmReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectCoinReactor){
+    func bindAction(reactor: SelectCoinAtAlarmReactor){
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
@@ -83,7 +83,7 @@ extension SelectCoinViewController {
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: SelectCoinReactor){
+    func bindState(reactor: SelectCoinAtAlarmReactor){
         reactor.state.map { $0.filteredCoins }
             .distinctUntilChanged()
             .bind(to: selectCoinView.selectCoinTableView.rx.items(cellIdentifier: "SelectCoinTableViewCell", cellType: SelectCoinTableViewCell.self)){ row, coin, cell in

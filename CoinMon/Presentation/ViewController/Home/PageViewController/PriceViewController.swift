@@ -20,7 +20,7 @@ class PriceViewController: UIViewController, ReactorKit.View {
         
         view = priceView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +36,7 @@ class PriceViewController: UIViewController, ReactorKit.View {
             })
             .disposed(by: disposeBag)
         self.reactor?.action.onNext(.loadPriceList)
+        //setupScrollBehavior()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +47,11 @@ class PriceViewController: UIViewController, ReactorKit.View {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.reactor?.action.onNext(.stopTimer)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupScrollBehavior()
     }
 }
 
@@ -233,7 +239,7 @@ extension PriceViewController: UICollectionViewDragDelegate, UICollectionViewDro
         dragItem.localObject = item
         return [dragItem]
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
@@ -256,5 +262,43 @@ extension PriceViewController: UICollectionViewDragDelegate, UICollectionViewDro
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+}
+
+extension PriceViewController {
+    func setupScrollBehavior() {
+        let headerHeight: CGFloat = priceView.priceCategoryView.frame.height + priceView.searchView.frame.height
+        var lastOffsetY: CGFloat = 0
+        var accumulatedOffsetY: CGFloat = 0
+        
+        priceView.priceTableView.rx.contentOffset
+            .subscribe(onNext: { [weak self] contentOffset in
+                guard let self = self else { return }
+                
+                let currentOffsetY = max(contentOffset.y, 0)  // Ensure offset is never negative
+                let deltaY = currentOffsetY - lastOffsetY
+                lastOffsetY = currentOffsetY
+                
+                // Accumulate the offset, but keep it within bounds
+                accumulatedOffsetY = min(max(accumulatedOffsetY + deltaY, 0), headerHeight)
+                
+                // Debug prints
+                print("currentOffsetY: \(currentOffsetY), accumulatedOffsetY: \(accumulatedOffsetY), deltaY: \(deltaY)")
+                
+                // Update priceCategoryView and searchView positions
+                self.priceView.priceCategoryView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                self.priceView.searchView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                
+                // Update priceTableViewHeader, marketCollectionView, and priceTableView positions
+                let headerTransform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                self.priceView.marketCollectionView.transform = headerTransform
+                self.priceView.priceTableViewHeader.transform = headerTransform
+                
+                // Adjust tableView height and position
+                let tableViewHeight = self.view.frame.height - self.view.safeAreaInsets.top + accumulatedOffsetY
+                self.priceView.priceTableView.frame.size.height = tableViewHeight
+                self.priceView.priceTableView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+            })
+            .disposed(by: disposeBag)
     }
 }

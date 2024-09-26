@@ -93,8 +93,8 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToSelectCoinViewController(selectedCoinRelay: PublishRelay<(String,String)>, market: String) -> FlowContributors {
-        let reactor = SelectCoinReactor(coinUseCase: self.coinUseCase, selectedCoinRelay: selectedCoinRelay, market: market)
-        let viewController = SelectCoinViewController(with: reactor)
+        let reactor = SelectCoinAtAlarmReactor(coinUseCase: self.coinUseCase, selectedCoinRelay: selectedCoinRelay, market: market)
+        let viewController = SelectCoinViewAtAlarmController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

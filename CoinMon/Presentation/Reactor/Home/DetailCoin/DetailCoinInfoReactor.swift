@@ -16,6 +16,8 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Action {
+        case searchButtonTapped
+        case favoriteButtonTapped
         case backButtonTapped
         case setCoinPrice
         case selectItem(Int)
@@ -44,6 +46,11 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .searchButtonTapped:
+            self.steps.accept(HomeStep.navigateToSelectCoinAtDetailViewController(market: currentState.market))
+            return .empty()
+        case .favoriteButtonTapped:
+            return .empty()
         case .backButtonTapped:
             self.steps.accept(HomeStep.popViewController)
             return .empty()

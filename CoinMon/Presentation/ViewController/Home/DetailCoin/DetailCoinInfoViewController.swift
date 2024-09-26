@@ -6,7 +6,7 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let searchButton = UIBarButtonItem(image: ImageManager.icon_search24, style: .plain, target: nil, action: nil)
-    let starButton = UIBarButtonItem(image: ImageManager.icon_star, style: .plain, target: nil, action: nil)
+    let favoriteButton = UIBarButtonItem(image: ImageManager.icon_star, style: .plain, target: nil, action: nil)
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -74,7 +74,7 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
     
     private func setNavigationbar() {
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.rightBarButtonItems = [starButton,searchButton]
+        navigationItem.rightBarButtonItems = [favoriteButton,searchButton]
     }
     
     private func layout(){
@@ -131,6 +131,16 @@ extension DetailCoinInfoViewController {
     }
     
     func bindAction(reactor: DetailCoinInfoReactor){
+        searchButton.rx.tap
+            .map{ Reactor.Action.searchButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        favoriteButton.rx.tap
+            .map{ Reactor.Action.favoriteButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
@@ -277,28 +287,6 @@ extension DetailCoinInfoViewController: UIScrollViewDelegate {
             }
         }
         
-//        if innerScroll && moreScroll {
-//            print("Inner Scroll을 더 내림")
-//            
-//            if !innerScrollingDownDueToOuterScroll {
-//                if outerScrollView.contentOffset.y + 0.1 < outerScrollMaxOffsetY {
-//                    // 외부 스크롤 뷰가 아직 최대 Offset에 도달하지 않았다면, 자연스럽게 스크롤을 넘김
-//                    let remainingOuterScroll = outerScrollMaxOffsetY - outerScrollView.contentOffset.y
-//                    let scrollAmount = min(innerScrollView.contentOffset.y, remainingOuterScroll) // 스크롤을 부드럽게 넘기기 위한 최소값 계산
-//                    outerScrollView.contentOffset.y += scrollAmount
-//                    innerScrollView.contentOffset.y -= scrollAmount // 내부 스크롤을 그만큼 줄임
-//                    
-//                    print("Outer Scroll로 자연스럽게 스크롤 전환 중, scrollAmount: \(scrollAmount)")
-//                } else {
-//                    // Inner Scroll이 최대 Offset에 도달했을 때 고정
-//                    if innerScrollView.contentOffset.y + 0.1 > innerScrollMaxOffsetY {
-//                        innerScrollView.contentOffset.y = innerScrollMaxOffsetY
-//                        print("Inner Scroll이 Max Offset에 도달: 고정")
-//                    }
-//                }
-//            }
-//        }
-
         if innerScroll && moreScroll {
             print("Inner Scroll을 더 내림")
             if !innerScrollingDownDueToOuterScroll {

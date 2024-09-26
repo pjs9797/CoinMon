@@ -29,6 +29,8 @@ class HomeFlow: Flow {
             return navigateToNotificationViewController()
         case .navigateToDetailCoinInfoViewController(let market, let coin):
             return navigateToDetailCoinInfoViewController(market: market, coin: coin)
+        case .navigateToSelectCoinAtDetailViewController(let market):
+            return navigateToSelectCoinAtDetailViewController(market: market)
         case .presentToSelectDepartureMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
@@ -88,6 +90,13 @@ class HomeFlow: Flow {
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper))
+    }
+    
+    private func navigateToSelectCoinAtDetailViewController(market: String) -> FlowContributors {
+        let reactor = SelectCoinAtDetailReactor(coinUseCase: self.coinUseCase, market: market)
+        let viewController = SelectCoinAtDetailViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
     private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String) -> FlowContributors {

@@ -45,7 +45,7 @@ struct ImageManager {
     static let iconClear = UIImage(named: "iconClear")
     static let search = UIImage(named: "search")
     static let noneAlarm = UIImage(named: "noneAlarm")
-    static let noneCoin = UIImage(named: "noneCoin")
+    static let nosearch = UIImage(named: "nosearch")
     static let global = UIImage(named: "global")
     static let existAlarm = UIImage(named: "existAlarm")
     static let notExistAlarm = UIImage(named: "notExistAlarm")
