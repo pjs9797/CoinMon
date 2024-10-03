@@ -26,6 +26,7 @@ class PriceViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = .systemBackground
         hideKeyboard(disposeBag: disposeBag)
+        setupNotifications()
         priceView.marketCollectionView.dragDelegate = self
         priceView.marketCollectionView.dropDelegate = self
         priceView.marketCollectionView.dragInteractionEnabled = true
@@ -36,7 +37,6 @@ class PriceViewController: UIViewController, ReactorKit.View {
             })
             .disposed(by: disposeBag)
         self.reactor?.action.onNext(.loadPriceList)
-        //setupScrollBehavior()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +53,18 @@ class PriceViewController: UIViewController, ReactorKit.View {
         super.viewDidLayoutSubviews()
         setupScrollBehavior()
     }
+    
+    private func setupNotifications() {
+        NotificationCenter.default.rx.notification(.favoritesUpdated)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.priceView.toastMessage.isHidden = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    self?.priceView.toastMessage.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 extension PriceViewController {
@@ -65,8 +77,28 @@ extension PriceViewController {
         priceView.marketCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
+        priceView.priceCategoryView.marketButton.rx.tap
+            .map{ Reactor.Action.marketButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.priceCategoryView.favoriteButton.rx.tap
+            .map{ Reactor.Action.favoriteButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.priceCategoryView.editButton.rx.tap
+            .map{ Reactor.Action.editButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         priceView.marketCollectionView.rx.itemSelected
             .map { Reactor.Action.selectMarket($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceView.marketCollectionView.rx.itemSelected
+            .map{ _ in Reactor.Action.loadPriceList }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -108,6 +140,36 @@ extension PriceViewController {
     }
     
     func bindState(reactor: PriceReactor){
+        reactor.state.map{ $0.isTappedMarketButton }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] isTapped in
+                if isTapped {
+                    self?.priceView.priceCategoryView.marketButton.setTitleColor(ColorManager.common_0, for: .normal)
+                    self?.reactor?.action.onNext(.loadPriceList)
+                    self?.priceView.priceCategoryView.editButton.isHidden = true
+                }
+                else{
+                    self?.priceView.priceCategoryView.marketButton.setTitleColor(ColorManager.gray_80, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.isTappedFavoriteButton }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] isTapped in
+                if isTapped {
+                    self?.priceView.priceCategoryView.favoriteButton.setTitleColor(ColorManager.common_0, for: .normal)
+                    self?.reactor?.action.onNext(.loadPriceList)
+                    self?.priceView.priceCategoryView.editButton.isHidden = false
+                }
+                else{
+                    self?.priceView.priceCategoryView.favoriteButton.setTitleColor(ColorManager.gray_80, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListAtHomeCollectionViewCell", cellType: MarketListAtHomeCollectionViewCell.self)) { index, markets, cell in
@@ -127,17 +189,38 @@ extension PriceViewController {
             }
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.filteredPriceList }
-            .distinctUntilChanged()
-            .bind(onNext: { [weak self] filteredPriceList in
+        Observable.combineLatest(
+            reactor.state.map { $0.filteredPriceList }.distinctUntilChanged(),
+            reactor.state.map { $0.searchText }.distinctUntilChanged()
+        )
+        .bind(onNext: { [weak self] filteredPriceList, searchText in
+            if self?.reactor?.currentState.isTappedFavoriteButton == true {
+                if filteredPriceList.isEmpty {
+                    if searchText == "" {
+                        self?.priceView.noneCoinView.isHidden = true
+                        self?.priceView.noneFavoritesView.isHidden = false
+                    } 
+                    else {
+                        self?.priceView.noneCoinView.isHidden = false
+                        self?.priceView.noneFavoritesView.isHidden = true
+                    }
+                } 
+                else {
+                    self?.priceView.noneCoinView.isHidden = true
+                    self?.priceView.noneFavoritesView.isHidden = true
+                }
+            } 
+            else {
+                self?.priceView.noneFavoritesView.isHidden = true
                 if filteredPriceList.isEmpty {
                     self?.priceView.noneCoinView.isHidden = false
-                }
+                } 
                 else {
                     self?.priceView.noneCoinView.isHidden = true
                 }
-            })
-            .disposed(by: disposeBag)
+            }
+        })
+        .disposed(by: disposeBag)
         
         reactor.state.map{ $0.unit }
             .distinctUntilChanged()
@@ -275,30 +358,37 @@ extension PriceViewController {
             .subscribe(onNext: { [weak self] contentOffset in
                 guard let self = self else { return }
                 
-                let currentOffsetY = max(contentOffset.y, 0)  // Ensure offset is never negative
-                let deltaY = currentOffsetY - lastOffsetY
-                lastOffsetY = currentOffsetY
+                // 테이블 뷰의 셀 개수 확인
+                let numberOfRows = self.priceView.priceTableView.numberOfRows(inSection: 0)
                 
-                // Accumulate the offset, but keep it within bounds
-                accumulatedOffsetY = min(max(accumulatedOffsetY + deltaY, 0), headerHeight)
-                
-                // Debug prints
-                print("currentOffsetY: \(currentOffsetY), accumulatedOffsetY: \(accumulatedOffsetY), deltaY: \(deltaY)")
-                
-                // Update priceCategoryView and searchView positions
-                self.priceView.priceCategoryView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
-                self.priceView.searchView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
-                
-                // Update priceTableViewHeader, marketCollectionView, and priceTableView positions
-                let headerTransform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
-                self.priceView.marketCollectionView.transform = headerTransform
-                self.priceView.priceTableViewHeader.transform = headerTransform
-                
-                // Adjust tableView height and position
-                let tableViewHeight = self.view.frame.height - self.view.safeAreaInsets.top + accumulatedOffsetY
-                self.priceView.priceTableView.frame.size.height = tableViewHeight
-                self.priceView.priceTableView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                // 셀 개수가 15개 이상일 때만 트랜스폼 적용
+                if numberOfRows >= 15 {
+                    let currentOffsetY = max(contentOffset.y, 0)
+                    let deltaY = currentOffsetY - lastOffsetY
+                    lastOffsetY = currentOffsetY
+                    
+                    accumulatedOffsetY = min(max(accumulatedOffsetY + deltaY, 0), headerHeight)
+                    
+                    self.priceView.priceCategoryView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                    self.priceView.searchView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                    
+                    let headerTransform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                    self.priceView.marketCollectionView.transform = headerTransform
+                    self.priceView.priceTableViewHeader.transform = headerTransform
+                    
+                    let tableViewHeight = self.view.frame.height - self.view.safeAreaInsets.top + accumulatedOffsetY
+                    self.priceView.priceTableView.frame.size.height = tableViewHeight
+                    self.priceView.priceTableView.transform = CGAffineTransform(translationX: 0, y: -accumulatedOffsetY)
+                } else {
+                    // 셀 개수가 15개 미만일 때는 트랜스폼을 원래대로 복원
+                    self.priceView.priceCategoryView.transform = .identity
+                    self.priceView.searchView.transform = .identity
+                    self.priceView.marketCollectionView.transform = .identity
+                    self.priceView.priceTableViewHeader.transform = .identity
+                    self.priceView.priceTableView.transform = .identity
+                }
             })
             .disposed(by: disposeBag)
     }
+
 }

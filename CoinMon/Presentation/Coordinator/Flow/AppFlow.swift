@@ -9,6 +9,7 @@ class AppFlow: Flow {
     private let coinUseCase = CoinUseCase(repository: CoinRepository())
     private let alarmUseCase = AlarmUseCase(repository: AlarmRepository())
     private let userUseCase = UserUseCase(repository: UserRepository())
+    private let favoritesUseCase = FavoritesUseCase(repository: FavoritesRepository())
     
     lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
@@ -88,7 +89,7 @@ class AppFlow: Flow {
         let homeNavigationController = UINavigationController()
         let alarmNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
-        let homeFlow = HomeFlow(with: homeNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase)
+        let homeFlow = HomeFlow(with: homeNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase, favoritesUseCase: self.favoritesUseCase)
         let alarmFlow = AlarmFlow(with: alarmNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase)
         let settingFlow = SettingFlow(with: settingNavigationController, userUseCase: self.userUseCase)
         

@@ -50,7 +50,14 @@
 "관심" = "Favorites";
 "추가" = "Add";
 "편집" = "Edit";
-"관심 코인 추가" = "Add to Favorites";
+"전체" = "All";
+"이 거래소는 즐겨찾는 코인이 없어요" = "This exchange has no favorite coins";
+"저장하지 않고 나가시겠어요?" = "Your listing is incomplete. Exit?";
+"저장하지 않고 이동하시겠어요?" = "Your listing is incomplete. Move?";
+"지금까지 편집한 내용은 저장되지 않아요." = "The changes made so far will not be saved.";
+"이어서 편집" = "Edit";
+"나가기" = "Exit";
+"이동하기" = "Move";
 //Home-Price
 "코인 검색" = "Search";
 "코인" = "Coin";
@@ -61,6 +68,8 @@
 //Home-Premium
 "거래소 선택" = "Select Market";
 //Detail
+"지정가 알림" = "Set Alarm";
+"알림 받는 중" = "Receiving";
 "차트" = "Chart";
 "종목정보" = "Info";
 "커뮤니티" = "Community";
@@ -79,6 +88,12 @@
 "90일" = "90D";
 "1년" = "1Y";
 "코인몬에서 제공하는 정보는 고객의 투자 판단을 위한 단순 참고용일 뿐, 투자 제안 및 권유•특정 가상자산 추천을 하지 않습니다." = "The information provided by Coinmon is merely for reference to help customers make investment decisions, and does not constitute investment suggestions or recommendations or recommendations for specific virtual assets.";
+"지정가 알람 설정되었어요" = "Price alarm set";
+"지정가 알람 삭제되었어요" = "Deleteed from Price alarm";
+"지정가 알람 편집되었어요" = "Edited Price alarm";
+"관심 코인에 추가했어요" = "Added to Favorites";
+"관심 코인에서 제외했어요" = "Deleted from Favorites";
+"편집 내용이 저장되었어요" = "Saved favorites list";
 //Notification
 "알림" = "Notification";
 "휴대폰 앱 알림이 꺼져있어요" = "App notifications are Currently disabled. You can enable them in ‘Settings’.";

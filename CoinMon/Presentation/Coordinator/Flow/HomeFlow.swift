@@ -10,14 +10,16 @@ class HomeFlow: Flow {
     private var rootViewController: UINavigationController
     private let coinUseCase: CoinUseCase
     private let alarmUseCase: AlarmUseCase
+    private let favoritesUseCase: FavoritesUseCase
     
-    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase) {
+    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase, favoritesUseCase: FavoritesUseCase) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
         self.rootViewController.isNavigationBarHidden = true
         self.coinUseCase = coinUseCase
         self.alarmUseCase = alarmUseCase
+        self.favoritesUseCase = favoritesUseCase
     }
     
     func navigate(to step: Step) -> FlowContributors {
@@ -31,23 +33,31 @@ class HomeFlow: Flow {
             return navigateToDetailCoinInfoViewController(market: market, coin: coin)
         case .navigateToSelectCoinAtDetailViewController(let market):
             return navigateToSelectCoinAtDetailViewController(market: market)
+        case .navigateToEditFavoritesViewController:
+            return navigateToEditFavoritesViewController()
         case .presentToSelectDepartureMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectArrivalMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
+        case .presentToUnsavedFavoritesSheetPresentationController:
+            return presentToUnsavedFavoritesSheetPresentationController()
+        case .presentToUnsavedFavoritesSecondSheetPresentationController:
+            return presentToUnsavedFavoritesSecondSheetPresentationController()
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
         case .goToAlarmSetting:
             return goToAlarmSetting()
-        case .dismissSelectMarketViewController:
-            return dismissSelectMarketViewController()
+        case .dismiss:
+            return dismiss()
         case .popViewController:
             return popViewController()
+        case .dismissAndPopViewController:
+            return dismissAndPopViewController()
         }
     }
     
     private func navigateToHomeViewController() -> FlowContributors {
-        let priceReactor = PriceReactor(coinUseCase: self.coinUseCase)
+        let priceReactor = PriceReactor(coinUseCase: self.coinUseCase, favoritesUseCase: self.favoritesUseCase)
         let priceViewController = PriceViewController(with: priceReactor)
         
         let feeReactor = FeeReactor(coinUseCase: self.coinUseCase)
@@ -83,7 +93,7 @@ class HomeFlow: Flow {
         //let premiumReactor = PremiumReactor(coinUseCase: self.coinUseCase)
         let communityViewController = CommunityViewController()
         
-        let reactor = DetailCoinInfoReactor(coinUseCase: self.coinUseCase, market: market, coin: coin)
+        let reactor = DetailCoinInfoReactor(coinUseCase: self.coinUseCase, favoritesUseCase: self.favoritesUseCase, market: market, coin: coin)
         let viewController = DetailCoinInfoViewController(with: reactor, viewControllers: [chartViewController,infoViewController,communityViewController])
         viewController.hidesBottomBarWhenPushed = true
         let compositeStepper = CompositeStepper(steppers: [infoReactor, chartReactor, reactor])
@@ -93,8 +103,17 @@ class HomeFlow: Flow {
     }
     
     private func navigateToSelectCoinAtDetailViewController(market: String) -> FlowContributors {
-        let reactor = SelectCoinAtDetailReactor(coinUseCase: self.coinUseCase, market: market)
+        let reactor = SelectCoinAtDetailReactor(coinUseCase: self.coinUseCase)
         let viewController = SelectCoinAtDetailViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEditFavoritesViewController() -> FlowContributors {
+        let reactor = EditFavoritesReactor(favoritesUseCase: self.favoritesUseCase)
+        let viewController = EditFavoritesViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
@@ -133,6 +152,40 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    private func presentToUnsavedFavoritesSheetPresentationController() -> FlowContributors {
+        let reactor = UnsavedFavoritesReactor()
+        let viewController = UnsavedFavoritesSheetPresentationController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 208*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToUnsavedFavoritesSecondSheetPresentationController() -> FlowContributors {
+        let reactor = UnsavedFavoritesSecondReactor()
+        let viewController = UnsavedFavoritesSecondSheetPresentationController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 208*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
@@ -151,7 +204,7 @@ class HomeFlow: Flow {
         return .none
     }
     
-    private func dismissSelectMarketViewController() -> FlowContributors{
+    private func dismiss() -> FlowContributors{
         self.rootViewController.dismiss(animated: true)
         
         return .none
@@ -159,6 +212,14 @@ class HomeFlow: Flow {
     
     private func popViewController() -> FlowContributors {
         self.rootViewController.popViewController(animated: true)
+        
+        return .none
+    }
+    
+    private func dismissAndPopViewController() -> FlowContributors {
+        self.rootViewController.dismiss(animated: true, completion: { [weak self] in
+            self?.rootViewController.popViewController(animated: true)
+        })
         
         return .none
     }

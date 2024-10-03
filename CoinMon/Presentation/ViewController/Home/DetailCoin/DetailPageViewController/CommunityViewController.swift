@@ -16,7 +16,8 @@ class CommunityViewController: UIViewController {
         view.backgroundColor = ColorManager.common_100
         view.addSubview(updatelabel)
         updatelabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.top.equalToSuperview().offset(120*ConstantsManager.standardHeight)
+            make.centerX.equalToSuperview()
         }
     }
 }

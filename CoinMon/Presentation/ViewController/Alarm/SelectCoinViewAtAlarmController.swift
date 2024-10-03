@@ -6,7 +6,7 @@ import RxCocoa
 class SelectCoinViewAtAlarmController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
-    let selectCoinView = SelectCoinView()
+    let selectCoinAtAlarmView = SelectCoinAtAlarmView()
     
     init(with reactor: SelectCoinAtAlarmReactor) {
         super.init(nibName: nil, bundle: nil)
@@ -21,7 +21,7 @@ class SelectCoinViewAtAlarmController: UIViewController, ReactorKit.View {
     override func loadView() {
         super.loadView()
         
-        view = selectCoinView
+        view = selectCoinAtAlarmView
     }
     
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ class SelectCoinViewAtAlarmController: UIViewController, ReactorKit.View {
         hideKeyboard(disposeBag: disposeBag)
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
-                self?.selectCoinView.setLocalizedText()
+                self?.selectCoinAtAlarmView.setLocalizedText()
             })
             .disposed(by: disposeBag)
         self.reactor?.action.onNext(.loadCoinData)
@@ -56,28 +56,28 @@ extension SelectCoinViewAtAlarmController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectCoinView.selectCoinTableView.rx.itemSelected
+        selectCoinAtAlarmView.selectCoinTableView.rx.itemSelected
             .map { Reactor.Action.selectCoin($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectCoinView.searchView.searchTextField.rx.text.orEmpty
+        selectCoinAtAlarmView.searchView.searchTextField.rx.text.orEmpty
             .distinctUntilChanged()
             .map { Reactor.Action.updateSearchText($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectCoinView.searchView.clearButton.rx.tap
+        selectCoinAtAlarmView.searchView.clearButton.rx.tap
             .map { Reactor.Action.clearButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectCoinView.selectCoinTableViewHeader.coinButton.rx.tap
+        selectCoinAtAlarmView.selectCoinTableViewHeader.coinButton.rx.tap
             .map{ Reactor.Action.sortByCoin }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectCoinView.selectCoinTableViewHeader.priceButton.rx.tap
+        selectCoinAtAlarmView.selectCoinTableViewHeader.priceButton.rx.tap
             .map{ Reactor.Action.sortByPrice }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -86,7 +86,7 @@ extension SelectCoinViewAtAlarmController {
     func bindState(reactor: SelectCoinAtAlarmReactor){
         reactor.state.map { $0.filteredCoins }
             .distinctUntilChanged()
-            .bind(to: selectCoinView.selectCoinTableView.rx.items(cellIdentifier: "SelectCoinTableViewCell", cellType: SelectCoinTableViewCell.self)){ row, coin, cell in
+            .bind(to: selectCoinAtAlarmView.selectCoinTableView.rx.items(cellIdentifier: "SelectCoinTableViewCell", cellType: SelectCoinTableViewCell.self)){ row, coin, cell in
                 
                 cell.configurePrice(with: coin)
             }
@@ -96,10 +96,10 @@ extension SelectCoinViewAtAlarmController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] filteredCoins in
                 if filteredCoins.isEmpty {
-                    self?.selectCoinView.noneCoinView.isHidden = false
+                    self?.selectCoinAtAlarmView.noneCoinView.isHidden = false
                 }
                 else {
-                    self?.selectCoinView.noneCoinView.isHidden = true
+                    self?.selectCoinAtAlarmView.noneCoinView.isHidden = true
                 }
             })
             .disposed(by: disposeBag)
@@ -107,19 +107,19 @@ extension SelectCoinViewAtAlarmController {
         reactor.state.map{ $0.unit }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] unit in
-                self?.selectCoinView.selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더", arguments: unit), for: .normal)
+                self?.selectCoinAtAlarmView.selectCoinTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더", arguments: unit), for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.searchText }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] text in
-                self?.selectCoinView.searchView.searchTextField.text = text
+                self?.selectCoinAtAlarmView.searchView.searchTextField.text = text
                 if text == "" {
-                    self?.selectCoinView.searchView.clearButton.isHidden = true
+                    self?.selectCoinAtAlarmView.searchView.clearButton.isHidden = true
                 }
                 else {
-                    self?.selectCoinView.searchView.clearButton.isHidden = false
+                    self?.selectCoinAtAlarmView.searchView.clearButton.isHidden = false
                 }
             })
             .disposed(by: disposeBag)
@@ -129,11 +129,11 @@ extension SelectCoinViewAtAlarmController {
             .bind(onNext: { [weak self] order in
                 switch order{
                 case .ascending:
-                    self?.selectCoinView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort_ascending, for: .normal)
+                    self?.selectCoinAtAlarmView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort_ascending, for: .normal)
                 case .descending:
-                    self?.selectCoinView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort_descending, for: .normal)
+                    self?.selectCoinAtAlarmView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort_descending, for: .normal)
                 case .none:
-                    self?.selectCoinView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort, for: .normal)
+                    self?.selectCoinAtAlarmView.selectCoinTableViewHeader.coinButton.setImage(ImageManager.sort, for: .normal)
                 }
             })
             .disposed(by: disposeBag)
@@ -143,11 +143,11 @@ extension SelectCoinViewAtAlarmController {
             .bind(onNext: { [weak self] order in
                 switch order{
                 case .ascending:
-                    self?.selectCoinView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort_ascending, for: .normal)
+                    self?.selectCoinAtAlarmView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort_ascending, for: .normal)
                 case .descending:
-                    self?.selectCoinView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort_descending, for: .normal)
+                    self?.selectCoinAtAlarmView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort_descending, for: .normal)
                 case .none:
-                    self?.selectCoinView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort, for: .normal)
+                    self?.selectCoinAtAlarmView.selectCoinTableViewHeader.priceButton.setImage(ImageManager.sort, for: .normal)
                 }
             })
             .disposed(by: disposeBag)

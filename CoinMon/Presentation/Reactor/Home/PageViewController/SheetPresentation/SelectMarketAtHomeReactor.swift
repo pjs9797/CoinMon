@@ -36,7 +36,7 @@ class SelectMarketAtHomeReactor: ReactorKit.Reactor,Stepper {
         switch action {
         case .selectMarket(let index):
             selectedMarketRelay.accept(currentState.markets[index].localizationKey)
-            self.steps.accept(HomeStep.dismissSelectMarketViewController)
+            self.steps.accept(HomeStep.dismiss)
             return .empty()
         }
     }

@@ -3,18 +3,18 @@ import RxCocoa
 import RxFlow
 
 class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
-    let initialState: State
+    let initialState: State = State()
     var steps = PublishRelay<Step>()
     private let coinUseCase: CoinUseCase
     
-    init(coinUseCase: CoinUseCase, market: String){
+    init(coinUseCase: CoinUseCase){
         self.coinUseCase = coinUseCase
-        initialState = State(market: market)
     }
     
     enum Action {
         case loadCoinData
         case backButtonTapped
+        case selectMarket(Int)
         case selectCoin(Int)
         case updateSearchText(String)
         case clearButtonTapped
@@ -23,6 +23,8 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
     }
     
     enum Mutation {
+        case setSelectedMarket(Int)
+        case setMarket(String)
         case setCoinData([CoinPrice])
         case setUnit(String)
         case setSearchText(String)
@@ -32,8 +34,15 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
     }
     
     struct State {
-        var market: String
+        var selectedMarket: Int = 0
+        var markets: [Market] = [
+            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Binance"), localizationKey: "Binance"),
+            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Bybit"), localizationKey: "Bybit"),
+            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Upbit"), localizationKey: "Upbit"),
+            Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "Bithumb"), localizationKey: "Bithumb")
+        ]
         var coins: [CoinPrice] = []
+        var market: String = "Binance"
         var unit: String = "USDT"
         var searchText: String = ""
         var filteredCoins: [CoinPrice] = []
@@ -44,14 +53,15 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .loadCoinData:
-            return coinUseCase.fetchCoinPriceForSelectCoinsAtAlarm(market: currentState.market)
-                .flatMap { [weak self] coinData -> Observable<Mutation> in
-                    let market = self?.currentState.market
+            return self.coinUseCase.fetchCoinPriceForSelectCoinsAtAlarm(market: "Binance")
+                .flatMap { coinData -> Observable<Mutation> in
+                    let market = "Binance"
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
                     return .concat([
                         .just(.setCoinData(coinData)),
                         .just(.setFilteredCoins(coinData)),
-                        .just(.setUnit(unit))
+                        .just(.setUnit(unit)),
+                        .just(.setMarket(market))
                     ])
                 }
                 .catch { [weak self] error in
@@ -61,6 +71,23 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
         case .backButtonTapped:
             self.steps.accept(HomeStep.popViewController)
             return .empty()
+        case .selectMarket(let index):
+            return self.coinUseCase.fetchCoinPriceForSelectCoinsAtAlarm(market: currentState.markets[index].localizationKey)
+                .flatMap { [weak self] coinData -> Observable<Mutation> in
+                    let market = self?.currentState.markets[index].localizationKey
+                    let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
+                    return .concat([
+                        .just(.setCoinData(coinData)),
+                        .just(.setFilteredCoins(coinData)),
+                        .just(.setUnit(unit)),
+                        .just(.setSelectedMarket(index)),
+                        .just(.setMarket(market ?? "Binance"))
+                    ])
+                }
+                .catch { [weak self] error in
+                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .selectCoin(let index):
             let coin = currentState.filteredCoins[index].coinTitle
             self.steps.accept(HomeStep.navigateToDetailCoinInfoViewController(market: currentState.market, coin: coin))
@@ -125,6 +152,10 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case .setSelectedMarket(let index):
+            newState.selectedMarket = index
+        case .setMarket(let market):
+            newState.market = market
         case .setCoinData(let coinData):
             newState.coins = coinData
         case .setUnit(let unit):

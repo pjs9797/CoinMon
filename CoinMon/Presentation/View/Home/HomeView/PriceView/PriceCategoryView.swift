@@ -20,12 +20,13 @@ class PriceCategoryView: UIView {
         let button = UIButton()
         button.titleLabel?.font = FontManager.T5_14
         button.setTitleColor(ColorManager.gray_60, for: .normal)
-        
+        button.isHidden = true
         return button
     }()
     let separateView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.gray_96
+        view.isHidden = true
         return view
     }()
     let editButton: UIButton = {

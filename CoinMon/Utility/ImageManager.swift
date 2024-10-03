@@ -28,6 +28,7 @@ struct ImageManager {
     static let check_Yellow = UIImage(named: "Check_Yellow")
     static let circle_Check = UIImage(named: "Circle_Check")
     static let circle_Check_Orange = UIImage(named: "Circle_Check_Orange")
+    static let circle_Check_Green = UIImage(named: "Circle_Check_Green")
     static let check = UIImage(named: "Check")
     static let check_Orange = UIImage(named: "Check_Orange")
     static let square_Check_None = UIImage(named: "Square_Check_None")
@@ -55,4 +56,6 @@ struct ImageManager {
     static let icon_star = UIImage(named: "icon_star")
     static let icon_star_select = UIImage(named: "icon_star_select")
     static let icon_search24 = UIImage(named: "icon_search24")
+    static let Handle24 = UIImage(named: "Handle24")
+    static let Star50 = UIImage(named: "Star50")
 }

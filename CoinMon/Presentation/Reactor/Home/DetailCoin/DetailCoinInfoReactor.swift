@@ -6,12 +6,14 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
     let disposeBag = DisposeBag()
     let initialState: State
     var steps = PublishRelay<Step>()
-    var coinUseCase: CoinUseCase
+    private let coinUseCase: CoinUseCase
+    private let favoritesUseCase: FavoritesUseCase
     
-    init(coinUseCase: CoinUseCase, market: String, coin: String){
+    init(coinUseCase: CoinUseCase, favoritesUseCase: FavoritesUseCase, market: String, coin: String){
         let unit = market == "UPBIT" || market == "BITHUMB" ? "KRW" : "USDT"
         let coinTitle = "\(coin)(\(unit))"
         self.coinUseCase = coinUseCase
+        self.favoritesUseCase = favoritesUseCase
         self.initialState = State(market: market, coin: coin, coinTitle: coinTitle)
     }
     

@@ -8,9 +8,11 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     var steps = PublishRelay<Step>()
     private var timerDisposable: Disposable?
     private let coinUseCase: CoinUseCase
+    private let favoritesUseCase: FavoritesUseCase
     
-    init(coinUseCase: CoinUseCase) {
+    init(coinUseCase: CoinUseCase, favoritesUseCase: FavoritesUseCase) {
         self.coinUseCase = coinUseCase
+        self.favoritesUseCase = favoritesUseCase
         var markets = [
             Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "바이낸스"), localizationKey: "Binance"),
             Market(marketTitle: LocalizationManager.shared.localizedString(forKey: "바이비트"), localizationKey: "Bybit"),
@@ -32,15 +34,28 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Action {
+        // 타이머
         case startTimer
         case stopTimer
-        case loadPriceList
+        
+        // 검색
+        case updateSearchText(String)
+        case clearButtonTapped
+        
+        // 버튼 탭
+        case marketButtonTapped
+        case favoriteButtonTapped
+        case editButtonTapped
+        
+        // 거래소
         case updateLocalizedMarkets
         case selectMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
-        case updateSearchText(String)
-        case clearButtonTapped
+        
+        // 코인
+        case loadPriceList
+        //case loadFavoritesList
         case sortByCoin
         case sortByPrice
         case sortByChange
@@ -49,14 +64,24 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Mutation {
+        // 버튼 상태
+        case setMarketButton(Bool)
+        case setFavoriteButton(Bool)
+        
+        // 검색
+        case setSearchText(String)
+        
+        // 거래소
         case setLocalizedMarkets([Market])
         case setSelectedMarket(Int)
         case moveItem(Int, Int)
         case saveOrder
+        
+        // 코인
         case setPriceList([CoinPriceChangeGap])
         case setUnit(String)
-        case setSearchText(String)
         case setFilteredPriceList([CoinPriceChangeGap])
+        case setInitialFavoritesOrder([CoinPriceChangeGap])
         case setCoinSortOrder(SortOrder)
         case setPriceSortOrder(SortOrder)
         case setChangeSortOrder(SortOrder)
@@ -64,12 +89,22 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     }
     
     struct State {
+        // 버튼 상태
+        var isTappedMarketButton: Bool = true
+        var isTappedFavoriteButton: Bool = false
+        
+        // 검색
+        var searchText: String = ""
+        
+        // 거래소
         var selectedMarket: Int = 0
         var markets: [Market]
-        var priceList: [CoinPriceChangeGap] = []
-        var searchText: String = ""
+        
+        // 코인
         var unit: String = "USDT"
+        var priceList: [CoinPriceChangeGap] = []
         var filteredPriceList: [CoinPriceChangeGap] = []
+        var initialFavoritesList: [CoinPriceChangeGap] = []
         var coinSortOrder: SortOrder = .none
         var priceSortOrder: SortOrder = .none
         var changeSortOrder: SortOrder = .none
@@ -78,66 +113,72 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+            // 타이머
         case .startTimer:
             startTimer()
             return .empty()
         case .stopTimer:
             stopTimer()
             return .empty()
-        case .loadPriceList:
-            return coinUseCase.fetchCoinPriceChangeGapList(market: currentState.markets[currentState.selectedMarket].localizationKey)
-                .flatMap { [weak self] priceList -> Observable<Mutation> in
-                    var sortedPriceList = priceList
-                    if self?.currentState.coinSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.coinTitle, order: self?.currentState.coinSortOrder ?? .none) ?? priceList
-                    }
-                    if self?.currentState.priceSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.price, order: self?.currentState.priceSortOrder ?? .none) ?? priceList
-                    }
-                    if self?.currentState.changeSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.change, order: self?.currentState.changeSortOrder ?? .none) ?? priceList
-                    }
-                    if self?.currentState.gapSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.gap, order: self?.currentState.gapSortOrder ?? .none) ?? priceList
-                    }
-                    sortedPriceList = self?.filterPriceList(priceList: sortedPriceList, searchText: self?.currentState.searchText ?? "") ?? priceList
-                    return .concat([
-                        .just(.setPriceList(priceList)),
-                        .just(.setFilteredPriceList(sortedPriceList))
-                    ])
+            
+            // 검색
+        case .updateSearchText(let searchText):
+            let filteredPriceList: [CoinPriceChangeGap]
+            if searchText.isEmpty {
+                var sortedPriceList = currentState.filteredPriceList
+                if currentState.coinSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.coinTitle, order: currentState.coinSortOrder)
                 }
-                .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
-                    return .empty()
+                else if currentState.priceSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.price, order: currentState.priceSortOrder)
                 }
+                else if currentState.changeSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.change, order: currentState.changeSortOrder)
+                }
+                else if currentState.gapSortOrder != .none {
+                    sortedPriceList = sortPriceList(sortedPriceList, by: \.gap, order: currentState.gapSortOrder)
+                }
+                filteredPriceList = sortedPriceList
+            } else {
+                filteredPriceList = currentState.filteredPriceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
+            }
+            return .concat([
+                .just(.setSearchText(searchText)),
+                .just(.setFilteredPriceList(filteredPriceList))
+            ])
+        case .clearButtonTapped:
+            return .concat([
+                .just(.setSearchText("")),
+                .just(.setFilteredPriceList(currentState.priceList))
+            ])
+            
+            // 버튼 탭
+        case .marketButtonTapped:
+            return .concat([
+                .just(.setMarketButton(true)),
+                .just(.setFavoriteButton(false))
+            ])
+        case .favoriteButtonTapped:
+            return .concat([
+                .just(.setMarketButton(false)),
+                .just(.setFavoriteButton(true))
+            ])
+        case .editButtonTapped:
+            self.steps.accept(HomeStep.navigateToEditFavoritesViewController)
+            return .empty()
+            
+            // 거래소
         case .updateLocalizedMarkets:
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))
         case .selectMarket(let index):
-            return coinUseCase.fetchCoinPriceChangeGapList(market: currentState.markets[index].localizationKey)
+            return self.coinUseCase.fetchCoinPriceChangeGapList(market: currentState.markets[index].localizationKey)
                 .flatMap { [weak self] priceList -> Observable<Mutation> in
-                    let market = self?.currentState.markets[index].localizationKey
-                    let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
-                    var sortedPriceList = priceList
-                    if self?.currentState.coinSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.coinTitle, order: self?.currentState.coinSortOrder ?? .none) ?? priceList
+                    if self?.currentState.isTappedFavoriteButton == true {
+                        return self?.updateFavoritesList(priceList: priceList, index: index) ?? .empty()
+                    } else {
+                        return self?.updateFullPriceList(priceList: priceList) ?? .empty()
                     }
-                    if self?.currentState.priceSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.price, order: self?.currentState.priceSortOrder ?? .none) ?? priceList
-                    }
-                    if self?.currentState.changeSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.change, order: self?.currentState.changeSortOrder ?? .none) ?? priceList
-                    }
-                    if self?.currentState.gapSortOrder != SortOrder.none {
-                        sortedPriceList = self?.sortPriceList(sortedPriceList, by: \.gap, order: self?.currentState.gapSortOrder ?? .none) ?? priceList
-                    }
-                    sortedPriceList = self?.filterPriceList(priceList: sortedPriceList, searchText: self?.currentState.searchText ?? "") ?? priceList
-                    return .concat([
-                        .just(.setPriceList(priceList)),
-                        .just(.setFilteredPriceList(sortedPriceList)),
-                        .just(.setUnit(unit)),
-                        .just(.setSelectedMarket(index)),
-                    ])
                 }
                 .catch { [weak self] error in
                     self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
@@ -155,35 +196,21 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             }
         case .saveOrder:
             return .just(.saveOrder)
-        case .updateSearchText(let searchText):
-            let filteredPriceList: [CoinPriceChangeGap]
-            if searchText.isEmpty {
-                var sortedPriceList = currentState.priceList
-                if currentState.coinSortOrder != .none {
-                    sortedPriceList = sortPriceList(sortedPriceList, by: \.coinTitle, order: currentState.coinSortOrder)
-                } 
-                else if currentState.priceSortOrder != .none {
-                    sortedPriceList = sortPriceList(sortedPriceList, by: \.price, order: currentState.priceSortOrder)
-                } 
-                else if currentState.changeSortOrder != .none {
-                    sortedPriceList = sortPriceList(sortedPriceList, by: \.change, order: currentState.changeSortOrder)
-                } 
-                else if currentState.gapSortOrder != .none {
-                    sortedPriceList = sortPriceList(sortedPriceList, by: \.gap, order: currentState.gapSortOrder)
+            
+            // 코인
+        case .loadPriceList:
+            return self.coinUseCase.fetchCoinPriceChangeGapList(market: currentState.markets[currentState.selectedMarket].localizationKey)
+                .flatMap { [weak self] priceList -> Observable<Mutation> in
+                    if self?.currentState.isTappedFavoriteButton == true {
+                        return self?.updateFavoritesList(priceList: priceList, index: self?.currentState.selectedMarket ?? 0) ?? .empty()
+                    } else {
+                        return self?.updateFullPriceList(priceList: priceList) ?? .empty()
+                    }
                 }
-                filteredPriceList = sortedPriceList
-            } else {
-                filteredPriceList = currentState.priceList.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
-            }
-            return .concat([
-                .just(.setSearchText(searchText)),
-                .just(.setFilteredPriceList(filteredPriceList))
-            ])
-        case .clearButtonTapped:
-            return .concat([
-                .just(.setSearchText("")),
-                .just(.setFilteredPriceList(currentState.priceList))
-            ])
+                .catch { [weak self] error in
+                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    return .empty()
+                }
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
@@ -194,11 +221,19 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             case .descending:
                 newOrder = .none
             }
-            let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.coinTitle, order: newOrder)
-            return .concat([
-                .just(.setCoinSortOrder(newOrder)),
-                .just(.setFilteredPriceList(sortedPriceList))
-            ])
+            if newOrder == .none && currentState.isTappedFavoriteButton {
+                return .concat([
+                    .just(.setGapSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(currentState.initialFavoritesList))
+                ])
+            }
+            else{
+                let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.coinTitle, order: newOrder)
+                return .concat([
+                    .just(.setCoinSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(sortedPriceList))
+                ])
+            }
         case .sortByPrice:
             let newOrder: SortOrder
             switch currentState.priceSortOrder {
@@ -209,11 +244,19 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             case .descending:
                 newOrder = .none
             }
-            let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.price, order: newOrder)
-            return .concat([
-                .just(.setPriceSortOrder(newOrder)),
-                .just(.setFilteredPriceList(sortedPriceList))
-            ])
+            if newOrder == .none && currentState.isTappedFavoriteButton {
+                return .concat([
+                    .just(.setGapSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(currentState.initialFavoritesList))
+                ])
+            }
+            else{
+                let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.price, order: newOrder)
+                return .concat([
+                    .just(.setPriceSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(sortedPriceList))
+                ])
+            }
         case .sortByChange:
             let newOrder: SortOrder
             switch currentState.changeSortOrder {
@@ -224,11 +267,19 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             case .descending:
                 newOrder = .none
             }
-            let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.change, order: newOrder)
-            return .concat([
-                .just(.setChangeSortOrder(newOrder)),
-                .just(.setFilteredPriceList(sortedPriceList))
-            ])
+            if newOrder == .none && currentState.isTappedFavoriteButton {
+                return .concat([
+                    .just(.setGapSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(currentState.initialFavoritesList))
+                ])
+            }
+            else{
+                let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.change, order: newOrder)
+                return .concat([
+                    .just(.setChangeSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(sortedPriceList))
+                ])
+            }
         case .sortByGap:
             let newOrder: SortOrder
             switch currentState.gapSortOrder {
@@ -239,11 +290,19 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             case .descending:
                 newOrder = .none
             }
-            let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.gap, order: newOrder)
-            return .concat([
-                .just(.setGapSortOrder(newOrder)),
-                .just(.setFilteredPriceList(sortedPriceList))
-            ])
+            if newOrder == .none && currentState.isTappedFavoriteButton {
+                return .concat([
+                    .just(.setGapSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(currentState.initialFavoritesList))
+                ])
+            }
+            else{
+                let sortedPriceList = self.sortPriceList(currentState.filteredPriceList, by: \.gap, order: newOrder)
+                return .concat([
+                    .just(.setGapSortOrder(newOrder)),
+                    .just(.setFilteredPriceList(sortedPriceList))
+                ])
+            }
         case .selectCoin(let index):
             let market = currentState.markets[currentState.selectedMarket].localizationKey.uppercased()
             self.steps.accept(HomeStep.navigateToDetailCoinInfoViewController(market: market, coin: currentState.filteredPriceList[index].coinTitle))
@@ -254,6 +313,11 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case .setMarketButton(let isTapped):
+            print("isTapped",isTapped)
+            newState.isTappedMarketButton = isTapped
+        case .setFavoriteButton(let isTapped):
+            newState.isTappedFavoriteButton = isTapped
         case .setLocalizedMarkets(let localizedMarkets):
             newState.markets = localizedMarkets
         case .setSelectedMarket(let index):
@@ -274,6 +338,8 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             newState.searchText = searchText
         case .setFilteredPriceList(let filteredPriceList):
             newState.filteredPriceList = filteredPriceList
+        case .setInitialFavoritesOrder(let initialFavoritesList):
+            newState.initialFavoritesList = initialFavoritesList
         case .setCoinSortOrder(let order):
             newState.coinSortOrder = order
             newState.priceSortOrder = .none
@@ -310,6 +376,65 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     private func stopTimer() {
         timerDisposable?.dispose()
         timerDisposable = nil
+    }
+    
+    private func updateFavoritesList(priceList: [CoinPriceChangeGap], index: Int) -> Observable<Mutation> {
+        return self.favoritesUseCase.fetchFavorites(market: currentState.markets[index].localizationKey)
+            .map { favorites -> [CoinPriceChangeGap] in
+                let sortedFavorites = favorites.sorted { $0.favoritesOrder < $1.favoritesOrder }
+                let favoriteCoinTitles = Set(sortedFavorites.map { $0.symbol })
+                let favoriteItems = priceList.filter { favoriteCoinTitles.contains($0.coinTitle) }
+                // 정렬 적용
+                let sortedItems: [CoinPriceChangeGap]
+                if self.currentState.coinSortOrder != .none {
+                    sortedItems = self.sortPriceList(favoriteItems, by: \.coinTitle, order: self.currentState.coinSortOrder)
+                } else if self.currentState.priceSortOrder != .none {
+                    sortedItems = self.sortPriceList(favoriteItems, by: \.price, order: self.currentState.priceSortOrder)
+                } else if self.currentState.changeSortOrder != .none {
+                    sortedItems = self.sortPriceList(favoriteItems, by: \.change, order: self.currentState.changeSortOrder)
+                } else if self.currentState.gapSortOrder != .none {
+                    sortedItems = self.sortPriceList(favoriteItems, by: \.gap, order: self.currentState.gapSortOrder)
+                } else {
+                    // 모든 정렬이 .none일 경우 초기 정렬 상태 적용
+                    sortedItems = favoriteItems.sorted { lhs, rhs in
+                        guard let lhsIndex = sortedFavorites.firstIndex(where: { $0.symbol == lhs.coinTitle }),
+                              let rhsIndex = sortedFavorites.firstIndex(where: { $0.symbol == rhs.coinTitle }) else {
+                            return false
+                        }
+                        return lhsIndex < rhsIndex
+                    }
+                }
+                
+                return sortedItems
+            }
+            .flatMap { sortedItems -> Observable<Mutation> in
+                return .concat([
+                    .just(.setInitialFavoritesOrder(sortedItems)),
+                    .just(.setFilteredPriceList(sortedItems))
+                ])
+            }
+    }
+    
+    
+    private func updateFullPriceList(priceList: [CoinPriceChangeGap]) -> Observable<Mutation> {
+        var sortedPriceList = priceList
+        if self.currentState.coinSortOrder != SortOrder.none {
+            sortedPriceList = self.sortPriceList(sortedPriceList, by: \.coinTitle, order: self.currentState.coinSortOrder ) 
+        }
+        if self.currentState.priceSortOrder != SortOrder.none {
+            sortedPriceList = self.sortPriceList(sortedPriceList, by: \.price, order: self.currentState.priceSortOrder ) 
+        }
+        if self.currentState.changeSortOrder != SortOrder.none {
+            sortedPriceList = self.sortPriceList(sortedPriceList, by: \.change, order: self.currentState.changeSortOrder ) 
+        }
+        if self.currentState.gapSortOrder != SortOrder.none {
+            sortedPriceList = self.sortPriceList(sortedPriceList, by: \.gap, order: self.currentState.gapSortOrder ) 
+        }
+        sortedPriceList = self.filterPriceList(priceList: sortedPriceList, searchText: self.currentState.searchText )
+        return .concat([
+            .just(.setPriceList(priceList)),
+            .just(.setFilteredPriceList(sortedPriceList))
+        ])
     }
     
     private func sortPriceList(_ priceList: [CoinPriceChangeGap], by keyPath: PartialKeyPath<CoinPriceChangeGap>, order: SortOrder) -> [CoinPriceChangeGap] {
@@ -356,10 +481,15 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                 }
                 return false
             case .none:
-                if let lhs = lhs as? Double, let rhs = rhs as? Double {
-                    return lhs > rhs
+                if currentState.isTappedFavoriteButton {
+                    return false
                 }
-                return false
+                else {
+                    if let lhs = lhs as? Double, let rhs = rhs as? Double {
+                        return lhs > rhs
+                    }
+                    return false
+                }
             }
         }
         

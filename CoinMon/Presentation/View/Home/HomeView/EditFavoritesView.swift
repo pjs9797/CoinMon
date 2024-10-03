@@ -1,31 +1,35 @@
 import UIKit
 import SnapKit
 
-class PriceView: UIView {
-    let priceCategoryView = PriceCategoryView()
+class EditFavoritesView: UIView {
     let searchView = SearchView()
     let marketCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 8 * ConstantsManager.standardWidth
+        layout.minimumLineSpacing = 8*ConstantsManager.standardWidth
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20*ConstantsManager.standardWidth, bottom: 0, right: 20*ConstantsManager.standardWidth)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(MarketListAtHomeCollectionViewCell.self, forCellWithReuseIdentifier: "MarketListAtHomeCollectionViewCell")
         return collectionView
     }()
-    let priceTableViewHeader = PriceTableViewHeader()
-    let priceTableView: UITableView = {
+    let favoritesTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
-        tableView.rowHeight = 52*ConstantsManager.standardHeight
-        tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: "PriceTableViewCell")
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.register(FavoritesTableViewCell.self, forCellReuseIdentifier: "FavoritesTableViewCell")
         return tableView
     }()
-    let noneCoinView = NoneCoinView()
+    let deleteButton: BottomButton = {
+        let button = BottomButton()
+        button.setTitle(LocalizationManager.shared.localizedString(forKey: "삭제"), for: .normal)
+        button.isNotEnable()
+        return button
+    }()
+    let noneFavoritesView = NoneFavoritesView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,30 +46,19 @@ class PriceView: UIView {
             .foregroundColor: ColorManager.gray_70 ?? UIColor.gray
         ]
         searchView.searchTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "코인 검색"), attributes: attributes)
-        priceTableViewHeader.coinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인"), for: .normal)
-        priceTableViewHeader.priceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시세 헤더",arguments: "USDT"), for: .normal)
-        priceTableViewHeader.changeButton.setTitle(LocalizationManager.shared.localizedString(forKey: "등락률"), for: .normal)
-        priceTableViewHeader.gapButton.setTitle(LocalizationManager.shared.localizedString(forKey: "시평갭"), for: .normal)
-        noneCoinView.setLocalizedText()
-        priceCategoryView.setLocalizedText()
+        noneFavoritesView.setLocalizedText()
     }
     
     private func layout() {
-        [priceCategoryView,searchView,marketCollectionView,priceTableViewHeader,priceTableView,noneCoinView]
+        [searchView,marketCollectionView,deleteButton,favoritesTableView,noneFavoritesView]
             .forEach{
                 addSubview($0)
             }
         
-        priceCategoryView.snp.makeConstraints { make in
-            make.height.equalTo(38*ConstantsManager.standardHeight)
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-        }
-        
         searchView.snp.makeConstraints { make in
             make.height.equalTo(59*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(priceCategoryView.snp.bottom)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
         }
         
         marketCollectionView.snp.makeConstraints { make in
@@ -75,23 +68,24 @@ class PriceView: UIView {
             make.top.equalTo(searchView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
-        priceTableViewHeader.snp.makeConstraints { make in
-            make.height.equalTo(32*ConstantsManager.standardHeight)
-            make.leading.trailing.equalToSuperview()
+        deleteButton.snp.makeConstraints { make in
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)
+        }
+        
+        favoritesTableView.snp.makeConstraints { make in
             make.top.equalTo(marketCollectionView.snp.bottom).offset(8*ConstantsManager.standardHeight)
-        }
-        
-        priceTableView.snp.makeConstraints { make in
-            make.top.equalTo(priceTableViewHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(deleteButton.snp.top).offset(-8*ConstantsManager.standardHeight)
         }
         
-        noneCoinView.snp.makeConstraints { make in
+        noneFavoritesView.snp.makeConstraints { make in
             make.width.equalTo(335*ConstantsManager.standardWidth)
             make.height.equalTo(150*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(priceTableViewHeader.snp.bottom).offset(120*ConstantsManager.standardHeight)
+            make.top.equalTo(marketCollectionView.snp.bottom).offset(128*ConstantsManager.standardHeight)
         }
     }
 }

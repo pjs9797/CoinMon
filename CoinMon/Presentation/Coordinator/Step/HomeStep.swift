@@ -6,10 +6,14 @@ enum HomeStep: Step {
     case navigateToNotificationViewController
     case navigateToDetailCoinInfoViewController(market: String, coin: String)
     case navigateToSelectCoinAtDetailViewController(market: String)
+    case navigateToEditFavoritesViewController
     case presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String)
     case presentToSelectArrivalMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String)
+    case presentToUnsavedFavoritesSheetPresentationController
+    case presentToUnsavedFavoritesSecondSheetPresentationController
     case presentToNetworkErrorAlertController
     case goToAlarmSetting
-    case dismissSelectMarketViewController
+    case dismiss
     case popViewController
+    case dismissAndPopViewController
 }
