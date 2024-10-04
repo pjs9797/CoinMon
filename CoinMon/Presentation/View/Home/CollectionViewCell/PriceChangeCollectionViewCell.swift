@@ -66,9 +66,15 @@ class PriceChangeCollectionViewCell: UICollectionViewCell {
     func configure(with data: PriceChange){
         titleLabel.text = data.title
         if data.priceChange >= 0 {
-            imageView.image = ImageManager.change_up
-            percentLabel.text = "\(data.priceChange)%"
-            percentLabel.textColor = ColorManager.red_50
+            if data.priceChange == 1000000000 {
+                percentLabel.text = ""
+                percentLabel.textColor = ColorManager.common_0
+            }
+            else {
+                imageView.image = ImageManager.change_up
+                percentLabel.text = "\(data.priceChange)%"
+                percentLabel.textColor = ColorManager.red_50
+            }
         }
         else {
             imageView.image = ImageManager.change_down

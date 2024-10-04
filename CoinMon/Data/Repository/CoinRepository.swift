@@ -82,4 +82,26 @@ class CoinRepository: CoinRepositoryInterface {
             }
             .asObservable()
     }
+    
+    func fetchCoinDetailBaseInfo(exchange: String, symbol: String) -> Observable<DetailBasicInfo> {
+        return coinProvider.rx.request(.getCoinDetail(exchange: exchange, symbol: symbol))
+            .filterSuccessfulStatusCodes()
+            .map(CoinDetailResponseDTO.self)
+            .map { CoinDetailResponseDTO.toDetailBasicInfo(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func fetchCoinDetailPriceInfo(exchange: String, symbol: String) -> Observable<DetailPriceInfo> {
+        return coinProvider.rx.request(.getCoinDetail(exchange: exchange, symbol: symbol))
+            .filterSuccessfulStatusCodes()
+            .map(CoinDetailResponseDTO.self)
+            .map { CoinDetailResponseDTO.toDetailPriceInfo(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
 }

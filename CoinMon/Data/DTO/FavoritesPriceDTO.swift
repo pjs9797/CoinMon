@@ -6,11 +6,11 @@ struct FavoritesResponseDTO: Codable {
     let data: DataClass?
     
     struct DataClass: Codable {
-        let info: [FavoritesDTO]
+        let info: [FavoritesPriceDTO]
     }
     
     static func toFavorites(dto: FavoritesResponseDTO) -> [Favorites] {
-        return dto.data?.info.map { FavoritesDTO.toFavorites(dto: $0) } ?? []
+        return dto.data?.info.map { FavoritesPriceDTO.toFavorites(dto: $0) } ?? []
     }
     
     static func toResultCode(dto: FavoritesResponseDTO) -> String {
@@ -18,7 +18,7 @@ struct FavoritesResponseDTO: Codable {
     }
 }
 
-struct FavoritesDTO: Codable {
+struct FavoritesPriceDTO: Codable {
     let id: Int
     let user: String
     let symbol: String
@@ -30,7 +30,7 @@ struct FavoritesDTO: Codable {
 //    let standardPrice: Double?
 //    let percent: Double
     
-    static func toFavorites(dto: FavoritesDTO) -> Favorites {
+    static func toFavorites(dto: FavoritesPriceDTO) -> Favorites {
         return Favorites(id: String(dto.id), symbol: dto.symbol, favoritesOrder: dto.favoritesOrder)
     }
 }

@@ -64,6 +64,13 @@ class PriceViewController: UIViewController, ReactorKit.View {
                 }
             })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(.seeFavorites)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.favoriteButtonTapped)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

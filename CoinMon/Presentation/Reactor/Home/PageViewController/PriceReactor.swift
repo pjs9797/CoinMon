@@ -304,7 +304,7 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                 ])
             }
         case .selectCoin(let index):
-            let market = currentState.markets[currentState.selectedMarket].localizationKey.uppercased()
+            let market = currentState.markets[currentState.selectedMarket].localizationKey
             self.steps.accept(HomeStep.navigateToDetailCoinInfoViewController(market: market, coin: currentState.filteredPriceList[index].coinTitle))
             return .empty()
         }

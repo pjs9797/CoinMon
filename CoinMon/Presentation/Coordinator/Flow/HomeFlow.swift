@@ -87,7 +87,7 @@ class HomeFlow: Flow {
         let chartReactor = ChartReactor(market: market, coin: coin)
         let chartViewController = ChartViewController(with: chartReactor)
         
-        let infoReactor = InfoReactor()
+        let infoReactor = InfoReactor(coinUseCase: self.coinUseCase, market: market, coin: coin)
         let infoViewController = InfoViewController(with: infoReactor)
         
         //let premiumReactor = PremiumReactor(coinUseCase: self.coinUseCase)

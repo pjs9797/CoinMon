@@ -29,6 +29,9 @@ class DetailCoinInfoView: UIView {
     let alarmButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = FontManager.D8_14
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.5
+        button.setTitleColor(ColorManager.gray_20, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 8*ConstantsManager.standardHeight, left: 14*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, right: 14*ConstantsManager.standardWidth)
         let spacing: CGFloat = 4*ConstantsManager.standardWidth
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
@@ -50,7 +53,7 @@ class DetailCoinInfoView: UIView {
     }
     
     private func layout() {
-        [coinImageView,coinTitleLabel,priceLabel,comparePriceLabel]
+        [coinImageView,coinTitleLabel,alarmButton,priceLabel,comparePriceLabel]
             .forEach{
                 addSubview($0)
             }
@@ -58,13 +61,20 @@ class DetailCoinInfoView: UIView {
         coinImageView.snp.makeConstraints { make in
             make.width.height.equalTo(20*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(18*ConstantsManager.standardHeight)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(16*ConstantsManager.standardHeight)
         }
         
         coinTitleLabel.snp.makeConstraints { make in
             make.height.equalTo(24*ConstantsManager.standardHeight)
             make.leading.equalTo(coinImageView.snp.trailing).offset(8*ConstantsManager.standardWidth)
             make.centerY.equalTo(coinImageView)
+        }
+        
+        alarmButton.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(120*ConstantsManager.standardWidth)
+            make.height.equalTo(38*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(16*ConstantsManager.standardHeight)
         }
         
         priceLabel.snp.makeConstraints { make in

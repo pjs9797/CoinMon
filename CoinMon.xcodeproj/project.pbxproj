@@ -25,7 +25,7 @@
 		31105E7F2CA6775700BFD195 /* FavoritesRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E7E2CA6775700BFD195 /* FavoritesRepositoryInterface.swift */; };
 		31105E812CA677A600BFD195 /* FavoritesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E802CA677A600BFD195 /* FavoritesEntity.swift */; };
 		31105E832CA6783000BFD195 /* FavoritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E822CA6783000BFD195 /* FavoritesRepository.swift */; };
-		31105E852CA6787400BFD195 /* FavoritesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E842CA6787400BFD195 /* FavoritesDTO.swift */; };
+		31105E852CA6787400BFD195 /* FavoritesPriceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E842CA6787400BFD195 /* FavoritesPriceDTO.swift */; };
 		31105E872CA687A400BFD195 /* FavoritesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E862CA687A400BFD195 /* FavoritesUseCase.swift */; };
 		31105E892CA6C75100BFD195 /* EditFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E882CA6C75000BFD195 /* EditFavoritesViewController.swift */; };
 		31105E8B2CA6C78200BFD195 /* EditFavoritesReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E8A2CA6C78200BFD195 /* EditFavoritesReactor.swift */; };
@@ -81,6 +81,7 @@
 		31647C0A2CAEC28800AF53CF /* UnsavedFavoritesChangeSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647C092CAEC28800AF53CF /* UnsavedFavoritesChangeSecondView.swift */; };
 		31647C0C2CAEC33400AF53CF /* UnsavedFavoritesSecondSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647C0B2CAEC33400AF53CF /* UnsavedFavoritesSecondSheetPresentationController.swift */; };
 		31647C0E2CAEC37C00AF53CF /* UnsavedFavoritesSecondReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647C0D2CAEC37C00AF53CF /* UnsavedFavoritesSecondReactor.swift */; };
+		31647C102CB00BC700AF53CF /* ButtonToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647C0F2CB00BC700AF53CF /* ButtonToastMessageView.swift */; };
 		317154122C86D55D007CCD6D /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154112C86D55D007CCD6D /* UINavigationController+Extension.swift */; };
 		317154142C86D586007CCD6D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154132C86D586007CCD6D /* UIViewController+Extension.swift */; };
 		317154162C86D94F007CCD6D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154152C86D94F007CCD6D /* UIImage+Extension.swift */; };
@@ -301,7 +302,7 @@
 		31105E7E2CA6775700BFD195 /* FavoritesRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRepositoryInterface.swift; sourceTree = "<group>"; };
 		31105E802CA677A600BFD195 /* FavoritesEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEntity.swift; sourceTree = "<group>"; };
 		31105E822CA6783000BFD195 /* FavoritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRepository.swift; sourceTree = "<group>"; };
-		31105E842CA6787400BFD195 /* FavoritesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDTO.swift; sourceTree = "<group>"; };
+		31105E842CA6787400BFD195 /* FavoritesPriceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPriceDTO.swift; sourceTree = "<group>"; };
 		31105E862CA687A400BFD195 /* FavoritesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesUseCase.swift; sourceTree = "<group>"; };
 		31105E882CA6C75000BFD195 /* EditFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFavoritesViewController.swift; sourceTree = "<group>"; };
 		31105E8A2CA6C78200BFD195 /* EditFavoritesReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFavoritesReactor.swift; sourceTree = "<group>"; };
@@ -353,6 +354,7 @@
 		31647C092CAEC28800AF53CF /* UnsavedFavoritesChangeSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedFavoritesChangeSecondView.swift; sourceTree = "<group>"; };
 		31647C0B2CAEC33400AF53CF /* UnsavedFavoritesSecondSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedFavoritesSecondSheetPresentationController.swift; sourceTree = "<group>"; };
 		31647C0D2CAEC37C00AF53CF /* UnsavedFavoritesSecondReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedFavoritesSecondReactor.swift; sourceTree = "<group>"; };
+		31647C0F2CB00BC700AF53CF /* ButtonToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToastMessageView.swift; sourceTree = "<group>"; };
 		317154112C86D55D007CCD6D /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		317154132C86D586007CCD6D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		317154152C86D94F007CCD6D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -1230,6 +1232,7 @@
 			children = (
 				31946D5B2CA1651200237156 /* SearchView.swift */,
 				312453B62CA56008000ACB04 /* ToastMessageView.swift */,
+				31647C0F2CB00BC700AF53CF /* ButtonToastMessageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1345,7 +1348,7 @@
 				31946D6E2CA3D65800237156 /* CoinDetailDTO.swift */,
 				31E0A54F2C1B05F500756DFD /* AlarmDTO.swift */,
 				31E0A55D2C20105100756DFD /* ExchangeRateDTO.swift */,
-				31105E842CA6787400BFD195 /* FavoritesDTO.swift */,
+				31105E842CA6787400BFD195 /* FavoritesPriceDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1904,6 +1907,7 @@
 				31E1C1D72C47BC66009F99B9 /* InquiryButton.swift in Sources */,
 				31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */,
 				31105E8D2CA6C8BA00BFD195 /* EditFavoritesView.swift in Sources */,
+				31647C102CB00BC700AF53CF /* ButtonToastMessageView.swift in Sources */,
 				31E0A50F2C17120300756DFD /* TokenManager.swift in Sources */,
 				31E0A5562C1B096B00756DFD /* AlarmUseCase.swift in Sources */,
 				31105E872CA687A400BFD195 /* FavoritesUseCase.swift in Sources */,
@@ -1924,7 +1928,7 @@
 				3104F50E2C43AC1100DD40D6 /* CustomDimSheetPresentationController.swift in Sources */,
 				31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */,
 				31E0A4E52C15C72100756DFD /* SignupRepository.swift in Sources */,
-				31105E852CA6787400BFD195 /* FavoritesDTO.swift in Sources */,
+				31105E852CA6787400BFD195 /* FavoritesPriceDTO.swift in Sources */,
 				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
 				31105E932CA6DFDD00BFD195 /* SelectCoinAtDetailView.swift in Sources */,
 				317154212C8C17AD007CCD6D /* DetailCoinInfoView.swift in Sources */,

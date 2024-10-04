@@ -30,6 +30,16 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = ColorManager.gray_98
         return view
     }()
+    let toastMessage: ToastMessageView = {
+        let view = ToastMessageView(message: LocalizationManager.shared.localizedString(forKey: "관심 코인에서 제외했어요"))
+        view.isHidden = true
+        return view
+    }()
+    let buttonToastMessage: ButtonToastMessageView = {
+        let view = ButtonToastMessageView(message: LocalizationManager.shared.localizedString(forKey: "관심 코인에 추가했어요"), buttonTitle: LocalizationManager.shared.localizedString(forKey: "보러가기"))
+        view.isHidden = true
+        return view
+    }()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     var viewControllers: [UIViewController]
     var innerScrollingDownDueToOuterScroll = false
@@ -38,6 +48,7 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
     var isSetInnerScrollViewContentSize = false
     var isSetInitialInnerScrollViewContentSize = false
     let infoViewController: InfoViewController
+    private var currentToastView: UIView?
     
     init(with reactor: DetailCoinInfoReactor, viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
@@ -61,9 +72,9 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         pageViewController.delegate = self
         scrollView.delegate = self
         infoViewController.infoView.scrollView.delegate = self
-        reactor?.action.onNext(.setCoinPrice)
+        reactor?.action.onNext(.setCoinDetailBaseInfo)
         layout()
-        
+        setupNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,8 +88,34 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         navigationItem.rightBarButtonItems = [favoriteButton,searchButton]
     }
     
+    private func setupNotifications() {
+        NotificationCenter.default.rx.notification(.favoritesDeleted)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showToastMessage(self?.toastMessage ?? UIView())
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(.favoritesAdded)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showToastMessage(self?.buttonToastMessage ?? UIView())
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func showToastMessage(_ toastView: UIView) {
+        toastView.isHidden = false
+        view.bringSubviewToFront(toastView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            toastView.isHidden = true
+        }
+    }
+    
     private func layout(){
         view.addSubview(scrollView)
+        view.addSubview(toastMessage)
+        view.addSubview(buttonToastMessage)
         scrollView.addSubview(contentView)
         [detailCoinInfoView,grayView,detailCoinInfoCategoryCollectionView,pageViewController.view]
             .forEach{
@@ -90,6 +127,20 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        toastMessage.snp.makeConstraints { make in
+            make.width.equalTo(335*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20*ConstantsManager.standardHeight)
+        }
+        
+        buttonToastMessage.snp.makeConstraints { make in
+            make.width.equalTo(335*ConstantsManager.standardWidth)
+            make.height.equalTo(48*ConstantsManager.standardHeight)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20*ConstantsManager.standardHeight)
         }
         
         contentView.snp.makeConstraints { make in
@@ -131,6 +182,11 @@ extension DetailCoinInfoViewController {
     }
     
     func bindAction(reactor: DetailCoinInfoReactor){
+        buttonToastMessage.toastButton.rx.tap
+            .map{ Reactor.Action.toastButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         searchButton.rx.tap
             .map{ Reactor.Action.searchButtonTapped }
             .bind(to: reactor.action)
@@ -167,6 +223,32 @@ extension DetailCoinInfoViewController {
             })
             .disposed(by: disposeBag)
         
+        reactor.state.map{ $0.isFavorites }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] isFavorites in
+                if isFavorites {
+                    self?.favoriteButton.image = ImageManager.icon_star_select?.withRenderingMode(.alwaysOriginal)
+                }
+                else {
+                    self?.favoriteButton.image = ImageManager.icon_star
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.isPush }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] isPush in
+                if isPush {
+                    self?.detailCoinInfoView.alarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 받는 중"), for: .normal)
+                    self?.detailCoinInfoView.alarmButton.setImage(ImageManager.check20, for: .normal)
+                }
+                else {
+                    self?.detailCoinInfoView.alarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "지정가 알림"), for: .normal)
+                    self?.detailCoinInfoView.alarmButton.setImage(ImageManager.notification20, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.coinTitle }
             .distinctUntilChanged()
             .bind(to: detailCoinInfoView.coinTitleLabel.rx.text)
@@ -175,6 +257,11 @@ extension DetailCoinInfoViewController {
         reactor.state.map{ $0.coinPrice }
             .distinctUntilChanged()
             .bind(to: detailCoinInfoView.priceLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.yesterdayComparisonInfo }
+            .distinctUntilChanged()
+            .bind(to: detailCoinInfoView.comparePriceLabel.rx.text)
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.categories }
@@ -295,7 +382,7 @@ extension DetailCoinInfoViewController: UIScrollViewDelegate {
                     let offsetY = max(minOffsetY, 0)
                     outerScrollView.contentOffset.y = offsetY
                     innerScrollView.contentOffset.y = 0
-                } 
+                }
                 else if innerScrollView.contentOffset.y + 0.1 > innerScrollMaxOffsetY {
                     innerScrollView.contentOffset.y = innerScrollMaxOffsetY
                     print("Inner Scroll이 Max Offset에 도달: 고정")

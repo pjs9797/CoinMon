@@ -68,6 +68,7 @@
 //Home-Premium
 "거래소 선택" = "Select Market";
 //Detail
+"어제대비" = "Compared to yesterday %@ %@ %@(%@)";
 "지정가 알림" = "Set Alarm";
 "알림 받는 중" = "Receiving";
 "차트" = "Chart";
@@ -92,6 +93,7 @@
 "지정가 알람 삭제되었어요" = "Deleteed from Price alarm";
 "지정가 알람 편집되었어요" = "Edited Price alarm";
 "관심 코인에 추가했어요" = "Added to Favorites";
+"보러가기" = "See Favorites";
 "관심 코인에서 제외했어요" = "Deleted from Favorites";
 "편집 내용이 저장되었어요" = "Saved favorites list";
 //Notification

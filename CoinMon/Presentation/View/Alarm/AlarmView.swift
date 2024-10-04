@@ -53,7 +53,7 @@ class AlarmView: UIView {
     }()
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageManager.check
+        imageView.image = ImageManager.check24
         return imageView
     }()
     let toastLabel: UILabel = {

@@ -25,6 +25,7 @@ class InfoViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = ColorManager.gray_99
+        reactor?.action.onNext(.setCoinDetailPriceInfo)
     }
 }
 
@@ -39,6 +40,21 @@ extension InfoViewController {
     }
     
     func bindState(reactor: InfoReactor){
+        reactor.state.map{ $0.coinTitle }
+            .distinctUntilChanged()
+            .bind(to: infoView.firstInfoView.coinTitleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.highPrice }
+            .distinctUntilChanged()
+            .bind(to: infoView.secondInfoView.highPriceLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.lowPrice }
+            .distinctUntilChanged()
+            .bind(to: infoView.secondInfoView.lowPriceLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.priceChangeList }
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)

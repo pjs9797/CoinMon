@@ -56,4 +56,16 @@ class CoinUseCase {
         let marketUpper = market.uppercased()
         return repository.fetchOnlyOneCoinPrice(exchange: marketUpper, symbol: symbol)
     }
+    
+    func fetchCoinDetailBaseInfo(exchange: String, symbol: String) -> Observable<DetailBasicInfo> {
+        let marketUpper = exchange.uppercased()
+        
+        return repository.fetchCoinDetailBaseInfo(exchange: marketUpper, symbol: symbol)
+    }
+    
+    func fetchCoinDetailPriceInfo(exchange: String, symbol: String) -> Observable<DetailPriceInfo> {
+        let marketUpper = exchange.uppercased()
+        
+        return repository.fetchCoinDetailPriceInfo(exchange: marketUpper, symbol: symbol)
+    }
 }

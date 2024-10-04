@@ -16,7 +16,7 @@ class HomeViewController: UIViewController, ReactorKit.View {
     }()
     let notificationButton: UIButton = {
         let button = UIButton()
-        button.setImage(ImageManager.notExistAlarm, for: .normal)
+        button.setImage(ImageManager.notification24, for: .normal)
         button.accessibilityIdentifier = "notificationButton"
         return button
     }()
@@ -160,7 +160,7 @@ extension HomeViewController {
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] hasNewNotifications in
-                let image = hasNewNotifications ? ImageManager.existAlarm : ImageManager.notExistAlarm
+                let image = hasNewNotifications ? ImageManager.notification_select24 : ImageManager.notification24
                 self?.notificationButton.setImage(image, for: .normal)
             })
             .disposed(by: disposeBag)

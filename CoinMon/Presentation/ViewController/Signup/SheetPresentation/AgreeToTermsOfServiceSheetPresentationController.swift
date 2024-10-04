@@ -88,21 +88,21 @@ extension AgreeToTermsOfServiceSheetPresentationController {
         reactor.state.map { $0.isFirstCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.agreeToTermsOfServiceView.termsOfServiceCheckButton.setImage(isChecked ? ImageManager.check?.withTintColor(ColorManager.orange_60!) : ImageManager.check, for: .normal)
+                self?.agreeToTermsOfServiceView.termsOfServiceCheckButton.setImage(isChecked ? ImageManager.check24?.withTintColor(ColorManager.orange_60!) : ImageManager.check24, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isSecondCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.agreeToTermsOfServiceView.privacyPolicyViewCheckButton.setImage(isChecked ? ImageManager.check?.withTintColor(ColorManager.orange_60!) : ImageManager.check, for: .normal)
+                self?.agreeToTermsOfServiceView.privacyPolicyViewCheckButton.setImage(isChecked ? ImageManager.check24?.withTintColor(ColorManager.orange_60!) : ImageManager.check24, for: .normal)
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isThirdCheckButtonChecked }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isChecked in
-                self?.agreeToTermsOfServiceView.marketingConsentViewCheckButton.setImage(isChecked ? ImageManager.check?.withTintColor(ColorManager.orange_60!) : ImageManager.check, for: .normal)
+                self?.agreeToTermsOfServiceView.marketingConsentViewCheckButton.setImage(isChecked ? ImageManager.check24?.withTintColor(ColorManager.orange_60!) : ImageManager.check24, for: .normal)
             })
             .disposed(by: disposeBag)
         
