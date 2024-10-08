@@ -63,13 +63,9 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
             return .empty()
             
         case .saveButtonTapped:
-            let updatedFavorites = currentState.favorites.map { favorite -> FavoritesUpdateOrder in
-                if let filteredFavorite = currentState.filteredFavorites.first(where: { $0.id == favorite.id }) {
-                    return FavoritesUpdateOrder(symbol: filteredFavorite.symbol, favoritesOrder: filteredFavorite.favoritesOrder)
-                } else {
-                    return FavoritesUpdateOrder(symbol: favorite.symbol, favoritesOrder: -1)
-                }
-            }
+            let updatedFavorites = currentState.favorites.map { favorite in
+                return FavoritesUpdateOrder(symbol: favorite.symbol, favoritesOrder: favorite.favoritesOrder)
+            }.filter { $0.favoritesOrder != 0 }.sorted { $0.favoritesOrder < $1.favoritesOrder }
             
             return self.favoritesUseCase.updateFavorites(market: currentState.markets[currentState.selectedMarket].localizationKey, favoritesUpdateOrder: updatedFavorites)
                 .flatMap { resultCode -> Observable<Mutation> in
@@ -80,34 +76,56 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
                     return .just(.setIsDataChanged(false))
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
             
         case .deleteButtonTapped:
-            var newFavorites = currentState.filteredFavorites
-            newFavorites = newFavorites.enumerated().compactMap { index, favorite in
+            var newFilteredFavorites = currentState.filteredFavorites
+            newFilteredFavorites = newFilteredFavorites.enumerated().compactMap { index, favorite in
                 if index == 0 || !favorite.isSelected {
                     var updatedFavorite = favorite
                     updatedFavorite.favoritesOrder = index
                     return updatedFavorite
+                } else {
+                    var deletedFavorite = favorite
+                    deletedFavorite.favoritesOrder = -1
+                    return deletedFavorite
                 }
-                return nil
             }
+            
+            var newFavorites = currentState.favorites
+            for filteredFavorite in newFilteredFavorites {
+                if let index = newFavorites.firstIndex(where: { $0.id == filteredFavorite.id }) {
+                    newFavorites[index] = filteredFavorite
+                }
+            }
+            var order = 1
+                newFavorites = newFavorites.map { favorite in
+                    var updatedFavorite = favorite
+                    if updatedFavorite.favoritesOrder != -1 && updatedFavorite.favoritesOrder != 0 {
+                        updatedFavorite.favoritesOrder = order
+                        order += 1
+                    }
+                    updatedFavorite.isSelected = false
+                    return updatedFavorite
+                }
+            
+            let finalFilteredFavorites = self.filterFavorites(newFavorites, searchText: "")
             let isDataChanged = newFavorites != currentState.originalFavorites
+            
             return .concat([
-                .just(.setFilteredFavorites(newFavorites)),
+                .just(.setSearchText("")),
+                .just(.setFavoritesData(newFavorites)),
+                .just(.setFilteredFavorites(finalFilteredFavorites)),
                 .just(.setIsDataChanged(isDataChanged)),
                 .just(.setDeleteButtonEnabled(false))
             ])
             
         case .updateSearchText(let searchText):
-            let filteredFavorites: [FavoritesForEdit]
-            if searchText.isEmpty {
-                filteredFavorites = currentState.favorites
-            } else {
-                filteredFavorites = currentState.favorites.filter { $0.symbol.lowercased().contains(searchText.lowercased()) }
-            }
+            let filteredFavorites = self.filterFavorites(currentState.favorites, searchText: searchText)
             return .concat([
                 .just(.setSearchText(searchText)),
                 .just(.setFilteredFavorites(filteredFavorites))
@@ -123,17 +141,17 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
             let index = currentState.willSelectMarket
             return self.favoritesUseCase.fetchFavoritesForEdit(market: currentState.markets[index].localizationKey)
                 .flatMap { favoritesData -> Observable<Mutation> in
-                    var updatedFavoritesData = favoritesData
-                    updatedFavoritesData.insert(FavoritesForEdit(id: "all", symbol: "전체", favoritesOrder: 0, isSelected: false), at: 0)
                     return .concat([
-                        .just(.setFavoritesData(updatedFavoritesData)),
-                        .just(.setFilteredFavorites(updatedFavoritesData)),
+                        .just(.setFavoritesData(favoritesData)),
+                        .just(.setFilteredFavorites(favoritesData)),
                         .just(.setSelectedMarket(index)),
                         .just(.setIsDataChanged(false))
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
             
@@ -145,16 +163,17 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
             else {
                 return self.favoritesUseCase.fetchFavoritesForEdit(market: currentState.markets[index].localizationKey)
                     .flatMap { favoritesData -> Observable<Mutation> in
-                        var updatedFavoritesData = favoritesData
-                        updatedFavoritesData.insert(FavoritesForEdit(id: "all", symbol: "전체", favoritesOrder: 0, isSelected: false), at: 0)
                         return .concat([
-                            .just(.setFavoritesData(updatedFavoritesData)),
-                            .just(.setFilteredFavorites(updatedFavoritesData)),
-                            .just(.setSelectedMarket(index))
+                            .just(.setFavoritesData(favoritesData)),
+                            .just(.setFilteredFavorites(favoritesData)),
+                            .just(.setSelectedMarket(index)),
+                            .just(.setSearchText(""))
                         ])
                     }
                     .catch { [weak self] error in
-                        self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                        ErrorHandler.handle(error) { (step: HomeStep) in
+                            self?.steps.accept(step)
+                        }
                         return .empty()
                     }
             }
@@ -162,16 +181,16 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
         case .loadFavoritesData:
             return self.favoritesUseCase.fetchFavoritesForEdit(market: "Binance")
                 .flatMap { favoritesData -> Observable<Mutation> in
-                    var updatedFavoritesData = favoritesData
-                    updatedFavoritesData.insert(FavoritesForEdit(id: "all", symbol: "전체", favoritesOrder: 0, isSelected: false), at: 0)
                     return .concat([
-                        .just(.setFavoritesData(updatedFavoritesData)),
-                        .just(.setFilteredFavorites(updatedFavoritesData)),
+                        .just(.setFavoritesData(favoritesData)),
+                        .just(.setFilteredFavorites(favoritesData)),
                         .just(.setSelectedMarket(0))
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
             
@@ -191,16 +210,19 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
             ])
             
         case .moveFavorite(let from, let to):
-            var newFavorites = currentState.filteredFavorites
+            var newFavorites = currentState.favorites
             let favorite = newFavorites.remove(at: from)
             newFavorites.insert(favorite, at: to)
             for (index, var f) in newFavorites.enumerated() {
-                f.favoritesOrder = index
+                if f.favoritesOrder != -1 {
+                    f.favoritesOrder = index
+                }
                 newFavorites[index] = f
             }
             let isDataChanged = newFavorites != currentState.originalFavorites
             return .concat([
-                .just(.setFilteredFavorites(newFavorites)),
+                .just(.setFavoritesData(newFavorites)),
+                .just(.setFilteredFavorites(self.filterFavorites(newFavorites, searchText: currentState.searchText))),
                 .just(.setIsDataChanged(isDataChanged))
             ])
         }
@@ -214,7 +236,6 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
         case .setWillSelectMarket(let index):
             newState.willSelectMarket = index
         case .setSelectedMarket(let index):
-            print("selectedMarket",index)
             newState.selectedMarket = index
         case .setFavoritesData(let favoritesData):
             newState.favorites = favoritesData
@@ -227,5 +248,15 @@ class EditFavoritesReactor: ReactorKit.Reactor, Stepper {
             newState.isDeleteButtonEnabled = isEnabled
         }
         return newState
+    }
+    
+    private func filterFavorites(_ favorites: [FavoritesForEdit], searchText: String) -> [FavoritesForEdit] {
+        if searchText.isEmpty {
+            return favorites.filter { $0.favoritesOrder != -1 }
+        } else {
+            var filteredFavorites = favorites.filter { $0.symbol.lowercased().contains(searchText.lowercased()) && $0.favoritesOrder != -1 }
+            filteredFavorites.insert(FavoritesForEdit(id: "all", symbol: "전체", favoritesOrder: 0, isSelected: false), at: 0)
+            return filteredFavorites
+        }
     }
 }

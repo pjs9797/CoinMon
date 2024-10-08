@@ -1,6 +1,6 @@
 import RxFlow
 
-enum SignupStep: Step {
+enum SignupStep: Step, StepProtocol {
     case navigateToSignupEmailEntryViewController
     case navigateToSignupEmailVerificationNumberViewController
     case navigateToSignupPhoneNumberEntryViewController
@@ -10,11 +10,19 @@ enum SignupStep: Step {
     case navigateToMarketingConsentViewController
     case navigateToPhoneVerificationNumberViewController
     case navigateToSignupCompletedViewController
-    case presentToNetworkErrorAlertController
+    
+    
     case presentToAuthenticationNumberErrorAlertController
     case presentToAlreadysubscribedNumberErrorAlertController
+    
+    // 프레젠트 공통 알람
+    case presentToNetworkErrorAlertController
+    case presentToUnknownErrorAlertController
+    case presentToAWSServerErrorAlertController
+    
     case popViewController
     case popToRootViewController
     case dismissViewController
+    
     case completeSignupFlow
 }

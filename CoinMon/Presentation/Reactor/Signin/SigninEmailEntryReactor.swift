@@ -48,8 +48,10 @@ class SigninEmailEntryReactor: ReactorKit.Reactor, Stepper {
                     }
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(SigninStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: SigninStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .clearButtonTapped:

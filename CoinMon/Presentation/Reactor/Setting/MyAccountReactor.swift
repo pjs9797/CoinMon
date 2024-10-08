@@ -51,7 +51,9 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(SettingStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: SettingStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .backButtonTapped:
@@ -75,8 +77,10 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
                             return .empty()
                         }
                     }
-                    .catch { [weak self] _ in
-                        self?.steps.accept(SettingStep.presentToNetworkErrorAlertController)
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error) { (step: SettingStep) in
+                            self?.steps.accept(step)
+                        }
                         return .empty()
                     }
             }
@@ -85,7 +89,7 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .logoutAlertYesButtonTapped:
             UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            self.steps.accept(SettingStep.completeMainFlow)
+            self.steps.accept(SettingStep.endFlow)
             return .empty()
         case .withdrawalButtonTapped:
             self.steps.accept(SettingStep.navigateToWithdrawalViewController)

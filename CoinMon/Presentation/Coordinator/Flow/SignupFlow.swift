@@ -36,18 +36,27 @@ class SignupFlow: Flow {
             return navigateToPhoneVerificationNumberViewController()
         case .navigateToSignupCompletedViewController:
             return navigateToSignupCompletedViewController()
-        case .presentToNetworkErrorAlertController:
-            return presentToNetworkErrorAlertController()
+            
         case .presentToAuthenticationNumberErrorAlertController:
             return presentToAuthenticationNumberErrorAlertController()
         case .presentToAlreadysubscribedNumberErrorAlertController:
             return presentToAlreadysubscribedNumberErrorAlertController()
+            
+            // 프레젠트 공통 알람
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
+        case .presentToUnknownErrorAlertController:
+            return presentToUnknownErrorAlertController()
+        case .presentToAWSServerErrorAlertController:
+            return presentToAWSServerErrorAlertController()
+            
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
             return popToRootViewController()
         case .dismissViewController:
             return dismissViewController()
+            
         case .completeSignupFlow:
             return completeSignupFlow()
         }
@@ -138,17 +147,6 @@ class SignupFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToNetworkErrorAlertController() -> FlowContributors {
-        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
-            message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
-            preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
-        alertController.addAction(okAction)
-        self.rootViewController.present(alertController, animated: true, completion: nil)
-        
-        return .none
-    }
-    
     private func presentToAuthenticationNumberErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: nil,
             message: LocalizationManager.shared.localizedString(forKey: "인증번호 불일치"),
@@ -164,6 +162,39 @@ class SignupFlow: Flow {
         let alertController = CustomDimAlertController(title: nil,
             message: LocalizationManager.shared.localizedString(forKey: "가입된 번호"),
             preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToNetworkErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToUnknownErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToAWSServerErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "서버 오류"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "서버 오류 설명"),
+                                                preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)

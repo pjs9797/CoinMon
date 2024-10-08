@@ -11,8 +11,9 @@ class HomeFlow: Flow {
     private let coinUseCase: CoinUseCase
     private let alarmUseCase: AlarmUseCase
     private let favoritesUseCase: FavoritesUseCase
+    private let stepper: HomeStepper
     
-    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase, favoritesUseCase: FavoritesUseCase) {
+    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase, favoritesUseCase: FavoritesUseCase, stepper: HomeStepper) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
@@ -20,6 +21,7 @@ class HomeFlow: Flow {
         self.coinUseCase = coinUseCase
         self.alarmUseCase = alarmUseCase
         self.favoritesUseCase = favoritesUseCase
+        self.stepper = stepper
     }
     
     func navigate(to step: Step) -> FlowContributors {
@@ -35,6 +37,7 @@ class HomeFlow: Flow {
             return navigateToSelectCoinAtDetailViewController(market: market)
         case .navigateToEditFavoritesViewController:
             return navigateToEditFavoritesViewController()
+            
         case .presentToSelectDepartureMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
@@ -43,16 +46,28 @@ class HomeFlow: Flow {
             return presentToUnsavedFavoritesSheetPresentationController()
         case .presentToUnsavedFavoritesSecondSheetPresentationController:
             return presentToUnsavedFavoritesSecondSheetPresentationController()
+            
+            // 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
+        case .presentToUnknownErrorAlertController:
+            return presentToUnknownErrorAlertController()
+        case .presentToExpiredTokenErrorAlertController:
+            return presentToExpiredTokenErrorAlertController()
+        case .presentToAWSServerErrorAlertController:
+            return presentToAWSServerErrorAlertController()
+            
         case .goToAlarmSetting:
             return goToAlarmSetting()
+            
         case .dismiss:
             return dismiss()
         case .popViewController:
             return popViewController()
         case .dismissAndPopViewController:
             return dismissAndPopViewController()
+        case .endFlow:
+            return .end(forwardToParentFlowWithStep: AppStep.completeMainFlow)
         }
     }
     
@@ -189,6 +204,41 @@ class HomeFlow: Flow {
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToUnknownErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToExpiredTokenErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "로그인 만료"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "로그인 만료 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default) { [weak self] _ in
+            self?.stepper.resetFlow()
+        }
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToAWSServerErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "서버 오류"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "서버 오류 설명"),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)

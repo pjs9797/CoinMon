@@ -41,11 +41,13 @@ class WithdrawalReactor: ReactorKit.Reactor, Stepper {
             UserDefaults.standard.set(false, forKey: "isLoggedIn")
             return userUseCase.withdraw()
                 .flatMap { [weak self] _ -> Observable<Mutation> in
-                    self?.steps.accept(SettingStep.completeMainFlowAfterWithdrawal)
+                    self?.steps.accept(SettingStep.endFlowAfterWithdrawal)
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(SettingStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: SettingStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         }

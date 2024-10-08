@@ -65,7 +65,9 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .backButtonTapped:
@@ -85,7 +87,9 @@ class SelectCoinAtDetailReactor: ReactorKit.Reactor,Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .selectCoin(let index):

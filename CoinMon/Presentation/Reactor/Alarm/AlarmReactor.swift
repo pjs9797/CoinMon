@@ -122,9 +122,12 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                     }
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
+
         case .alarmSelected(let index):
             let alarm = currentState.filteredAlarms[index]
             self.steps.accept(AlarmStep.navigateToModifyAlarmViewController(market: currentState.markets[currentState.selectedMarket].localizationKey, alarm: alarm))
@@ -158,10 +161,13 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                         ])
                     }
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
+            
         case .deleteAlarm(let id, let index):
             return alarmUseCase.deleteAlarm(pushId: id)
                 .flatMap { [weak self] _ -> Observable<Mutation> in
@@ -179,10 +185,13 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                         .just(.setMarketAlarmCounts(marketAlarmCounts!))
                     ])
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
+            
         case .updateSearchText(let searchText):
             let filteredAlarms: [Alarm]
             if searchText.isEmpty {

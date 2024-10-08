@@ -15,8 +15,7 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
         let coinTitle = "\(coin)(\(unit))"
         self.coinUseCase = coinUseCase
         self.favoritesUseCase = favoritesUseCase
-        //TODO: market 변경
-        self.initialState = State(market: "Bithumb", coin: coin, coinTitle: coinTitle)
+        self.initialState = State(market: market, coin: coin, coinTitle: coinTitle)
     }
     
     enum Action {
@@ -78,7 +77,9 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
                             return .empty()
                         }
                         .catch { [weak self] error in
-                            self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                            ErrorHandler.handle(error) { (step: HomeStep) in
+                                self?.steps.accept(step)
+                            }
                             return .empty()
                         }
                 }
@@ -102,7 +103,9 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
                         return .empty()
                     }
                     .catch { [weak self] error in
-                        self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                        ErrorHandler.handle(error) { (step: HomeStep) in
+                            self?.steps.accept(step)
+                        }
                         return .empty()
                     }
             }
@@ -162,7 +165,9 @@ class DetailCoinInfoReactor: ReactorKit.Reactor, Stepper {
                 ])
             }
             .catch { [weak self] error in
-                self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                ErrorHandler.handle(error) { (step: HomeStep) in
+                    self?.steps.accept(step)
+                }
                 return .empty()
             }
         }

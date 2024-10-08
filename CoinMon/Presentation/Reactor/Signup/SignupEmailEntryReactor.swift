@@ -51,8 +51,10 @@ class SignupEmailEntryReactor: ReactorKit.Reactor, Stepper {
                         return .just(.setEmailDuplicate(true))
                     }
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .updateEmail(let email):

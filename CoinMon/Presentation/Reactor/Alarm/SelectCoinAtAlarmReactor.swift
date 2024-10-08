@@ -57,9 +57,12 @@ class SelectCoinAtAlarmReactor: ReactorKit.Reactor,Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
+            
         case .backButtonTapped:
             self.steps.accept(AlarmStep.popViewController)
             return .empty()

@@ -19,8 +19,8 @@ class FavoritesRepository: FavoritesRepositoryInterface {
     func fetchFavorites(market: String) -> Observable<[Favorites]> {
         return provider.rx.request(.fetchFavorites(market: market))
             .filterSuccessfulStatusCodes()
-            .map(FavoritesResponseDTO.self)
-            .map{ FavoritesResponseDTO.toFavorites(dto: $0) }
+            .map(FavoritesPriceResponseDTO.self)
+            .map{ FavoritesPriceResponseDTO.toFavorites(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)
@@ -40,10 +40,22 @@ class FavoritesRepository: FavoritesRepositoryInterface {
     
     func updateFavorites(market: String, favoritesUpdateOrder: [FavoritesUpdateOrder]) -> Observable<String> {
         let favoritesUpdateOrderDtos = favoritesUpdateOrder.map { FavoritesUpdateOrderDTO.toFavoritesUpdateOrderDTO(entity: $0) }
+        print("favoritesUpdateOrderDtos",favoritesUpdateOrderDtos)
         return provider.rx.request(.updateFavorites(market: market, favoritesUpdateOrder: favoritesUpdateOrderDtos))
             .filterSuccessfulStatusCodes()
             .map(FavoritesResponseDTO.self)
             .map{ FavoritesResponseDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func fetchCoinPriceChangeGapListByFavorites(exchange: String) -> Observable<[CoinPriceChangeGap]> {
+        return provider.rx.request(.fetchFavorites(market: exchange))
+            .filterSuccessfulStatusCodes()
+            .map(FavoritesPriceResponseDTO.self)
+            .map { FavoritesPriceResponseDTO.toCoinPriceChangeGapsSorted(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)

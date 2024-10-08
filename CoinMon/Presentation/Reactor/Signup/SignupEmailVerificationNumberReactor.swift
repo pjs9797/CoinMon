@@ -43,8 +43,10 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                 .flatMap { _ -> Observable<Mutation> in
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .backButtonTapped:
@@ -61,8 +63,10 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                     }
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(SignupStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .clearButtonTapped:

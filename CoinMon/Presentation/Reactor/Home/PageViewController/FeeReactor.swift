@@ -90,7 +90,9 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .updateLocalizedMarkets:
@@ -114,7 +116,9 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    self?.steps.accept(HomeStep.presentToNetworkErrorAlertController)
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .moveItem(let fromIndex, let toIndex):

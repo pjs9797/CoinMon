@@ -169,6 +169,12 @@
 "취소" = "Cancel";
 "네트워크 오류" = "Network Error";
 "네트워크 오류 설명" = "Please check your network connection.";
+"로그인 만료" = "Login expired";
+"로그인 만료 설명" = "Your login session has expired.\nPlease log in again";
+"알 수 없는 오류 발생" = "Unknown error occurred";
+"알 수 없는 오류 설명" = "Please contact support";
+"서버 오류" = "Server Error";
+"서버 오류 설명" = "A problem occurred with the server.\nPlease try again later.";
 "확인" = "OK";
 "인증번호 불일치" = "Incorrect authentication number.\nPlease enter it again.";
 "가입된 번호" = "The number is already subscribed.";

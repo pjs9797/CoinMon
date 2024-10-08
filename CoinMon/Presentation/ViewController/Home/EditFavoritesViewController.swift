@@ -165,7 +165,7 @@ extension EditFavoritesViewController {
         reactor.state.map { $0.filteredFavorites }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] filteredFavorites in
-                if filteredFavorites.count == 1 || filteredFavorites.count == 0 {
+                if filteredFavorites.count == 0 || (filteredFavorites.count == 1 && filteredFavorites[0].symbol == "전체") {
                     self?.editFavoritesView.favoritesTableView.isHidden = true
                     self?.editFavoritesView.noneFavoritesView.isHidden = false
                     self?.editFavoritesView.deleteButton.isHidden = true

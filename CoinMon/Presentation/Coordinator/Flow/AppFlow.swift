@@ -23,16 +23,28 @@ class AppFlow: Flow {
             return navigateToSigninViewController()
         case .navigateToTabBarController:
             return navigateToTabBarController()
+            
         case .presentToLanguageSettingAlertController(let reactor):
             return presentToLanguageSettingAlertController(reactor: reactor)
+            
+            // 프레젠트 공통 알람
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
+        case .presentToUnknownErrorAlertController:
+            return presentToUnknownErrorAlertController()
+        case .presentToAWSServerErrorAlertController:
+            return presentToAWSServerErrorAlertController()
+            
         case .popViewController:
             return popViewController()
         case .popToRootViewController:
             return .none
+            
         case .goToSignupFlow:
             return goToSignupFlow()
         case .goToSigninFlow:
             return goToSigninFlow()
+            
         case .completeSignupFlow:
             return .none
         case .completeSigninFlow:
@@ -89,9 +101,14 @@ class AppFlow: Flow {
         let homeNavigationController = UINavigationController()
         let alarmNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
-        let homeFlow = HomeFlow(with: homeNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase, favoritesUseCase: self.favoritesUseCase)
-        let alarmFlow = AlarmFlow(with: alarmNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase)
-        let settingFlow = SettingFlow(with: settingNavigationController, userUseCase: self.userUseCase)
+        
+        let homeStepper = HomeStepper()
+        let alarmStepper = AlarmStepper()
+        let settingStepper = SettingStepper()
+        
+        let homeFlow = HomeFlow(with: homeNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase, favoritesUseCase: self.favoritesUseCase, stepper: homeStepper)
+        let alarmFlow = AlarmFlow(with: alarmNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase, stepper: alarmStepper)
+        let settingFlow = SettingFlow(with: settingNavigationController, userUseCase: self.userUseCase, stepper: settingStepper)
         
         Flows.use(homeFlow,alarmFlow,settingFlow, when: .created) { [weak self] (homeNavigationController,alarmNavigationController,settingNavigationController) in
             
@@ -104,10 +121,43 @@ class AppFlow: Flow {
         }
 
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: homeFlow, withNextStepper: OneStepper(withSingleStep: HomeStep.navigateToHomeViewController)),
-            .contribute(withNextPresentable: alarmFlow, withNextStepper: OneStepper(withSingleStep: AlarmStep.navigateToAlarmViewController)),
-            .contribute(withNextPresentable: settingFlow, withNextStepper: OneStepper(withSingleStep: SettingStep.navigateToSettingViewController)),
+            .contribute(withNextPresentable: homeFlow, withNextStepper: homeStepper),
+            .contribute(withNextPresentable: alarmFlow, withNextStepper: alarmStepper),
+            .contribute(withNextPresentable: settingFlow, withNextStepper: settingStepper),
         ])
+    }
+    
+    private func presentToNetworkErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToUnknownErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
+    }
+    
+    private func presentToAWSServerErrorAlertController() -> FlowContributors {
+        let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "서버 오류"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "서버 오류 설명"),
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
+        
+        return .none
     }
     
     private func popViewController() -> FlowContributors {

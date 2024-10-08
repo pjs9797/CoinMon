@@ -87,8 +87,10 @@ class ModifyAlarmReactor: ReactorKit.Reactor, Stepper {
                     self?.steps.accept(AlarmStep.popViewController)
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .comparePriceButtonTapped:
@@ -109,8 +111,10 @@ class ModifyAlarmReactor: ReactorKit.Reactor, Stepper {
                     self?.steps.accept(AlarmStep.popViewController)
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .updateCurrentPrice:
@@ -118,8 +122,10 @@ class ModifyAlarmReactor: ReactorKit.Reactor, Stepper {
                 .flatMap { coin -> Observable<Mutation> in
                     return .just(.setCurrentPrice(coin.price))
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .updateSetPrice(let price):

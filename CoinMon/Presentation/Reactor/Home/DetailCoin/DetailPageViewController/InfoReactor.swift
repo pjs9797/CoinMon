@@ -10,8 +10,7 @@ class InfoReactor: ReactorKit.Reactor, Stepper {
     
     init(coinUseCase: CoinUseCase, market: String, coin: String){
         self.coinUseCase = coinUseCase
-        //TODO: market 변경
-        self.initialState = State(market: "Bithumb", coin: "ONDO", coinTitle: "\(coin)•\(LocalizationManager.shared.localizedString(forKey: market))")
+        self.initialState = State(market: market, coin: coin, coinTitle: "\(coin)•\(LocalizationManager.shared.localizedString(forKey: market))")
     }
     
     enum Action {

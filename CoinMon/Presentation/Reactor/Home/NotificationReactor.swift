@@ -50,8 +50,10 @@ class NotificationReactor: ReactorKit.Reactor, Stepper {
                 .flatMap { notificationList -> Observable<Mutation> in
                     return .just(.setNotifications(notificationList))
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
         case .checkNotificationStatus:

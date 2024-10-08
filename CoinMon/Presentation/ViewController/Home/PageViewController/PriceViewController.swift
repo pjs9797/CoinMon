@@ -58,10 +58,18 @@ class PriceViewController: UIViewController, ReactorKit.View {
         NotificationCenter.default.rx.notification(.favoritesUpdated)
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.loadPriceList)
                 self?.priceView.toastMessage.isHidden = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     self?.priceView.toastMessage.isHidden = true
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(.favoritesDeleted)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.loadPriceList)
             })
             .disposed(by: disposeBag)
         
@@ -104,10 +112,10 @@ extension PriceViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        priceView.marketCollectionView.rx.itemSelected
-            .map{ _ in Reactor.Action.loadPriceList }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
+//        priceView.marketCollectionView.rx.itemSelected
+//            .map{ _ in Reactor.Action.loadPriceList }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
         
         priceView.searchView.searchTextField.rx.text.orEmpty
             .distinctUntilChanged()
@@ -154,6 +162,7 @@ extension PriceViewController {
                 if isTapped {
                     self?.priceView.priceCategoryView.marketButton.setTitleColor(ColorManager.common_0, for: .normal)
                     self?.reactor?.action.onNext(.loadPriceList)
+                    self?.reactor?.action.onNext(.startTimer)
                     self?.priceView.priceCategoryView.editButton.isHidden = true
                 }
                 else{
@@ -169,6 +178,7 @@ extension PriceViewController {
                 if isTapped {
                     self?.priceView.priceCategoryView.favoriteButton.setTitleColor(ColorManager.common_0, for: .normal)
                     self?.reactor?.action.onNext(.loadPriceList)
+                    self?.reactor?.action.onNext(.startTimer)
                     self?.priceView.priceCategoryView.editButton.isHidden = false
                 }
                 else{

@@ -42,6 +42,10 @@
 		312453B12CA555EF000ACB04 /* SelectCoinAtDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312453B02CA555EF000ACB04 /* SelectCoinAtDetailViewController.swift */; };
 		312453B52CA55672000ACB04 /* SelectCoinAtDetailReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312453B42CA55672000ACB04 /* SelectCoinAtDetailReactor.swift */; };
 		312453B72CA56008000ACB04 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312453B62CA56008000ACB04 /* ToastMessageView.swift */; };
+		313325D82CB5141A0036541F /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313325D72CB5141A0036541F /* ErrorHandler.swift */; };
+		313325DB2CB532AB0036541F /* HomeStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313325DA2CB532AB0036541F /* HomeStepper.swift */; };
+		313325DD2CB532B20036541F /* AlarmStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313325DC2CB532B20036541F /* AlarmStepper.swift */; };
+		313325DF2CB532B80036541F /* SettingStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313325DE2CB532B80036541F /* SettingStepper.swift */; };
 		31423C3A2BF34347008AB6FD /* PhoneVerificationNumberReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */; };
 		31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */; };
 		31423C402BFB32EB008AB6FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31423C3F2BFB32EB008AB6FD /* HomeViewController.swift */; };
@@ -314,6 +318,10 @@
 		312453B02CA555EF000ACB04 /* SelectCoinAtDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinAtDetailViewController.swift; sourceTree = "<group>"; };
 		312453B42CA55672000ACB04 /* SelectCoinAtDetailReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinAtDetailReactor.swift; sourceTree = "<group>"; };
 		312453B62CA56008000ACB04 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
+		313325D72CB5141A0036541F /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		313325DA2CB532AB0036541F /* HomeStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStepper.swift; sourceTree = "<group>"; };
+		313325DC2CB532B20036541F /* AlarmStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmStepper.swift; sourceTree = "<group>"; };
+		313325DE2CB532B80036541F /* SettingStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStepper.swift; sourceTree = "<group>"; };
 		31382DE02C39276B00AE20D8 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31423C392BF34347008AB6FD /* PhoneVerificationNumberReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationNumberReactor.swift; sourceTree = "<group>"; };
 		31423C3C2BFB1849008AB6FD /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -739,6 +747,16 @@
 			path = DetailCoin;
 			sourceTree = "<group>";
 		};
+		313325D92CB5329C0036541F /* Stepper */ = {
+			isa = PBXGroup;
+			children = (
+				313325DA2CB532AB0036541F /* HomeStepper.swift */,
+				313325DC2CB532B20036541F /* AlarmStepper.swift */,
+				313325DE2CB532B80036541F /* SettingStepper.swift */,
+			);
+			path = Stepper;
+			sourceTree = "<group>";
+		};
 		31423C3B2BFB182E008AB6FD /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1058,6 +1076,7 @@
 				31E0A50C2C1711F500756DFD /* KeychainHelper.swift */,
 				31E0A50E2C17120300756DFD /* TokenManager.swift */,
 				3104F5102C43C28400DD40D6 /* ConfigManager.swift */,
+				313325D72CB5141A0036541F /* ErrorHandler.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1065,6 +1084,7 @@
 		317779F02BE1FAD6006E8378 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				313325D92CB5329C0036541F /* Stepper */,
 				31F791662BECD0DD00A7CABB /* FlowState */,
 				31777A232BE3B293006E8378 /* Flow */,
 				31777A222BE3B28C006E8378 /* Step */,
@@ -1811,6 +1831,7 @@
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
 				317154142C86D586007CCD6D /* UIViewController+Extension.swift in Sources */,
 				31E0A55A2C1B28F900756DFD /* ModifyAlarmReactor.swift in Sources */,
+				313325D82CB5141A0036541F /* ErrorHandler.swift in Sources */,
 				31E0A50D2C1711F500756DFD /* KeychainHelper.swift in Sources */,
 				31E0A4EB2C16B4EB00756DFD /* SignupEmailVerificationNumberViewController.swift in Sources */,
 				315C01862C0B133B00BE00E3 /* AlarmTableViewCell.swift in Sources */,
@@ -1836,6 +1857,7 @@
 				31E1C1EA2C50E6F0009F99B9 /* NotificationTableViewFooter.swift in Sources */,
 				31E0A5282C196F5200756DFD /* CoinDTO.swift in Sources */,
 				31E0A55C2C20101D00756DFD /* ExchangeRateService.swift in Sources */,
+				313325DF2CB532B80036541F /* SettingStepper.swift in Sources */,
 				31E0A5192C182BE300756DFD /* UserDTO.swift in Sources */,
 				31E0A53E2C19BD2B00756DFD /* SelectFirstAlarmConditionReactor.swift in Sources */,
 				31647C082CAEB57B00AF53CF /* UnsavedFavoritesReactor.swift in Sources */,
@@ -1869,12 +1891,14 @@
 				31E0A51C2C182C4100756DFD /* UserData.swift in Sources */,
 				31946D6D2CA3CE5E00237156 /* CommunityViewController.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
+				313325DB2CB532AB0036541F /* HomeStepper.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
 				31946D612CA16DB400237156 /* InfoViewController.swift in Sources */,
 				31423C602BFCAC1F008AB6FD /* LocalizationManager.swift in Sources */,
 				3146369E2C05FB95008A5629 /* SettingStep.swift in Sources */,
 				31946D5C2CA1651200237156 /* SearchView.swift in Sources */,
 				3171542C2C8C20D0007CCD6D /* BottomButton.swift in Sources */,
+				313325DD2CB532B20036541F /* AlarmStepper.swift in Sources */,
 				31423C5E2BFC820B008AB6FD /* HomeFlow.swift in Sources */,
 				31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,

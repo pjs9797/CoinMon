@@ -20,9 +20,11 @@ class FavoritesUseCase {
     func fetchFavoritesForEdit(market: String) -> Observable<[FavoritesForEdit]> {
         let marketUpper = market.uppercased()
         return repository.fetchFavorites(market: marketUpper).map{ favorites in
-            return favorites.map {
+            var editFavorites = favorites.map {
                 FavoritesForEdit(id: $0.id, symbol: $0.symbol, favoritesOrder: $0.favoritesOrder, isSelected: false)
             }
+            editFavorites.insert(FavoritesForEdit(id: "all", symbol: "전체", favoritesOrder: 0, isSelected: false), at: 0)
+            return editFavorites
         }
     }
     
@@ -32,6 +34,12 @@ class FavoritesUseCase {
     
     func updateFavorites(market: String, favoritesUpdateOrder: [FavoritesUpdateOrder]) -> Observable<String> {
         let marketUpper = market.uppercased()
-        return repository.updateFavorites(market: marketUpper, favoritesUpdateOrder: favoritesUpdateOrder)
+        let sortedFavoritesUpdateOrder = favoritesUpdateOrder.sorted { $0.favoritesOrder < $1.favoritesOrder }
+        return repository.updateFavorites(market: marketUpper, favoritesUpdateOrder: sortedFavoritesUpdateOrder)
+    }
+    
+    func fetchCoinPriceChangeGapListByFavorites(market: String) -> Observable<[CoinPriceChangeGap]> {
+        let marketUpper = market.uppercased()
+        return repository.fetchCoinPriceChangeGapListByFavorites(exchange: marketUpper)
     }
 }

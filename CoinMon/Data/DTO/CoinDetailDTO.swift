@@ -70,15 +70,6 @@ struct PushDTO: Codable {
     let expTime: [Int]
 }
 
-struct FavoritesDTO: Codable {
-    let id: Int
-    let user: String
-    let symbol: String
-    let market: String
-    let favoritesOrder: Int
-    let registerTime: [Int]
-}
-
 struct CoinDetailInfoDTO: Codable {
     let market: String
     let tradeVolume: String

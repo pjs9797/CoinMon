@@ -86,10 +86,13 @@ class AddAlarmReactor: ReactorKit.Reactor, Stepper {
                     self?.steps.accept(AlarmStep.popViewController)
                     return .empty()
                 }
-                .catch { [weak self] _ in
-                    self?.steps.accept(AlarmStep.presentToNetworkErrorAlertController)
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
                     return .empty()
                 }
+            
         case .setMarket(let market):
             return .concat([
                 .just(.setMarket(market)),
