@@ -37,7 +37,8 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
         case .setShowToastMessage(let show):
             return .just(.setShowToastMessage(show))
         case .kakaoLoginButtonTapped:
-            self.kakaoLogin()
+            //self.kakaoLogin()
+            self.purchaseProduction()
             return .empty()
         case .coinMonLoginButtonTapped:
             self.steps.accept(AppStep.goToSigninFlow)
@@ -87,6 +88,22 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
                     print(error)
                 })
                 .disposed(by: disposeBag)
+        }
+    }
+    
+    private func purchaseProduction(){
+        guard let product = PurchaseManager.shared.products.first else {
+            print("Product is not available.")
+            return
+        }
+        
+        // 구매 처리
+        Task {
+            do {
+                try await PurchaseManager.shared.purchase(product)
+            } catch {
+                print("Purchase failed: \(error.localizedDescription)")
+            }
         }
     }
 }

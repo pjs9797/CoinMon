@@ -108,18 +108,22 @@
 "가격 알림 타임 일" = "%@ days ago";
 "가격 알림 타임 시간" = "%@ hours ago";
 "가격 알림 타임 분" = "%@ minutes ago";
+//MainAlarm
+"문의2" = "Inquiry";
+"지표" = "Indicator";
+"지정가" = "Limit Price";
+"바이낸스 거래소 기준" = "Based on Binance Exchange";
 //Alarm
 "알림 받는 코인 검색" = "Search";
 "지정가 알람" = "Alarm";
 "알람 추가버튼" = "Add";
 "설정가 헤더" = "Set Price (%@)";
-"알람 추가" = "Add Alarm";
+"알람 추가" = "Add alarm";
 "알람 수정" = "Modify Alarm";
 "삭제" = "Delete";
 "알람 삭제 toast" = "Deletion complete";
-"아직 추가한 알람이 없어요" = "No search alerts yet";
+"아직 추가한 알람이 없어요" = "No search alerts yet\nPlease add an alarm";
 "알람 추가하기" = "Add Alarm";
-"아직 추가한 알람이 없어요\n알람 추가하면 지정가일 때 바로 알 수 있어요!" = "No search alerts yet\nIf you add an alarm, you will know right away when the price is limited!";
 "최대 개까지 설정할 수 있어요" = "Up to %@ settings possible";
 "알람 개 더 추가할 수 있어요" = "Up to %@ settings possible";
 //AddAlarm

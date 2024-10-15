@@ -2,7 +2,7 @@ import RxFlow
 import RxCocoa
 
 enum AlarmStep: Step, StepProtocol {
-    case navigateToAlarmViewController
+    case navigateToMainAlarmViewController
     case navigateToAddAlarmViewController
     case navigateToModifyAlarmViewController(market: String, alarm: Alarm)
     

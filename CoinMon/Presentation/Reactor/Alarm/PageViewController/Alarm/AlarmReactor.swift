@@ -39,8 +39,6 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case saveOrder
         case toggleAlarmSwitch(alarm: Alarm, isOn: Bool)
         case deleteAlarm(Int,Int)
-        case updateSearchText(String)
-        case clearButtonTapped
         case sortByCoin
         case sortBySetPrice
         case setAlarmDeleted(Bool)
@@ -58,7 +56,6 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case updateAlarm(Alarm)
         case deleteAlarm(Int)
         case setAlarmDeleted(Bool)
-        case setSearchText(String)
         case setFilteredAlarms([Alarm])
         case setCoinSortOrder(SortOrder)
         case setSetPriceSortOrder(SortOrder)
@@ -72,7 +69,6 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         var unit: String = "USDT"
         var onCnt: Int = 0
         var totalCnt: Int = 0
-        var searchText: String = ""
         var filteredAlarms: [Alarm] = []
         var coinSortOrder: SortOrder = .none
         var setPriceSortOrder: SortOrder = .none
@@ -99,27 +95,14 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                 .flatMap { [weak self] (alarmList, totalCnt, marketAlarmCounts) -> Observable<Mutation> in
                     let market = self?.currentState.markets[index].localizationKey
                     let unit = market == "Upbit" || market == "Bithumb" ? "KRW" : "USDT"
-                    if self?.currentState.searchText == "" {
-                        return .concat([
-                            .just(.setSelectedMarket(index)),
-                            .just(.setAlarms(alarmList)),
-                            .just(.setTotalCnt(totalCnt)),
-                            .just(.setFilteredAlarms(alarmList)),
-                            .just(.setUnit(unit)),
-                            .just(.setMarketAlarmCounts(marketAlarmCounts))
-                        ])
-                    }
-                    else {
-                        let filteredAlarms = alarmList.filter { $0.coinTitle.lowercased().contains(self?.currentState.searchText.lowercased() ?? "") }
-                        return .concat([
-                            .just(.setSelectedMarket(index)),
-                            .just(.setAlarms(alarmList)),
-                            .just(.setTotalCnt(totalCnt)),
-                            .just(.setFilteredAlarms(filteredAlarms)),
-                            .just(.setUnit(unit)),
-                            .just(.setMarketAlarmCounts(marketAlarmCounts))
-                        ])
-                    }
+                    return .concat([
+                        .just(.setSelectedMarket(index)),
+                        .just(.setAlarms(alarmList)),
+                        .just(.setTotalCnt(totalCnt)),
+                        .just(.setFilteredAlarms(alarmList)),
+                        .just(.setUnit(unit)),
+                        .just(.setMarketAlarmCounts(marketAlarmCounts))
+                    ])
                 }
                 .catch { [weak self] error in
                     ErrorHandler.handle(error) { (step: AlarmStep) in
@@ -192,30 +175,6 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
                     return .empty()
                 }
             
-        case .updateSearchText(let searchText):
-            let filteredAlarms: [Alarm]
-            if searchText.isEmpty {
-                var sortedAlarms = currentState.alarms
-                if self.currentState.coinSortOrder != SortOrder.none {
-                    sortedAlarms = self.sortAlarms(sortedAlarms, by: \.coinTitle, order: self.currentState.coinSortOrder)
-                }
-                if self.currentState.setPriceSortOrder != SortOrder.none {
-                    sortedAlarms = self.sortAlarms(sortedAlarms, by: \.setPrice, order: self.currentState.setPriceSortOrder)
-                }
-                filteredAlarms = sortedAlarms
-            }
-            else {
-                filteredAlarms = currentState.alarms.filter { $0.coinTitle.lowercased().contains(searchText.lowercased()) }
-            }
-            return .concat([
-                .just(.setSearchText(searchText)),
-                .just(.setFilteredAlarms(filteredAlarms))
-            ])
-        case .clearButtonTapped:
-            return .concat([
-                .just(.setSearchText("")),
-                .just(.setFilteredAlarms(currentState.alarms))
-            ])
         case .sortByCoin:
             let newOrder: SortOrder
             switch currentState.coinSortOrder {
@@ -281,8 +240,6 @@ class AlarmReactor: ReactorKit.Reactor, Stepper {
         case .deleteAlarm(let index):
             newState.alarms.remove(at: index)
             newState.filteredAlarms.remove(at: index)
-        case .setSearchText(let searchText):
-            newState.searchText = searchText
         case .setFilteredAlarms(let filteredAlarms):
             newState.filteredAlarms = filteredAlarms
         case .setCoinSortOrder(let order):

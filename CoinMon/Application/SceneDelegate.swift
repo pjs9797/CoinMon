@@ -11,6 +11,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        // 앱이 시작될 때 제품 로드
+        Task {
+            do {
+                try await PurchaseManager.shared.loadProducts()
+            } catch {
+                print("Failed to load products: \(error.localizedDescription)")
+            }
+        }
+        
+        // 앱이 시작될 때 트랜잭션 업데이트 감시 시작
+        PurchaseManager.shared.startObservingTransactionUpdates()
+        
+        
         window = UIWindow(windowScene: windowScene)
         appFlow = AppFlow()
         Flows.use(appFlow, when: .created) { [unowned self] root in

@@ -24,8 +24,8 @@ class AlarmFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? AlarmStep else { return .none }
         switch step {
-        case .navigateToAlarmViewController:
-            return navigateToAlarmViewController()
+        case .navigateToMainAlarmViewController:
+            return navigateToMainAlarmViewController()
         case .navigateToAddAlarmViewController:
             return navigateToAddAlarmViewController()
         case .navigateToModifyAlarmViewController(let market, let alarm):
@@ -61,12 +61,19 @@ class AlarmFlow: Flow {
         }
     }
     
-    private func navigateToAlarmViewController() -> FlowContributors {
-        let reactor = AlarmReactor(alarmUseCase: self.alarmUseCase)
-        let viewController = AlarmViewController(with: reactor)
+    private func navigateToMainAlarmViewController() -> FlowContributors {
+        let indicatorReactor = IndicatorReactor()
+        let indicatorViewController = IndicatorViewController(with: indicatorReactor)
+        
+        let alarmReactor = AlarmReactor(alarmUseCase: self.alarmUseCase)
+        let alarmViewController = AlarmViewController(with: alarmReactor)
+        
+        let reactor = MainAlarmReactor()
+        let viewController = MainAlarmViewController(with: reactor, viewControllers: [indicatorViewController,alarmViewController])
+        let compositeStepper = CompositeStepper(steppers: [indicatorReactor, alarmReactor, reactor])
         self.rootViewController.pushViewController(viewController, animated: true)
-
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper))
     }
     
     private func navigateToAddAlarmViewController() -> FlowContributors {

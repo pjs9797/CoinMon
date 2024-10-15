@@ -26,8 +26,7 @@ class AlarmViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        hideKeyboard(disposeBag: disposeBag)
+        view.backgroundColor = ColorManager.common_100
         alarmView.marketCollectionView.dragDelegate = self
         alarmView.marketCollectionView.dropDelegate = self
         alarmView.marketCollectionView.dragInteractionEnabled = true
@@ -35,13 +34,6 @@ class AlarmViewController: UIViewController, ReactorKit.View {
             .subscribe(onNext: { [weak self] _ in
                 self?.reactor?.action.onNext(.updateLocalizedMarkets)
                 self?.alarmView.setLocalizedText()
-                let cnt = self?.reactor?.currentState.totalCnt
-                if cnt == 20 {
-                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "최대 개까지 설정할 수 있어요", arguments: "20")
-                }
-                else {
-                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 개 더 추가할 수 있어요", arguments: "\(20-(cnt ?? 0))")
-                }
             })
             .disposed(by: disposeBag)
     }
@@ -49,9 +41,7 @@ class AlarmViewController: UIViewController, ReactorKit.View {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.isNavigationBarHidden = true
         self.reactor?.action.onNext(.selectMarket(reactor?.currentState.selectedMarket ?? 0))
-        self.reactor?.action.onNext(.updateSearchText(""))
     }
 }
 
@@ -68,8 +58,8 @@ extension AlarmViewController {
         alarmView.alarmTableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        alarmView.addAlarmButton.rx.tap
-            .map{ Reactor.Action.addAlarmButtonTapped }
+        alarmView.addAlarmButtonTapGesture.rx.event
+            .map{ _ in Reactor.Action.addAlarmButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -83,17 +73,6 @@ extension AlarmViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        alarmView.searchView.searchTextField.rx.text.orEmpty
-            .distinctUntilChanged()
-            .map { Reactor.Action.updateSearchText($0) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        alarmView.searchView.clearButton.rx.tap
-            .map { Reactor.Action.clearButtonTapped }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
         alarmView.alarmTableViewHeader.coinButton.rx.tap
             .map{ Reactor.Action.sortByCoin }
             .bind(to: reactor.action)
@@ -101,11 +80,6 @@ extension AlarmViewController {
         
         alarmView.alarmTableViewHeader.setPriceButton.rx.tap
             .map{ Reactor.Action.sortBySetPrice }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        alarmView.allNoneAlarmView.addAlarmButton.rx.tap
-            .map{ Reactor.Action.addAlarmButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -133,19 +107,6 @@ extension AlarmViewController {
             }
             .disposed(by: disposeBag)
         
-        reactor.state.map{ $0.searchText }
-            .distinctUntilChanged()
-            .bind(onNext: { [weak self] text in
-                self?.alarmView.searchView.searchTextField.text = text
-                if text == "" {
-                    self?.alarmView.searchView.clearButton.isHidden = true
-                }
-                else {
-                    self?.alarmView.searchView.clearButton.isHidden = false
-                }
-            })
-            .disposed(by: disposeBag)
-        
         reactor.state.map { $0.filteredAlarms }
             .distinctUntilChanged()
             .bind(to: alarmView.alarmTableView.rx.items(cellIdentifier: "AlarmTableViewCell", cellType: AlarmTableViewCell.self)) { (index, alarm, cell) in
@@ -170,16 +131,7 @@ extension AlarmViewController {
         reactor.state.map{ $0.totalCnt }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] cnt in
-                if cnt == 0 {
-                    self?.alarmView.allNoneAlarmView.isHidden = false
-                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "최대 개까지 설정할 수 있어요", arguments: "20")
-                    self?.alarmView.alarmTableViewHeader.isHidden = true
-                }
-                else {
-                    self?.alarmView.allNoneAlarmView.isHidden = true
-                    self?.alarmView.remainingAlarmCntLabel.text = LocalizationManager.shared.localizedString(forKey: "알람 개 더 추가할 수 있어요", arguments: "\(20-cnt)")
-                    self?.alarmView.alarmTableViewHeader.isHidden = false
-                }
+                self?.alarmView.cntAlarmLabel.text = "\(cnt)/20"
             })
             .disposed(by: disposeBag)
         
@@ -190,12 +142,7 @@ extension AlarmViewController {
         .bind(onNext: { [weak self] selectedMarketIndex, marketAlarmCounts in
             let selectedMarket = reactor.currentState.markets[selectedMarketIndex]
             let alarmCount = marketAlarmCounts[selectedMarket.localizationKey] ?? 0
-            if self?.alarmView.allNoneAlarmView.isHidden == true {
-                self?.alarmView.noneAlarmView.isHidden = alarmCount != 0
-            }
-            else {
-                self?.alarmView.noneAlarmView.isHidden = true
-            }
+            self?.alarmView.noneAlarmView.isHidden = alarmCount != 0
         })
         .disposed(by: disposeBag)
         
