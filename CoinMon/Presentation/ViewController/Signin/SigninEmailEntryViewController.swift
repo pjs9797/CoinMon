@@ -28,7 +28,7 @@ class SigninEmailEntryViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardNotifications(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)
+        bindKeyboardToButton(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] aa in
                 self?.signinEmailEntryView.setLocalizedText()

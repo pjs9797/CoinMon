@@ -1,4 +1,5 @@
 import ReactorKit
+import FirebaseMessaging
 import RxCocoa
 import RxFlow
 
@@ -54,12 +55,12 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .nextButtonTapped:
             if let fcmToken = TokenManager.shared.loadFCMToken() {
+                print("fcmToken", fcmToken)
                 return signinUseCase.checkEmailVerificationCodeForLogin(email: UserCredentialsManager.shared.email, number: currentState.verificationNumber, deviceToken: fcmToken)
                     .flatMap { [weak self] resultCode -> Observable<Mutation> in
                         if resultCode == "200" {
                             self?.steps.accept(SigninStep.completeSigninFlow)
-                        }
-                        else {
+                        } else {
                             self?.steps.accept(SigninStep.presentToAuthenticationNumberErrorAlertController)
                         }
                         return .empty()
@@ -72,8 +73,42 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                     }
             }
             else {
+                print("FCM 토큰을 불러오지 못했습니다. 새로 갱신합니다.")
+                Messaging.messaging().token { [weak self] token, error in
+                    if let error = error {
+                        print("FCM 토큰을 가져오는 중 에러 발생: \(error)")
+                    }
+                    else if let token = token {
+                        print("새로운 FCM 토큰: \(token)")
+                        TokenManager.shared.saveFCMToken(token)
+                        // FCM 토큰을 얻은 후 로그인 시도
+                        self?.signinUseCase.checkEmailVerificationCodeForLogin(email: UserCredentialsManager.shared.email, number: self?.currentState.verificationNumber ?? "000000", deviceToken: token)
+                            .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                                if resultCode == "200" {
+                                    self?.steps.accept(SigninStep.completeSigninFlow)
+                                } else {
+                                    self?.steps.accept(SigninStep.presentToAuthenticationNumberErrorAlertController)
+                                }
+                                return .empty()
+                            }
+                            .catch { [weak self] error in
+                                ErrorHandler.handle(error) { (step: SigninStep) in
+                                    self?.steps.accept(step)
+                                }
+                                return .empty()
+                            }
+                            .subscribe(onNext: { _ in
+                                
+                            }, onError: { error in
+                                print("에러 발생: \(error)")
+                            })
+                            .disposed(by: DisposeBag())
+                    }
+                }
                 return .empty()
             }
+        
+
         case .clearButtonTapped:
             return .concat([
                 .just(.setVerificationNumber("")),

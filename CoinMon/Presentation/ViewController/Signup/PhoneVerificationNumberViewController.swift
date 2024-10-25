@@ -28,7 +28,7 @@ class PhoneVerificationNumberViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardNotifications(to: verificationNumberView.nextButton, disposeBag: disposeBag)
+        bindKeyboardToButton(to: verificationNumberView.nextButton, disposeBag: disposeBag)
     }
     
     private func setNavigationbar() {

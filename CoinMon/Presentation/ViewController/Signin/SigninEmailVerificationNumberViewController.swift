@@ -28,7 +28,7 @@ class SigninEmailVerificationNumberViewController: UIViewController, ReactorKit.
         view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardNotifications(to: verificationNumberView.nextButton, disposeBag: disposeBag)
+        bindKeyboardToButton(to: verificationNumberView.nextButton, disposeBag: disposeBag)
         self.reactor?.action.onNext(.postEmailCode)
     }
     

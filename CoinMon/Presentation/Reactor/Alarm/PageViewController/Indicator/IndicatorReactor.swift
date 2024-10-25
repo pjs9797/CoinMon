@@ -19,6 +19,7 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .addIndicatorButtonTapped:
+            self.steps.accept(AlarmStep.navigateToSelectIndicatorViewController)
             return .empty()
         }
     }

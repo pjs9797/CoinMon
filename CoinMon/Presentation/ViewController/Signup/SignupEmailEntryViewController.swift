@@ -28,7 +28,7 @@ class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardNotifications(to: signupEmailEntryView.nextButton, disposeBag: disposeBag)
+        bindKeyboardToButton(to: signupEmailEntryView.nextButton, disposeBag: disposeBag)
     }
     
     private func setNavigationbar() {

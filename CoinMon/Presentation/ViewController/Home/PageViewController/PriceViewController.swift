@@ -202,6 +202,7 @@ extension PriceViewController {
         reactor.state.map { $0.filteredPriceList }
             .distinctUntilChanged()
             .bind(to: priceView.priceTableView.rx.items(cellIdentifier: "PriceTableViewCell", cellType: PriceTableViewCell.self)){ row, priceList, cell in
+                
                 cell.configure(with: priceList)
             }
             .disposed(by: disposeBag)

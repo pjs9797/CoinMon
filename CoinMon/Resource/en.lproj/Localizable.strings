@@ -113,6 +113,24 @@
 "지표" = "Indicator";
 "지정가" = "Limit Price";
 "바이낸스 거래소 기준" = "Based on Binance Exchange";
+//Indicator
+"프리미엄" = "Premium";
+"무료" = "Free";
+"알림 받는 중2" = "Getting Notifications";
+"알림받을 코인 최대 3개 선택해 주세요" = "Up to 3 coins to be notified\nPlease choose";
+"초기화" = "Reset";
+"선택 완료" = "%@ Selected";
+"코인은 최대 3개 선택 할 수 있어요" = "You can choose up to 3 coins";
+"15분 주기로 매수•매도 타이밍을\n확인하고 알려드려요" = "You will be notified of buying and\nselling timings every 15 minutes";
+"15분 주기로 확인하고 알려드려요" = "You will be notified of buying and\nselling timings every 15 minutes";
+"코인별 변동성에 따라 최대 일주일 주기로 알림이 갈 수 있어요" = "Depending on the volatility of each coin,\nnotifications may be sent up to once a week.";
+//Indicator Explain
+"하이퍼 볼린저밴드" = "Hyper Bollinger Bands";
+"이동평균선" = "Moving Average";
+"RSI" = "RSI";
+"하이퍼 볼린저 밴드는 기존 볼린저 밴드와 역추세 전략을 결합한 코인몬만의 고급지표예요. 가격이 밴드 안에서 좁아질 때는 매매 기회를 찾고, 가격이 밴드를 크게 벗어나면 강한 추세가 시작될 신호로 보고 매수나 매도를 더 정확하게 할 수 있게 도와줘요." = "Hyper Bollinger Bands is a unique advanced indicator from CoinMon that combines traditional Bollinger Bands with a contrarian strategy. When the price narrows within the bands, it signals potential trading opportunities. Conversely, when the price moves significantly outside the bands, it indicates the start of a strong trend, helping users make more accurate buying or selling decisions.";
+"일정 기간 동안 주가의 평균값을 연결한 지표에요. 현재 주가가 어느정도 위치해 있는지 판단할 수 있어요. 후행성 지표이기 때문에 미래를 예측하는 것 보다 현재 상태를 확인하고 분석하는데 도움을 줘요." = "It is an indicator that connects the average values of cryptocurrency prices over a certain period. It helps you assess where the current price stands. As a lagging indicator, it is more useful for checking and analyzing the current state rather than predicting future movements.";
+"일정 기간 동안 가격 변화 속도와 크기를 측정하여 현재 가격이 과매수 혹은 과매도 상태인지 판단하는 데 도움을 줘요." = "It helps determine whether the current price is in an overbought or oversold condition by measuring the rate and magnitude of price changes over a certain period in the cryptocurrency market.";
 //Alarm
 "알림 받는 코인 검색" = "Search";
 "지정가 알람" = "Alarm";

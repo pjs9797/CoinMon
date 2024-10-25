@@ -60,4 +60,9 @@ struct ImageManager {
     static let icon_search24 = UIImage(named: "icon_search24")
     static let Handle24 = UIImage(named: "Handle24")
     static let Star50 = UIImage(named: "Star50")
+    static let icon_questionMark18 = UIImage(named: "icon_questionMark18")
+    static let icon_close14 = UIImage(named: "icon_close14")
+    static let indicator1 = UIImage(named: "indicator1")
+    static let indicator2 = UIImage(named: "indicator2")
+    static let indicator3 = UIImage(named: "indicator3")
 }

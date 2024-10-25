@@ -28,20 +28,22 @@ class ToastMessageView: UIView {
     }
     
     private func layout() {
-        [checkImageView,toastLabel]
+        [toastLabel,checkImageView]
             .forEach{
                 addSubview($0)
             }
         
+        toastLabel.snp.makeConstraints { make in
+            make.leading.equalTo(checkImageView.snp.trailing).offset(8*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(13*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-13*ConstantsManager.standardHeight)
+        }
+        
         checkImageView.snp.makeConstraints { make in
             make.width.height.equalTo(24*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.centerY.equalToSuperview()
-        }
-        
-        toastLabel.snp.makeConstraints { make in
-            make.leading.equalTo(checkImageView.snp.trailing).offset(8*ConstantsManager.standardWidth)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(toastLabel)
         }
     }
 }

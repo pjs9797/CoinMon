@@ -7,6 +7,7 @@ class AppFlow: Flow {
     }
     
     private let coinUseCase = CoinUseCase(repository: CoinRepository())
+    private let indicatorUseCase = IndicatorUseCase(repository: IndicatorRepository())
     private let alarmUseCase = AlarmUseCase(repository: AlarmRepository())
     private let userUseCase = UserUseCase(repository: UserRepository())
     private let favoritesUseCase = FavoritesUseCase(repository: FavoritesRepository())
@@ -107,7 +108,7 @@ class AppFlow: Flow {
         let settingStepper = SettingStepper()
         
         let homeFlow = HomeFlow(with: homeNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase, favoritesUseCase: self.favoritesUseCase, stepper: homeStepper)
-        let alarmFlow = AlarmFlow(with: alarmNavigationController, coinUseCase: self.coinUseCase, alarmUseCase: self.alarmUseCase, stepper: alarmStepper)
+        let alarmFlow = AlarmFlow(with: alarmNavigationController, coinUseCase: self.coinUseCase, indicatorUseCase: self.indicatorUseCase, alarmUseCase: self.alarmUseCase, stepper: alarmStepper)
         let settingFlow = SettingFlow(with: settingNavigationController, userUseCase: self.userUseCase, stepper: settingStepper)
         
         Flows.use(homeFlow,alarmFlow,settingFlow, when: .created) { [weak self] (homeNavigationController,alarmNavigationController,settingNavigationController) in

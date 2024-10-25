@@ -13,7 +13,7 @@ extension UIViewController: UIGestureRecognizerDelegate{
         }.disposed(by: disposeBag)
     }
     
-    func bindKeyboardNotifications(to button: UIButton, disposeBag: DisposeBag) {
+    func bindKeyboardToButton(to button: UIButton, disposeBag: DisposeBag) {
         NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
             .compactMap { $0.userInfo }
             .observe(on: MainScheduler.instance)
@@ -37,6 +37,36 @@ extension UIViewController: UIGestureRecognizerDelegate{
                 if let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                     UIView.animate(withDuration: duration) {
                         button?.transform = .identity
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func bindKeyboardToCollectionView(to collectionView: UICollectionView, disposeBag: DisposeBag) {
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
+            .compactMap { $0.userInfo }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self, weak collectionView] userInfo in
+                if let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+                   let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+                    let keyboardHeight = keyboardFrame.height
+                    let safeAreaBottom = self?.view.safeAreaInsets.bottom
+                    
+                    UIView.animate(withDuration: duration) {
+                        collectionView?.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+(safeAreaBottom ?? 0))
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
+            .compactMap { $0.userInfo }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak collectionView] userInfo in
+                if let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+                    UIView.animate(withDuration: duration) {
+                        collectionView?.transform = .identity
                     }
                 }
             })

@@ -28,7 +28,7 @@ class SignupPhoneNumberEntryViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = .systemBackground
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardNotifications(to: phoneNumberEntryView.nextButton, disposeBag: disposeBag)
+        bindKeyboardToButton(to: phoneNumberEntryView.nextButton, disposeBag: disposeBag)
     }
     
     private func setNavigationbar() {

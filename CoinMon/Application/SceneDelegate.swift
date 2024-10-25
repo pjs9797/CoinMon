@@ -42,6 +42,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
             }
         }
+        if let fcmToken = TokenManager.shared.loadFCMToken(){
+            print(fcmToken)
+        }
+        else{
+            print("없다")
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

@@ -15,10 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-          options: authOptions,
-          completionHandler: { _, _ in }
+            options: authOptions,
+            completionHandler: { _, _ in }
         )
-
+        
         application.registerForRemoteNotifications()
         return true
     }
@@ -31,20 +31,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("deviceToken",tokenString)
+        print("deviceToken", tokenString)
+        
+        // APNs 토큰을 Firebase Messaging에 설정
+        Messaging.messaging().apnsToken = deviceToken
+
+        // APNs 토큰 설정 후 FCM 토큰을 다시 요청
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token = token {
+                print("FCM registration token: \(token)")
+                TokenManager.shared.saveFCMToken(token)
+            }
+        }
     }
+
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // 백그라운드에서 알림 데이터 처리
         print("Remote notification received: \(userInfo)")
         NotificationCenter.default.post(name: Notification.Name("didReceiveRemoteNotification"), object: nil)
         UserDefaults.standard.setValue(true, forKey: "didReceiveNotificationAtBackground")
-//        if application.applicationState == .background || application.applicationState == .inactive {
-//            print("App is in background or inactive state")
-//            incrementBadgeCount()
-//        } else {
-//            print("App is in active state")
-//        }
+        //        if application.applicationState == .background || application.applicationState == .inactive {
+        //            print("App is in background or inactive state")
+        //            incrementBadgeCount()
+        //        } else {
+        //            print("App is in active state")
+        //        }
         incrementBadgeCount()
         completionHandler(.newData)
     }
