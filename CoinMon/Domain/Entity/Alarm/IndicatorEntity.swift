@@ -36,7 +36,6 @@ struct IndicatorCoinPriceChange: Equatable {
     let coinTitle: String
     let price: String
     let change: String
-    let gap: String
     var isChecked: Bool
 }
 

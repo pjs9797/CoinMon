@@ -189,7 +189,7 @@
 		31CF70782CCA0C99003BD8FD /* IndicatorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70772CCA0C99003BD8FD /* IndicatorEntity.swift */; };
 		31CF707A2CCA10D0003BD8FD /* IndicatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70792CCA10D0003BD8FD /* IndicatorUseCase.swift */; };
 		31CF707C2CCA1140003BD8FD /* IndicatorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF707B2CCA1140003BD8FD /* IndicatorRepository.swift */; };
-		31CF707E2CCA5AD7003BD8FD /* DetailIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF707D2CCA5AD7003BD8FD /* DetailIndicatorView.swift */; };
+		31CF707E2CCA5AD7003BD8FD /* DetailIndicatorCoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF707D2CCA5AD7003BD8FD /* DetailIndicatorCoinView.swift */; };
 		31CF70802CCA5B80003BD8FD /* SelectCoinForIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF707F2CCA5B80003BD8FD /* SelectCoinForIndicatorView.swift */; };
 		31CF70822CCA5D8D003BD8FD /* CoinForIndicatorTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70812CCA5D8D003BD8FD /* CoinForIndicatorTableViewHeader.swift */; };
 		31CF70842CCA5ED8003BD8FD /* CoinForIndicatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70832CCA5ED8003BD8FD /* CoinForIndicatorTableViewCell.swift */; };
@@ -201,6 +201,12 @@
 		31CF70942CCBA314003BD8FD /* SelectCycleForIndicatorReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70932CCBA314003BD8FD /* SelectCycleForIndicatorReactor.swift */; };
 		31CF70972CCBC4E5003BD8FD /* ExplainIndicatorSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70962CCBC4E5003BD8FD /* ExplainIndicatorSheetPresentationController.swift */; };
 		31CF709A2CCBD719003BD8FD /* ExplainIndicatorSheetPresentationReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70992CCBD719003BD8FD /* ExplainIndicatorSheetPresentationReactor.swift */; };
+		31CF709D2CCD10AC003BD8FD /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF709C2CCD10AC003BD8FD /* SurveyView.swift */; };
+		31CF70A02CCD161A003BD8FD /* SurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF709F2CCD161A003BD8FD /* SurveyTableViewCell.swift */; };
+		31CF70A52CCD1D20003BD8FD /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70A42CCD1D20003BD8FD /* SurveyViewController.swift */; };
+		31CF70A82CCD1D4C003BD8FD /* SurveyReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70A72CCD1D4C003BD8FD /* SurveyReactor.swift */; };
+		31CF70AA2CCD2A69003BD8FD /* DetailIndicatorCoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70A92CCD2A69003BD8FD /* DetailIndicatorCoinViewController.swift */; };
+		31CF70AE2CCD2ADC003BD8FD /* DetailIndicatorCoinReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70AD2CCD2ADC003BD8FD /* DetailIndicatorCoinReactor.swift */; };
 		31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B02C1078DC00756DFD /* MyAccountView.swift */; };
 		31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A4B22C10838400756DFD /* MyAccountViewController.swift */; };
 		31E0A4C52C108A8A00756DFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E0A4C42C108A8A00756DFD /* GoogleService-Info.plist */; };
@@ -487,7 +493,7 @@
 		31CF70772CCA0C99003BD8FD /* IndicatorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorEntity.swift; sourceTree = "<group>"; };
 		31CF70792CCA10D0003BD8FD /* IndicatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorUseCase.swift; sourceTree = "<group>"; };
 		31CF707B2CCA1140003BD8FD /* IndicatorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorRepository.swift; sourceTree = "<group>"; };
-		31CF707D2CCA5AD7003BD8FD /* DetailIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndicatorView.swift; sourceTree = "<group>"; };
+		31CF707D2CCA5AD7003BD8FD /* DetailIndicatorCoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndicatorCoinView.swift; sourceTree = "<group>"; };
 		31CF707F2CCA5B80003BD8FD /* SelectCoinForIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinForIndicatorView.swift; sourceTree = "<group>"; };
 		31CF70812CCA5D8D003BD8FD /* CoinForIndicatorTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinForIndicatorTableViewHeader.swift; sourceTree = "<group>"; };
 		31CF70832CCA5ED8003BD8FD /* CoinForIndicatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinForIndicatorTableViewCell.swift; sourceTree = "<group>"; };
@@ -499,6 +505,12 @@
 		31CF70932CCBA314003BD8FD /* SelectCycleForIndicatorReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCycleForIndicatorReactor.swift; sourceTree = "<group>"; };
 		31CF70962CCBC4E5003BD8FD /* ExplainIndicatorSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainIndicatorSheetPresentationController.swift; sourceTree = "<group>"; };
 		31CF70992CCBD719003BD8FD /* ExplainIndicatorSheetPresentationReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainIndicatorSheetPresentationReactor.swift; sourceTree = "<group>"; };
+		31CF709C2CCD10AC003BD8FD /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
+		31CF709F2CCD161A003BD8FD /* SurveyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTableViewCell.swift; sourceTree = "<group>"; };
+		31CF70A42CCD1D20003BD8FD /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
+		31CF70A72CCD1D4C003BD8FD /* SurveyReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyReactor.swift; sourceTree = "<group>"; };
+		31CF70A92CCD2A69003BD8FD /* DetailIndicatorCoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndicatorCoinViewController.swift; sourceTree = "<group>"; };
+		31CF70AD2CCD2ADC003BD8FD /* DetailIndicatorCoinReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndicatorCoinReactor.swift; sourceTree = "<group>"; };
 		31E0A4B02C1078DC00756DFD /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
 		31E0A4B22C10838400756DFD /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		31E0A4C32C10892400756DFD /* CoinMon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoinMon.entitlements; sourceTree = "<group>"; };
@@ -843,11 +855,13 @@
 		313325EA2CBE4BF70036541F /* Indicator */ = {
 			isa = PBXGroup;
 			children = (
+				31CF70AB2CCD2A89003BD8FD /* DetailIndicatorCoinPage */,
 				31CF70952CCBC4BE003BD8FD /* SheetPresentation */,
 				313325F92CBE732C0036541F /* IndicatorViewController.swift */,
 				313325FD2CBE91720036541F /* SelectIndicatorViewController.swift */,
 				31CF70852CCA6681003BD8FD /* SelectCoinForIndicatorViewController.swift */,
 				31CF70912CCBA307003BD8FD /* SelectCycleForIndicatorViewController.swift */,
+				31CF70A92CCD2A69003BD8FD /* DetailIndicatorCoinViewController.swift */,
 			);
 			path = Indicator;
 			sourceTree = "<group>";
@@ -870,9 +884,9 @@
 				313326012CBE91B30036541F /* TableViewCell */,
 				313325F72CBE719B0036541F /* IndicatorView.swift */,
 				313325FF2CBE91780036541F /* SelectIndicatorView.swift */,
-				31CF707D2CCA5AD7003BD8FD /* DetailIndicatorView.swift */,
 				31CF707F2CCA5B80003BD8FD /* SelectCoinForIndicatorView.swift */,
 				31CF708F2CCBA2E5003BD8FD /* SelectCycleForIndicatorView.swift */,
+				31CF707D2CCA5AD7003BD8FD /* DetailIndicatorCoinView.swift */,
 			);
 			path = Indicator;
 			sourceTree = "<group>";
@@ -914,11 +928,13 @@
 		313325F42CBE51380036541F /* Indicator */ = {
 			isa = PBXGroup;
 			children = (
+				31CF70AC2CCD2ACE003BD8FD /* DetailIndicatorCoinPage */,
 				31CF70982CCBD709003BD8FD /* SheetPresentation */,
 				313325FB2CBE734D0036541F /* IndicatorReactor.swift */,
 				3127AD182CBF8EEB000A75F7 /* SelectIndicatorReactor.swift */,
 				31CF70872CCA668E003BD8FD /* SelectCoinForIndicatorReactor.swift */,
 				31CF70932CCBA314003BD8FD /* SelectCycleForIndicatorReactor.swift */,
+				31CF70AD2CCD2ADC003BD8FD /* DetailIndicatorCoinReactor.swift */,
 			);
 			path = Indicator;
 			sourceTree = "<group>";
@@ -1261,6 +1277,7 @@
 		317779F12BE1FAE3006E8378 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				31CF709B2CCD1079003BD8FD /* Survey */,
 				31E0A4DD2C15BC8300756DFD /* TermsOfService */,
 				315C017E2C0B043E00BE00E3 /* Alarm */,
 				314636A12C05FBA4008A5629 /* Setting */,
@@ -1275,6 +1292,7 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				31CF70A32CCD1D0D003BD8FD /* Survey */,
 				31E0A4F82C16CC5000756DFD /* TermsOfService */,
 				315C017B2C0B02CD00BE00E3 /* Alarm */,
 				314636A42C060041008A5629 /* Setting */,
@@ -1289,6 +1307,7 @@
 		317779F32BE20095006E8378 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				31CF70A62CCD1D3E003BD8FD /* Survey */,
 				31E0A4FF2C16CC9300756DFD /* TermsOfService */,
 				315C018B2C0B3AF400BE00E3 /* Alarm */,
 				314636A52C060048008A5629 /* Setting */,
@@ -1514,6 +1533,53 @@
 				31CF70992CCBD719003BD8FD /* ExplainIndicatorSheetPresentationReactor.swift */,
 			);
 			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31CF709B2CCD1079003BD8FD /* Survey */ = {
+			isa = PBXGroup;
+			children = (
+				31CF709E2CCD160C003BD8FD /* TableViewCell */,
+				31CF709C2CCD10AC003BD8FD /* SurveyView.swift */,
+			);
+			path = Survey;
+			sourceTree = "<group>";
+		};
+		31CF709E2CCD160C003BD8FD /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31CF709F2CCD161A003BD8FD /* SurveyTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		31CF70A32CCD1D0D003BD8FD /* Survey */ = {
+			isa = PBXGroup;
+			children = (
+				31CF70A42CCD1D20003BD8FD /* SurveyViewController.swift */,
+			);
+			path = Survey;
+			sourceTree = "<group>";
+		};
+		31CF70A62CCD1D3E003BD8FD /* Survey */ = {
+			isa = PBXGroup;
+			children = (
+				31CF70A72CCD1D4C003BD8FD /* SurveyReactor.swift */,
+			);
+			path = Survey;
+			sourceTree = "<group>";
+		};
+		31CF70AB2CCD2A89003BD8FD /* DetailIndicatorCoinPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailIndicatorCoinPage;
+			sourceTree = "<group>";
+		};
+		31CF70AC2CCD2ACE003BD8FD /* DetailIndicatorCoinPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailIndicatorCoinPage;
 			sourceTree = "<group>";
 		};
 		31E0A4C02C1086BB00756DFD /* Frameworks */ = {
@@ -1993,12 +2059,14 @@
 				31647C052CAEB54200AF53CF /* UnsavedFavoritesSheetPresentationController.swift in Sources */,
 				31105E892CA6C75100BFD195 /* EditFavoritesViewController.swift in Sources */,
 				31E0A5342C19B1F700756DFD /* SelectMarketAtAlarmReactor.swift in Sources */,
+				31CF70A02CCD161A003BD8FD /* SurveyTableViewCell.swift in Sources */,
 				31F791702BECED2700A7CABB /* AgreeToTermsOfServiceView.swift in Sources */,
 				31E0A4C72C108D9E00756DFD /* MyAccountReactor.swift in Sources */,
 				315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */,
 				31E0A5382C19BC2500756DFD /* SelectAlarmConditionView.swift in Sources */,
 				31E0A5502C1B05F500756DFD /* AlarmDTO.swift in Sources */,
 				313325EC2CBE4D390036541F /* MainAlarmViewController.swift in Sources */,
+				31CF70AE2CCD2ADC003BD8FD /* DetailIndicatorCoinReactor.swift in Sources */,
 				31E0A5622C201C6600756DFD /* InquiryViewController.swift in Sources */,
 				314636A92C06005E008A5629 /* SettingReactor.swift in Sources */,
 				31423C3D2BFB1849008AB6FD /* TabBarViewController.swift in Sources */,
@@ -2007,7 +2075,7 @@
 				31E0A4B32C10838400756DFD /* MyAccountViewController.swift in Sources */,
 				31777A362BE77B34006E8378 /* PhoneNumberEntryView.swift in Sources */,
 				31E0A5092C16FFE300756DFD /* SigninUseCase.swift in Sources */,
-				31CF707E2CCA5AD7003BD8FD /* DetailIndicatorView.swift in Sources */,
+				31CF707E2CCA5AD7003BD8FD /* DetailIndicatorCoinView.swift in Sources */,
 				31423C4E2BFB57EE008AB6FD /* HomeCategoryCollectionViewCell.swift in Sources */,
 				31647C0A2CAEC28800AF53CF /* UnsavedFavoritesChangeSecondView.swift in Sources */,
 				31105E912CA6CF5500BFD195 /* NoneFavoritesView.swift in Sources */,
@@ -2066,6 +2134,7 @@
 				31CF70972CCBC4E5003BD8FD /* ExplainIndicatorSheetPresentationController.swift in Sources */,
 				31F7915E2BECA58500A7CABB /* SignupCompletedReactor.swift in Sources */,
 				31E0A5242C196E4800756DFD /* CoinService.swift in Sources */,
+				31CF70A82CCD1D4C003BD8FD /* SurveyReactor.swift in Sources */,
 				31946D6B2CA3CE1300237156 /* InfoReactor.swift in Sources */,
 				31E0A5542C1B071600756DFD /* AlarmRepository.swift in Sources */,
 				31E1C1EA2C50E6F0009F99B9 /* NotificationTableViewFooter.swift in Sources */,
@@ -2110,6 +2179,7 @@
 				31946D6D2CA3CE5E00237156 /* CommunityViewController.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
 				313325DB2CB532AB0036541F /* HomeStepper.swift in Sources */,
+				31CF70AA2CCD2A69003BD8FD /* DetailIndicatorCoinViewController.swift in Sources */,
 				31423C5A2BFC8146008AB6FD /* PriceReactor.swift in Sources */,
 				31946D612CA16DB400237156 /* InfoViewController.swift in Sources */,
 				31CF70822CCA5D8D003BD8FD /* CoinForIndicatorTableViewHeader.swift in Sources */,
@@ -2123,6 +2193,7 @@
 				31E0A5322C19B1D500756DFD /* SelectMarketAtAlarmSheetPresentationController.swift in Sources */,
 				31F791682BECD0F600A7CABB /* FlowState.swift in Sources */,
 				31BCE9792C04A05D00DA2FC6 /* FeePremiumTableViewCell.swift in Sources */,
+				31CF70A52CCD1D20003BD8FD /* SurveyViewController.swift in Sources */,
 				313325F62CBE51510036541F /* MainAlarmReactor.swift in Sources */,
 				31E0A4B12C1078DC00756DFD /* MyAccountView.swift in Sources */,
 				31777A322BE7707E006E8378 /* SignupFlow.swift in Sources */,
@@ -2174,6 +2245,7 @@
 				315C01782C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift in Sources */,
 				31423C582BFB858B008AB6FD /* PriceTableViewHeader.swift in Sources */,
 				317779F52BE200B4006E8378 /* ConstantsManager.swift in Sources */,
+				31CF709D2CCD10AC003BD8FD /* SurveyView.swift in Sources */,
 				31E0A4E72C15C75C00756DFD /* SignupRepositoryInterface.swift in Sources */,
 				31E0A5422C19C43B00756DFD /* SelectSecondAlarmConditionReactor.swift in Sources */,
 				312453B52CA55672000ACB04 /* SelectCoinAtDetailReactor.swift in Sources */,

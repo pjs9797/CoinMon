@@ -72,50 +72,52 @@ struct GetIndicatorCoinListResponseDTO: Codable {
     
     struct DataClass: Codable {
         let info: [GetIndicatorCoinListDTO]
-        
-        init(from decoder: Decoder) throws {
-            var container = try decoder.container(keyedBy: CodingKeys.self)
-            var infoArray = try container.nestedUnkeyedContainer(forKey: .info)
-            var parsedInfo = [GetIndicatorCoinListDTO]()
-            
-            while !infoArray.isAtEnd {
-                var nestedContainer = try infoArray.nestedUnkeyedContainer()
-                let indicatorCoinDTO = try nestedContainer.decode(IndicatorCoinDTO.self)
-                let coinPriceInfoDTO = try nestedContainer.decode(CoinPriceInfoDTO.self)
-                
-                let dto = GetIndicatorCoinListDTO(indicatorCoinDTO: indicatorCoinDTO, coinPriceInfoDTO: coinPriceInfoDTO)
-                parsedInfo.append(dto)
-            }
-            
-            self.info = parsedInfo
-        }
     }
     
     static func toIndicatorCoinPriceChanges(dto: GetIndicatorCoinListResponseDTO) -> [IndicatorCoinPriceChange] {
         return dto.data.info.compactMap { coinListDTO in
-            let coinPriceChangeGap = CoinPriceInfoDTO.toCoinPriceChangeGap(dto: coinListDTO.coinPriceInfoDTO)
-            guard let priceChangeGap = coinPriceChangeGap else {
-                return nil
-            }
+            let priceString = formatPrice(coinListDTO.limitPrice)
+            let changeString = String(format: "%.2f", coinListDTO.percent)
+            
             return IndicatorCoinPriceChange(
-                indicatorCoinId: String(coinListDTO.indicatorCoinDTO.indicatorCoinId),
-                coinTitle: priceChangeGap.coinTitle,
-                price: priceChangeGap.price,
-                change: priceChangeGap.change,
-                gap: priceChangeGap.gap,
+                indicatorCoinId: String(coinListDTO.indicatorCoinId),
+                coinTitle: coinListDTO.coinName,
+                price: priceString,
+                change: changeString,
                 isChecked: false
             )
         }
     }
+    
+    static func formatPrice(_ price: Double) -> String {
+        var priceString = String(format: "%.8f", price)
+        
+        while priceString.last == "0" {
+            priceString.removeLast()
+        }
+        
+        if priceString.last == "." {
+            priceString.removeLast()
+        }
+        
+        if priceString.count > 9 {
+            priceString = String(priceString.prefix(9))
+            
+            if priceString.last == "." {
+                priceString.removeLast()
+            }
+        }
+        
+        return priceString
+    }
 }
 
 struct GetIndicatorCoinListDTO: Codable {
-    let indicatorCoinDTO: IndicatorCoinDTO
-    let coinPriceInfoDTO: CoinPriceInfoDTO
-}
-
-struct IndicatorCoinDTO: Codable {
     let indicatorCoinId: Int
     let indicatorId: Int
     let coinName: String
+    let marketPrice: Double
+    let limitPrice: Double
+    let standardPrice: Double
+    let percent: Double
 }

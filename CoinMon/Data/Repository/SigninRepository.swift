@@ -33,6 +33,7 @@ class SigninRepository: SigninRepositoryInterface {
     }
     
     func checkEmailVerificationCodeForLogin(email: String, number: String, deviceToken: String) -> Observable<AuthTokens?> {
+        print("deviceToken,deviceToken",deviceToken)
         return provider.rx.request(.login(email: email, number: number, deviceToken: deviceToken))
             .filterSuccessfulStatusCodes()
             .map(SigninResponseDTO.self)

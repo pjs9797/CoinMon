@@ -98,7 +98,7 @@ class AlarmFlow: Flow {
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
@@ -108,7 +108,7 @@ class AlarmFlow: Flow {
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
@@ -118,7 +118,7 @@ class AlarmFlow: Flow {
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
@@ -128,7 +128,7 @@ class AlarmFlow: Flow {
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
@@ -138,31 +138,30 @@ class AlarmFlow: Flow {
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
     private func presentToExplainIndicatorSheetPresentationController(indicatorId: String) -> FlowContributors {
         let reactor = ExplainIndicatorSheetPresentationReactor(indicatorId: indicatorId)
         let viewController = ExplainIndicatorSheetPresentationController(with: reactor)
-        
-        // 동적으로 컨텐츠의 높이를 계산
-            let targetView = viewController.view
-            viewController.layout()  // 모든 제약 조건이 설정되도록 layout을 먼저 호출
-
-            targetView?.layoutIfNeeded()
-            let contentHeight = targetView?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        print("contentHeight",contentHeight)
-        if let sheet = viewController.sheetPresentationController {
-            let customDetent = UISheetPresentationController.Detent.custom { context in
-                return contentHeight
-            }
-            
-            sheet.detents = [customDetent]
-            sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
-        }
-        self.rootViewController.present(viewController, animated: true)
+        viewController.heightRelay
+            .subscribe(onNext: { [weak self] contentHeight in
+                print("Height Calculated: \(contentHeight)")
+                
+                if let sheet = viewController.sheetPresentationController {
+                    let customDetent = UISheetPresentationController.Detent.custom { context in
+                        return contentHeight
+                    }
+                    
+                    sheet.detents = [customDetent]
+                    sheet.prefersGrabberVisible = false
+                    sheet.preferredCornerRadius = 16 * ConstantsManager.standardHeight
+                }
+                
+                self?.rootViewController.present(viewController, animated: true)
+            })
+            .disposed(by: viewController.disposeBag)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
@@ -188,7 +187,7 @@ class AlarmFlow: Flow {
         let reactor = SelectCoinAtAlarmReactor(coinUseCase: self.coinUseCase, selectedCoinRelay: selectedCoinRelay, market: market)
         let viewController = SelectCoinViewAtAlarmController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
-
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
@@ -228,8 +227,8 @@ class AlarmFlow: Flow {
     
     private func presentToRestrictedAlarmErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: nil,
-                                                message: LocalizationManager.shared.localizedString(forKey: "알람 제한"),
-                                                preferredStyle: .alert)
+                                                       message: LocalizationManager.shared.localizedString(forKey: "알람 제한"),
+                                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
@@ -239,8 +238,8 @@ class AlarmFlow: Flow {
     
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
-                                                preferredStyle: .alert)
+                                                       message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
+                                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
@@ -250,8 +249,8 @@ class AlarmFlow: Flow {
     
     private func presentToUnknownErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
-                                                preferredStyle: .alert)
+                                                       message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
@@ -261,8 +260,8 @@ class AlarmFlow: Flow {
     
     private func presentToExpiredTokenErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "로그인 만료"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "로그인 만료 설명"),
-                                                preferredStyle: .alert)
+                                                       message: LocalizationManager.shared.localizedString(forKey: "로그인 만료 설명"),
+                                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default) { [weak self] _ in
             self?.stepper.resetFlow()
         }
@@ -274,8 +273,8 @@ class AlarmFlow: Flow {
     
     private func presentToAWSServerErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "서버 오류"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "서버 오류 설명"),
-                                                preferredStyle: .alert)
+                                                       message: LocalizationManager.shared.localizedString(forKey: "서버 오류 설명"),
+                                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)

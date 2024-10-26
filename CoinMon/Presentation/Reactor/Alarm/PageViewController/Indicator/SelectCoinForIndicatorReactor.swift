@@ -152,6 +152,7 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
             // 코인
         case .loadIndicatorCoinPriceChange:
             return self.indicatorUseCase.getIndicatorCoinList(indicatorId: currentState.indicatorId)
+                .debug()
                 .flatMap { indicatorCoinPriceChange -> Observable<Mutation> in
                     
                     return .concat([

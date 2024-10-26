@@ -65,4 +65,5 @@ struct ImageManager {
     static let indicator1 = UIImage(named: "indicator1")
     static let indicator2 = UIImage(named: "indicator2")
     static let indicator3 = UIImage(named: "indicator3")
+    static let icon_More_Vertical = UIImage(named: "icon_More_Vertical")
 }
