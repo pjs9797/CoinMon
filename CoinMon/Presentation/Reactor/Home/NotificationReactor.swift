@@ -16,6 +16,7 @@ class NotificationReactor: ReactorKit.Reactor, Stepper {
         case backButtonTapped
         case alarmSettingButtonTapped
         case upButtonTapped
+        case selectItem(Int)
         case loadNotifications
         case checkNotificationStatus
         case scrollViewDidScroll(CGPoint)
@@ -30,6 +31,11 @@ class NotificationReactor: ReactorKit.Reactor, Stepper {
     
     struct State {
         var isNotificationEnabled: Bool = true
+        var notificationTypes: [String] = [
+            LocalizationManager.shared.localizedString(forKey: "전체"),
+            LocalizationManager.shared.localizedString(forKey: "지표 알림"),
+            LocalizationManager.shared.localizedString(forKey: "지정가 알림"),
+        ]
         var notifications: [NotificationAlert] = []
         var isScrolledToTop: Bool = true
         var scrollPosition: CGPoint = .zero
@@ -45,6 +51,32 @@ class NotificationReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .upButtonTapped:
             return .just(.scrollToTop)
+        case .selectItem(let index):
+            return alarmUseCase.fetchNotificationList()
+                .flatMap { notificationList -> Observable<Mutation> in
+                    var notiList: [NotificationAlert] = notificationList
+                    if index == 0 {
+                        
+                    } 
+                    else if index == 1 {
+                        notiList = notiList.filter {
+                            $0.type == "IB" || $0.type == "IS"
+                        }
+                    } 
+                    else {
+                        notiList = notiList.filter {
+                            $0.type == "T"
+                        }
+                    }
+                    print(notiList)
+                    return .just(.setNotifications(notiList))
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: HomeStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .loadNotifications:
             return alarmUseCase.fetchNotificationList()
                 .flatMap { notificationList -> Observable<Mutation> in

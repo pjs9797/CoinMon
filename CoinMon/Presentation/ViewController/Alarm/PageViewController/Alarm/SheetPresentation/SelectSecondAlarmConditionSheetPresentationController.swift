@@ -24,7 +24,7 @@ class SelectSecondAlarmConditionSheetPresentationController: CustomDimSheetPrese
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
     }
 }
 

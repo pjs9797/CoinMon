@@ -39,6 +39,9 @@ class MainAlarmReactor: ReactorKit.Reactor, Stepper {
         case .setPreviousIndex(let index):
             return .just(.setPreviousIndex(index))
         case .inquiryButtonTapped:
+            let kakaoURL = "https://open.kakao.com/o/gxZ2CNtg"
+            let kakaoAppStoreURL = "itms-apps://itunes.apple.com/app/id362057947"
+            self.steps.accept(AlarmStep.goToKakaoOpenURL(url: kakaoURL, fallbackUrl: kakaoAppStoreURL))
             return .empty()
         }
     }

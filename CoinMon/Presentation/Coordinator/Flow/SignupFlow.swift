@@ -18,14 +18,13 @@ class SignupFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? SignupStep else { return .none }
         switch step {
+            //MARK: 푸시
         case .navigateToSignupEmailEntryViewController:
             return navigateToSignupEmailEntryViewController()
         case .navigateToSignupEmailVerificationNumberViewController:
             return navigateToSignupEmailVerificationNumberViewController()
         case .navigateToSignupPhoneNumberEntryViewController:
             return navigateToSignupPhoneNumberEntryViewController()
-        case .presentToAgreeToTermsOfServiceViewController:
-            return presentToAgreeToTermsOfServiceViewController()
         case .navigateToTermsOfServiceViewController:
             return navigateToTermsOfServiceViewController()
         case .navigateToPrivacyPolicyViewController:
@@ -37,31 +36,37 @@ class SignupFlow: Flow {
         case .navigateToSignupCompletedViewController:
             return navigateToSignupCompletedViewController()
             
+            //MARK: 프레젠트
+        case .presentToAgreeToTermsOfServiceViewController:
+            return presentToAgreeToTermsOfServiceViewController()
         case .presentToAuthenticationNumberErrorAlertController:
             return presentToAuthenticationNumberErrorAlertController()
         case .presentToAlreadysubscribedNumberErrorAlertController:
             return presentToAlreadysubscribedNumberErrorAlertController()
             
-            // 프레젠트 공통 알람
+            //MARK: 뒤로가기
+        case .popViewController:
+            return popViewController()
+        case .popToRootViewController:
+            return popToRootViewController()
+        case .dismiss:
+            return dismiss()
+            
+            //MARK: 플로우 종료
+        case .completeSignupFlow:
+            return completeSignupFlow()
+            
+            //MARK: 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
         case .presentToUnknownErrorAlertController:
             return presentToUnknownErrorAlertController()
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
-            
-        case .popViewController:
-            return popViewController()
-        case .popToRootViewController:
-            return popToRootViewController()
-        case .dismissViewController:
-            return dismissViewController()
-            
-        case .completeSignupFlow:
-            return completeSignupFlow()
         }
     }
     
+    //MARK: 푸시 메소드
     private func navigateToSignupEmailEntryViewController() -> FlowContributors {
         let reactor = SignupEmailEntryReactor(signupUseCase: signupUseCase)
         let viewController = SignupEmailEntryViewController(with: reactor)
@@ -83,23 +88,6 @@ class SignupFlow: Flow {
         let viewController = SignupPhoneNumberEntryViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
-    }
-    
-    private func presentToAgreeToTermsOfServiceViewController() -> FlowContributors {
-        let reactor = AgreeToTermsOfServiceReactor(signupUseCase: signupUseCase)
-        let viewController = AgreeToTermsOfServiceSheetPresentationController(with: reactor)
-        if let sheet = viewController.sheetPresentationController {
-            let customDetent = UISheetPresentationController.Detent.custom { context in
-                return 348*ConstantsManager.standardHeight
-            }
-            
-            sheet.detents = [customDetent]
-            sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
-        }
-        self.rootViewController.present(viewController, animated: true)
-        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
@@ -147,6 +135,24 @@ class SignupFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    //MARK: 프레젠트 메소드
+    private func presentToAgreeToTermsOfServiceViewController() -> FlowContributors {
+        let reactor = AgreeToTermsOfServiceReactor(signupUseCase: signupUseCase)
+        let viewController = AgreeToTermsOfServiceSheetPresentationController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 348*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func presentToAuthenticationNumberErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: nil,
             message: LocalizationManager.shared.localizedString(forKey: "인증번호 불일치"),
@@ -169,6 +175,32 @@ class SignupFlow: Flow {
         return .none
     }
     
+    //MARK: 뒤로가기 메소드
+    private func dismiss() -> FlowContributors{
+        self.rootViewController.dismiss(animated: true)
+        
+        return .none
+    }
+    
+    private func popViewController() -> FlowContributors {
+        self.rootViewController.popViewController(animated: true)
+        
+        return .none
+    }
+    
+    private func popToRootViewController() -> FlowContributors {
+        
+        return .end(forwardToParentFlowWithStep: AppStep.popToRootViewController)
+    }
+    
+    //MARK: 플로우 종료 메소드
+    private func completeSignupFlow() -> FlowContributors {
+        self.rootViewController.popToRootViewController(animated: true)
+        
+        return .end(forwardToParentFlowWithStep: AppStep.completeSignupFlow)
+    }
+    
+    //MARK: 프레젠트 공통 알람 메소드
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
@@ -200,29 +232,5 @@ class SignupFlow: Flow {
         self.rootViewController.present(alertController, animated: true, completion: nil)
         
         return .none
-    }
-    
-    private func popViewController() -> FlowContributors {
-        self.rootViewController.popViewController(animated: true)
-        
-        return .none
-    }
-    
-    private func popToRootViewController() -> FlowContributors {
-        self.rootViewController.popToRootViewController(animated: true)
-        
-        return .end(forwardToParentFlowWithStep: AppStep.popToRootViewController)
-    }
-    
-    private func dismissViewController() -> FlowContributors{
-        self.rootViewController.dismiss(animated: true)
-        
-        return .none
-    }
-    
-    private func completeSignupFlow() -> FlowContributors {
-        self.rootViewController.popToRootViewController(animated: true)
-        
-        return .end(forwardToParentFlowWithStep: AppStep.completeSignupFlow)
     }
 }

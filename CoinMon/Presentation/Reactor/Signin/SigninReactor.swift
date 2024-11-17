@@ -8,14 +8,17 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     let disposeBag = DisposeBag()
     var steps = PublishRelay<Step>()
+    private let signinUseCase: SigninUseCase
     
-    init() {
+    init(signinUseCase: SigninUseCase) {
+        self.signinUseCase = signinUseCase
         self.initialState = State(currentLanguage: LocalizationManager.shared.language)
     }
     
     enum Action {
         case setShowToastMessage(Bool)
         case kakaoLoginButtonTapped
+        case appleLoginSuccess(identityToken: String, authorizationCode: String, deviceToken: String)
         case coinMonLoginButtonTapped
         case signupButtonTapped
         case languageSettingButtonTapped
@@ -38,8 +41,35 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
             return .just(.setShowToastMessage(show))
         case .kakaoLoginButtonTapped:
             //self.kakaoLogin()
-            self.purchaseProduction()
             return .empty()
+        case .appleLoginSuccess(let identityToken, let authorizationCode, let deviceToken):
+            return signinUseCase.appleLogin(identityToken: identityToken, authorizationCode: authorizationCode, deviceToken: deviceToken)
+                .flatMap { [weak self] response -> Observable<Mutation> in
+                    if let resultCode = response as? String {
+                        switch resultCode {
+                        case "200":
+                            self?.steps.accept(AppStep.navigateToTabBarController)
+                        default:
+                            self?.steps.accept(AppStep.presentToAlreadySignedErrorAlertController)
+                        }
+                        
+                    }
+                    else if let emailTuple = response as? (String, String) {
+                        let (resultCode, email) = emailTuple
+                        if resultCode == "202" {
+                            UserCredentialsManager.shared.email = email
+                            UserCredentialsManager.shared.loginType = "APPLE"
+                            self?.steps.accept(AppStep.goToSignupFlowForApple)
+                        }
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AppStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .coinMonLoginButtonTapped:
             self.steps.accept(AppStep.goToSigninFlow)
             return .empty()
@@ -88,22 +118,6 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
                     print(error)
                 })
                 .disposed(by: disposeBag)
-        }
-    }
-    
-    private func purchaseProduction(){
-        guard let product = PurchaseManager.shared.products.first else {
-            print("Product is not available.")
-            return
-        }
-        
-        // 구매 처리
-        Task {
-            do {
-                try await PurchaseManager.shared.purchase(product)
-            } catch {
-                print("Purchase failed: \(error.localizedDescription)")
-            }
         }
     }
 }

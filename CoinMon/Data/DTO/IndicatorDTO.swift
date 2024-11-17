@@ -8,6 +8,7 @@ struct IndicatorDTO: Codable {
     }
 }
 
+
 struct GetIndicatorResponseDTO: Codable {
     let resultCode: String
     let resultMessage: String
@@ -40,29 +41,68 @@ struct GetIndicatorDataDTO: Codable {
     let frequency60YN: String
 }
 
-struct GetIndicatorPushResponseDTO: Codable {
+struct GetIndicatorCoinDataResponseDTO: Codable {
     let resultCode: String
     let resultMessage: String
     let data: DataClass
     
     struct DataClass: Codable {
-        let info: [GetIndicatorPushDTO]
+        let info: [IndicatorCoinDataDTO]
     }
     
-    static func toGetIndicatorPushs(dto: GetIndicatorPushResponseDTO) -> [GetIndicatorPush] {
+    static func toIndicatorCoinData(dto: GetIndicatorCoinDataResponseDTO) -> [IndicatorCoinData] {
         return dto.data.info.map {
-            GetIndicatorPush(indicatorPushId: $0.indicatorPushId, indicatorId: $0.indicatorId, userName: $0.userName, frequency: $0.frequency, target: $0.target, isOn: $0.isOn)
+            IndicatorCoinData(indicatorId: $0.indicatorId, indicatorCoinId: String($0.indicatorCoinId), indicatorName: $0.indicatorName, indicatorNameEng: $0.indicatorNameEng, isPremium: $0.isPremium, frequency: $0.frequency, coinName: $0.coinName, isOn: $0.isOn, curPrice: $0.curPrice, recentTime: $0.recentTime, recentPrice: $0.recentPrice, timing: $0.timing)
+        }.sorted{ $0.indicatorId < $1.indicatorId }
+    }
+}
+
+struct IndicatorCoinDataDTO: Codable {
+    let indicatorPushId: Int
+    let indicatorId: Int
+    let indicatorCoinId: Int
+    let indicatorName: String
+    let indicatorNameEng: String
+    let isPremium: String
+    let frequency: String
+    let coinName: String
+    let isOn: String
+    let curPrice: Double
+    let recentTime: String?
+    let recentPrice: Double?
+    let timing: String?
+}
+
+struct GetIndicatorCoinDetailDataResponseDTO: Codable {
+    let resultCode: String
+    let resultMessage: String
+    let data: DataClass
+    
+    struct DataClass: Codable {
+        let info: [IndicatorCoinDetailDataDTO]
+    }
+    
+    static func toUpdateIndicatorCoinData(dto: GetIndicatorCoinDetailDataResponseDTO) -> [UpdateSelectedIndicatorCoin] {
+        return dto.data.info.enumerated().map { index, data in
+            UpdateSelectedIndicatorCoin(indicatorCoinId: data.indicatorCoinId, coinTitle: data.coinName, isPinned: index == 0, isChecked: false)
         }
     }
 }
 
-struct GetIndicatorPushDTO: Codable {
+struct IndicatorCoinDetailDataDTO: Codable {
     let indicatorPushId: Int
     let indicatorId: Int
-    let userName: String
+    let indicatorCoinId: Int
+    let indicatorName: String
+    let indicatorNameEng: String
+    let isPremium: String
     let frequency: String
-    let target: Int
+    let coinName: String
     let isOn: String
+    let curPrice: Double
+    let recentTime: String?
+    let recentPrice: Double?
+    let timing: String?
 }
 
 struct GetIndicatorCoinListResponseDTO: Codable {
@@ -83,7 +123,8 @@ struct GetIndicatorCoinListResponseDTO: Codable {
                 indicatorCoinId: String(coinListDTO.indicatorCoinId),
                 coinTitle: coinListDTO.coinName,
                 price: priceString,
-                change: changeString,
+                change: changeString, 
+                isPinned: false,
                 isChecked: false
             )
         }
@@ -120,4 +161,29 @@ struct GetIndicatorCoinListDTO: Codable {
     let limitPrice: Double
     let standardPrice: Double
     let percent: Double
+}
+
+struct GetIndicatorCoinHistoryResponseDTO: Codable {
+    let resultCode: String
+    let resultMessage: String
+    let data: DataClass
+    
+    struct DataClass: Codable {
+        let info: [GetIndicatorCoinHistoryDTO]
+    }
+    
+    static func toIndicatorCoinHistory(dto: GetIndicatorCoinHistoryResponseDTO) -> [IndicatorCoinHistory] {
+        return dto.data.info.map {
+            IndicatorCoinHistory(price: String($0.price), timing: $0.timing, time: $0.time)
+        }
+    }
+}
+
+struct GetIndicatorCoinHistoryDTO: Codable {
+    let indicatorCoinHistoryId: Int
+    let indicatorId: Int
+    let indicatorCoinId: Int
+    let price: Double
+    let timing: String
+    let time: String
 }

@@ -16,6 +16,7 @@ class NotificationTableViewCell: UITableViewCell {
     }()
     let dateLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.textColor = ColorManager.gray_60
         label.font = FontManager.B7_12
         return label
@@ -62,12 +63,40 @@ class NotificationTableViewCell: UITableViewCell {
     }
     
     func configure(with notifications: NotificationAlert) {
-        titleLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 타이틀", arguments: notifications.symbol)
-        if notifications.market == "BYBIT" || notifications.market == "BINANCE" {
-            bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 usdt", arguments: notifications.market, notifications.symbol, notifications.targetPrice)
+        if notifications.type == "IB" || notifications.type == "IS" {
+            var type: String
+            if notifications.type == "IB" {
+                type = LocalizationManager.shared.localizedString(forKey: "매수")
+            }
+            else {
+                type = LocalizationManager.shared.localizedString(forKey: "매도")
+            }
+            let time: String
+            if LocalizationManager.shared.language == "ko" {
+                let timeFormatter = DateFormatter()
+                timeFormatter.locale = Locale(identifier: "ko_KR")
+                timeFormatter.dateFormat = "a h시 mm분"
+                let formattedTime = timeFormatter.string(from: notifications.time)
+                time = formattedTime
+            }
+            else {
+                let timeFormatter = DateFormatter()
+                timeFormatter.locale = Locale(identifier: "en_US")
+                timeFormatter.dateFormat = "a h:mm"
+                let formattedTime = timeFormatter.string(from: notifications.time)
+                time = formattedTime
+            }
+            titleLabel.text = LocalizationManager.shared.localizedString(forKey: "지표 타이틀 알림", arguments: type, notifications.symbol, time)
+            bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "지표 알림", arguments: notifications.targetPrice)
         }
-        else {
-            bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 krw", arguments: notifications.market, notifications.symbol, notifications.targetPrice)
+        else if notifications.type == "T" {
+            titleLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 타이틀", arguments: notifications.symbol)
+            if notifications.market == "BYBIT" || notifications.market == "BINANCE" {
+                bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 usdt", arguments: notifications.market, notifications.symbol, notifications.targetPrice)
+            }
+            else {
+                bodyLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 바디 krw", arguments: notifications.market, notifications.symbol, notifications.targetPrice)
+            }
         }
         if notifications.dateType == "일" {
             dateLabel.text = LocalizationManager.shared.localizedString(forKey: "가격 알림 타임 일", arguments: notifications.date)

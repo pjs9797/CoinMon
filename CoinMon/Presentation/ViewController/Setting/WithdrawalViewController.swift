@@ -25,7 +25,7 @@ class WithdrawalViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         setNavigationbar()
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in

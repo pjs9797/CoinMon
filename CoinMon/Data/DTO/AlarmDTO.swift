@@ -68,27 +68,45 @@ struct NotificationAlertInfoDTO: Codable {
     let symbol: String
     let targetPrice: String
     let sendTime: [Int]
-    
+    let filter: String
+    let type: String
+
     static func toNotificationAlert(dto: NotificationAlertInfoDTO) -> NotificationAlert {
-        let sendDate = Calendar.current.date(from: DateComponents(year: dto.sendTime[0], month: dto.sendTime[1], day: dto.sendTime[2], hour: dto.sendTime[3], minute: dto.sendTime[4], second: dto.sendTime[5]))!
+        let sendDate = Calendar.current.date(from: DateComponents(
+            year: dto.sendTime[0],
+            month: dto.sendTime[1],
+            day: dto.sendTime[2],
+            hour: dto.sendTime[3],
+            minute: dto.sendTime[4],
+            second: dto.sendTime[5]
+        ))!
+
         let timeInterval = Date().timeIntervalSince(sendDate)
         let (date, dateType) = calculateTimeDifference(timeInterval: timeInterval)
-        
-        return NotificationAlert(id: dto.pushId, market: dto.exchange, symbol: dto.symbol, targetPrice: dto.targetPrice, date: date, dateType: dateType)
+
+        return NotificationAlert(
+            id: dto.pushId,
+            market: dto.exchange,
+            symbol: dto.symbol,
+            targetPrice: dto.targetPrice,
+            date: date,
+            dateType: dateType,
+            filter: dto.filter,
+            type: dto.type,
+            time: sendDate
+        )
     }
-    
+
     static func calculateTimeDifference(timeInterval: TimeInterval) -> (String, String) {
         let minutes = Int(timeInterval / 60)
         let hours = minutes / 60
         let days = hours / 24
-        
+
         if days > 0 {
             return (String(days), "일")
-        } 
-        else if hours > 0 {
+        } else if hours > 0 {
             return (String(hours), "시간")
-        } 
-        else {
+        } else {
             return (String(minutes), "분")
         }
     }

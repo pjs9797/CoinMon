@@ -26,6 +26,17 @@ class NotificationView: UIView {
         button.titleLabel?.font = FontManager.H6_14
         return button
     }()
+    let notificationTypeCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8*ConstantsManager.standardWidth
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20*ConstantsManager.standardWidth, bottom: 0, right: 20*ConstantsManager.standardWidth)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(NotificationTypeCollectionViewCell.self, forCellWithReuseIdentifier: "NotificationTypeCollectionViewCell")
+        return collectionView
+    }()
     let notificationTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .singleLine
@@ -67,7 +78,7 @@ class NotificationView: UIView {
     }
     
     private func layout() {
-        [setAlarmView,notificationTableView,upButton,noneNotificationView]
+        [setAlarmView,notificationTableView,upButton,notificationTypeCollectionView,noneNotificationView]
             .forEach{
                 addSubview($0)
             }
@@ -115,28 +126,40 @@ class NotificationView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20*ConstantsManager.standardHeight)
         }
         
-        noneNotificationView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(250*ConstantsManager.standardHeight)
+        notificationTypeCollectionView.snp.makeConstraints { make in
+            make.height.equalTo(35*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
         }
-    }
-    
-    func updateLayoutNotSetAlarm(){
+        
         notificationTableView.snp.remakeConstraints { make in
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(setAlarmView.snp.bottom).offset(8*ConstantsManager.standardHeight)
+            make.top.equalTo(notificationTypeCollectionView.snp.bottom).offset(8*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        noneNotificationView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(250*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview().inset(20*ConstantsManager.standardWidth)
         }
     }
     
     func updateLayoutSetAlarm(){
-        notificationTableView.snp.remakeConstraints { make in
-            make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        setAlarmView.isHidden = true
+        notificationTypeCollectionView.snp.remakeConstraints { make in
+            make.height.equalTo(35*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20*ConstantsManager.standardHeight)
+        }
+    }
+    
+    func updateLayoutNotSetAlarm(){
+        setAlarmView.isHidden = false
+        notificationTypeCollectionView.snp.remakeConstraints { make in
+            make.height.equalTo(35*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(setAlarmView.snp.bottom).offset(20*ConstantsManager.standardHeight)
         }
     }
 }

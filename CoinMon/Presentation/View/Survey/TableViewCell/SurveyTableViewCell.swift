@@ -1,16 +1,25 @@
 import UIKit
 import SnapKit
+import RxSwift
 
 class SurveyTableViewCell: UITableViewCell {
+    var disposeBag = DisposeBag()
+    let surveyView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 12*ConstantsManager.standardHeight
+        view.layer.borderColor = ColorManager.gray_96?.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
     let gradeLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.D6_16
+        label.attributedText = AttributedFontManager.D6_16
         label.textColor = ColorManager.common_0
         return label
     }()
     let explainLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.B5_14
+        label.attributedText = AttributedFontManager.B5_14
         label.textColor = ColorManager.gray_20
         return label
     }()
@@ -19,9 +28,6 @@ class SurveyTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
-        self.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        self.layer.borderColor = ColorManager.gray_96?.cgColor
-        self.layer.borderWidth = 1
         layout()
     }
 
@@ -29,23 +35,30 @@ class SurveyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var isSelected: Bool {
-        didSet {
-            updateUI()
-        }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
     }
     
-    private func updateUI() {
-        self.layer.borderColor = isSelected ? ColorManager.orange_60?.cgColor : ColorManager.gray_96?.cgColor
+    func isSelect(isSelected: Bool) {
+        surveyView.layer.borderColor = isSelected ? ColorManager.orange_60?.cgColor : ColorManager.gray_96?.cgColor
         gradeLabel.textColor = isSelected ? ColorManager.orange_60 : ColorManager.common_0
         explainLabel.textColor = isSelected ? ColorManager.orange_60 : ColorManager.gray_20
     }
     
     private func layout(){
+        contentView.addSubview(surveyView)
+        
         [gradeLabel,explainLabel]
             .forEach {
-                contentView.addSubview($0)
+                surveyView.addSubview($0)
             }
+        
+        surveyView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12*ConstantsManager.standardHeight)
+        }
         
         gradeLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)

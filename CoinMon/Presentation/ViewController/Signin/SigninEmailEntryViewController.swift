@@ -25,7 +25,7 @@ class SigninEmailEntryViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
         bindKeyboardToButton(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)

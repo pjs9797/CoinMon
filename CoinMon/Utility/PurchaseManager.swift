@@ -1,26 +1,35 @@
 import StoreKit
+import RxSwift
 
-class PurchaseManager {
+enum PurchaseEvent {
+    case purchaseFailed      // 인앱 결제 실패 시
+    case verificationFailed  // 결제는 성공했으나 서버 검증 실패 시
+    case verificationSuccess // 결제 및 검증 성공 시
+}
 
+class PurchaseManager: NSObject, SKRequestDelegate {
     static let shared = PurchaseManager()
-
+    let disposeBag = DisposeBag()
     private let productIds = ["com.hiperBollinger.premium.monthly"]
     private(set) var products: [Product] = []
     private var productsLoaded = false
-
+    
+    // 구매 상태를 알리기 위한 Subject
+    let purchaseEvent = PublishSubject<PurchaseEvent>()
+    
     private(set) var purchasedProductIDs = Set<String>()
     var hasUnlockedPro: Bool {
         return !self.purchasedProductIDs.isEmpty
     }
-
-    // 트랜잭션 리스너를 위한 Task
+    
     private var transactionListener: Task<Void, Never>? = nil
-
-    private init() {
-        // 앱 시작과 동시에 트랜잭션 리스너 시작
+    let purchaseUseCase = PurchaseUseCase(repository: PurchaseRepository())
+    
+    private override init() {
+        super.init()
         startObservingTransactionUpdates()
     }
-
+    
     // 제품 로드 메서드
     func loadProducts() async throws {
         guard !self.productsLoaded else {
@@ -31,7 +40,7 @@ class PurchaseManager {
         self.productsLoaded = true
         print("Products loaded: \(products)")
     }
-
+    
     // 구매 메서드
     func purchase(_ product: Product) async throws {
         print("Attempting to purchase: \(product)")
@@ -42,25 +51,62 @@ class PurchaseManager {
             print("Purchase successful and verified for product ID: \(transaction.productID)")
             await transaction.finish()
             await self.updatePurchasedProducts()
-
-            // 영수증 데이터를 가져와 출력
-            if let receiptData = fetchReceiptData() {
-                print("Receipt Data: \(receiptData)")
-            } else {
-                print("Failed to retrieve receipt data.")
-            }
-
-        case let .success(.unverified(_, error)):
-            print("Purchase successful but verification failed: \(error.localizedDescription)")
+            await verifyOrRefreshReceipt()
+            
+        case .success(.unverified(_, _)):
+            print("Purchase successful but verification failed.")
+            purchaseEvent.onNext(.verificationFailed) // 검증 실패 이벤트
+            
         case .pending:
             print("Purchase is pending approval or SCA.")
+            
         case .userCancelled:
             print("User cancelled the purchase.")
+            purchaseEvent.onNext(.purchaseFailed) // 구매 실패 이벤트
+            
         @unknown default:
             print("An unknown state occurred during purchase.")
         }
     }
 
+    // 영수증 데이터 검증
+    private func verifyOrRefreshReceipt() async {
+        if let receiptData = base64Receipt {
+            await verifyReceiptWithServer(receiptData: receiptData)
+        } else {
+            print("No receipt found. Attempting to refresh receipt...")
+            await refreshReceipt()
+        }
+    }
+    
+    // 영수증 갱신 메서드
+    private func refreshReceipt() async {
+        let request = SKReceiptRefreshRequest()
+        request.delegate = self
+        request.start()
+        
+        await waitForReceiptRefresh()
+        
+        if let newReceiptData = base64Receipt {
+            await verifyReceiptWithServer(receiptData: newReceiptData)
+        } else {
+            print("Failed to retrieve receipt data after refresh.")
+        }
+    }
+
+    // 서버에 영수증 검증 요청
+    private func verifyReceiptWithServer(receiptData: String) async {
+        purchaseUseCase.registerPurchaseReceipt(receiptData: receiptData)
+            .subscribe(onNext: { [weak self] response in
+                print("Verification response from server: \(response)")
+                self?.purchaseEvent.onNext(.verificationSuccess) // 검증 성공 이벤트
+            }, onError: { [weak self] error in
+                print("Error verifying receipt with server: \(error.localizedDescription)")
+                self?.purchaseEvent.onNext(.verificationFailed) // 검증 실패 이벤트
+            })
+            .disposed(by: disposeBag)
+    }
+    
     // 트랜잭션 업데이트 감시 메서드
     func startObservingTransactionUpdates() {
         print("Started observing transaction updates.")
@@ -75,7 +121,7 @@ class PurchaseManager {
             }
         }
     }
-
+    
     // 트랜잭션 검증 메서드
     func verifyPurchase<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {
@@ -87,7 +133,7 @@ class PurchaseManager {
             throw error
         }
     }
-
+    
     // 구매된 제품 업데이트
     func updatePurchasedProducts() async {
         print("Updating purchased products...")
@@ -105,22 +151,50 @@ class PurchaseManager {
             }
         }
     }
-
+    
     // 영수증 데이터를 가져와서 Base64로 인코딩한 문자열을 반환
-    func fetchReceiptData() -> String? {
-        guard let receiptURL = Bundle.main.appStoreReceiptURL,
-              FileManager.default.fileExists(atPath: receiptURL.path) else {
-            print("No receipt found.")
-            return nil
+    var base64Receipt: String? {
+        Bundle.main.appStoreReceiptURL
+            .flatMap({ try? Data(contentsOf: $0) })
+            .map { $0.base64EncodedString() }
+    }
+    
+    // 영수증 갱신 대기 메서드
+    private var receiptRefreshCompleted = false
+    private func waitForReceiptRefresh() async {
+        receiptRefreshCompleted = false
+        while !receiptRefreshCompleted {
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5초 대기
+        }
+    }
+    
+    // 인앱 결제를 실행하는 메서드
+    func purchaseProduction() -> Bool {
+        guard let product = products.first else {
+            print("Product is not available.")
+            return false
         }
         
-        do {
-            let receiptData = try Data(contentsOf: receiptURL)
-            let receiptString = receiptData.base64EncodedString(options: [])
-            return receiptString
-        } catch {
-            print("Failed to fetch receipt data: \(error.localizedDescription)")
-            return nil
+        Task {
+            do {
+                try await purchase(product)
+            } catch {
+                print("Purchase failed: \(error.localizedDescription)")
+                purchaseEvent.onNext(.purchaseFailed) // 구매 실패 이벤트 발행
+            }
         }
+        return true
+    }
+    
+    // SKRequestDelegate 메서드: 영수증 갱신 성공 시 호출
+    func requestDidFinish(_ request: SKRequest) {
+        print("Receipt refreshed successfully.")
+        receiptRefreshCompleted = true
+    }
+    
+    // SKRequestDelegate 메서드: 영수증 갱신 실패 시 호출
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        print("Failed to refresh receipt: \(error.localizedDescription)")
+        receiptRefreshCompleted = true
     }
 }

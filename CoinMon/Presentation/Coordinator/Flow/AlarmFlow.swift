@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 import RxFlow
 import RxCocoa
 
@@ -11,15 +12,17 @@ class AlarmFlow: Flow {
     private let coinUseCase: CoinUseCase
     private let indicatorUseCase: IndicatorUseCase
     private let alarmUseCase: AlarmUseCase
-    private let stepper: AlarmStepper
+    private let purchaseUseCase: PurchaseUseCase
+    let stepper: AlarmStepper
     
-    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, indicatorUseCase: IndicatorUseCase, alarmUseCase: AlarmUseCase, stepper: AlarmStepper) {
+    init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, indicatorUseCase: IndicatorUseCase, alarmUseCase: AlarmUseCase, purchaseUseCase: PurchaseUseCase, stepper: AlarmStepper) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
         self.coinUseCase = coinUseCase
         self.indicatorUseCase = indicatorUseCase
         self.alarmUseCase = alarmUseCase
+        self.purchaseUseCase = purchaseUseCase
         self.stepper = stepper
     }
     
@@ -31,18 +34,41 @@ class AlarmFlow: Flow {
             
         case .navigateToSelectIndicatorViewController:
             return navigateToSelectIndicatorViewController()
-        case .navigateToSelectCoinForIndicatorViewController(let indicatorId, let indicatorName, let isPremium):
-            return navigateToSelectCoinForIndicatorViewController(indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
-        case .navigateToSelectCycleForIndicatorViewController(let indicatorId, let frequency, let targets, let indicatorName, let isPremium):
-            return navigateToSelectCycleForIndicatorViewController(indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
+        case .navigateToSelectCoinForIndicatorViewController(let flowType, let indicatorId, let indicatorName, let isPremium):
+            return navigateToSelectCoinForIndicatorViewController(flowType: flowType, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
+        case .navigateToSelectCycleForIndicatorViewController(let flowType, let selectCoinForIndicatorFlowType, let indicatorId, let frequency, let targets, let indicatorName, let isPremium):
+            return navigateToSelectCycleForIndicatorViewController(flowType: flowType, selectCoinForIndicatorFlowType: selectCoinForIndicatorFlowType, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
+        case .navigateToDetailIndicatorViewController(let flowType, let indicatorId, let indicatorName, let isPremium, let frequency):
+            return navigateToDetailIndicatorViewController(flowType: flowType, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium, frequency: frequency)
+        case .navigateToDetailIndicatorCoinViewController(let indicatorId, let indicatorCoinId, let coin, let price, let indicatorName, let frequency):
+            return navigateToDetailIndicatorCoinViewController(indicatorId: indicatorId, indicatorCoinId: indicatorCoinId, coin: coin, price: price, indicatorName: indicatorName, frequency: frequency)
+        case .navigateToUpdateIndicatorCoinViewController(let indicatorId, let indicatorName, let frequency):
+            return navigateToUpdateIndicatorCoinViewController(indicatorId: indicatorId, indicatorName: indicatorName, frequency: frequency)
+        case .navigateToSelectCoinForUpdateIndicatorViewController(let indicatorId, let indicatorName, let isPremium, let selectCoinRelay):
+            return navigateToSelectCoinForUpdateIndicatorViewController(indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium, selectCoinRelay: selectCoinRelay)
             
         case .navigateToAddAlarmViewController:
             return navigateToAddAlarmViewController()
         case .navigateToModifyAlarmViewController(let market, let alarm):
             return navigateToModifyAlarmViewController(market: market, alarm: alarm)
             
+            // 테스트 알림
+        case .presentToIsReceivedTestAlarmViewController:
+            return presentToIsReceivedTestAlarmViewController()
+        case .presentToIsNotSetTestAlarmViewController:
+            return presentToIsNotSetTestAlarmViewController()
+        case .presentToResendTestAlarmViewController:
+            return presentToResendTestAlarmViewController()
+            
+        case .presentToIsRealPopViewController:
+            return presentToIsRealPopViewController()
+            
         case .presentToExplainIndicatorSheetPresentationController(let indicatorId):
             return presentToExplainIndicatorSheetPresentationController(indicatorId: indicatorId)
+        case .presentToDeleteIndicatorPushSheetPresentationController(let indicatorId, let indicatorName, let flowType):
+            return presentToDeleteIndicatorPushSheetPresentationController(indicatorId: indicatorId, indicatorName: indicatorName, flowType: flowType)
+        case .presentToMoreButtonAtIndicatorSheetPresentationController(let indicatorId, let indicatorName, let frequency):
+            return presentToMoreButtonAtIndicatorSheetPresentationController(indicatorId: indicatorId, indicatorName: indicatorName, frequency: frequency)
             
         case .presentToSelectMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
@@ -66,6 +92,14 @@ class AlarmFlow: Flow {
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
             
+        case .goToPurchaseFlow:
+            return goToPurchaseFlow()
+            
+        case .goToAlarmSetting:
+            return goToAlarmSetting()
+        case .goToKakaoOpenURL(let url, let fallbackUrl):
+            return goToKakaoOpenURL(url: url, fallbackUrl: fallbackUrl)
+            
         case .dismissSheetPresentationController:
             return dismissSheetPresentationController()
         case .popViewController:
@@ -78,7 +112,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToMainAlarmViewController() -> FlowContributors {
-        let indicatorReactor = IndicatorReactor()
+        let indicatorReactor = IndicatorReactor(indicatorUseCase: self.indicatorUseCase, purchaseUseCase: self.purchaseUseCase)
         let indicatorViewController = IndicatorViewController(with: indicatorReactor)
         
         let alarmReactor = AlarmReactor(alarmUseCase: self.alarmUseCase)
@@ -93,7 +127,7 @@ class AlarmFlow: Flow {
     }
     
     private func navigateToSelectIndicatorViewController() -> FlowContributors {
-        let reactor = SelectIndicatorReactor(indicatorUseCase: self.indicatorUseCase)
+        let reactor = SelectIndicatorReactor(indicatorUseCase: self.indicatorUseCase, purchaseUseCase: self.purchaseUseCase)
         let viewController = SelectIndicatorViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -102,8 +136,8 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToSelectCoinForIndicatorViewController(indicatorId: String, indicatorName: String, isPremium: Bool) -> FlowContributors {
-        let reactor = SelectCoinForIndicatorReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
+    private func navigateToSelectCoinForIndicatorViewController(flowType: SelectCoinForIndicatorFlowType, indicatorId: String, indicatorName: String, isPremium: Bool) -> FlowContributors {
+        let reactor = SelectCoinForIndicatorReactor(flowType: flowType, indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
         let viewController = SelectCoinForIndicatorViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -112,8 +146,8 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToSelectCycleForIndicatorViewController(indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool) -> FlowContributors {
-        let reactor = SelectCycleForIndicatorReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
+    private func navigateToSelectCycleForIndicatorViewController(flowType: SelectCycleForIndicatorFlowType, selectCoinForIndicatorFlowType: SelectCoinForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool) -> FlowContributors {
+        let reactor = SelectCycleForIndicatorReactor(indicatorUseCase: self.indicatorUseCase, flowType: flowType, selectCoinForIndicatorFlowType: selectCoinForIndicatorFlowType, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
         let viewController = SelectCycleForIndicatorViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -122,6 +156,54 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    private func navigateToDetailIndicatorViewController(flowType: String, indicatorId: String, indicatorName: String, isPremium: Bool, frequency: String) -> FlowContributors {
+        let reactor = DetailIndicatorReactor(indicatorUseCase: self.indicatorUseCase, flowType: flowType, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium, frequency: frequency)
+        let viewController = DetailIndicatorViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToDetailIndicatorCoinViewController(indicatorId: String, indicatorCoinId: String, coin: String, price: String, indicatorName: String, frequency: String) -> FlowContributors {
+        let detailIndicatorCoinChartReactor = DetailIndicatorCoinChartReactor(market: "BINANCE", coin: coin)
+        let detailIndicatorCoinChartViewController = DetailIndicatorCoinChartViewController(with: detailIndicatorCoinChartReactor)
+        
+        let detailIndicatorCoinHistoryReactor = DetailIndicatorCoinHistoryReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorCoinId: indicatorCoinId)
+        let detailIndicatorCoinHistoryViewController = DetailIndicatorCoinHistoryViewController(with: detailIndicatorCoinHistoryReactor)
+        
+        let reactor = DetailIndicatorCoinReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorCoinId: indicatorCoinId, coin: coin, price: price, indicatorName: indicatorName, frequency: frequency)
+        let viewController = DetailIndicatorCoinViewController(with: reactor, viewControllers: [detailIndicatorCoinChartViewController,detailIndicatorCoinHistoryViewController])
+        let compositeStepper = CompositeStepper(steppers: [detailIndicatorCoinChartReactor, detailIndicatorCoinHistoryReactor, reactor])
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper))
+    }
+    
+    private func navigateToUpdateIndicatorCoinViewController(indicatorId: String, indicatorName: String, frequency: String) -> FlowContributors {
+        let reactor = UpdateIndicatorCoinReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, frequency: frequency)
+        let viewController = UpdateIndicatorCoinViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToSelectCoinForUpdateIndicatorViewController(indicatorId: String, indicatorName: String, isPremium: Bool, selectCoinRelay: BehaviorRelay<[UpdateSelectedIndicatorCoin]>) -> FlowContributors {
+        let reactor = SelectCoinForUpdateIndicatorReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium, selectCoinRelay: selectCoinRelay)
+        let viewController = SelectCoinForUpdateIndicatorViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    // 지정가 알림
     private func navigateToAddAlarmViewController() -> FlowContributors {
         let reactor = AddAlarmReactor(alarmUseCase: self.alarmUseCase)
         let viewController = AddAlarmViewController(with: reactor)
@@ -142,10 +224,80 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    private func presentToIsRealPopViewController() -> FlowContributors {
+        let reactor = IsRealPopReactor(flowType: .atNotPurchase)
+        let viewController = IsRealPopViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 187*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    // 테스트 알림
+    private func presentToIsReceivedTestAlarmViewController() -> FlowContributors {
+        let reactor = IsReceivedTestAlarmReactor()
+        let viewController = IsReceivedTestAlarmViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 345*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToIsNotSetTestAlarmViewController() -> FlowContributors {
+        let reactor = IsNotSetTestAlarmReactor()
+        let viewController = IsNotSetTestAlarmViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 345*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToResendTestAlarmViewController() -> FlowContributors {
+        let reactor = ResendTestAlarmReactor()
+        let viewController = ResendTestAlarmViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 318*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func presentToExplainIndicatorSheetPresentationController(indicatorId: String) -> FlowContributors {
         let reactor = ExplainIndicatorSheetPresentationReactor(indicatorId: indicatorId)
         let viewController = ExplainIndicatorSheetPresentationController(with: reactor)
         viewController.heightRelay
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] contentHeight in
                 print("Height Calculated: \(contentHeight)")
                 
@@ -162,6 +314,48 @@ class AlarmFlow: Flow {
                 self?.rootViewController.present(viewController, animated: true)
             })
             .disposed(by: viewController.disposeBag)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToDeleteIndicatorPushSheetPresentationController(indicatorId: String, indicatorName: String, flowType: String) -> FlowContributors {
+        let reactor = DeleteIndicatorPushSheetPresentationReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, flowType: flowType)
+        let viewController = DeleteIndicatorPushSheetPresentationController(with: reactor)
+        viewController.heightRelay
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] contentHeight in
+                print("Height Calculated: \(contentHeight)")
+                
+                if let sheet = viewController.sheetPresentationController {
+                    let customDetent = UISheetPresentationController.Detent.custom { context in
+                        return contentHeight
+                    }
+                    
+                    sheet.detents = [customDetent]
+                    sheet.prefersGrabberVisible = false
+                    sheet.preferredCornerRadius = 16 * ConstantsManager.standardHeight
+                }
+                
+                self?.rootViewController.present(viewController, animated: true)
+            })
+            .disposed(by: viewController.disposeBag)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToMoreButtonAtIndicatorSheetPresentationController(indicatorId: String, indicatorName: String, frequency: String) -> FlowContributors {
+        let reactor = MoreButtonAtIndicatorSheetPresentationReactor(indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, frequency: frequency)
+        let viewController = MoreButtonAtIndicatorSheetPresentationController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 192*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
@@ -279,6 +473,31 @@ class AlarmFlow: Flow {
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
         
+        return .none
+    }
+    
+    private func goToPurchaseFlow() -> FlowContributors {
+        let purchaseStepper = PurchaseStepper()
+        let purchaseFlow = PurchaseFlow(with: self.rootViewController, indicatorUseCase: self.indicatorUseCase, purchaseUseCase: self.purchaseUseCase, stepper: purchaseStepper)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: purchaseFlow, withNextStepper: purchaseStepper))
+    }
+    
+    private func goToAlarmSetting() -> FlowContributors {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        return .none
+    }
+    
+    private func goToKakaoOpenURL(url: String, fallbackUrl: String) -> FlowContributors {
+        let url = URL(string: url)!
+        let fallbackUrl = URL(string: fallbackUrl)!
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.open(fallbackUrl, options: [:], completionHandler: nil)
+        }
         return .none
     }
     

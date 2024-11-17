@@ -7,8 +7,16 @@ class UserUseCase {
         self.repository = repository
     }
     
+    func logout() -> Observable<String> {
+        return repository.logout()
+    }
+    
     func withdraw() -> Observable<String> {
         return repository.withdraw()
+    }
+    
+    func appleWithdraw(authorizationCode: String) -> Observable<String> {
+        return repository.appleWithdraw(authorizationCode: authorizationCode)
     }
     
     func changeNickname(nickname: String) -> Observable<String> {

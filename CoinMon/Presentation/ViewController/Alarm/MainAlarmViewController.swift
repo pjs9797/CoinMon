@@ -32,13 +32,13 @@ class MainAlarmViewController: UIViewController, ReactorKit.View {
                 self?.reactor?.action.onNext(.updateLocalizedCategories)
             })
             .disposed(by: disposeBag)
-        self.mainAlarmView.alarmCategoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.navigationController?.isNavigationBarHidden = true
+        self.mainAlarmView.alarmCategoryCollectionView.selectItem(at: IndexPath(item: reactor?.currentState.selectedItem ?? 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
     }
     
     private func layout(){

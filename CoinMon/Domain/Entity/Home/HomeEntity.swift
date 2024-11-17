@@ -1,3 +1,5 @@
+import Foundation
+
 struct Market: Equatable{
     let marketTitle: String
     let localizationKey: String
@@ -40,4 +42,7 @@ struct NotificationAlert: Equatable{
     let targetPrice: String
     let date: String
     let dateType: String
+    let filter: String
+    let type: String
+    let time: Date
 }

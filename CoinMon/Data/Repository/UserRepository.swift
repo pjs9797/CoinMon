@@ -9,8 +9,30 @@ class UserRepository: UserRepositoryInterface {
         self.provider = provider
     }
     
+    func logout() -> Observable<String> {
+        return provider.rx.request(.logout)
+            .filterSuccessfulStatusCodes()
+            .map(UserDTO.self)
+            .map{ UserDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
     func withdraw() -> Observable<String> {
         return provider.rx.request(.withdraw)
+            .filterSuccessfulStatusCodes()
+            .map(UserDTO.self)
+            .map{ UserDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func appleWithdraw(authorizationCode: String) -> Observable<String> {
+        return provider.rx.request(.appleWithdraw(authorizationCode: authorizationCode))
             .filterSuccessfulStatusCodes()
             .map(UserDTO.self)
             .map{ UserDTO.toResultCode(dto: $0) }

@@ -40,34 +40,52 @@ class PhoneVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.popViewController)
             return .empty()
         case .nextButtonTapped:
-            return signupUseCase.checkPhoneVerificationCode(phoneNumber: UserCredentialsManager.shared.phoneNumber, number: currentState.verificationNumber)
-                .flatMap { [weak self] resultCode -> Observable<Mutation> in
-                    if resultCode == "200" {
-                        return self?.signupUseCase.signup(phoneNumber: UserCredentialsManager.shared.phoneNumber, email: UserCredentialsManager.shared.email, userType: UserCredentialsManager.shared.loginType)
-                            .flatMap { [weak self] resultCode -> Observable<Mutation> in
-                                if resultCode == "200" {
-                                    self?.steps.accept(SignupStep.navigateToSignupCompletedViewController)
+            if UserCredentialsManager.shared.loginType == "COINMON" {
+                return signupUseCase.checkPhoneVerificationCode(phoneNumber: UserCredentialsManager.shared.phoneNumber, number: currentState.verificationNumber)
+                    .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                        if resultCode == "200" {
+                            return self?.signupUseCase.signup(phoneNumber: UserCredentialsManager.shared.phoneNumber, email: UserCredentialsManager.shared.email, userType: UserCredentialsManager.shared.loginType)
+                                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                                    if resultCode == "200" {
+                                        self?.steps.accept(SignupStep.navigateToSignupCompletedViewController)
+                                    }
+                                    return .empty()
                                 }
-                                return .empty()
-                            }
-                            .catch { [weak self] error in
-                                ErrorHandler.handle(error) { (step: SignupStep) in
-                                    self?.steps.accept(step)
-                                }
-                                return .empty()
-                            } ?? .empty()
+                                .catch { [weak self] error in
+                                    ErrorHandler.handle(error) { (step: SignupStep) in
+                                        self?.steps.accept(step)
+                                    }
+                                    return .empty()
+                                } ?? .empty()
+                        }
+                        else {
+                            self?.steps.accept(SignupStep.presentToAuthenticationNumberErrorAlertController)
+                        }
+                        return .empty()
                     }
-                    else {
-                        self?.steps.accept(SignupStep.presentToAuthenticationNumberErrorAlertController)
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error) { (step: SignupStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
                     }
-                    return .empty()
-                }
-                .catch { [weak self] error in
-                    ErrorHandler.handle(error) { (step: SignupStep) in
-                        self?.steps.accept(step)
+            }
+            else if UserCredentialsManager.shared.loginType == "APPLE" {
+                return self.signupUseCase.signup(phoneNumber: UserCredentialsManager.shared.phoneNumber, email: UserCredentialsManager.shared.email, userType: UserCredentialsManager.shared.loginType)
+                    .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                        if resultCode == "200" {
+                            self?.steps.accept(SignupStep.navigateToSignupCompletedViewController)
+                        }
+                        return .empty()
                     }
-                    return .empty()
-                }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error) { (step: SignupStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
+            }
+            return .empty()
         case .clearButtonTapped:
             return .concat([
                 .just(.setVerificationNumber("")),

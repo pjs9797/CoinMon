@@ -10,9 +10,7 @@ class CoinForIndicatorTableViewCell: UITableViewCell {
     }()
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = ColorManager.gray_99?.cgColor
+        imageView.image = ImageManager.login_coinmon
         return imageView
     }()
     let coinLabel: UILabel = {

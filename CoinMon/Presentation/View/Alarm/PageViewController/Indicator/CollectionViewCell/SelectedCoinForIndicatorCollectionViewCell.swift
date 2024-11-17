@@ -6,7 +6,7 @@ class SelectedCoinForIndicatorCollectionViewCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = ColorManager.common_100
+        imageView.image = ImageManager.login_coinmon
         return imageView
     }()
     let coinLabel: UILabel = {
@@ -46,7 +46,7 @@ class SelectedCoinForIndicatorCollectionViewCell: UICollectionViewCell {
             }
         
         coinImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(14*ConstantsManager.standardHeight)
+            make.width.height.equalTo(14*ConstantsManager.standardHeight).priority(.high)
             make.leading.equalToSuperview().offset(8*ConstantsManager.standardWidth)
             make.top.equalToSuperview().offset(8*ConstantsManager.standardHeight)
             make.bottom.equalToSuperview().offset(-8*ConstantsManager.standardHeight)

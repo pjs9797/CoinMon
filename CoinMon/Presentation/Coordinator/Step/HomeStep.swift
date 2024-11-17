@@ -21,6 +21,9 @@ enum HomeStep: Step, StepProtocol {
     
     case goToAlarmSetting
     
+    case presentToNewIndicatorViewController
+    case presentToTryNewIndicatorViewController
+    
     case dismiss
     case popViewController
     case dismissAndPopViewController

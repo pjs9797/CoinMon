@@ -18,6 +18,8 @@ enum SettingStep: Step, StepProtocol {
     case presentToExpiredTokenErrorAlertController
     case presentToAWSServerErrorAlertController
     
+    case goToPurchaseFlow
+    
     case goToAlarmSetting
     case goToOpenURL(url: String, fallbackUrl: String)
     

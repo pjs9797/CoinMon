@@ -21,6 +21,7 @@ class SigninView: UIView {
         }
         config.imagePadding = 4*ConstantsManager.standardWidth
         button.configuration = config
+        button.isHidden = true
         return button
     }()
     let appleLoginButton: UIButton = {

@@ -8,13 +8,17 @@ class SettingFlow: Flow {
     
     private var rootViewController: UINavigationController
     private let userUseCase: UserUseCase
-    private let stepper: SettingStepper
+    private let indicatorUseCase: IndicatorUseCase
+    private let purchaseUseCase: PurchaseUseCase
+    let stepper: SettingStepper
     
-    init(with rootViewController: UINavigationController, userUseCase: UserUseCase, stepper: SettingStepper) {
+    init(with rootViewController: UINavigationController, userUseCase: UserUseCase, indicatorUseCase: IndicatorUseCase, purchaseUseCase: PurchaseUseCase, stepper: SettingStepper) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
         self.userUseCase = userUseCase
+        self.indicatorUseCase = indicatorUseCase
+        self.purchaseUseCase = purchaseUseCase
         self.stepper = stepper
     }
     
@@ -51,6 +55,9 @@ class SettingFlow: Flow {
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
             
+        case .goToPurchaseFlow:
+            return goToPurchaseFlow()
+            
         case .goToAlarmSetting:
             return goToAlarmSetting()
         case .goToOpenURL(let url, let fallbackUrl):
@@ -67,7 +74,7 @@ class SettingFlow: Flow {
     }
     
     private func navigateToSettingViewController() -> FlowContributors {
-        let reactor = SettingReactor()
+        let reactor = SettingReactor(userUseCase: self.userUseCase, purchaseUseCase: self.purchaseUseCase)
         let viewController = SettingViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
         
@@ -207,6 +214,13 @@ class SettingFlow: Flow {
         self.rootViewController.present(alertController, animated: true, completion: nil)
         
         return .none
+    }
+    
+    private func goToPurchaseFlow() -> FlowContributors {
+        let purchaseStepper = PurchaseStepper()
+        let purchaseFlow = PurchaseFlow(with: self.rootViewController, indicatorUseCase: self.indicatorUseCase, purchaseUseCase: self.purchaseUseCase, stepper: purchaseStepper)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: purchaseFlow, withNextStepper: purchaseStepper))
     }
     
     private func goToAlarmSetting() -> FlowContributors {

@@ -24,11 +24,11 @@ class SettingViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
-                self?.setLocalizedText()
+                self?.settingView.setLocalizedText()
             })
             .disposed(by: disposeBag)
     }
@@ -37,17 +37,7 @@ class SettingViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.navigationController?.isNavigationBarHidden = true
-    }
-    
-    private func setLocalizedText(){
-        settingView.settingLabel.text = LocalizationManager.shared.localizedString(forKey: "설정")
-        settingView.languageLabel.text = LocalizationManager.shared.localizedString(forKey: "언어")
-        settingView.alarmSettingButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알림 설정"), for: .normal)
-        settingView.myAccountButton.setTitle(LocalizationManager.shared.localizedString(forKey: "내 계정"), for: .normal)
-        settingView.inquiryButton.setTitle(LocalizationManager.shared.localizedString(forKey: "문의"), for: .normal)
-        settingView.termsOfServiceButton.setTitle(LocalizationManager.shared.localizedString(forKey: "이용약관"), for: .normal)
-        settingView.privacyPolicyButton.setTitle(LocalizationManager.shared.localizedString(forKey: "개인정보 처리방침"), for: .normal)
-        settingView.versionLabel.text = LocalizationManager.shared.localizedString(forKey: "현재 버전")
+        self.reactor?.action.onNext(.fetchUserData)
     }
 }
 
@@ -58,6 +48,26 @@ extension SettingViewController {
     }
     
     func bindAction(reactor: SettingReactor){
+        settingView.rightButton.rx.tap
+            .map{ Reactor.Action.rightButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.normalUserView.trialButton.rx.tap
+            .map{ Reactor.Action.normalUserViewTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.trialUserViewTapGesture.rx.event
+            .map{ _ in Reactor.Action.trialUserViewTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        settingView.subscriptionUserViewTapGesture.rx.event
+            .map{ _ in Reactor.Action.subscriptionUserViewTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         settingView.languageSegmentedControl.rx.selectedSegmentIndex
             .map { $0 == 0 ? "ko" : "en" }
             .map { Reactor.Action.changeLanguage($0) }
@@ -66,11 +76,6 @@ extension SettingViewController {
         
         settingView.alarmSettingButton.rx.tap
             .map{ Reactor.Action.alarmSettingButtonTapped }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        settingView.myAccountButton.rx.tap
-            .map{ Reactor.Action.myAccountButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -91,5 +96,26 @@ extension SettingViewController {
     }
     
     func bindState(reactor: SettingReactor){
+        reactor.state.map{ $0.imageIndex }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] index in
+                self?.settingView.profileImageView.image = UIImage(named: "profileImage\(index)")
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.nickname }
+            .distinctUntilChanged()
+            .bind(to: settingView.nicknameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+                reactor.state.map { $0.subscriptionStatus }.distinctUntilChanged(),
+                LocalizationManager.shared.rxLanguage
+            )
+            .bind(onNext: { [weak self] status, _ in
+                self?.settingView.setUserView(status: status)
+                self?.settingView.setLocalizedText()
+            })
+            .disposed(by: disposeBag)
     }
 }

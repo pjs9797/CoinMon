@@ -4,7 +4,7 @@ import SnapKit
 class SecondInfoView: UIView {
     let marketPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = LocalizationManager.shared.localizedString(forKey: "시세")
+        label.text = LocalizationManager.shared.localizedString(forKey: "시세2")
         label.textColor = ColorManager.common_0
         label.font = FontManager.D5_18
         return label

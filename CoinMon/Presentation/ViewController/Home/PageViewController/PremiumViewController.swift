@@ -24,7 +24,7 @@ class PremiumViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
                 self?.premiumView.setLocalizedText()

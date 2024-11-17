@@ -73,7 +73,6 @@ class ExplainIndicatorSheetPresentationController: CustomDimSheetPresentationCon
 }
 
 extension ExplainIndicatorSheetPresentationController {
-    
     func bind(reactor: ExplainIndicatorSheetPresentationReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)

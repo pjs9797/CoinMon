@@ -9,8 +9,9 @@ class ToastMessageView: UIView {
     }()
     let toastLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.T3_16
+        label.attributedText = AttributedFontManager.T3_16
         label.textColor = ColorManager.common_100
+        label.numberOfLines = 0
         return label
     }()
     
@@ -19,7 +20,7 @@ class ToastMessageView: UIView {
         
         self.layer.cornerRadius = 8*ConstantsManager.standardHeight
         self.backgroundColor = ColorManager.gray_10
-        toastLabel.text = message
+        toastLabel.updateAttributedText(message)
         layout()
     }
     

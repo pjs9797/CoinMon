@@ -21,6 +21,7 @@ class SurveyView: UIView {
         tableView.separatorColor = .clear
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0
+        tableView.allowsMultipleSelection = true
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: "SurveyTableViewCell")
         return tableView
@@ -56,7 +57,7 @@ class SurveyView: UIView {
         subTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(titleLabel.snp.top).offset(8*ConstantsManager.standardHeight)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         surveyTableView.snp.makeConstraints { make in
@@ -67,6 +68,7 @@ class SurveyView: UIView {
         }
         
         completeButton.snp.makeConstraints { make in
+            make.height.equalTo(52*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-8*ConstantsManager.standardHeight)

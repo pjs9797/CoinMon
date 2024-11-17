@@ -39,7 +39,7 @@ class AlarmTableViewCell: UITableViewCell {
         let uiSwitch = UISwitch()
         uiSwitch.onTintColor = ColorManager.orange_60
         uiSwitch.tintColor = ColorManager.gray_90
-        uiSwitch.layer.cornerRadius = 18*ConstantsManager.standardHeight
+        uiSwitch.layer.cornerRadius = 16*ConstantsManager.standardHeight
         return uiSwitch
     }()
     

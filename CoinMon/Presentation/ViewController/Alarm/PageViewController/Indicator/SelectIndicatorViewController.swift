@@ -29,7 +29,9 @@ class SelectIndicatorViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = ColorManager.common_100
         setNavigationbar()
+        setupNotifications()
         self.selectIndicatorView.indicatorCategoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+        self.reactor?.action.onNext(.loadSubscriptionStatus)
     }
     
     private func setNavigationbar() {
@@ -37,10 +39,26 @@ class SelectIndicatorViewController: UIViewController, ReactorKit.View {
         navigationItem.leftBarButtonItem = backButton
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.reactor?.action.onNext(.selectCategory(reactor?.currentState.selectedCategory ?? 0))
+    private func setupNotifications() {
+        NotificationCenter.default.rx.notification(.completeDeleteIndicatorAlarm)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] notification in
+                if let userInfo = notification.userInfo,
+                   let message = userInfo["message"] as? String {
+                    self?.reactor?.action.onNext(.selectCategory(self?.reactor?.currentState.selectedCategory ?? 0))
+                    self?.selectIndicatorView.toastMessage.toastLabel.updateAttributedText(message)
+                    self?.showToastMessage(self?.selectIndicatorView.toastMessage ?? UIView())
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func showToastMessage(_ toastView: UIView) {
+        toastView.isHidden = false
+        view.bringSubviewToFront(toastView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            toastView.isHidden = true
+        }
     }
 }
 
@@ -71,10 +89,22 @@ extension SelectIndicatorViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.subscriptionStatus }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] _ in
+                self?.reactor?.action.onNext(.selectCategory(0))
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.indicators }
             .distinctUntilChanged()
             .bind(to: selectIndicatorView.explanIndicatorTableView.rx.items(cellIdentifier: "ExplanIndicatorTableVieCell", cellType: ExplanIndicatorTableViewCell.self)) { (index, indicatorInfo, cell) in
-                cell.configure(with: indicatorInfo)
+                
+                let indicatorId = String(indicatorInfo.indicatorId)
+//                cell.configure(with: indicatorInfo)
+//                cell.configureTrial(indicatorId: indicatorId, subscriptionStatus: reactor.currentState.subscriptionStatus)
+                cell.configure(with: indicatorInfo, subscriptionStatus: reactor.currentState.subscriptionStatus)
+
                 let isPremium = indicatorInfo.isPremiumYN == "Y" ? true : false
                 
                 cell.explainButton.rx.tap
@@ -84,6 +114,16 @@ extension SelectIndicatorViewController {
                 
                 cell.rightButton.rx.tap
                     .map { Reactor.Action.rightButtonTapped(isPushed: indicatorInfo.isPushed, indicatorId: String(indicatorInfo.indicatorId), indicatorName: indicatorInfo.indicatorName, isPremium: isPremium) }
+                    .bind(to: reactor.action)
+                    .disposed(by: cell.disposeBag)
+                
+                cell.alarmButton.rx.tap
+                    .map { Reactor.Action.alarmButtonTapped(indicatorId: String(indicatorInfo.indicatorId), indicatorName: indicatorInfo.indicatorName) }
+                    .bind(to: reactor.action)
+                    .disposed(by: cell.disposeBag)
+                
+                cell.trialButton.rx.tap
+                    .map { Reactor.Action.trialButtonTapped }
                     .bind(to: reactor.action)
                     .disposed(by: cell.disposeBag)
             }

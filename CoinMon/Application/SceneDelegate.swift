@@ -34,19 +34,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
         }
         else {
-            let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-            if isLoggedIn {
-                coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+            if UserDefaultsManager.shared.getIsFirstLaunch() {
+                coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSurveyViewController))
             }
             else {
-                coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
+                let isLoggedIn = UserDefaultsManager.shared.getIsLoggedIn()
+                if isLoggedIn {                    
+                    let loginType = UserDefaultsManager.shared.getLoginType()
+                    switch loginType {
+                    case .coinmon, .apple, .kakao:
+                        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+                    case .none:
+                        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
+                    }
+                } 
+                else {
+                    coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
+                }
             }
-        }
-        if let fcmToken = TokenManager.shared.loadFCMToken(){
-            print(fcmToken)
-        }
-        else{
-            print("없다")
         }
     }
     

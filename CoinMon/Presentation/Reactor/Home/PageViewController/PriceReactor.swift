@@ -221,7 +221,6 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             
             // 코인
         case .loadPriceList:
-            print(123123123123)
             if currentState.isTappedFavoriteButton == true {
                 return self.favoritesUseCase.fetchCoinPriceChangeGapListByFavorites(market: currentState.markets[currentState.selectedMarket].localizationKey)
                     .flatMap { [weak self] priceList -> Observable<Mutation> in

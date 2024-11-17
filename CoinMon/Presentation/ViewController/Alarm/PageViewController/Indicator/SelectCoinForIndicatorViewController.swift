@@ -46,7 +46,6 @@ class SelectCoinForIndicatorViewController: UIViewController, ReactorKit.View {
                 if let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
                    let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                     let keyboardHeight = keyboardFrame.height
-                    let safeAreaBottom = self?.view.safeAreaInsets.bottom ?? 0
                     self?.selectCoinForIndicatorView.selectedCoinForIndicatorCollectionView.snp.remakeConstraints { make in
                         make.height.equalTo(46*ConstantsManager.standardHeight)
                         make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
@@ -85,6 +84,11 @@ extension SelectCoinForIndicatorViewController {
     func bindAction(reactor: SelectCoinForIndicatorReactor){
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        selectCoinForIndicatorView.explainButton.rx.tap
+            .map{ Reactor.Action.explainButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

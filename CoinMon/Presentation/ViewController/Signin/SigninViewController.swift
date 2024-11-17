@@ -25,7 +25,7 @@ class SigninViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
     }
 }
 
@@ -119,8 +119,10 @@ extension SigninViewController: ASAuthorizationControllerDelegate {
                 print("identityToken: \(identityToken)")
                 print("authCodeString: \(authCodeString)")
                 print("identifyTokenString: \(identifyTokenString)")
+                if let fcmToken = TokenManager.shared.loadFCMToken() {
+                    self.reactor?.action.onNext(.appleLoginSuccess(identityToken: identifyTokenString, authorizationCode: authCodeString, deviceToken: fcmToken))
+                }
             }
-            
             print("useridentifier: \(userIdentifier)")
             print("fullName: \(fullName)")
             print("email: \(email)")

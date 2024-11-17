@@ -24,7 +24,7 @@ class SelectFirstAlarmConditionSheetPresentationController: CustomDimSheetPresen
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         selectAlarmConditionView.alarmConditionTableView.goToMiddle()
     }
 }

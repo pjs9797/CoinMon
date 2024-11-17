@@ -6,16 +6,19 @@ import RxFlow
 class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
+    private let flowType: SelectCoinForIndicatorFlowType
     private let indicatorUseCase: IndicatorUseCase
     
-    init(indicatorUseCase: IndicatorUseCase, indicatorId: String, indicatorName: String, isPremium: Bool) {
+    init(flowType: SelectCoinForIndicatorFlowType, indicatorUseCase: IndicatorUseCase, indicatorId: String, indicatorName: String, isPremium: Bool) {
         self.initialState = State(indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
+        self.flowType = flowType
         self.indicatorUseCase = indicatorUseCase
     }
     
     enum Action {
         // 버튼 탭
         case backButtonTapped
+        case explainButtonTapped
         case resetButtonTapped
         case selectedButtonTapped
         case checkButtonTapped(indicatorCoinId: String)
@@ -69,9 +72,16 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            // 버튼 탭
         case .backButtonTapped:
-            self.steps.accept(AlarmStep.popViewController)
+            if flowType == .atPurchase {
+                self.steps.accept(PurchaseStep.popViewController)
+            }
+            else {
+                self.steps.accept(AlarmStep.popViewController)
+            }
+            return .empty()
+        case .explainButtonTapped:
+            self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: currentState.indicatorId))
             return .empty()
         case .resetButtonTapped:
             let filteredList = currentState.filteredindicatorCoinPriceChangeList.map { listItem -> IndicatorCoinPriceChange in
@@ -86,7 +96,12 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
             ])
         case .selectedButtonTapped:
             let targets = currentState.checkedCoinList.map{ return $0.indicatorCoinId}
-            self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
+            if flowType == .atPurchase {
+                self.steps.accept(PurchaseStep.navigateToSelectCycleForIndicatorViewController(flowType: .atSelectCoin, selectCoinForIndicatorFlowType: .atPurchase, indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
+            }
+            else {
+                self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .atSelectCoin, selectCoinForIndicatorFlowType: .atNotPurchase, indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
+            }
             return .empty()
         case .checkButtonTapped(let indicatorCoinId):
             let filteredList = currentState.filteredindicatorCoinPriceChangeList.map { listItem -> IndicatorCoinPriceChange in
@@ -152,7 +167,6 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
             // 코인
         case .loadIndicatorCoinPriceChange:
             return self.indicatorUseCase.getIndicatorCoinList(indicatorId: currentState.indicatorId)
-                .debug()
                 .flatMap { indicatorCoinPriceChange -> Observable<Mutation> in
                     
                     return .concat([
@@ -161,8 +175,15 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    ErrorHandler.handle(error) { (step: AlarmStep) in
-                        self?.steps.accept(step)
+                    if self?.flowType == .atPurchase {
+                        ErrorHandler.handle(error) { (step: PurchaseStep) in
+                            self?.steps.accept(step)
+                        }
+                    }
+                    else {
+                        ErrorHandler.handle(error) { (step: AlarmStep) in
+                            self?.steps.accept(step)
+                        }
                     }
                     return .empty()
                 }

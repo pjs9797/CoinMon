@@ -26,7 +26,7 @@ class MarketingConsentViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         setNavigationbar()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
     }
     
     private func setNavigationbar() {

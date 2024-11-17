@@ -29,11 +29,12 @@ class NotificationViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         reactor?.action.onNext(.loadNotifications)
         reactor?.action.onNext(.checkNotificationStatus)
         setNavigationbar()
         notificationCheck()
+        notificationView.notificationTypeCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
         UserDefaults.standard.setValue(false, forKey: "didReceiveNotificationAtBackground")
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
@@ -81,6 +82,11 @@ extension NotificationViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        notificationView.notificationTypeCollectionView.rx.itemSelected
+            .map { Reactor.Action.selectItem($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         notificationView.notificationTableView.rx.contentOffset
             .map { Reactor.Action.scrollViewDidScroll($0) }
             .bind(to: reactor.action)
@@ -99,6 +105,13 @@ extension NotificationViewController {
                     self?.notificationView.updateLayoutNotSetAlarm()
                 }
             })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.notificationTypes }
+            .distinctUntilChanged()
+            .bind(to: notificationView.notificationTypeCollectionView.rx.items(cellIdentifier: "NotificationTypeCollectionViewCell", cellType: NotificationTypeCollectionViewCell.self)) { (index, type, cell) in
+                cell.configure(with: type)
+            }
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.notifications }

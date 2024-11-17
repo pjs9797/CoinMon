@@ -19,7 +19,7 @@ class NoneFavoritesView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .systemBackground
+        backgroundColor = ColorManager.common_100
         layout()
     }
     

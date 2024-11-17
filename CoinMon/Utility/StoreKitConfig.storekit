@@ -1,5 +1,5 @@
 {
-  "identifier" : "C2BA9AFC",
+  "identifier" : "5F4ACE54",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -10,7 +10,7 @@
     "_applicationInternalID" : "6504487068",
     "_developerTeamID" : "9YSRYRQWSU",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 750495840.59641695,
+    "_lastSynchronizedDate" : 752075725.970541,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -76,12 +76,22 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "7.99",
+          "displayPrice" : "3.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "6736874264",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "637240A7",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P2W"
+          },
           "localizations" : [
+            {
+              "description" : "An easy indicator of market volatility",
+              "displayName" : "Hyper Bollinger Band",
+              "locale" : "en_US"
+            },
             {
               "description" : "가격의 변동성에 따라 밴드의 폭이 변해 시장의 변동성을 쉽게 파악할 수 있는 지표",
               "displayName" : "하이퍼 볼린저밴드",

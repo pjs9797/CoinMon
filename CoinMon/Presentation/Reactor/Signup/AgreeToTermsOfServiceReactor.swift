@@ -62,22 +62,22 @@ class AgreeToTermsOfServiceReactor: ReactorKit.Reactor, Stepper {
                 .setNextButtonValid
             ])
         case .termsOfServiceDetailButtonTapped:
-            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.dismiss)
             self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
         case .privacyPolicyDetailButtonTapped:
-            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.dismiss)
             self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
         case .marketingConsentDetailButtonTapped:
-            self.steps.accept(SignupStep.dismissViewController)
+            self.steps.accept(SignupStep.dismiss)
             self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
         case .nextButtonTapped:
             return signupUseCase.requestPhoneVerificationCode(phoneNumber: UserCredentialsManager.shared.phoneNumber)
                 .flatMap { [weak self] resultCode -> Observable<Mutation> in
                     if resultCode == "200" {
-                        self?.steps.accept(SignupStep.dismissViewController)
+                        self?.steps.accept(SignupStep.dismiss)
                         self?.steps.accept(SignupStep.navigateToPhoneVerificationNumberViewController)
                     }
                     else {

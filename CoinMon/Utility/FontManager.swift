@@ -126,15 +126,14 @@ struct AttributedFontManager {
         
         let font = UIFont(name: fontName, size: size * ConstantsManager.standardWidth) ?? UIFont.systemFont(ofSize: size * ConstantsManager.standardWidth)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.minimumLineHeight = lineHeight * ConstantsManager.standardHeight
-        paragraphStyle.maximumLineHeight = lineHeight * ConstantsManager.standardHeight
+        paragraphStyle.lineHeightMultiple = lineHeight / font.lineHeight
+        paragraphStyle.alignment = .natural
         
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
-            .kern: letterSpacing * ConstantsManager.standardWidth,
+            .kern: letterSpacing,
             .paragraphStyle: paragraphStyle
         ]
-        //return attributes
         return NSAttributedString(string: "test", attributes: attributes)
     }
 }

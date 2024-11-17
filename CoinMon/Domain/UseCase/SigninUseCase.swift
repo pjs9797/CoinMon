@@ -22,9 +22,33 @@ class SigninUseCase {
                 if let response = response, response.resultCode == "200" {
                     TokenManager.shared.saveAccessToken(response.accessToken)
                     TokenManager.shared.saveRefreshToken(response.refreshToken)
-                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaultsManager.shared.setLoggedIn(true, loginType: .coinmon)
                 }
                 return .just(response?.resultCode ?? "426")
+            }
+    }
+    
+    func appleLogin(identityToken: String, authorizationCode: String, deviceToken: String) -> Observable<Any> {
+        return repository.appleLogin(identityToken: identityToken, authorizationCode: authorizationCode, deviceToken: deviceToken)
+            .flatMap { response -> Observable<Any> in
+                if let tokens = response as? AuthTokens {
+                    TokenManager.shared.saveAccessToken(tokens.accessToken)
+                    TokenManager.shared.saveRefreshToken(tokens.refreshToken)
+                    UserDefaultsManager.shared.setLoggedIn(true, loginType: .apple)
+                    return .just(tokens.resultCode)
+                }
+                else if let emailTuple = response as? (String, String) {
+                    return .just(emailTuple)
+                } 
+                else if let resultCode = response as? String {
+                    return .just(resultCode)
+                } 
+                else {
+                    return .error(NSError(domain: "Invalid response type", code: -1, userInfo: nil))
+                }
+            }
+            .catch { error in
+                return Observable.error(error)
             }
     }
 }

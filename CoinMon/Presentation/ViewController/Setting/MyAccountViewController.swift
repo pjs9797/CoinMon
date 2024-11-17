@@ -25,7 +25,7 @@ class MyAccountViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ColorManager.common_100
         setNavigationbar()
         hideKeyboard(disposeBag: disposeBag)
         LocalizationManager.shared.rxLanguage
@@ -123,6 +123,8 @@ extension MyAccountViewController {
                 switch type{
                 case "COINMON":
                     self?.myAccountView.loginTypeImageView.image = ImageManager.login_coinmon
+                case "APPLE":
+                    self?.myAccountView.loginTypeImageView.image = ImageManager.login_apple
                 default:
                     self?.myAccountView.loginTypeImageView.image = ImageManager.login_coinmon
                 }

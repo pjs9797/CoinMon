@@ -24,7 +24,7 @@ class SurveyViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ColorManager.common_0
+        view.backgroundColor = ColorManager.common_100
     }
 }
 
@@ -52,6 +52,14 @@ extension SurveyViewController {
             .bind(to: surveyView.surveyTableView.rx.items(cellIdentifier: "SurveyTableViewCell", cellType: SurveyTableViewCell.self)){ row, items, cell in
                 
                 cell.configure(with: items)
+                
+                reactor.state.map { $0.selectedIndex }
+                    .distinctUntilChanged()
+                    .bind(onNext: { selectedIndex in
+                        let isSelected = row == selectedIndex
+                        cell.isSelect(isSelected: isSelected)
+                    })
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
     }

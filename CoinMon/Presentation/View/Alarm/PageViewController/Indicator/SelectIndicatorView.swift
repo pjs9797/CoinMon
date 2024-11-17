@@ -27,6 +27,11 @@ class SelectIndicatorView: UIView {
         tableView.register(ExplanIndicatorTableViewCell.self, forCellReuseIdentifier: "ExplanIndicatorTableVieCell")
         return tableView
     }()
+    let toastMessage: ToastMessageView = {
+        let view = ToastMessageView(message: LocalizationManager.shared.localizedString(forKey: "지표 알람을 삭제했어요"))
+        view.isHidden = true
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,7 +44,7 @@ class SelectIndicatorView: UIView {
     }
     
     private func layout() {
-        [grayView,indicatorCategoryCollectionView,explanIndicatorTableView]
+        [grayView,indicatorCategoryCollectionView,explanIndicatorTableView,toastMessage]
             .forEach{
                 addSubview($0)
             }
@@ -63,6 +68,13 @@ class SelectIndicatorView: UIView {
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.top.equalTo(grayView.snp.bottom).offset(16*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        toastMessage.snp.makeConstraints { make in
+            make.width.equalTo(335*ConstantsManager.standardWidth)
+            //make.height.greaterThanOrEqualTo(48*ConstantsManager.standardHeight)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20*ConstantsManager.standardHeight)
         }
     }
 }

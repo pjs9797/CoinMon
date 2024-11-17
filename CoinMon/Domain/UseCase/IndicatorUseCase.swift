@@ -10,10 +10,10 @@ class IndicatorUseCase {
 
     func getIndicatorInfo(language: String, categoryIndex: Int) -> Observable<[IndicatorInfo]> {
         let indicatorsObservable = repository.getIndicator()
-        let pushesObservable = repository.getIndicatorPushOnly()
+        let indicatorCoinDataObservable = repository.getIndicatorCoinData()
         
-        return Observable.zip(indicatorsObservable, pushesObservable) { indicators, pushes in
-            let pushIds = Set(pushes.map { $0.indicatorId })
+        return Observable.zip(indicatorsObservable, indicatorCoinDataObservable) { indicators, indicatorCoinDatas in
+            let pushIds = Set(indicatorCoinDatas.map { $0.indicatorId })
             
             let allIndicators = indicators.map { indicator in
                 let isPushed = pushIds.contains(indicator.indicatorId)
@@ -42,11 +42,39 @@ class IndicatorUseCase {
         }
     }
     
+    func getIndicatorCoinData() -> Observable<[IndicatorCoinData]> {
+        return repository.getIndicatorCoinData()
+    }
+    
+    func getIndicatorCoinDataDetail(indicatorId: String) -> Observable<[IndicatorCoinData]> {
+        return repository.getIndicatorCoinDataDetail(indicatorId: indicatorId)
+    }
+    
+    func getUpdateIndicatorCoinDataDetail(indicatorId: String) -> Observable<[UpdateSelectedIndicatorCoin]> {
+        return repository.getUpdateIndicatorCoinDataDetail(indicatorId: indicatorId)
+    }
+    
     func getIndicatorCoinList(indicatorId: String) -> Observable<[IndicatorCoinPriceChange]> {
         return repository.getIndicatorCoinList(indicatorId: indicatorId)
     }
     
+    func updateIndicatorPush(indicatorId: String, frequency: String, targets: [String]) -> Observable<String> {
+        return repository.updateIndicatorPush(indicatorId: indicatorId, frequency: frequency, targets: targets)
+    }
+    
+    func updateIndicatorPushState(indicatorId: String, isOn: String) -> Observable<String> {
+        return repository.updateIndicatorPushState(indicatorId: indicatorId, isOn: isOn)
+    }
+    
     func createIndicatorPush(indicatorId: String, frequency: String, targets: [String]) -> Observable<String> {
         return repository.createIndicatorPush(indicatorId: indicatorId, frequency: frequency, targets: targets)
+    }
+    
+    func getIndicatorCoinHistory(indicatorId: String, indicatorCoinId: String) -> Observable<[IndicatorCoinHistory]> {
+        return repository.getIndicatorCoinHistory(indicatorId: indicatorId, indicatorCoinId: indicatorCoinId)
+    }
+    
+    func deleteIndicatorPush(indicatorId: String) -> Observable<String> {
+        return repository.deleteIndicatorPush(indicatorId: indicatorId)
     }
 }

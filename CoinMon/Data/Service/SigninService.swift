@@ -5,6 +5,7 @@ enum SigninService {
     case checkEmail(email: String)
     case loginCode(email: String)
     case login(email: String, number: String, deviceToken: String)
+    case appleLogin(identityToken: String, authorizationCode: String, deviceToken: String)
 }
 
 extension SigninService: TargetType {
@@ -17,12 +18,14 @@ extension SigninService: TargetType {
             return "loginCode"
         case .login:
             return "login"
+        case .appleLogin:
+            return "apple/login"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .checkEmail, .loginCode, .login:
+        case .checkEmail, .loginCode, .login, .appleLogin:
             return .post
         }
     }
@@ -37,6 +40,9 @@ extension SigninService: TargetType {
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .login(let email, let number, let deviceToken):
             let parameters = ["email": email, "number": number, "deviceToken": deviceToken]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .appleLogin(let identityToken, let authorizationCode, let deviceToken):
+            let parameters = ["identityToken": identityToken, "authorizationCode": authorizationCode, "deviceToken": deviceToken]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
@@ -99,6 +105,13 @@ extension SigninService: TargetType {
                 }
                 """.data(using: .utf8)!
             }
+        case .appleLogin:
+            return """
+            {
+                "resultCode": "200",
+                "resultMessage": ""
+            }
+            """.data(using: .utf8)!
         }
     }
 }

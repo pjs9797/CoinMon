@@ -45,14 +45,25 @@ class ExplanIndicatorTableViewCell: UITableViewCell {
         configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "알림 받는 중2"), attributes: .init([.font: FontManager.D8_14]))
         configuration.image = ImageManager.check20
         configuration.imagePadding = 4
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 14)
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8*ConstantsManager.standardHeight, leading: 8*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, trailing: 14*ConstantsManager.standardWidth)
         configuration.baseForegroundColor = ColorManager.gray_20
         configuration.baseBackgroundColor = ColorManager.common_100
-        
+
         let button = UIButton(configuration: configuration)
         button.layer.cornerRadius = 8 * ConstantsManager.standardHeight
         button.layer.borderColor = ColorManager.gray_96?.cgColor
         button.layer.borderWidth = 1
+        return button
+    }()
+    let trialButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "14일 무료 체험하기"), attributes: .init([.font: FontManager.D8_14]))
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8*ConstantsManager.standardHeight, leading: 14*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, trailing: 14*ConstantsManager.standardWidth)
+        configuration.baseForegroundColor = ColorManager.common_100
+        configuration.baseBackgroundColor = ColorManager.orange_60
+
+        let button = UIButton(configuration: configuration)
+        button.layer.cornerRadius = 8 * ConstantsManager.standardHeight
         return button
     }()
     
@@ -73,7 +84,7 @@ class ExplanIndicatorTableViewCell: UITableViewCell {
     }
 
     private func layout(){
-        [indicatorImageView,indicatorTitleLabel,explainButton,premiumLabel,rightButton,explainLabel,alarmButton]
+        [indicatorImageView,indicatorTitleLabel,explainButton,premiumLabel,rightButton,explainLabel,alarmButton,trialButton]
             .forEach {
                 contentView.addSubview($0)
             }
@@ -116,40 +127,71 @@ class ExplanIndicatorTableViewCell: UITableViewCell {
         }
         
         alarmButton.snp.makeConstraints { make in
-            make.height.equalTo(38*ConstantsManager.standardHeight)
+            make.leading.equalTo(indicatorTitleLabel.snp.leading)
+            make.top.equalTo(explainLabel.snp.bottom).offset(12*ConstantsManager.standardHeight)
+        }
+        
+        trialButton.snp.makeConstraints { make in
             make.leading.equalTo(indicatorTitleLabel.snp.leading)
             make.top.equalTo(explainLabel.snp.bottom).offset(12*ConstantsManager.standardHeight)
         }
     }
     
-    func configure(with indicatorInfo: IndicatorInfo) {
+    func configure(with indicatorInfo: IndicatorInfo, subscriptionStatus: UserSubscriptionStatus? = nil) {
+        // 공통 설정
         indicatorTitleLabel.text = indicatorInfo.indicatorName
         explainLabel.text = indicatorInfo.indicatorDescription
-        premiumLabel.isHidden = indicatorInfo.isPremiumYN == "Y" ? false : true
+        premiumLabel.isHidden = indicatorInfo.isPremiumYN != "Y"
         
-        if indicatorInfo.isPushed {
-            alarmButton.isHidden = false
+        if indicatorInfo.indicatorId == 1 {
+            rightButton.isHidden = true
+        }
+        else {
+            rightButton.isHidden = false
+        }
+
+        if let subscriptionStatus = subscriptionStatus,
+           indicatorInfo.indicatorId == 1,
+           subscriptionStatus.status == .normal,
+           subscriptionStatus.useTrialYN == "N" {
+            trialButton.isHidden = false
             explainLabel.snp.remakeConstraints { make in
                 make.leading.equalTo(indicatorTitleLabel.snp.leading)
-                make.trailing.equalToSuperview().offset(-28*ConstantsManager.standardWidth)
-                make.top.equalTo(indicatorTitleLabel.snp.bottom).offset(6*ConstantsManager.standardHeight)
+                make.trailing.equalToSuperview().offset(-28 * ConstantsManager.standardWidth)
+                make.top.equalTo(indicatorTitleLabel.snp.bottom).offset(6 * ConstantsManager.standardHeight)
             }
-            
-            alarmButton.snp.remakeConstraints { make in
-                make.height.equalTo(38*ConstantsManager.standardHeight)
+
+            trialButton.snp.remakeConstraints { make in
                 make.leading.equalTo(indicatorTitleLabel.snp.leading)
-                make.top.equalTo(explainLabel.snp.bottom).offset(12*ConstantsManager.standardHeight)
-                make.bottom.equalToSuperview().offset(-20*ConstantsManager.standardHeight)
+                make.top.equalTo(explainLabel.snp.bottom).offset(12 * ConstantsManager.standardHeight)
+                make.bottom.equalToSuperview().offset(-20 * ConstantsManager.standardHeight).priority(.low)
             }
-        } else {
-            alarmButton.isHidden = true
-            explainLabel.snp.remakeConstraints { make in
-                make.leading.equalTo(indicatorTitleLabel.snp.leading)
-                make.trailing.equalToSuperview().offset(-28*ConstantsManager.standardWidth)
-                make.top.equalTo(indicatorTitleLabel.snp.bottom).offset(6*ConstantsManager.standardHeight)
-                make.bottom.equalToSuperview().offset(-24*ConstantsManager.standardHeight)
+        } 
+        else {
+            trialButton.isHidden = true
+            if indicatorInfo.isPushed {
+                alarmButton.isHidden = false
+                explainLabel.snp.remakeConstraints { make in
+                    make.leading.equalTo(indicatorTitleLabel.snp.leading)
+                    make.trailing.equalToSuperview().offset(-28 * ConstantsManager.standardWidth)
+                    make.top.equalTo(indicatorTitleLabel.snp.bottom).offset(6 * ConstantsManager.standardHeight)
+                }
+
+                alarmButton.snp.remakeConstraints { make in
+                    make.leading.equalTo(indicatorTitleLabel.snp.leading)
+                    make.top.equalTo(explainLabel.snp.bottom).offset(12 * ConstantsManager.standardHeight)
+                    make.bottom.equalToSuperview().offset(-20 * ConstantsManager.standardHeight).priority(.low)
+                }
+            }
+            else {
+                alarmButton.isHidden = true
+                explainLabel.snp.remakeConstraints { make in
+                    make.leading.equalTo(indicatorTitleLabel.snp.leading)
+                    make.trailing.equalToSuperview().offset(-28 * ConstantsManager.standardWidth)
+                    make.top.equalTo(indicatorTitleLabel.snp.bottom).offset(6 * ConstantsManager.standardHeight)
+                    make.bottom.equalToSuperview().offset(-24 * ConstantsManager.standardHeight)
+                }
             }
         }
-        
     }
 }

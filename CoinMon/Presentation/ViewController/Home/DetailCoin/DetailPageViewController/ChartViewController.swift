@@ -40,14 +40,11 @@ extension ChartViewController {
     }
     
     func bindState(reactor: ChartReactor){
-        reactor.state.compactMap{ $0.urlString }
+        reactor.state.compactMap { $0.urlString }
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)
-            .bind(onNext: { [weak self] url in
-                if let url = URL(string: url) {
-                    let request = URLRequest(url: url)
-                    self?.chartView.chartWebView.load(request)
-                }
+            .bind(onNext: { [weak self] htmlString in
+                self?.chartView.chartWebView.loadHTMLString(htmlString, baseURL: URL(string: "https://www.tradingview.com"))
             })
             .disposed(by: disposeBag)
     }

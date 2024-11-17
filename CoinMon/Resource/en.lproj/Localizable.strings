@@ -11,6 +11,34 @@
 "보조지표들을 조합한 나만의 전략이 있어요" = "I have my own strategy that combines auxiliary indicators";
 "전문가" = "Expert";
 "나만의 전략으로 꾸준히 수익을 내고 있어요" = "I've been steadily making profits with my own strategy";
+//NewIndicator
+"코인몬 지표 구독 오픈!" = "CoinMon indicator\nsubscription feature is now\nopen!";
+"하이퍼 볼린저밴드가 뭔가요?" = "What is the Hyper Bollinger Bands?";
+"설명보기" = "more";
+"매수•매도 타이밍 알림을 받을 수 있어요" = "You can receive alerts for buying and selling timing";
+"14일 무료 체험하기" = "Try 14 days free";
+"하이퍼 볼린저밴드 지표로 매수•매도 타이밍 알림 받아요" = "Receive buying and selling timing alerts with the Hyper Bollinger Bands indicator";
+"내가 관심있는 코인만 알림 받기" = "Receive Alerts Only for Coins You're Interested In:";
+"현재 관심 있거나 매수•매도가 필요한 코인을 지정할 수 있어요" = "You can specify the coins you're currently interested in or need to buy/sell.";
+"24시간 고객센터에서 언제든지 도움을 요청할 수 있어요" = "24/7 Customer Support:\nRequest help anytime through our always-available customer service.";
+"구독 안내 설명" = "Go to iOS Settings > select Apple ID > manage your subscription and cancel auto-renewal in Subscriptions.\nCharges will be billed to the Apple account used upon purchase confirmation or when the free trial period ends.\nThe subscription amount will be automatically charged on the regular payment date each month.\nAffiliate benefits may change or end early without prior notice due to internal company circumstances, and the company is not responsible for any compensation for early termination.\nOnline sales business registration number: 2024-Yongin Suji-1278";
+//SuccessSubscribe
+"구독관리" = "Management";
+"이용 기간" = "Period of use : Until %@, %@, %@";
+"이용 중인 플랜" = "Plan you are using";
+"최고혜택" = "Top Benefits";
+"하이퍼 볼린저밴드 지표 매수•매도 타이밍 알림" = "Hyper Bollinger Band Indicator Buy/Sell Timing Notification";
+"24시간 질문, 상담 가능" = "Questions and consultations available 24 hours a day";
+"프리미엄 구독자만 참여 가능한 선물 이벤트" = "Gift event available only to premium subscribers";
+//SubscriptionManagement
+"결제 예정일" = "Payment due date";
+"결제 예정일 날짜" = "Until %@, %@, %@";
+"구독은 어떻게 취소하나요?" = "How do I cancel my subscription?";
+"• IOS 설정 > Apple ID 선택 > 구독에서 구독을 관리하고 자동 갱신을 해지할 수 있습니다." = "You can manage your subscription and turn off auto-renewal in iOS Settings > Select Apple ID > Subscriptions.";
+"구독을 취소하면 이용 중이던 알림은 어떻게 되나요?" = "If I cancel my subscription, what happens to the notifications I was using?";
+"• 구독을 취소하면 이미 결제한 해당월의 다음 결제일 전까지는 Premium 혜택을 그대로 사용할 수 있고, 다음 결제일부터 요금이 청구되지 않으며 Premium으로 이용 중이던 지표는 비활성화됩니다." = "If you cancel your subscription, you can use Premium benefits until the next payment date of the month in which you have already paid, and you will not be charged from the next payment date, and indicators that were being used as Premium will be deactivated.";
+"더 궁금한 점이 있으신가요?" = "Do you have any more questions?";
+"문의하기" = "Contact us";
 //Login
 "카카오로 계속하기" = "Sign in with Kakao";
 "애플로 계속하기" = "Sign in with Apple";
@@ -49,6 +77,8 @@
 "홈" = "Home";
 "알람" = "Alarm";
 "커뮤니티" = "Community";
+"지표 프리미엄 무료 체험✨" = "Free Indicator Experience✨";
+"구독한 알림 이어 설정하기" = "Continuing to subscribe to Alert";
 //Home
 "시세" = "Price";
 "펀비" = "Fee";
@@ -91,7 +121,7 @@
 "시가 총액" = "Market Cap";
 "총 발행 수량" = "Total Supply";
 "미제공" = "Not provided";
-"시세" = "Market Price";
+"시세2" = "Market Price";
 "전일 거래 금액" = "Previous Day's Volume";
 "전일 고가" = "Previous Day's High";
 "전일 저가" = "Previous Day's Low";
@@ -110,6 +140,10 @@
 "관심 코인에서 제외했어요" = "Deleted from Favorites";
 "편집 내용이 저장되었어요" = "Saved favorites list";
 //Notification
+"지표 알림" = "Indicator";
+"지정가 알림" = "Limit Price";
+"지표 타이틀 알림" = "[%@] %@ (%@)";
+"지표 바디 알림" = "$%@(USDT)\n%@ indicator criteria";
 "알림" = "Notification";
 "휴대폰 앱 알림이 꺼져있어요" = "App notifications are Currently disabled. You can enable them in ‘Settings’.";
 "알림 켜기" = "Set Now";
@@ -137,6 +171,20 @@
 "15분 주기로 매수•매도 타이밍을\n확인하고 알려드려요" = "You will be notified of buying and\nselling timings every 15 minutes";
 "15분 주기로 확인하고 알려드려요" = "You will be notified of buying and\nselling timings every 15 minutes";
 "코인별 변동성에 따라 최대 일주일 주기로 알림이 갈 수 있어요" = "Depending on the volatility of each coin,\nnotifications may be sent up to once a week.";
+"추가할 수 있는 알람을 모두 추가했어요" = "All alarms added";
+"다른 지표 보기" = "View other Indicator";
+"역추세 볼린저밴드와 볼린저밴드를 합친 지표" = "Indicator combining countertrend Bollinger Band and Bollinger Band";
+"일정 기간 동안 가격 평균을 측정하는 지표" = "The indicator measures the average price over a specified period";
+"알람 받기" = "Alarm";
+"다른 코인 선택하기" = "Choose a different coin";
+"구독중인 Coinmon Premium 알림받을 코인을 선택해 주세요" = "Subscription to Coinmon Premium\nPlease select the coin you would like to be notified about";
+"코인 투자 안내"= "• The information provided by CoinMon is for simple reference only for customers' investment decisions, and does not make investment proposals, recommendations, or recommendations for specific virtual assets.\n• Online sales business registration number: 2024-Yongin Suji-1278";
+"기간이 종료됐어요" = "The period has ended";
+"프리미엄 구독하기" = "Subscribe to Premium";
+"다음에 설정할까요?" = "Set this up next time?";
+"지금까지 설정한 내용은 저장되지 않아요" = "The settings made so far are not saved.";
+"이어서 등록" = "Continue";
+"나가기" = "Exit";
 //Indicator Explain
 "하이퍼 볼린저밴드" = "Hyper Bollinger Bands";
 "이동평균선" = "Moving Average";
@@ -149,6 +197,37 @@
 "히스토리" = "History";
 "매도" = "Sell";
 "매수" = "Buy";
+"테스트 알림" = "Test Alerts";
+"알림 받기" = "Receive Alerts";
+"알림 설정" = "Alarm";
+"알림센터" = "Setting";
+"분 마다 알림" = "Alerts every %@ minutes";
+"방금 전" = "just a moment ago";
+"시간" = "Time";
+"타이밍" = "Timing";
+"가격(USDT)" = "Price(USDT)";
+"알람을 삭제할까요?" = "Do you want me to delete the alarm?";
+"지금까지 받은 알람은 모두 삭제돼요" = "All alarms so far have been deleted.";
+"닫기" = "Close";
+"알람 삭제하기" = "Delete alarm";
+"알람 수정" = "Modify alarm";
+"알람 삭제" = "Remove alarm";
+"아직 히스토리가 없어요\n매수•매도 타이밍일 때 알려 드릴게요" = "There's no history yet.\nI'll let you know when the history builds up.";
+"지표 알람을 등록했어요" = "%@ alarm registration";
+"지표 알람을 삭제했어요" = "%@ Alarm Deleted";
+"업데이트가 완료 되었어요" = "Update complete.\nLatest update: %@";
+//TestAlarm
+"테스트 알림을 받으셨나요?" = "Did you receive a test notification?";
+"기기 알림 목록을 확인해 보세요" = "Check the device notification list";
+"받지 못했어요" = "No";
+"받았어요" = "Yes";
+"알림을 아직 설정하지 않았어요" = "You have not set notifications";
+"설정 > 알림에서 코인몬 알림을 허용해 주세요" = "Please allow Coinmon notifications\nin Settings > Notifications";
+"다음에 하기" = "Cancel";
+"알림 설정하기" = "Setting";
+"테스트 알림을 다시 보내 드릴게요" = "Get test notifications again";
+"알림 다시 받기" = "OK";
+"준비 완료! 타이밍에 알려드릴게요" = "Ready to notify when it's time";
 //Alarm
 "알림 받는 코인 검색" = "Search";
 "지정가 알람" = "Alarm";
@@ -178,6 +257,9 @@
 "30분 간격" = "30 minutes interval";
 "1시간 간격" = "1 hour interval";
 //Setting
+"매수•매도 타이밍 알림 Coinmon Premium" = "Buying and Selling Timing Alerts\nCoinmon Premium";
+"구독중" = "Subscribing";
+"14일 체험 중" = "14-day trial";
 "설정" = "Setting";
 "언어" = "Language";
 "알림 설정" = "Push notifications";
@@ -216,6 +298,7 @@
 "서버 오류" = "Server Error";
 "서버 오류 설명" = "A problem occurred with the server.\nPlease try again later.";
 "확인" = "OK";
+"이미 가입된 이메일입니다" = "This email is already subscribed.";
 "인증번호 불일치" = "Incorrect authentication number.\nPlease enter it again.";
 "가입된 번호" = "The number is already subscribed.";
 "이메일 없음" = "There is no registered Email.\nPlease check again.";
@@ -226,6 +309,12 @@
 "탈퇴알림" = "Delete and cancel your Coinmon account";
 "코인몬을 이용해 주셔서 감사합니다." = "Thank you";
 "알람 제한" = "Total number of alarms has been reached.\nYou can no longer add alarms.";
+"구독 완료" = "Subscription completed";
+"성공적으로 구독 되었습니다" = "You have been successfully subscribed";
+"다시 시도해 주세요" = "Please try again";
+"구독이 완료 되지 않았습니다" = "Your subscription has not been completed";
+"문의해주세요" = "Please contact us";
+"결제에 오류가 발생했습니다." = "There was an error with the payment.";
 //TermsOfService
 "서비스 이용약관" = "Terms Of Service";
 "서비스이용약관" = "Terms of Service (General Membership for Products, Services, etc.)\n\nArticle 1 (Purpose)\nThe purpose of these terms and conditions is to stipulate the rights, obligations, and responsibilities of the parties in using the services (hereinafter referred to as 'Services') provided by Coinmon (hereinafter referred to as 'Company').\nThese terms and conditions also apply to electronic commerce using PC communication, wireless, etc., unless they contradict the nature of the terms and conditions.\n\nArticle 2 (Definitions)\n'Company' refers to the business operator who operates a virtual business place set up to trade goods or services using information and communication equipment such as computers to provide goods or services to users, and it is also used in the sense of electronic commerce services provided through ''.\n'User' refers to members and non-members who access the site and receive services provided by the Company in accordance with these terms and conditions.\n'Member' refers to a person who provides personal information to the Company and is registered as a member, and who can continuously use the Company's services.\n'Non-member' refers to a person who uses the services provided by the Company without registering as a member.\n'Product' refers to goods or services provided through the site.\n'Buyer' refers to members and non-members who apply for the use of the purchase service for the 'Products' provided by the Company.\n\nArticle 3 (Rules Outside the Terms and Conditions)\nMatters not stipulated in these terms and conditions shall be governed by laws or by the individual terms, operation policies, and rules of the service set by the Company (hereinafter referred to as 'Detailed Guidelines'). In the event of a conflict between these terms and conditions and the Detailed Guidelines, the Detailed Guidelines shall prevail.\n\nArticle 4 (Notice and Amendment of Terms)\nThe Company shall post the contents of these terms and conditions, the Company name, the representative's name, business address, phone number, fax number, email address, business registration number, and mail-order business report number on the initial service screen of the Company website so that users can easily understand them. However, the content of these terms and conditions can be made available for users to check through a connection screen.\nBefore the user agrees to the terms and conditions, the Company shall obtain the user's confirmation by providing a separate connection screen or pop-up screen for the user to understand key contents such as withdrawal of subscription, delivery responsibility, and refund conditions.\nThe Company may amend these terms and conditions within the scope that does not violate the 'Act on the Consumer Protection in Electronic Commerce, etc.', 'Act on the Regulation of Terms and Conditions', 'Framework Act on Electronic Transactions', 'Act on Promotion of Information and Communications Network Utilization and Information Protection, etc.', 'Consumer Protection Act', and other relevant laws (hereinafter referred to as 'Related Laws').\nIf the Company amends the terms and conditions, it shall specify the application date and reasons for the amendment and post them along with the current terms and conditions on the initial screen of the online shopping mall from 7 days before the application date to the day before the application date. However, if the amendment is disadvantageous to the user, it shall be notified with a grace period of at least 30 days.\nWhen the Company amends the terms and conditions, the amended terms and conditions apply only to contracts concluded after the application date, and the previous terms and conditions apply to contracts concluded before the application date.\n\nArticle 5 (Services Provided)\nThe Company provides the following services:\nProvision of information on goods or services and conclusion of purchase contracts\nDelivery of goods or services for which purchase contracts have been concluded\nPayment protection services, user inquiry services, product purchase reviews, and other information provision\nEvents provided directly or jointly with affiliates\nOther tasks defined by the Company\n\nArticle 6 (Service Interruption)\nThe services provided by the Company are available 24/7 in principle. However, if there are special reasons such as system maintenance, replacement of communication equipment, etc., temporary interruption of the service in whole or in part may occur.\nThe Company may restrict or suspend all or part of the services in cases where a national emergency such as war, incident, natural disaster, or similar national emergency occurs or is likely to occur, or if there are unavoidable reasons such as the suspension of telecommunications services by telecommunications carriers under the Telecommunications Business Act.\nIf goods or services are out of stock or the details change, the shopping mall may change the contents of the goods or services to be provided under future contracts. In this case, the changed contents and the provision date of the goods or services shall be immediately notified.\nIf the Company suspends or restricts the service, the reason, duration, and expected recovery time shall be promptly notified to the users.\n\nArticle 7 (Membership Registration)\nUsers can apply for membership by filling out the member information according to the form set by the Company and expressing their consent to these terms and conditions.\nThe Company registers users who apply for membership as members unless they fall under any of the following:\nIf the applicant has lost membership status under these terms and conditions before, except when the Company has approved re-registration\nIf there are false, omitted, or incorrect details in the member information\nIf registering the user as a member significantly hinders the operation of the Company\nThe timing of membership registration is when the Company's approval notice reaches the member.\n\nArticle 8 (Withdrawal of Membership and Loss of Eligibility)\nMembers can request to withdraw from the Company at any time, and the Company will process the withdrawal request without delay. However, if it is necessary to fulfill existing transaction contracts, these terms and conditions shall continue to apply.\nThe shopping mall may restrict or suspend the membership status if any of the following reasons occur:\nIf false information was provided during membership registration\nIf normal use by other users is disrupted\nIf the user violates the relevant laws or these terms and conditions\nIf the user engages in actions against public order and morals\nIf registering the user as a member is deemed inappropriate\nMembers who have not used the Company's services for one year may have their accounts converted to dormant accounts and restricted from using the service.\nWhen converting to a dormant account, information necessary for account activation such as ID, password, name, duplicate registration prevention value (DI), and mobile phone number will be deleted, except for information that must be preserved by law.\n\nArticle 9 (Notification to Members)\nThe Company can notify members using the email, mobile phone number, and address provided during membership registration.\nIf the Company needs to notify an unspecified number of members, it can replace individual notifications by posting them on the site bulletin board for at least one week. However, individual notifications will be made for important matters affecting the use of the service by the member.\n\nArticle 10 (Purchase Application)\nUsers can apply for purchases on the online shopping mall using the following methods or similar methods, and the Company shall make the following information easily available to the users:\nSearching and selecting goods or services\nEntering purchaser information such as name, address, contact information, email address\nConfirming and indicating agreement to terms and conditions, services with restricted subscription withdrawal, shipping costs, and related cost burdens\nSubmitting purchase applications and confirming them\nSelecting payment methods and making payments\nFinal confirmation by the Company\n\nArticle 11 (Formation of Contract)\nThe Company may not approve purchase applications that fall under any of the following reasons:\nIf there are false, omitted, or incorrect details in the application\nIf the applicant's membership status is restricted or suspended\nIf the application is deemed to be for resale or other improper purposes\nIf approving the purchase application significantly hinders the Company's technical operations\nThe contract is considered formed when the Company's acceptance is communicated to the user in the form of a 'receipt confirmation notice' under these terms and conditions.\nWhen the Company indicates acceptance, it must include confirmation of the user's purchase application, availability for sale, and information on correcting or canceling the purchase application.\n\nArticle 12 (Payment Methods and General Membership Fees)\nPayments for products purchased on the Company's site can be made using the following methods:\nVarious card payments such as prepaid cards, debit cards, credit cards\nThe Company can verify whether the buyer has legitimate rights to use the payment method and may suspend the transaction until the verification is completed or cancel the transaction if verification is not possible.\nThe Company may impose limits on the monthly cumulative payment amount and recharge limit per user according to the policies of the Company, payment companies (mobile carriers, card companies, etc.), or payment agencies (PGs).\nThe responsibility for the information entered for payment lies entirely with the buyer.\nGeneral members must pay service fees, membership fees, etc., for the use of the Company's services at the time of purchase or separately according to the Company's set rates or standards.\n\nArticle 13 (Receipt Confirmation Notice, Purchase Application Changes, and Cancellations)\nWhen the buyer applies for a purchase, the Company sends a receipt confirmation notice to the buyer.\nUpon receiving the receipt confirmation notice, the buyer can request changes or cancellations to the purchase application immediately if there are discrepancies, and the Company shall process the request promptly if it is before delivery preparation. However, if the payment has already been made, the provisions of 'Withdrawal of Subscription, etc.' in these terms and conditions shall apply.\n\nArticle 14 (Supply of Goods, etc.)\nUnless otherwise agreed, the Company shall take necessary measures such as order production, packaging, etc., to ship the goods within 7 days from the day the buyer's subscription is made. If the Company has already received all or part of the payment, it shall take necessary measures within 3 business days from the date of receipt of payment.\nIn such cases, the Company shall take appropriate measures for the buyer to check the supply procedure and progress of the goods, etc.\n\nArticle 15 (Refunds)\nIf the Company is unable to deliver or provide the goods, etc., due to reasons such as out of stock or discontinuation of production, it shall promptly notify the buyer of the reason. If the buyer has already paid for the goods, the Company shall refund the payment within 3 business days from the date of receipt or take necessary measures.\n\nArticle 16 (Withdrawal of Subscription)\nThe buyer who has entered into a purchase contract for goods, etc., with the Company can withdraw the subscription within 7 days from the day the receipt confirmation notice is received.\nHowever, returns or exchanges of delivered goods are restricted if they fall under any of the following reasons:\nIf the goods are lost or damaged due to reasons attributable to the buyer (except for cases where the packaging is damaged to check the contents of the goods)\nIf the value of the goods has significantly decreased due to the buyer's use or consumption\nIf the value of the goods has significantly decreased to the extent that resale is difficult over time\nIf the packaging of the original goods is damaged in the case of goods that can be copied with the same performance\nIf the subscription withdrawal and exchange restrictions were notified in advance for individually produced goods ordered by the buyer\nIf the Company did not make the subscription withdrawal restrictions easily understandable to the buyer or did not take measures such as providing trial goods, the buyer's subscription withdrawal is not restricted.\nDespite the provisions of this article, the buyer can withdraw the subscription within 3 months from the day the goods are supplied, or within 30 days from the day the buyer became aware or could have become aware of the fact if the contents of the goods differ from the advertisement or contract.\n\nArticle 17 (Effect of Withdrawal of Subscription)\nIf the Company receives the returned goods from the buyer, it shall refund the payment for the goods within 3 business days. If the Company delays the refund to the buyer, it shall pay delay interest calculated by multiplying the delay period by the interest rate specified in Article 21-3 of the Enforcement Decree of the Electronic Commerce Act (15% per annum).\nIf the buyer used a payment method such as a credit card or electronic money, the Company shall promptly request the payment service provider to stop or cancel the payment claim for the goods.\nIn the case of subscription withdrawal, the buyer bears the cost of returning the supplied goods. However, if the goods are returned due to reasons such as differing from the advertisement or contract, the Company bears the cost of returning the goods.\nThe Company shall clearly indicate who bears the shipping and other costs when the subscription is withdrawn so that the buyer can easily understand.\n\nArticle 18 (Privacy Protection)\nWhen collecting buyer information, the Company collects the minimum necessary information for the execution of the purchase contract, including the following mandatory items:\nName\nResident registration number or foreigner registration number\nAddress\nPhone number (or mobile phone number)\nID (ID)\nPassword\nEmail address\nIf the Company collects unique identification information or sensitive information under the Personal Information Protection Act, it must obtain the user's consent.\nThe Company shall not use or provide the provided personal information for purposes other than the intended purpose without the buyer's consent, and the Company bears all responsibility for this. However, the following cases are exceptions:\nIf necessary for delivery, the Company provides the minimum necessary information (name, address, phone number) to the delivery company\nIf necessary for statistical, academic research, or market research purposes, and the information is provided in a form that does not identify specific individuals\nIf necessary for payment settlement for transactions of goods, etc.\nIf necessary for identity verification to prevent misuse\nIf required by relevant laws\nMatters concerning the protection of personal information not specified in these terms and conditions shall be governed by the Company's Privacy Policy.\n\nArticle 19 (Company's Obligations)\nThe Company shall not engage in acts prohibited by relevant laws or these terms and conditions or acts against public order and morals, and shall do its best to continuously and stably provide goods and services as stipulated in the terms and conditions.\nThe Company shall have a security system to protect users' personal information (including credit information) so that users can safely use internet services.\nIf the Company causes damage to users by engaging in unfair labeling or advertising activities under the 'Act on Fair Labeling and Advertising', it shall be liable for compensation.\nThe Company shall not send commercial emails, mobile messages, phone calls, or mail for profit purposes without the user's consent.\n\nArticle 20 (User and Member Obligations)\nUsers must fill out the application form based on facts when applying for membership. Users cannot claim any rights against the Company if they register false information or another person's information, and the Company is not responsible for any damages caused by this.\nUsers must comply with the matters stipulated in these terms and conditions and other regulations and notices set by the Company. Users shall not interfere with the Company's operations or damage the Company's reputation.\nUsers must immediately update their member information if there are any changes to their address, contact information, email address, etc. Users are responsible for any consequences arising from failing to update the information.\nUsers shall not engage in the following actions:\nChanging information posted by the Company\nSending or posting information other than the information specified by the Company\nInfringing the intellectual property rights of the Company or third parties\nDamaging the reputation or interfering with the business of the Company or third parties\nPosting or disclosing obscene or violent messages, images, sounds, or other information that violates laws or public order and morals on the Company's site\nMembers are responsible for managing their assigned ID and password.\nIf a member recognizes that their ID and password have been stolen or used by a third party, they must immediately notify the Company and follow the Company's guidance.\n\nArticle 21 (Copyright and Use)\nAll intellectual property rights related to the services provided by Coinmon and related content belong to the Company.\nUsers shall not use information with intellectual property rights belonging to Coinmon for profit without prior consent, nor allow third parties to use it by reproduction, transmission, publication, distribution, broadcasting, or other methods.\nThe copyright of the content (such as posts, reviews, etc.) posted by users within the service belongs to the author of the content.\n\nArticle 22 (Dispute Resolution)\nThe Company strives to promptly address user complaints and opinions. However, if prompt processing is difficult, the Company shall immediately notify the user of the reason and the processing schedule.\nIn case of disputes related to electronic commerce between the Company and the user, the user can apply for dispute resolution with institutions such as the Korea Consumer Agency and the Electronic Document and Electronic Commerce Dispute Mediation Committee.\nLawsuits related to disputes between the Company and users shall be subject to the jurisdiction of the court where the Company is located, and the governing law shall be the laws of the Republic of Korea.\n\nSupplementary Provisions\n\nArticle 1 (Effective Date)\nThese terms and conditions are effective from June 17, 2024.";

@@ -18,34 +18,39 @@ class SigninFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? SigninStep else { return .none }
         switch step {
+            //MARK: 푸시
         case .navigateToSigninEmailEntryViewController:
             return navigateToSigninEmailEntryViewController()
         case .navigateToSigninEmailVerificationNumberViewController:
             return navigateToSigninEmailVerificationNumberViewController()
             
+            //MARK: 프레젠트
         case .presentToAuthenticationNumberErrorAlertController:
             return presentToAuthenticationNumberErrorAlertController()
         case .presentToNoRegisteredEmailErrorAlertController:
             return presentToNoRegisteredEmailErrorAlertController()
             
-            // 프레젠트 공통 알람
+            //MARK: 뒤로가기
+        case .popViewController:
+            return popViewController()
+        case .popToRootViewController:
+            return popToRootViewController()
+            
+            //MARK: 플로우 종료
+        case .completeSigninFlow:
+            return completeSigninFlow()
+            
+            //MARK: 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
         case .presentToUnknownErrorAlertController:
             return presentToUnknownErrorAlertController()
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
-            
-        case .popViewController:
-            return popViewController()
-        case .popToRootViewController:
-            return popToRootViewController()
-            
-        case .completeSigninFlow:
-            return completeSigninFlow()
         }
     }
     
+    //MARK: 푸시 메소드
     private func navigateToSigninEmailEntryViewController() -> FlowContributors {
         let reactor = SigninEmailEntryReactor(signinUseCase: signinUseCase)
         let viewController = SigninEmailEntryViewController(with: reactor)
@@ -62,6 +67,7 @@ class SigninFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    //MARK: 프레젠트 메소드
     private func presentToAuthenticationNumberErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: nil,
             message: LocalizationManager.shared.localizedString(forKey: "인증번호 불일치"),
@@ -86,6 +92,26 @@ class SigninFlow: Flow {
         return .none
     }
     
+    //MARK: 뒤로가기 메소드
+    private func popViewController() -> FlowContributors {
+        self.rootViewController.popViewController(animated: true)
+        
+        return .none
+    }
+    
+    private func popToRootViewController() -> FlowContributors {
+        
+        return .end(forwardToParentFlowWithStep: AppStep.popToRootViewController)
+    }
+    
+    //MARK: 플로우 종료 메소드
+    private func completeSigninFlow() -> FlowContributors {
+        self.rootViewController.popToRootViewController(animated: false)
+
+        return .end(forwardToParentFlowWithStep: AppStep.completeSigninFlow)
+    }
+    
+    //MARK: 프레젠트 공통 알람 메소드
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
@@ -117,23 +143,5 @@ class SigninFlow: Flow {
         self.rootViewController.present(alertController, animated: true, completion: nil)
         
         return .none
-    }
-    
-    private func popViewController() -> FlowContributors {
-        self.rootViewController.popViewController(animated: true)
-        
-        return .none
-    }
-    
-    private func popToRootViewController() -> FlowContributors {
-        self.rootViewController.popToRootViewController(animated: true)
-        
-        return .end(forwardToParentFlowWithStep: AppStep.popToRootViewController)
-    }
-    
-    private func completeSigninFlow() -> FlowContributors {
-        self.rootViewController.popToRootViewController(animated: false)
-
-        return .end(forwardToParentFlowWithStep: AppStep.completeSigninFlow)
     }
 }

@@ -38,18 +38,40 @@ class WithdrawalReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.presentToWithdrawAlertController(reactor: self))
             return .empty()
         case .withdrawAlertOkButtonTapped:
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            return userUseCase.withdraw()
-                .flatMap { [weak self] _ -> Observable<Mutation> in
-                    self?.steps.accept(SettingStep.endFlowAfterWithdrawal)
-                    return .empty()
-                }
-                .catch { [weak self] error in
-                    ErrorHandler.handle(error) { (step: SettingStep) in
-                        self?.steps.accept(step)
+            UserDefaultsManager.shared.setLoggedIn(false)
+            let loginType = UserDefaultsManager.shared.getLoginType()
+            switch loginType {
+            case .coinmon:
+                return userUseCase.withdraw()
+                    .flatMap { [weak self] _ -> Observable<Mutation> in
+                        self?.steps.accept(SettingStep.endFlowAfterWithdrawal)
+                        return .empty()
                     }
-                    return .empty()
-                }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error) { (step: SettingStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
+                
+            case .apple:
+                return .empty()
+//                return userUseCase.appleWithdraw(authorizationCode: <#T##String#>)
+//                    .flatMap { [weak self] _ -> Observable<Mutation> in
+//                        self?.steps.accept(SettingStep.endFlowAfterWithdrawal)
+//                        return .empty()
+//                    }
+//                    .catch { [weak self] error in
+//                        ErrorHandler.handle(error) { (step: SettingStep) in
+//                            self?.steps.accept(step)
+//                        }
+//                        return .empty()
+//                    }
+            case .kakao:
+                return .empty()
+            case .none:
+                return .empty()
+            }
         }
     }
     
@@ -62,3 +84,4 @@ class WithdrawalReactor: ReactorKit.Reactor, Stepper {
         return newState
     }
 }
+

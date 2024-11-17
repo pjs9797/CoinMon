@@ -11,7 +11,7 @@ class HomeFlow: Flow {
     private let coinUseCase: CoinUseCase
     private let alarmUseCase: AlarmUseCase
     private let favoritesUseCase: FavoritesUseCase
-    private let stepper: HomeStepper
+    let stepper: HomeStepper
     
     init(with rootViewController: UINavigationController, coinUseCase: CoinUseCase, alarmUseCase: AlarmUseCase, favoritesUseCase: FavoritesUseCase, stepper: HomeStepper) {
         self.rootViewController = rootViewController
@@ -59,6 +59,11 @@ class HomeFlow: Flow {
             
         case .goToAlarmSetting:
             return goToAlarmSetting()
+            
+        case .presentToNewIndicatorViewController:
+            return presentToNewIndicatorViewController()
+        case .presentToTryNewIndicatorViewController:
+            return presentToTryNewIndicatorViewController()
             
         case .dismiss:
             return dismiss()
@@ -252,6 +257,33 @@ class HomeFlow: Flow {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
         return .none
+    }
+    
+    private func presentToNewIndicatorViewController() -> FlowContributors {
+        let reactor = NewIndicatorReactor()
+        let viewController = NewIndicatorViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 324*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToTryNewIndicatorViewController() -> FlowContributors {
+        let reactor = TryNewIndicatorReactor()
+        let viewController = TryNewIndicatorViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.pushUpWithAnimation(viewController: viewController)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
     private func dismiss() -> FlowContributors{
