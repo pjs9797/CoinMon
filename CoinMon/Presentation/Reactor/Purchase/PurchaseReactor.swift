@@ -22,7 +22,7 @@ class PurchaseReactor: ReactorKit.Reactor, Stepper {
                     self?.steps.accept(PurchaseStep.presentToServerFailurePurchaseAlertController)
                     
                 case .verificationSuccess:
-                    self?.steps.accept(PurchaseStep.presentToSuccessSubscriptionViewController)
+                    self?.steps.accept(PurchaseStep.navigateToSuccessSubscriptionViewController)
                 }
             })
             .disposed(by: disposeBag)

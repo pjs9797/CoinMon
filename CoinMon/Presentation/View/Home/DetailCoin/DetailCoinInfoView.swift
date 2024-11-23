@@ -1,10 +1,10 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DetailCoinInfoView: UIView {
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .gray
         return imageView
     }()
     let coinTitleLabel: UILabel = {

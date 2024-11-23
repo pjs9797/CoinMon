@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class FeePremiumTableViewCell: UITableViewCell {
     let coinView: UIView = {
@@ -9,8 +10,6 @@ class FeePremiumTableViewCell: UITableViewCell {
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = ColorManager.gray_99?.cgColor
         return imageView
     }()
     let coinLabel: UILabel = {
@@ -88,7 +87,12 @@ class FeePremiumTableViewCell: UITableViewCell {
     }
     
     func configureFee(with feeList: CoinFee) {
-        coinImageView.image = UIImage(named: feeList.coinTitle) ?? ImageManager.login_coinmon
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(feeList.coinTitle).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         coinLabel.text = feeList.coinTitle
         feePremiumLabel.text = "\(feeList.fee)%"
         if feeList.fee.first == "-" {

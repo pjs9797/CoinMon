@@ -6,9 +6,9 @@ import RxFlow
 class IsRealPopReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let flowType: IsRealPopFlowType
+    private let flowType: FlowType
     
-    init(flowType: IsRealPopFlowType) {
+    init(flowType: FlowType) {
         self.flowType = flowType
     }
     
@@ -26,7 +26,7 @@ class IsRealPopReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .continueButtonTapped:
-            if flowType == .atPurchase {
+            if flowType == .purchase {
                 self.steps.accept(PurchaseStep.dismiss)
             }
             else {
@@ -34,12 +34,13 @@ class IsRealPopReactor: ReactorKit.Reactor, Stepper {
             }
             return .empty()
         case .outButtonTapped:
-            if flowType == .atPurchase {
+            if flowType == .purchase {
                 NotificationCenter.default.post(name: .isOutSelectCoinAtPremium, object: nil)
                 self.steps.accept(PurchaseStep.dismiss)
                 self.steps.accept(PurchaseStep.popViewController)
             }
             else {
+                NotificationCenter.default.post(name: .isOutSelectCoinAtPremium, object: nil)
                 self.steps.accept(AlarmStep.dismissSheetPresentationController)
                 self.steps.accept(AlarmStep.popViewController)
             }

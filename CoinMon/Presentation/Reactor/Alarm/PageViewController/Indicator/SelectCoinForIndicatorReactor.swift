@@ -6,10 +6,10 @@ import RxFlow
 class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let flowType: SelectCoinForIndicatorFlowType
+    private let flowType: FlowType
     private let indicatorUseCase: IndicatorUseCase
     
-    init(flowType: SelectCoinForIndicatorFlowType, indicatorUseCase: IndicatorUseCase, indicatorId: String, indicatorName: String, isPremium: Bool) {
+    init(flowType: FlowType, indicatorUseCase: IndicatorUseCase, indicatorId: String, indicatorName: String, isPremium: Bool) {
         self.initialState = State(indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
         self.flowType = flowType
         self.indicatorUseCase = indicatorUseCase
@@ -73,11 +73,23 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            if flowType == .atPurchase {
-                self.steps.accept(PurchaseStep.popViewController)
-            }
-            else {
-                self.steps.accept(AlarmStep.popViewController)
+            switch flowType {
+            case .alarm:
+                if currentState.checkedCoinList.isEmpty {
+                    self.steps.accept(AlarmStep.popViewController)
+                }
+                else {
+                    self.steps.accept(AlarmStep.presentToIsRealPopViewController)
+                }
+            case .purchase:
+                if currentState.checkedCoinList.isEmpty {
+                    self.steps.accept(PurchaseStep.popViewController)
+                }
+                else {
+                    self.steps.accept(PurchaseStep.presentToIsRealPopViewController)
+                }
+            default:
+                return .empty()
             }
             return .empty()
         case .explainButtonTapped:
@@ -95,12 +107,14 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
                 .just(.setCheckedCoinList([]))
             ])
         case .selectedButtonTapped:
-            let targets = currentState.checkedCoinList.map{ return $0.indicatorCoinId}
-            if flowType == .atPurchase {
-                self.steps.accept(PurchaseStep.navigateToSelectCycleForIndicatorViewController(flowType: .atSelectCoin, selectCoinForIndicatorFlowType: .atPurchase, indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
-            }
-            else {
-                self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .atSelectCoin, selectCoinForIndicatorFlowType: .atNotPurchase, indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
+            let targets = currentState.checkedCoinList.map{ return $0.indicatorCoinId }
+            switch flowType {
+            case .alarm:
+                self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .alarm, selectCycleForIndicatorFlowType: .atSelectCoin, indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
+            case .purchase:
+                self.steps.accept(PurchaseStep.navigateToSelectCycleForIndicatorViewController(flowType: .purchase, selectCycleForIndicatorFlowType: .atSelectCoin, indicatorId: currentState.indicatorId, frequency: "15", targets: targets, indicatorName: currentState.indicatorName, isPremium: currentState.isPremium))
+            default:
+                return .empty()
             }
             return .empty()
         case .checkButtonTapped(let indicatorCoinId):
@@ -175,7 +189,7 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
                 .catch { [weak self] error in
-                    if self?.flowType == .atPurchase {
+                    if self?.flowType == .purchase {
                         ErrorHandler.handle(error) { (step: PurchaseStep) in
                             self?.steps.accept(step)
                         }

@@ -88,7 +88,6 @@ class MyAccountReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.presentToLogoutAlertController(reactor: self))
             return .empty()
         case .logoutAlertYesButtonTapped:
-            UserDefaultsManager.shared.setLoggedIn(false)
             return userUseCase.logout()
                 .flatMap { [weak self] resultCode -> Observable<Mutation> in
                     if resultCode == "200" {

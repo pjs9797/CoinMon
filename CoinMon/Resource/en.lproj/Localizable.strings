@@ -293,8 +293,8 @@
 "네트워크 오류 설명" = "Please check your network connection.";
 "로그인 만료" = "Login expired";
 "로그인 만료 설명" = "Your login session has expired.\nPlease log in again";
-"알 수 없는 오류 발생" = "Unknown error occurred";
-"알 수 없는 오류 설명" = "Please contact support";
+"알 수 없는 오류 발생" = "Error occurred";
+"알 수 없는 오류 설명" = "%@\nPlease contact support";
 "서버 오류" = "Server Error";
 "서버 오류 설명" = "A problem occurred with the server.\nPlease try again later.";
 "확인" = "OK";

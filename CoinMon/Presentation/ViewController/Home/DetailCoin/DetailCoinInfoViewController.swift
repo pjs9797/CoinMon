@@ -1,6 +1,7 @@
 import UIKit
 import ReactorKit
 import SnapKit
+import Kingfisher
 
 class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
@@ -220,6 +221,12 @@ extension DetailCoinInfoViewController {
                 if index == 0 {
                     self?.scrollView.contentOffset.y = 0
                 }
+                if index == 0 {
+                    self?.scrollView.isScrollEnabled = false
+                }
+                else {
+                    self?.scrollView.isScrollEnabled = true
+                }
             })
             .disposed(by: disposeBag)
         
@@ -245,6 +252,18 @@ extension DetailCoinInfoViewController {
                 else {
                     self?.detailCoinInfoView.alarmButton.setTitle(LocalizationManager.shared.localizedString(forKey: "지정가 알림"), for: .normal)
                     self?.detailCoinInfoView.alarmButton.setImage(ImageManager.notification20, for: .normal)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.coin }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] coin in
+                let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+                if let imageURL = URL(string: "\(baseURL)\(coin).png") {
+                    self?.detailCoinInfoView.coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+                } else {
+                    self?.detailCoinInfoView.coinImageView.image = ImageManager.login_coinmon
                 }
             })
             .disposed(by: disposeBag)

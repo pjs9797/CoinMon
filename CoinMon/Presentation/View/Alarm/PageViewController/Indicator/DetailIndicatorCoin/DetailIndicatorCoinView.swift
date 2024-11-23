@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DetailIndicatorCoinView: UIView {
     let coinImageView: UIImageView = {
@@ -20,13 +21,11 @@ class DetailIndicatorCoinView: UIView {
         return label
     }()
     let goToBinanceButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "바이낸스 이동"), attributes: .init([.font: FontManager.D6_16]))
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8*ConstantsManager.standardHeight, leading: 14*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, trailing: 14*ConstantsManager.standardWidth)
-        configuration.baseForegroundColor = ColorManager.common_100
-        configuration.baseBackgroundColor = ColorManager.orange_60
-        
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.D6_16, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.orange_60)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "바이낸스 이동")
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 8*ConstantsManager.standardHeight, leading: 14*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, trailing: 14*ConstantsManager.standardWidth)
+        button.configuration = configuration
         button.layer.cornerRadius = 8 * ConstantsManager.standardHeight
         return button
     }()

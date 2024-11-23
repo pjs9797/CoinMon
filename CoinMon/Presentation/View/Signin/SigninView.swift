@@ -8,36 +8,23 @@ class SigninView: UIView {
         return imageView
     }()
     let kakaoLoginButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = ColorManager.yellow_70
+        let button = ConfigurationButton(font: FontManager.D6_16, foregroundColor: ColorManager.common_0, backgroundColor: ColorManager.yellow_70)
+        var configuration = button.configuration
+        configuration?.image = ImageManager.kakao
+        configuration?.imagePadding = 4*ConstantsManager.standardWidth
+        button.configuration = configuration
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        var config = UIButton.Configuration.plain()
-        config.image = ImageManager.kakao
-        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
-            var outgoing = incoming
-            outgoing.font = FontManager.D6_16
-            outgoing.foregroundColor = ColorManager.common_0
-            return outgoing
-        }
-        config.imagePadding = 4*ConstantsManager.standardWidth
-        button.configuration = config
         button.isHidden = true
         return button
     }()
     let appleLoginButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = ColorManager.common_0
+        let button = ConfigurationButton(font: FontManager.D6_16, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.common_0)
+        var configuration = button.configuration
+        configuration?.image = ImageManager.apple
+        configuration?.imagePadding = 4*ConstantsManager.standardWidth
+        button.configuration = configuration
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        var config = UIButton.Configuration.plain()
-        config.image = ImageManager.apple
-        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
-            var outgoing = incoming
-            outgoing.font = FontManager.D6_16
-            outgoing.foregroundColor = ColorManager.common_100
-            return outgoing
-        }
-        config.imagePadding = 4*ConstantsManager.standardWidth
-        button.configuration = config
+        button.isHidden = true
         return button
     }()
     let coinMonLoginButton: UIButton = {
@@ -90,8 +77,8 @@ class SigninView: UIView {
     }
     
     func setLocalizedText(){
-        kakaoLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "카카오로 계속하기"), for: .normal)
-        appleLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "애플로 계속하기"), for: .normal)
+        kakaoLoginButton.configuration?.title = LocalizationManager.shared.localizedString(forKey: "카카오로 계속하기")
+        appleLoginButton.configuration?.title = LocalizationManager.shared.localizedString(forKey: "애플로 계속하기")
         coinMonLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 아이디로 계속하기"), for: .normal)
         signupButton.setTitle(LocalizationManager.shared.localizedString(forKey: "회원가입"), for: .normal)
         signupButton.setUnderline()
@@ -123,23 +110,11 @@ class SigninView: UIView {
             make.top.equalTo(coinMonImageView.snp.bottom).offset(40*ConstantsManager.standardHeight)
         }
         
-        kakaoLoginButton.imageView?.snp.makeConstraints { make in
-            make.width.height.equalTo(24*ConstantsManager.standardHeight)
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(kakaoLoginButton.titleLabel!.snp.leading).offset(-4*ConstantsManager.standardWidth)
-        }
-        
         appleLoginButton.snp.makeConstraints { make in
             make.width.equalTo(335*ConstantsManager.standardWidth)
             make.height.equalTo(52*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(kakaoLoginButton.snp.bottom).offset(12*ConstantsManager.standardHeight)
-        }
-        
-        appleLoginButton.imageView?.snp.makeConstraints { make in
-            make.width.height.equalTo(24*ConstantsManager.standardHeight)
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(appleLoginButton.titleLabel!.snp.leading).offset(-4*ConstantsManager.standardWidth)
         }
         
         coinMonLoginButton.snp.makeConstraints { make in

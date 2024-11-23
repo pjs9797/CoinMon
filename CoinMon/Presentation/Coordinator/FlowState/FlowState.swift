@@ -1,6 +1,10 @@
-enum TermsOfServiceFlow{
+enum FlowType{
     case signup
+    case signin
+    case home
+    case alarm
     case setting
+    case purchase
 }
 
 enum VerificationType{
@@ -13,3 +17,7 @@ enum SelectMarketFlow{
     case arrival
 }
 
+enum SelectCycleForIndicatorFlowType {
+    case atMain
+    case atSelectCoin
+}

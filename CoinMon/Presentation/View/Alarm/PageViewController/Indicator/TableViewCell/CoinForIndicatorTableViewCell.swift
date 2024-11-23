@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import Kingfisher
 
 class CoinForIndicatorTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
@@ -127,7 +128,12 @@ class CoinForIndicatorTableViewCell: UITableViewCell {
     }
     
     func configure(with list: IndicatorCoinPriceChange) {
-        coinImageView.image = UIImage(named: list.coinTitle) ?? ImageManager.login_coinmon
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(list.coinTitle).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         coinLabel.text = list.coinTitle
         if let formattedPrice = formatPrice(list.price) {
             priceLabel.text = formattedPrice

@@ -3,10 +3,10 @@ import RxMoya
 import RxSwift
 
 class SignupRepository: SignupRepositoryInterface {
-    private var provider = MoyaProvider<SignupService>()
+    private let provider: MoyaProvider<SignupService>
     
-    init(provider: MoyaProvider<SignupService> = MoyaProvider<SignupService>()) {
-        self.provider = provider
+    init() {
+        provider = MoyaProvider<SignupService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
     }
     
     func checkEmailDuplication(email: String) -> Observable<String> {

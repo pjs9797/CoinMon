@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 import Moya
 
 enum AppError: Error {
@@ -6,7 +7,7 @@ enum AppError: Error {
     case awsServerError
     case serverError(statusCode: Int)
     case authenticationError
-    case unknown
+    case unknown(Error)
     
     var localizedDescription: String {
         switch self {
@@ -18,8 +19,8 @@ enum AppError: Error {
             return "Server error with status code: \(statusCode)"
         case .authenticationError:
             return "Authentication error. Please log in again."
-        case .unknown:
-            return "An unknown error occurred."
+        case .unknown(let error):
+            return "Error occurred: \(error.localizedDescription)"
         }
     }
 }
@@ -33,11 +34,14 @@ class ErrorHandler {
     }
     
     private static func mapToAppError(_ error: Error) -> AppError {
+        if let rxError = error as? RxError, case .timeout = rxError {
+            return .awsServerError
+        }
         if let moyaError = error as? MoyaError {
             switch moyaError {
             case .underlying(let nsError as NSError, _):
-                print("Network Error Code: \(nsError.code)")  // 오류 코드 로그 추가
-                if nsError.code == 13 {
+                print("Network Error Code: \(nsError.code)")
+                if nsError.code == 13 || nsError.code == NSURLErrorTimedOut {
                     return .awsServerError
                 }
                 return .network(nsError)
@@ -48,10 +52,10 @@ class ErrorHandler {
                     return .serverError(statusCode: response.statusCode)
                 }
             default:
-                return .unknown
+                return .unknown(moyaError)
             }
         } else {
-            return .unknown
+            return .unknown(error)
         }
     }
     
@@ -65,6 +69,7 @@ class ErrorHandler {
     }
     
     private static func stepForError<T: StepProtocol>(_ error: AppError, stepType: T.Type) -> T? {
+        let errorMessage = error.localizedDescription
         switch error {
         case .network(let nsError) where nsError.code == NSURLErrorNotConnectedToInternet:
             return presentToNetworkErrorAlertController(for: stepType)
@@ -73,7 +78,7 @@ class ErrorHandler {
         case .authenticationError:
             return presentToExpiredTokenErrorAlertController(for: stepType)
         default:
-            return presentToUnknownErrorAlertController(for: stepType)
+            return presentToUnknownErrorAlertController(for: stepType, message: errorMessage)
         }
     }
     
@@ -85,6 +90,7 @@ class ErrorHandler {
         case is HomeStep.Type: return HomeStep.presentToNetworkErrorAlertController as? T
         case is AlarmStep.Type: return AlarmStep.presentToNetworkErrorAlertController as? T
         case is SettingStep.Type: return SettingStep.presentToNetworkErrorAlertController as? T
+        case is PurchaseStep.Type: return PurchaseStep.presentToNetworkErrorAlertController as? T
         default: return nil
         }
     }
@@ -97,6 +103,7 @@ class ErrorHandler {
         case is HomeStep.Type: return HomeStep.presentToAWSServerErrorAlertController as? T
         case is AlarmStep.Type: return AlarmStep.presentToAWSServerErrorAlertController as? T
         case is SettingStep.Type: return SettingStep.presentToAWSServerErrorAlertController as? T
+        case is PurchaseStep.Type: return PurchaseStep.presentToAWSServerErrorAlertController as? T
         default: return nil
         }
     }
@@ -107,18 +114,20 @@ class ErrorHandler {
         case is HomeStep.Type: return HomeStep.presentToExpiredTokenErrorAlertController as? T
         case is AlarmStep.Type: return AlarmStep.presentToExpiredTokenErrorAlertController as? T
         case is SettingStep.Type: return SettingStep.presentToExpiredTokenErrorAlertController as? T
-        default: return presentToUnknownErrorAlertController(for: stepType)
+        case is PurchaseStep.Type: return PurchaseStep.presentToExpiredTokenErrorAlertController as? T
+        default: return presentToUnknownErrorAlertController(for: stepType, message: "에러 발생")
         }
     }
     
-    private static func presentToUnknownErrorAlertController<T: StepProtocol>(for stepType: T.Type) -> T? {
+    private static func presentToUnknownErrorAlertController<T: StepProtocol>(for stepType: T.Type, message: String) -> T? {
         switch stepType {
-        case is AppStep.Type: return AppStep.presentToUnknownErrorAlertController as? T
-        case is SignupStep.Type: return SignupStep.presentToUnknownErrorAlertController as? T
-        case is SigninStep.Type: return SigninStep.presentToUnknownErrorAlertController as? T
-        case is HomeStep.Type: return HomeStep.presentToUnknownErrorAlertController as? T
-        case is AlarmStep.Type: return AlarmStep.presentToUnknownErrorAlertController as? T
-        case is SettingStep.Type: return SettingStep.presentToUnknownErrorAlertController as? T
+        case is AppStep.Type: return AppStep.presentToUnknownErrorAlertController(message: message) as? T
+        case is SignupStep.Type: return SignupStep.presentToUnknownErrorAlertController(message: message) as? T
+        case is SigninStep.Type: return SigninStep.presentToUnknownErrorAlertController(message: message) as? T
+        case is HomeStep.Type: return HomeStep.presentToUnknownErrorAlertController(message: message) as? T
+        case is AlarmStep.Type: return AlarmStep.presentToUnknownErrorAlertController(message: message) as? T
+        case is SettingStep.Type: return SettingStep.presentToUnknownErrorAlertController(message: message) as? T
+        case is PurchaseStep.Type: return PurchaseStep.presentToUnknownErrorAlertController(message: message) as? T
         default: return nil
         }
     }

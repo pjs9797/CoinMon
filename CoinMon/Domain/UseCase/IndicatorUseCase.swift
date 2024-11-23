@@ -77,4 +77,8 @@ class IndicatorUseCase {
     func deleteIndicatorPush(indicatorId: String) -> Observable<String> {
         return repository.deleteIndicatorPush(indicatorId: indicatorId)
     }
+    
+    func testPush() -> Observable<String> {
+        return repository.testPush()
+    }
 }

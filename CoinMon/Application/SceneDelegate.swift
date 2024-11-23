@@ -38,19 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSurveyViewController))
             }
             else {
-                let isLoggedIn = UserDefaultsManager.shared.getIsLoggedIn()
-                if isLoggedIn {                    
-                    let loginType = UserDefaultsManager.shared.getLoginType()
-                    switch loginType {
-                    case .coinmon, .apple, .kakao:
-                        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
-                    case .none:
-                        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
-                    }
-                } 
-                else {
-                    coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToSigninViewController))
-                }
+                coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToLaunchViewController))
             }
         }
     }

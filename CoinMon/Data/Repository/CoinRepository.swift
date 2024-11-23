@@ -3,8 +3,13 @@ import RxMoya
 import RxSwift
 
 class CoinRepository: CoinRepositoryInterface {
-    private let coinProvider = MoyaProvider<CoinService>()
-    private let exchangeRateProvider = MoyaProvider<ExchangeRateService>()
+    private let coinProvider: MoyaProvider<CoinService>
+    private let exchangeRateProvider: MoyaProvider<ExchangeRateService>
+    
+    init() {
+        coinProvider = MoyaProvider<CoinService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
+        exchangeRateProvider = MoyaProvider<ExchangeRateService>(requestClosure: MoyaProviderUtils.requestClosure)
+    }
     
     func fetchCoinPriceChangeGapList(exchange: String) -> Observable<[CoinPriceChangeGap]> {
         return coinProvider.rx.request(.getCoinData(exchange: exchange))
@@ -85,6 +90,7 @@ class CoinRepository: CoinRepositoryInterface {
     
     func fetchCoinDetailBaseInfo(exchange: String, symbol: String) -> Observable<DetailBasicInfo> {
         return coinProvider.rx.request(.getCoinDetail(exchange: exchange, symbol: symbol))
+            .debug()
             .filterSuccessfulStatusCodes()
             .map(CoinDetailResponseDTO.self)
             .map { CoinDetailResponseDTO.toDetailBasicInfo(dto: $0) }

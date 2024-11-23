@@ -9,9 +9,11 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
     var steps = PublishRelay<Step>()
     private let userUseCase: UserUseCase
     private let purchaseUseCase: PurchaseUseCase
+    private let flowType: FlowType
     
-    init(userUseCase: UserUseCase, purchaseUseCase: PurchaseUseCase) {
+    init(flowType: FlowType, userUseCase: UserUseCase, purchaseUseCase: PurchaseUseCase) {
         self.initialState = State(currentLanguage: LocalizationManager.shared.language)
+        self.flowType = flowType
         self.userUseCase = userUseCase
         self.purchaseUseCase = purchaseUseCase
     }
@@ -38,7 +40,7 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
     
     struct State {
         var currentLanguage: String
-        var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .normal, useTrialYN: "N")
+        var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .normal, useTrialYN: "Y")
         var imageIndex: String = "1"
         var nickname: String = ""
     }
@@ -52,8 +54,24 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.goToPurchaseFlow)
             return .empty()
         case .trialUserViewTapped:
+            switch flowType {
+            case .setting:
+                self.steps.accept(SettingStep.navigateToSuccessSubscriptionViewController)
+            case .purchase:
+                self.steps.accept(PurchaseStep.navigateToSuccessSubscriptionViewController)
+            default:
+                return .empty()
+            }
             return .empty()
         case .subscriptionUserViewTapped:
+            switch flowType {
+            case .setting:
+                self.steps.accept(SettingStep.navigateToSuccessSubscriptionViewController)
+            case .purchase:
+                self.steps.accept(PurchaseStep.navigateToSuccessSubscriptionViewController)
+            default:
+                return .empty()
+            }
             return .empty()
         case .changeLanguage(let newLanguage):
             LocalizationManager.shared.setLanguage(newLanguage)
@@ -76,6 +94,18 @@ class SettingReactor: ReactorKit.Reactor, Stepper {
             
             return Observable.zip(userDataObservable, subscriptionStatusObservable)
                 .flatMap { userData, subscriptionStatus -> Observable<Mutation> in
+                    if userData.userType == "COINMON" {
+                        UserDefaultsManager.shared.saveLoginType(.coinmon)
+                    }
+                    else if userData.userType == "APPLE" {
+                        UserDefaultsManager.shared.saveLoginType(.apple)
+                    }
+                    else if userData.userType == "KAKAO" {
+                        UserDefaultsManager.shared.saveLoginType(.kakao)
+                    }
+                    else {
+                        UserDefaultsManager.shared.saveLoginType(.none)
+                    }
                     return .concat([
                         .just(.setImageIndex(userData.imgIndex)),
                         .just(.setNickname(userData.nickname)),

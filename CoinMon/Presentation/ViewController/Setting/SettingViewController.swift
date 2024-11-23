@@ -113,8 +113,8 @@ extension SettingViewController {
                 LocalizationManager.shared.rxLanguage
             )
             .bind(onNext: { [weak self] status, _ in
-                self?.settingView.setUserView(status: status)
                 self?.settingView.setLocalizedText()
+                self?.settingView.setUserView(status: status)
             })
             .disposed(by: disposeBag)
     }

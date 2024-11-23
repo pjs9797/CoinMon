@@ -52,9 +52,19 @@ class DetailIndicatorReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(AlarmStep.navigateToUpdateIndicatorCoinViewController(indicatorId: currentState.indicatorId, indicatorName: currentState.indicatorName, frequency: currentState.frequency))
             return .empty()
         case .receiveTestAlarmButtonTapped:
-            //TODO: 테스트 알람 API 추가
-            self.steps.accept(AlarmStep.presentToIsReceivedTestAlarmViewController)
-            return .empty()
+            return indicatorUseCase.testPush()
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(AlarmStep.presentToIsReceivedTestAlarmViewController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .explainButtonTapped(let indicatorId):
             self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: indicatorId))
             return .empty()

@@ -6,28 +6,24 @@ import RxCocoa
 class MoreButtonAtIndicatorSheetPresentationController: CustomDimSheetPresentationController, ReactorKit.View{
     var disposeBag = DisposeBag()
     let updateButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.image = ImageManager.icon_edit24
-        configuration.imagePadding = 12*ConstantsManager.standardWidth
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "알람 수정"), attributes: .init([.font: FontManager.T3_16]))
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 16*ConstantsManager.standardHeight, leading: 0, bottom: 16*ConstantsManager.standardHeight, trailing: 0)
-        configuration.baseForegroundColor = ColorManager.common_0
-        configuration.baseBackgroundColor = ColorManager.common_100
-        
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.T3_16, foregroundColor: ColorManager.common_0, backgroundColor: ColorManager.common_100)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "알람 수정")
+        configuration?.image = ImageManager.icon_edit24
+        configuration?.imagePadding = 12*ConstantsManager.standardWidth
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 16*ConstantsManager.standardHeight, leading: 0, bottom: 16*ConstantsManager.standardHeight, trailing: 0)
+        button.configuration = configuration
         button.contentHorizontalAlignment = .leading
         return button
     }()
     let deleteButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.image = ImageManager.icon_edit24
-        configuration.imagePadding = 12*ConstantsManager.standardWidth
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "알람 삭제"), attributes: .init([.font: FontManager.T3_16]))
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 16*ConstantsManager.standardHeight, leading: 0, bottom: 16*ConstantsManager.standardHeight, trailing: 0)
-        configuration.baseForegroundColor = ColorManager.common_0
-        configuration.baseBackgroundColor = ColorManager.common_100
-        
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.T3_16, foregroundColor: ColorManager.common_0, backgroundColor: ColorManager.common_100)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "알람 삭제")
+        configuration?.image = ImageManager.icon_edit24
+        configuration?.imagePadding = 12*ConstantsManager.standardWidth
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 16*ConstantsManager.standardHeight, leading: 0, bottom: 16*ConstantsManager.standardHeight, trailing: 0)
+        button.configuration = configuration
         button.contentHorizontalAlignment = .leading
         return button
     }()

@@ -2,8 +2,12 @@ import Moya
 import RxMoya
 import RxSwift
 
-class AlarmRepository: AlarmRepositoryInterface {    
-    private let provider = MoyaProvider<AlarmService>()
+class AlarmRepository: AlarmRepositoryInterface {
+    private let provider: MoyaProvider<AlarmService>
+    
+    init() {
+        provider = MoyaProvider<AlarmService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
+    }
     
     func createAlarm(exchange: String, symbol: String, targetPrice: String, frequency: String, useYn: String, filter: String) -> Observable<String> {
         return provider.rx.request(.createAlarm(exchange: exchange, symbol: symbol, targetPrice: targetPrice, frequency: frequency, useYn: useYn, filter: filter))

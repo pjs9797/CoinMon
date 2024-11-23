@@ -1,23 +1,13 @@
 import RxFlow
 
-enum SelectCoinForIndicatorFlowType {
-    case atPurchase
-    case atNotPurchase
-}
-
-enum IsRealPopFlowType {
-    case atPurchase
-    case atNotPurchase
-}
-
 enum PurchaseStep: Step, StepProtocol {
-    case presentToTryNewIndicatorViewController
-    case presentToPurchaseViewController
-    case presentToSuccessSubscriptionViewController
+    case navigateToTryNewIndicatorViewController
+    case navigateToPurchaseViewController
+    case navigateToSuccessSubscriptionViewController
     case navigateToSubscriptionManagementViewController
     
-    case navigateToSelectCoinForIndicatorViewController(flowType: SelectCoinForIndicatorFlowType, indicatorId: String, indicatorName: String, isPremium: Bool)
-    case navigateToSelectCycleForIndicatorViewController(flowType: SelectCycleForIndicatorFlowType, selectCoinForIndicatorFlowType: SelectCoinForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool)
+    case navigateToSelectCoinForIndicatorViewController(flowType: FlowType, indicatorId: String, indicatorName: String, isPremium: Bool)
+    case navigateToSelectCycleForIndicatorViewController(flowType: FlowType, selectCycleForIndicatorFlowType: SelectCycleForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool)
     
     case presentToIsRealPopViewController
     
@@ -27,7 +17,7 @@ enum PurchaseStep: Step, StepProtocol {
     
     // 프레젠트 공통 알람
     case presentToNetworkErrorAlertController
-    case presentToUnknownErrorAlertController
+    case presentToUnknownErrorAlertController(message: String)
     case presentToExpiredTokenErrorAlertController
     case presentToAWSServerErrorAlertController
     
@@ -37,6 +27,7 @@ enum PurchaseStep: Step, StepProtocol {
     case dismiss
     case popWithCustomAnimation
     case popViewController
+    case popToRootViewController
     
     case endFlow
 }

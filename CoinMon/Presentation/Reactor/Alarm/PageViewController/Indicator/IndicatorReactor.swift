@@ -44,7 +44,7 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
         var hbbIndicatorCoinDatas: [String] = ["BTC","ETH","SOL"]
         var maIndicatorCoinDatas: [String] = ["BTC","ETH","SOL"]
         var indicatorCoinDatas: [IndicatorCoinData] = []
-        var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .normal, useTrialYN: "N")
+        var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .trial, useTrialYN: "Y")
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -97,20 +97,20 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         
         case .hbbIndicatorItemSelected:
-            self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .atMain, selectCoinForIndicatorFlowType: .atNotPurchase, indicatorId: "1", frequency: "15", targets: ["1","2","3"], indicatorName: LocalizationManager.shared.localizedString(forKey: "하이퍼 볼린저밴드"), isPremium: true))
+            self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .alarm, selectCycleForIndicatorFlowType: .atMain, indicatorId: "1", frequency: "15", targets: ["1","2","3"], indicatorName: LocalizationManager.shared.localizedString(forKey: "하이퍼 볼린저밴드"), isPremium: true))
             return .empty()
         case .hbbSelectOtherCoinButtonTapped:
-            self.steps.accept(AlarmStep.navigateToSelectCoinForIndicatorViewController(flowType: .atNotPurchase, indicatorId: "1", indicatorName: LocalizationManager.shared.localizedString(forKey: "하이퍼 볼린저밴드"), isPremium: true))
+            self.steps.accept(AlarmStep.navigateToSelectCoinForIndicatorViewController(flowType: .alarm, indicatorId: "1", indicatorName: LocalizationManager.shared.localizedString(forKey: "하이퍼 볼린저밴드"), isPremium: true))
             return .empty()
         case .hbbExplainButtonTapped:
             self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: "1"))
             return .empty()
         
         case .maIndicatorItemSelected:
-            self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .atMain, selectCoinForIndicatorFlowType: .atNotPurchase, indicatorId: "2", frequency: "15", targets: ["11","12","13"], indicatorName: LocalizationManager.shared.localizedString(forKey: "이동평균선"), isPremium: false))
+            self.steps.accept(AlarmStep.navigateToSelectCycleForIndicatorViewController(flowType: .alarm, selectCycleForIndicatorFlowType: .atMain, indicatorId: "2", frequency: "15", targets: ["11","12","13"], indicatorName: LocalizationManager.shared.localizedString(forKey: "이동평균선"), isPremium: false))
             return .empty()
         case .maSelectOtherCoinButtonTapped:
-            self.steps.accept(AlarmStep.navigateToSelectCoinForIndicatorViewController(flowType: .atNotPurchase, indicatorId: "2", indicatorName: LocalizationManager.shared.localizedString(forKey: "이동평균선"), isPremium: false))
+            self.steps.accept(AlarmStep.navigateToSelectCoinForIndicatorViewController(flowType: .alarm, indicatorId: "2", indicatorName: LocalizationManager.shared.localizedString(forKey: "이동평균선"), isPremium: false))
             return .empty()
         case .maExplainButtonTapped:
             self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: "2"))
@@ -147,6 +147,9 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setIndicatorCoinDatas(let indicatorCoinDatas):
             newState.indicatorCoinDatas = indicatorCoinDatas
+            if currentState.subscriptionStatus.status == .normal && currentState.subscriptionStatus.useTrialYN == "Y" {
+                newState.indicatorCoinDatas.insert(IndicatorCoinData(indicatorId: 0, indicatorCoinId: "", indicatorName: "", indicatorNameEng: "", isPremium: "", frequency: "", coinName: "", isOn: "", curPrice: 0, recentTime: "", recentPrice: 0, timing: ""), at: 0)
+            }
         case .setSubscriptionStatus(let subscriptionStatus):
             newState.subscriptionStatus = subscriptionStatus
         }

@@ -10,6 +10,7 @@ class MainIndicatorView: UIView {
         super.init(frame: frame)
         
         layout()
+        [normalNoneIndicatorView, subscriptionNoneIndicatorView, subscriptionIndicatorView].forEach { $0.isHidden = true }
     }
     
     required init?(coder: NSCoder) {

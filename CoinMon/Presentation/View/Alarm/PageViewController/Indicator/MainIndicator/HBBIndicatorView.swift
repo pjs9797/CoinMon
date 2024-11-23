@@ -30,8 +30,7 @@ class HBBIndicatorView: UIView {
     let noticeView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        view.layer.borderColor = ColorManager.orange_99?.cgColor
-        view.layer.borderWidth = 1
+        view.backgroundColor = ColorManager.orange_99
         return view
     }()
     let noticeLabel: UILabel = {
@@ -67,6 +66,7 @@ class HBBIndicatorView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.backgroundColor = ColorManager.common_100
         self.layer.cornerRadius = 12*ConstantsManager.standardHeight
         layout()
     }
@@ -84,6 +84,7 @@ class HBBIndicatorView: UIView {
         noticeView.addSubview(noticeLabel)
         
         indicatorLabel.snp.makeConstraints { make in
+            make.width.lessThanOrEqualTo(117*ConstantsManager.standardWidth)
             make.height.greaterThanOrEqualTo(24*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)

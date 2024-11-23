@@ -49,7 +49,7 @@ class NormalNoneIndicatorView: UIView {
         maIndicatorView.indicatorLabel.text = LocalizationManager.shared.localizedString(forKey: "이동평균선")
         maIndicatorView.explainLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "일정 기간 동안 가격 평균을 측정하는 지표"))
         maIndicatorView.selectOtherCoinButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다른 코인 선택하기"), for: .normal)
-        noticeCoinLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "구독 안내 설명"))
+        noticeCoinLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "코인 투자 안내"))
     }
     
     private func layout() {

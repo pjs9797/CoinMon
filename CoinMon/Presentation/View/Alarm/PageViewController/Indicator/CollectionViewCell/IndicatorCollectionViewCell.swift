@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class IndicatorCollectionViewCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
@@ -232,7 +233,12 @@ class IndicatorCollectionViewCell: UICollectionViewCell {
             alertPriceLabel.textColor = ColorManager.red_50
             alertTypeLabel.textColor = ColorManager.red_50
         }
-        
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(indicatordata.coinName).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         premiumLabel.isHidden = indicatordata.isPremium == "Y" ? false : true
         alarmSwitch.isOn = indicatordata.isOn == "Y" ? true : false
         frequencyLabel.text = LocalizationManager.shared.localizedString(forKey: "분 마다 알림", arguments: indicatordata.frequency)

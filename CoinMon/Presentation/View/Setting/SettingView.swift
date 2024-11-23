@@ -221,10 +221,10 @@ class SettingView: UIView {
             }
             
             if status.useTrialYN == "Y" {
-                normalUserView.trialButton.configuration?.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "14일 무료 체험하기"), attributes: .init([.font: FontManager.H4_16]))
+                normalUserView.trialButton.configuration?.title = LocalizationManager.shared.localizedString(forKey: "프리미엄 구독하기")
             }
             else {
-                normalUserView.trialButton.configuration?.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "프리미엄 구독하기"), attributes: .init([.font: FontManager.H4_16]))
+                normalUserView.trialButton.configuration?.title = LocalizationManager.shared.localizedString(forKey: "14일 무료 체험하기")
             }
         }
         else if status.status == .trial {

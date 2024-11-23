@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class AlarmTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
@@ -14,8 +15,6 @@ class AlarmTableViewCell: UITableViewCell {
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = ColorManager.gray_99?.cgColor
         return imageView
     }()
     let coinLabel: UILabel = {
@@ -112,7 +111,12 @@ class AlarmTableViewCell: UITableViewCell {
     }
     
     func configure(with alarm: Alarm) {
-        coinImageView.image = UIImage(named: alarm.coinTitle) ?? ImageManager.login_coinmon
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(alarm.coinTitle).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         coinLabel.text = alarm.coinTitle
         if let formattedPrice = formatPrice(alarm.setPrice) {
             setPriceLabel.text = formattedPrice

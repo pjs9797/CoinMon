@@ -7,6 +7,7 @@ enum UserService {
     case appleWithdraw(authorizationCode: String)
     case changeNickname(nickname: String)
     case getUserData
+    case checkRefresh
 }
 
 extension UserService: TargetType {
@@ -23,12 +24,14 @@ extension UserService: TargetType {
             return "changeNickname"
         case .getUserData:
             return "get"
+        case .checkRefresh:
+            return "checkRefresh"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .logout, .withdraw, .appleWithdraw, .changeNickname:
+        case .logout, .withdraw, .appleWithdraw, .changeNickname, .checkRefresh:
             return .post
         case .getUserData:
             return .get
@@ -49,12 +52,29 @@ extension UserService: TargetType {
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .getUserData:
             return .requestPlain
+        case .checkRefresh:
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
-        if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
-            return ["Content-Type": "application/json", "Authorization": "Bearer \(accessToken)", "Authorization-refresh": "Bearer \(refreshToken)"]
+        switch self {
+        case .checkRefresh:
+            if let refreshToken = TokenManager.shared.loadRefreshToken() {
+                return [
+                    "Content-Type": "application/json",
+                    "Authorization-refresh": "Bearer \(refreshToken)"
+                ]
+            }
+        default:
+            if let accessToken = TokenManager.shared.loadAccessToken(),
+               let refreshToken = TokenManager.shared.loadRefreshToken() {
+                return [
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer \(accessToken)",
+                    "Authorization-refresh": "Bearer \(refreshToken)"
+                ]
+            }
         }
         return ["Content-Type": "application/json"]
     }

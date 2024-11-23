@@ -1,5 +1,6 @@
 import UIKit
 import ReactorKit
+import Kingfisher
 
 class InfoViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
@@ -40,6 +41,18 @@ extension InfoViewController {
     }
     
     func bindState(reactor: InfoReactor){
+        reactor.state.map{ $0.coin }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] coin in
+                let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+                if let imageURL = URL(string: "\(baseURL)\(coin).png") {
+                    self?.infoView.firstInfoView.coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+                } else {
+                    self?.infoView.firstInfoView.coinImageView.image = ImageManager.login_coinmon
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.coinTitle }
             .distinctUntilChanged()
             .bind(to: infoView.firstInfoView.coinTitleLabel.rx.text)

@@ -3,7 +3,11 @@ import RxMoya
 import RxSwift
 
 class IndicatorRepository: IndicatorRepositoryInterface {
-    private let provider = MoyaProvider<IndicatorService>()
+    private let provider: MoyaProvider<IndicatorService>
+    
+    init() {
+        provider = MoyaProvider<IndicatorService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
+    }
     
     func getIndicator() -> Observable<[GetIndicatorData]> {
         return provider.rx.request(.getIndicator)
@@ -106,6 +110,17 @@ class IndicatorRepository: IndicatorRepositoryInterface {
     
     func deleteIndicatorPush(indicatorId: String) -> Observable<String> {
         return provider.rx.request(.deleteIndicatorPush(indicatorId: indicatorId))
+            .filterSuccessfulStatusCodes()
+            .map(IndicatorDTO.self)
+            .map{ IndicatorDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func testPush()  -> Observable<String> {
+        return provider.rx.request(.testPush)
             .filterSuccessfulStatusCodes()
             .map(IndicatorDTO.self)
             .map{ IndicatorDTO.toResultCode(dto: $0) }

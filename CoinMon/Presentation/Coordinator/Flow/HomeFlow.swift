@@ -27,6 +27,7 @@ class HomeFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? HomeStep else { return .none }
         switch step {
+            //MARK: 푸시
         case .navigateToHomeViewController:
             return navigateToHomeViewController()
         case .navigateToNotificationViewController:
@@ -38,6 +39,7 @@ class HomeFlow: Flow {
         case .navigateToEditFavoritesViewController:
             return navigateToEditFavoritesViewController()
             
+            //MARK: 프레젠트
         case .presentToSelectDepartureMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
             return presentToSelectDepartureMarketViewController(selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         case .presentToSelectArrivalMarketViewController(let selectedMarketRelay, let selectedMarketLocalizationKey):
@@ -47,35 +49,35 @@ class HomeFlow: Flow {
         case .presentToUnsavedFavoritesSecondSheetPresentationController:
             return presentToUnsavedFavoritesSecondSheetPresentationController()
             
-            // 프레젠트 공통 알람
-        case .presentToNetworkErrorAlertController:
-            return presentToNetworkErrorAlertController()
-        case .presentToUnknownErrorAlertController:
-            return presentToUnknownErrorAlertController()
-        case .presentToExpiredTokenErrorAlertController:
-            return presentToExpiredTokenErrorAlertController()
-        case .presentToAWSServerErrorAlertController:
-            return presentToAWSServerErrorAlertController()
-            
+            //MARK: 설정앱 이동
         case .goToAlarmSetting:
             return goToAlarmSetting()
             
-        case .presentToNewIndicatorViewController:
-            return presentToNewIndicatorViewController()
-        case .presentToTryNewIndicatorViewController:
-            return presentToTryNewIndicatorViewController()
-            
+            //MARK: 뒤로가기
         case .dismiss:
             return dismiss()
         case .popViewController:
             return popViewController()
         case .dismissAndPopViewController:
             return dismissAndPopViewController()
+            
+            //MARK: 플로우 종료
         case .endFlow:
             return .end(forwardToParentFlowWithStep: AppStep.completeMainFlow)
+            
+            //MARK: 프레젠트 공통 알람
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
+        case .presentToUnknownErrorAlertController(let message):
+            return presentToUnknownErrorAlertController(message: message)
+        case .presentToExpiredTokenErrorAlertController:
+            return presentToExpiredTokenErrorAlertController()
+        case .presentToAWSServerErrorAlertController:
+            return presentToAWSServerErrorAlertController()
         }
     }
     
+    //MARK: 푸시
     private func navigateToHomeViewController() -> FlowContributors {
         let priceReactor = PriceReactor(coinUseCase: self.coinUseCase, favoritesUseCase: self.favoritesUseCase)
         let priceViewController = PriceViewController(with: priceReactor)
@@ -138,6 +140,7 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    //MARK: 프레젠트
     private func presentToSelectDepartureMarketViewController(selectedMarketRelay: PublishRelay<String>, selectedMarketLocalizationKey: String) -> FlowContributors {
         let reactor = SelectMarketAtHomeReactor(selectMarketFlow: .departure, selectedMarketRelay: selectedMarketRelay, selectedMarketLocalizationKey: selectedMarketLocalizationKey)
         let viewController = SelectMarketViewAtHomeSheetPresentationController(with: reactor)
@@ -206,6 +209,36 @@ class HomeFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    //MARK: 설정앱 이동
+    private func goToAlarmSetting() -> FlowContributors {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        return .none
+    }
+    
+    //MARK: 뒤로가기
+    private func dismiss() -> FlowContributors{
+        self.rootViewController.dismiss(animated: true)
+        
+        return .none
+    }
+    
+    private func popViewController() -> FlowContributors {
+        self.rootViewController.popViewController(animated: true)
+        
+        return .none
+    }
+    
+    private func dismissAndPopViewController() -> FlowContributors {
+        self.rootViewController.dismiss(animated: true, completion: { [weak self] in
+            self?.rootViewController.popViewController(animated: true)
+        })
+        
+        return .none
+    }
+    
+    //MARK: 프레젠트 공통 알람
     private func presentToNetworkErrorAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "네트워크 오류"),
                                                 message: LocalizationManager.shared.localizedString(forKey: "네트워크 오류 설명"),
@@ -217,9 +250,9 @@ class HomeFlow: Flow {
         return .none
     }
     
-    private func presentToUnknownErrorAlertController() -> FlowContributors {
+    private func presentToUnknownErrorAlertController(message: String) -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명", arguments: message),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
@@ -248,60 +281,6 @@ class HomeFlow: Flow {
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
-        
-        return .none
-    }
-    
-    private func goToAlarmSetting() -> FlowContributors {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-        return .none
-    }
-    
-    private func presentToNewIndicatorViewController() -> FlowContributors {
-        let reactor = NewIndicatorReactor()
-        let viewController = NewIndicatorViewController(with: reactor)
-        if let sheet = viewController.sheetPresentationController {
-            let customDetent = UISheetPresentationController.Detent.custom { context in
-                return 324*ConstantsManager.standardHeight
-            }
-            
-            sheet.detents = [customDetent]
-            sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
-        }
-        self.rootViewController.present(viewController, animated: true)
-        
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
-    }
-    
-    private func presentToTryNewIndicatorViewController() -> FlowContributors {
-        let reactor = TryNewIndicatorReactor()
-        let viewController = TryNewIndicatorViewController(with: reactor)
-        viewController.hidesBottomBarWhenPushed = true
-        self.rootViewController.isNavigationBarHidden = false
-        self.rootViewController.pushUpWithAnimation(viewController: viewController)
-        
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
-    }
-    
-    private func dismiss() -> FlowContributors{
-        self.rootViewController.dismiss(animated: true)
-        
-        return .none
-    }
-    
-    private func popViewController() -> FlowContributors {
-        self.rootViewController.popViewController(animated: true)
-        
-        return .none
-    }
-    
-    private func dismissAndPopViewController() -> FlowContributors {
-        self.rootViewController.dismiss(animated: true, completion: { [weak self] in
-            self?.rootViewController.popViewController(animated: true)
-        })
         
         return .none
     }

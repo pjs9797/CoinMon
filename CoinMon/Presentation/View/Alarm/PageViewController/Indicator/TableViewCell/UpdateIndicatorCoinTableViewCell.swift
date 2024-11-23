@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class UpdateIndicatorCoinTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
@@ -78,6 +79,12 @@ class UpdateIndicatorCoinTableViewCell: UITableViewCell {
     }
     
     func configure(with updateIndicatorCoinData: UpdateSelectedIndicatorCoin) {
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(updateIndicatorCoinData.coinTitle).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         coinTitleLabel.text = updateIndicatorCoinData.coinTitle
         let tintColor = updateIndicatorCoinData.isPinned ? ColorManager.gray_20 : ColorManager.gray_90
         pinButton.tintColor = tintColor

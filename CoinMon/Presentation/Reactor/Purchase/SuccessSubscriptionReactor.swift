@@ -7,8 +7,10 @@ class SuccessSubscriptionReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     private let purchaseUseCase: PurchaseUseCase
+    private let flowType: FlowType
     
-    init(purchaseUseCase: PurchaseUseCase) {
+    init(flowType: FlowType, purchaseUseCase: PurchaseUseCase) {
+        self.flowType = flowType
         self.purchaseUseCase = purchaseUseCase
     }
         
@@ -33,10 +35,24 @@ class SuccessSubscriptionReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(PurchaseStep.presentToSuccessPurchaseAlertController)
             return .empty()
         case .backButtonTapped:
-            self.steps.accept(PurchaseStep.navigateToSelectCoinForIndicatorViewController(flowType: .atPurchase, indicatorId: "1", indicatorName: LocalizationManager.shared.localizedString(forKey: "하이퍼 볼린저밴드"), isPremium: true))
+            switch flowType {
+            case .setting:
+                self.steps.accept(SettingStep.popDownWithAnimation)
+            case .purchase:
+                self.steps.accept(PurchaseStep.navigateToSelectCoinForIndicatorViewController(flowType: .purchase, indicatorId: "1", indicatorName: LocalizationManager.shared.localizedString(forKey: "하이퍼 볼린저밴드"), isPremium: true))
+            default:
+                return .empty()
+            }
             return .empty()
         case .managementButtonTapped:
-            self.steps.accept(PurchaseStep.navigateToSubscriptionManagementViewController)
+            switch flowType {
+            case .setting:
+                self.steps.accept(SettingStep.navigateToSubscriptionManagementViewController)
+            case .purchase:
+                self.steps.accept(PurchaseStep.navigateToSubscriptionManagementViewController)
+            default:
+                return .empty()
+            }
             return .empty()
         case .loadSubscriptionStatus:
             return purchaseUseCase.fetchSubscriptionStatus()

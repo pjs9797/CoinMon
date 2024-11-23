@@ -50,6 +50,8 @@ extension IndicatorViewController {
     }
     
     func bindAction(reactor: IndicatorReactor){
+        mainIndicatorView.subscriptionIndicatorView.indicatorTableView.rx.setDelegate(self).disposed(by: disposeBag)
+
         //subscriptionIndicatorView
         mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.rx.tap
             .map{ Reactor.Action.addIndicatorButtonTapped }
@@ -109,6 +111,7 @@ extension IndicatorViewController {
             reactor.state.map { $0.subscriptionStatus }.distinctUntilChanged(),
             reactor.state.map { $0.indicatorCoinDatas }.distinctUntilChanged()
         )
+        .skip(2)
         .observe(on: MainScheduler.asyncInstance)
         .subscribe(onNext: { [weak self] subscriptionStatus, indicatorCoinDatas in
             let status = subscriptionStatus.status
@@ -148,7 +151,6 @@ extension IndicatorViewController {
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)
             .bind(to: mainIndicatorView.subscriptionIndicatorView.indicatorTableView.rx.items) { tableView, index, indicatorCoinData in
-                
                 if index == 0 && reactor.currentState.subscriptionStatus.status == .normal && reactor.currentState.subscriptionStatus.useTrialYN == "Y" {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "NotSubscriptionIndicatorTableViewCell", for: IndexPath(row: index, section: 0)) as? NotSubscriptionIndicatorTableViewCell else {
                                     fatalError("셀을 캐스팅할 수 없습니다.")
@@ -161,6 +163,17 @@ extension IndicatorViewController {
                             cell?.frequencyLabel.text = LocalizationManager.shared.localizedString(forKey: "분 마다 알림", arguments: "15")
                         })
                         .disposed(by: cell.disposeBag)
+                    
+                    cell.explainButton.rx.tap
+                        .map{ Reactor.Action.explainButtonTapped("1") }
+                        .bind(to: reactor.action)
+                        .disposed(by: cell.disposeBag)
+                    
+                    cell.subscribeButton.rx.tap
+                        .map{ Reactor.Action.trialButtonTapped }
+                        .bind(to: reactor.action)
+                        .disposed(by: cell.disposeBag)
+                    
                     return cell
                 } 
                 else {
@@ -204,7 +217,6 @@ extension IndicatorViewController {
                 
         reactor.state.map { $0.maIndicatorCoinDatas }
             .distinctUntilChanged()
-            .debug()
             .bind(to: mainIndicatorView.normalNoneIndicatorView.maIndicatorView.indicatorAlarmTableView.rx.items(cellIdentifier: "IndicatorAlarmTableViewCell", cellType: IndicatorAlarmTableViewCell.self)) { index, coinTitle, cell in
                 
                 cell.configure(title: coinTitle)
@@ -229,54 +241,26 @@ extension IndicatorViewController {
             }
             .disposed(by: disposeBag)
         
-//        reactor.state.map { $0.maIndicatorCoinDatas }
-//            .distinctUntilChanged()
-//            .bind(to: mainIndicatorView.subscriptionNoneIndicatorView.maIndicatorView.indicatorAlarmTableView.rx.items(cellIdentifier: "IndicatorAlarmTableViewCell", cellType: IndicatorAlarmTableViewCell.self)) { index, coinTitle, cell in
-//                
-//                cell.configure(title: coinTitle)
-//                
-//                cell.alarmButton.rx.tap
-//                    .map{ Reactor.Action.maIndicatorItemSelected }
-//                    .bind(to: reactor.action)
-//                    .disposed(by: cell.disposeBag)
-//            }
-//            .disposed(by: disposeBag)
-        
-        //        reactor.state.map { $0.indicatorCoinDatas }
-        //            .distinctUntilChanged()
-        //            .bind(to: mainIndicatorView.subscriptionIndicatorView.indicatorTableView.rx.items(cellIdentifier: "IndicatorTableViewCell", cellType: IndicatorTableViewCell.self)) { index, indicatorCoinData, cell in
-        //
-        //                cell.configure(with: indicatorCoinData)
-        //
-        //                LocalizationManager.shared.rxLanguage
-        //                    .subscribe(onNext: { [weak cell] language in
-        //                        if language == "ko" {
-        //                            cell?.indicatorTitleLabel.updateAttributedText(indicatorCoinData.indicatorName)
-        //                        }
-        //                        else {
-        //                            cell?.indicatorTitleLabel.updateAttributedText(indicatorCoinData.indicatorNameEng)
-        //                        }
-        //                        cell?.frequencyLabel.text = LocalizationManager.shared.localizedString(forKey: "분 마다 알림", arguments: indicatorCoinData.frequency)
-        //                    })
-        //                    .disposed(by: cell.disposeBag)
-        //
-        //                cell.explainButton.rx.tap
-        //                    .map{ Reactor.Action.explainButtonTapped(String(indicatorCoinData.indicatorId)) }
-        //                    .bind(to: reactor.action)
-        //                    .disposed(by: cell.disposeBag)
-        //
-        //                cell.alarmSwitch.rx.isOn.changed
-        //                    .map{ Reactor.Action.alarmSwitchTapped(indicatorId: String(indicatorCoinData.indicatorId), isOn: $0) }
-        //                    .bind(to: reactor.action)
-        //                    .disposed(by: cell.disposeBag)
-        //
-        //                let indicatorNm = LocalizationManager.shared.language == "ko" ? indicatorCoinData.indicatorName : indicatorCoinData.indicatorNameEng
-        //
-        //                cell.rightButton.rx.tap
-        //                    .map{ Reactor.Action.rightButtonTapped(indicatorId: String(indicatorCoinData.indicatorId), indicatorCoinId: indicatorCoinData.indicatorCoinId, coin: indicatorCoinData.coinName, price: String(indicatorCoinData.curPrice), indicatorName: indicatorNm, frequency: indicatorCoinData.frequency) }
-        //                    .bind(to: reactor.action)
-        //                    .disposed(by: cell.disposeBag)
-        //            }
-        //            .disposed(by: disposeBag)
+        reactor.state.map { $0.maIndicatorCoinDatas }
+            .distinctUntilChanged()
+            .bind(to: mainIndicatorView.subscriptionNoneIndicatorView.maIndicatorView.indicatorAlarmTableView.rx.items(cellIdentifier: "IndicatorAlarmTableViewCell", cellType: IndicatorAlarmTableViewCell.self)) { index, coinTitle, cell in
+                
+                cell.configure(title: coinTitle)
+                
+                cell.alarmButton.rx.tap
+                    .map{ Reactor.Action.maIndicatorItemSelected }
+                    .bind(to: reactor.action)
+                    .disposed(by: cell.disposeBag)
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
+extension IndicatorViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let cell = tableView.cellForRow(at: indexPath) as? NotSubscriptionIndicatorTableViewCell {
+            return nil // 선택 자체를 방지
+        }
+        return indexPath
     }
 }

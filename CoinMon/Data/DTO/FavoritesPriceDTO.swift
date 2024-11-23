@@ -53,11 +53,11 @@ struct FavoritesPriceDTO: Codable {
     let symbol: String
     let market: String
     let favoritesOrder: Int
-    let marketPrice: Double
-    let limitPrice: Double
-    let fundingRate: Double
+    let marketPrice: Double?
+    let limitPrice: Double?
+    let fundingRate: Double?
     let standardPrice: Double?
-    let percent: Double
+    let percent: Double?
     
     static func toFavorites(dto: FavoritesPriceDTO) -> Favorites {
         return Favorites(id: String(dto.id), symbol: dto.symbol, favoritesOrder: dto.favoritesOrder)
@@ -66,20 +66,20 @@ struct FavoritesPriceDTO: Codable {
     static func toCoinPriceChangeGap(dto: FavoritesPriceDTO) -> CoinPriceChangeGap? {
         var change = -99.0
         var gap = -99.0
-        if let standardPrice = dto.standardPrice {
+        if let standardPrice = dto.standardPrice, let limitPrice = dto.limitPrice {
             if standardPrice != 0.0 || standardPrice != -100.0 {
-                change = (dto.limitPrice - standardPrice) / standardPrice * 100
+                change = (limitPrice - standardPrice) / standardPrice * 100
             }
         }
-        if dto.marketPrice != 0.0 {
-            gap = abs(dto.limitPrice - dto.marketPrice) / dto.marketPrice * 100
+        if let limitPrice = dto.limitPrice, let marketPrice = dto.marketPrice, marketPrice != 0.0 {
+            gap = abs(limitPrice - marketPrice) / marketPrice * 100
         }
         if dto.limitPrice == 0.0 {
             return nil
         }
         return CoinPriceChangeGap(
             coinTitle: dto.symbol,
-            price: formatPrice(dto.limitPrice),
+            price: formatPrice(dto.limitPrice ?? 0),
             change: String(format: "%.2f", change),
             gap: String(format: "%.2f", gap)
         )

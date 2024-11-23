@@ -30,14 +30,13 @@ class SuccessSubscriptionView: UIView {
         return label
     }()
     let boonButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "최고혜택"), attributes: .init([.font: FontManager.D9_13]))
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 3*ConstantsManager.standardHeight, leading: 8*ConstantsManager.standardWidth, bottom: 3*ConstantsManager.standardHeight, trailing: 8*ConstantsManager.standardWidth)
-        configuration.baseForegroundColor = ColorManager.orange_60
-        configuration.baseBackgroundColor = ColorManager.orange_95
-        
-        let button = UIButton(configuration: configuration)
-        button.layer.cornerRadius = 16 * ConstantsManager.standardHeight
+        let button = ConfigurationButton(font: FontManager.D9_13, foregroundColor: ColorManager.orange_60, backgroundColor: ColorManager.orange_95)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "최고혜택")
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 3*ConstantsManager.standardHeight, leading: 8*ConstantsManager.standardWidth, bottom: 3*ConstantsManager.standardHeight, trailing: 8*ConstantsManager.standardWidth)
+        button.configuration = configuration
+        button.layer.cornerRadius = 12 * ConstantsManager.standardHeight
+        button.clipsToBounds = true
         return button
     }()
     let checkImageView1: UIImageView = {
@@ -186,12 +185,13 @@ class SuccessSubscriptionView: UIView {
         
         grayView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalToSuperview()
         }
         
         explainSubscribeLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20*ConstantsManager.standardWidth)
-            make.top.bottom.equalToSuperview().inset(20*ConstantsManager.standardHeight)
+            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-54*ConstantsManager.standardHeight)
         }
     }
 }

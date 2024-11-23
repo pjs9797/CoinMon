@@ -6,15 +6,15 @@ import RxFlow
 class SelectCycleForIndicatorReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
+    private let flowType: FlowType
+    private let selectCycleForIndicatorFlowType: SelectCycleForIndicatorFlowType
     private let indicatorUseCase: IndicatorUseCase
-    private let flowType: SelectCycleForIndicatorFlowType
-    private let selectCoinForIndicatorFlowType: SelectCoinForIndicatorFlowType
     
-    init(indicatorUseCase: IndicatorUseCase, flowType: SelectCycleForIndicatorFlowType, selectCoinForIndicatorFlowType: SelectCoinForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool) {
+    init(flowType: FlowType, selectCycleForIndicatorFlowType: SelectCycleForIndicatorFlowType, indicatorUseCase: IndicatorUseCase, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool) {
         self.initialState = State(indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
-        self.indicatorUseCase = indicatorUseCase
         self.flowType = flowType
-        self.selectCoinForIndicatorFlowType = selectCoinForIndicatorFlowType
+        self.selectCycleForIndicatorFlowType = selectCycleForIndicatorFlowType
+        self.indicatorUseCase = indicatorUseCase
     }
     
     enum Action {
@@ -36,11 +36,11 @@ class SelectCycleForIndicatorReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            if selectCoinForIndicatorFlowType == .atPurchase {
+            if flowType == .purchase {
                 self.steps.accept(PurchaseStep.popViewController)
             }
             else {
-                if flowType == .atMain {
+                if selectCycleForIndicatorFlowType == .atMain {
                     self.steps.accept(AlarmStep.popToRootViewController)
                 }
                 else {
@@ -60,12 +60,17 @@ class SelectCycleForIndicatorReactor: ReactorKit.Reactor, Stepper {
                             UserDefaultsManager.shared.saveNotSetAlarmTooltipHidden(true)
                             NotificationCenter.default.post(name: .isCompletedSelectCoinAtPremium, object: nil)
                         }
-                        self?.steps.accept(AlarmStep.navigateToDetailIndicatorViewController(flowType: "WhenCreate", indicatorId: indicatorId!, indicatorName: indicatorName!, isPremium: isPremium!, frequency: frequency!))
+                        if self?.flowType == .purchase {
+                            self?.steps.accept(PurchaseStep.popToRootViewController)
+                        }
+                        else {
+                            self?.steps.accept(AlarmStep.navigateToDetailIndicatorViewController(flowType: "WhenCreate", indicatorId: indicatorId!, indicatorName: indicatorName!, isPremium: isPremium!, frequency: frequency!))
+                        }
                     }
                     return .empty()
                 }
                 .catch { [weak self] error in
-                    if self?.selectCoinForIndicatorFlowType == .atPurchase {
+                    if self?.flowType == .purchase {
                         ErrorHandler.handle(error) { (step: PurchaseStep) in
                             self?.steps.accept(step)
                         }
@@ -78,12 +83,5 @@ class SelectCycleForIndicatorReactor: ReactorKit.Reactor, Stepper {
                     return .empty()
                 }
         }
-    }
-    
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        switch mutation {
-        }
-        return newState
     }
 }

@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class DetailIndicatorTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
@@ -152,6 +153,12 @@ class DetailIndicatorTableViewCell: UITableViewCell {
             alertTimeLabel.textColor = ColorManager.red_50
             alertPriceLabel.textColor = ColorManager.red_50
             alertTypeLabel.textColor = ColorManager.red_50
+        }
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(indicatordata.coinName).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
         }
         coinTitleLabel.text = indicatordata.coinName
         coinPriceLabel.text = "$\(indicatordata.curPrice)"

@@ -47,14 +47,13 @@ class TryNewIndicatorView: UIView {
         return label
     }()
     let explainIndicatorButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "설명보기"), attributes: .init([.font: FontManager.B5_14]))
-        configuration.baseForegroundColor = ColorManager.gray_20
-        configuration.baseBackgroundColor = ColorManager.gray_99
-        configuration.image = ImageManager.arrow_Chevron_Right?.withTintColor(ColorManager.gray_20 ?? .black, renderingMode: .alwaysTemplate)
-        configuration.imagePlacement = .trailing
-        configuration.imagePadding = 3*ConstantsManager.standardWidth
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.B5_14, foregroundColor: ColorManager.gray_20, backgroundColor: ColorManager.gray_99)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "설명보기")
+        configuration?.image = ImageManager.arrow_Chevron_Right?.withTintColor(ColorManager.gray_20 ?? .black, renderingMode: .alwaysTemplate)
+        configuration?.imagePlacement = .trailing
+        configuration?.imagePadding = 3*ConstantsManager.standardWidth
+        button.configuration = configuration
         return button
     }()
     let explainLabel2: UILabel = {

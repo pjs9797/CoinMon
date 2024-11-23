@@ -12,4 +12,5 @@ protocol IndicatorRepositoryInterface {
     func createIndicatorPush(indicatorId: String, frequency: String, targets: [String]) -> Observable<String>
     func getIndicatorCoinHistory(indicatorId: String, indicatorCoinId: String) -> Observable<[IndicatorCoinHistory]>
     func deleteIndicatorPush(indicatorId: String) -> Observable<String>
+    func testPush() -> Observable<String>
 }

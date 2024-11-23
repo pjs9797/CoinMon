@@ -4,6 +4,7 @@ protocol StepProtocol {}
 
 enum AppStep: Step, StepProtocol {
     //MARK: 푸시
+    case navigateToLaunchViewController
     case navigateToSurveyViewController
     case navigateToSigninViewController
     case navigateToTabBarController
@@ -31,6 +32,6 @@ enum AppStep: Step, StepProtocol {
     
     //MARK: 프레젠트 공통 알람
     case presentToNetworkErrorAlertController
-    case presentToUnknownErrorAlertController
+    case presentToUnknownErrorAlertController(message: String)
     case presentToAWSServerErrorAlertController
 }

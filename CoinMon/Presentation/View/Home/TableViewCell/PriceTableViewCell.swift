@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class PriceTableViewCell: UITableViewCell {
     let coinView: UIView = {
@@ -9,8 +10,6 @@ class PriceTableViewCell: UITableViewCell {
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = ColorManager.gray_99?.cgColor
         return imageView
     }()
     let coinLabel: UILabel = {
@@ -134,7 +133,12 @@ class PriceTableViewCell: UITableViewCell {
     }
     
     func configure(with priceList: CoinPriceChangeGap) {
-        coinImageView.image = UIImage(named: priceList.coinTitle) ?? ImageManager.login_coinmon
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(priceList.coinTitle).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         coinLabel.text = priceList.coinTitle
         if let formattedPrice = formatPrice(priceList.price) {
             priceLabel.text = formattedPrice

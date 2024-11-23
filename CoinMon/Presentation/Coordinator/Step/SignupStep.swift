@@ -26,6 +26,6 @@ enum SignupStep: Step, StepProtocol {
     
     //MARK: 프레젠트 공통 알람
     case presentToNetworkErrorAlertController
-    case presentToUnknownErrorAlertController
+    case presentToUnknownErrorAlertController(message: String)
     case presentToAWSServerErrorAlertController
 }

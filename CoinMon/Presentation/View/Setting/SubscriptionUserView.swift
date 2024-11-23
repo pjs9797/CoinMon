@@ -4,7 +4,7 @@ import SnapKit
 class SubscriptionUserView: UIView {
     let statusView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 16*ConstantsManager.standardHeight
+        view.layer.cornerRadius = 12*ConstantsManager.standardHeight
         view.backgroundColor = ColorManager.orange_95
         return view
     }()
@@ -17,7 +17,7 @@ class SubscriptionUserView: UIView {
     let premiumLabel: UILabel = {
         let label = UILabel()
         label.text = "Coinmon Premium"
-        label.font = FontManager.D1_28
+        label.font = FontManager.D6_16
         label.textColor = ColorManager.common_0
         return label
     }()
@@ -35,7 +35,7 @@ class SubscriptionUserView: UIView {
     }
     
     func setLocalizedText(){
-        statusLabel.text = LocalizationManager.shared.localizedString(forKey: "14일 체험 중")
+        statusLabel.text = LocalizationManager.shared.localizedString(forKey: "구독중")
     }
     
     private func layout() {
@@ -48,7 +48,7 @@ class SubscriptionUserView: UIView {
         statusView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.top.equalToSuperview().offset(16*ConstantsManager.standardHeight)
-            make.bottom.equalToSuperview().offset(16*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-16*ConstantsManager.standardHeight)
         }
         
         statusLabel.snp.makeConstraints { make in

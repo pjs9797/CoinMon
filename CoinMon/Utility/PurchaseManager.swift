@@ -38,7 +38,7 @@ class PurchaseManager: NSObject, SKRequestDelegate {
         }
         self.products = try await Product.products(for: productIds)
         self.productsLoaded = true
-        print("Products loaded: \(products)")
+        //print("Products loaded: \(products)")
     }
     
     // 구매 메서드
@@ -49,6 +49,10 @@ class PurchaseManager: NSObject, SKRequestDelegate {
         switch result {
         case let .success(.verified(transaction)):
             print("Purchase successful and verified for product ID: \(transaction.productID)")
+            let purchaseDate = transaction.purchaseDate
+            let expiresDate = transaction.expirationDate ?? Date()
+            print("Purchase Date (KST): \(formatDateToKST(purchaseDate))")
+            print("Expires Date (KST): \(formatDateToKST(expiresDate))")
             await transaction.finish()
             await self.updatePurchasedProducts()
             await verifyOrRefreshReceipt()
@@ -96,6 +100,7 @@ class PurchaseManager: NSObject, SKRequestDelegate {
 
     // 서버에 영수증 검증 요청
     private func verifyReceiptWithServer(receiptData: String) async {
+        print("receiptData: ",receiptData)
         purchaseUseCase.registerPurchaseReceipt(receiptData: receiptData)
             .subscribe(onNext: { [weak self] response in
                 print("Verification response from server: \(response)")
@@ -169,10 +174,10 @@ class PurchaseManager: NSObject, SKRequestDelegate {
     }
     
     // 인앱 결제를 실행하는 메서드
-    func purchaseProduction() -> Bool {
+    func purchaseProduction() {
         guard let product = products.first else {
             print("Product is not available.")
-            return false
+            return
         }
         
         Task {
@@ -183,7 +188,6 @@ class PurchaseManager: NSObject, SKRequestDelegate {
                 purchaseEvent.onNext(.purchaseFailed) // 구매 실패 이벤트 발행
             }
         }
-        return true
     }
     
     // SKRequestDelegate 메서드: 영수증 갱신 성공 시 호출
@@ -196,5 +200,13 @@ class PurchaseManager: NSObject, SKRequestDelegate {
     func request(_ request: SKRequest, didFailWithError error: Error) {
         print("Failed to refresh receipt: \(error.localizedDescription)")
         receiptRefreshCompleted = true
+    }
+    
+    // 한국 시간(KST)으로 날짜 포맷팅 함수
+    private func formatDateToKST(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul") // 한국 표준시
+        return formatter.string(from: date)
     }
 }

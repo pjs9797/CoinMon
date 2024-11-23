@@ -6,4 +6,5 @@ protocol UserRepositoryInterface {
     func appleWithdraw(authorizationCode: String) -> Observable<String>
     func changeNickname(nickname: String) -> Observable<String>
     func fetchUserData() -> Observable<UserData>
+    func checkRefresh() -> Observable<AuthTokens?>
 }

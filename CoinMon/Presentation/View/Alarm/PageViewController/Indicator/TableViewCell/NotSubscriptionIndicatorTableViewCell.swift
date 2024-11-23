@@ -43,26 +43,21 @@ class NotSubscriptionIndicatorTableViewCell: UITableViewCell {
         return label
     }()
     let noticeButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "기간이 종료됐어요"), attributes: .init([.font: FontManager.H6_14]))
-        configuration.baseForegroundColor = ColorManager.orange_60
-        configuration.baseBackgroundColor = ColorManager.common_100
-        configuration.image = ImageManager.icon_attention24
-        configuration.imagePlacement = .leading
-        configuration.imagePadding = 4*ConstantsManager.standardWidth
-        let button = UIButton(configuration: configuration)
-        button.isEnabled = false
+        let button = ConfigurationButton(font: FontManager.H6_14, foregroundColor: ColorManager.orange_60, backgroundColor: ColorManager.common_100)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "기간이 종료됐어요")
+        configuration?.image = ImageManager.icon_attention24
+        configuration?.imagePlacement = .leading
+        configuration?.imagePadding = 4 * ConstantsManager.standardWidth
+        button.configuration = configuration
+        button.isUserInteractionEnabled = false
         return button
     }()
     let subscribeButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "프리미엄 구독하기"), attributes: .init([.font: FontManager.D8_14]))
-        configuration.baseForegroundColor = ColorManager.common_100
-        configuration.baseBackgroundColor = ColorManager.orange_60
-        configuration.image = ImageManager.icon_attention24
-        configuration.imagePlacement = .leading
-        configuration.imagePadding = 4*ConstantsManager.standardWidth
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.D8_14, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.orange_60)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "프리미엄 구독하기")
+        button.configuration = configuration
         button.layer.cornerRadius = 8*ConstantsManager.standardHeight
         return button
     }()

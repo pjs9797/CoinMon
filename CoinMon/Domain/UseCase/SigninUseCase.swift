@@ -22,7 +22,6 @@ class SigninUseCase {
                 if let response = response, response.resultCode == "200" {
                     TokenManager.shared.saveAccessToken(response.accessToken)
                     TokenManager.shared.saveRefreshToken(response.refreshToken)
-                    UserDefaultsManager.shared.setLoggedIn(true, loginType: .coinmon)
                 }
                 return .just(response?.resultCode ?? "426")
             }
@@ -34,7 +33,6 @@ class SigninUseCase {
                 if let tokens = response as? AuthTokens {
                     TokenManager.shared.saveAccessToken(tokens.accessToken)
                     TokenManager.shared.saveRefreshToken(tokens.refreshToken)
-                    UserDefaultsManager.shared.setLoggedIn(true, loginType: .apple)
                     return .just(tokens.resultCode)
                 }
                 else if let emailTuple = response as? (String, String) {

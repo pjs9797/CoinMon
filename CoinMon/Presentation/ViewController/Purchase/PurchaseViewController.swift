@@ -70,10 +70,10 @@ extension PurchaseViewController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] subscriptionStatus in
                 if subscriptionStatus.useTrialYN == "Y" {
-                    self?.purchaseView.purchaseButton.setTitle(LocalizationManager.shared.localizedString(forKey: "14일 무료 체험하기"), for: .normal)
+                    self?.purchaseView.purchaseButton.setTitle(LocalizationManager.shared.localizedString(forKey: "프리미엄 구독하기"), for: .normal)
                 }
                 else {
-                    self?.purchaseView.purchaseButton.setTitle(LocalizationManager.shared.localizedString(forKey: "프리미엄 구독하기"), for: .normal)
+                    self?.purchaseView.purchaseButton.setTitle(LocalizationManager.shared.localizedString(forKey: "14일 무료 체험하기"), for: .normal)
                 }
             })
             .disposed(by: disposeBag)

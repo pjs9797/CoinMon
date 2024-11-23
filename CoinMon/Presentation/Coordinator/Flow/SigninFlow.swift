@@ -43,8 +43,8 @@ class SigninFlow: Flow {
             //MARK: 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
-        case .presentToUnknownErrorAlertController:
-            return presentToUnknownErrorAlertController()
+        case .presentToUnknownErrorAlertController(let message):
+            return presentToUnknownErrorAlertController(message: message)
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
         }
@@ -123,9 +123,9 @@ class SigninFlow: Flow {
         return .none
     }
     
-    private func presentToUnknownErrorAlertController() -> FlowContributors {
+    private func presentToUnknownErrorAlertController(message: String) -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명", arguments: message),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)

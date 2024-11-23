@@ -10,12 +10,11 @@ class NormalUserView: UIView {
         label.textAlignment = .center
         return label
     }()
-    let trialButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8*ConstantsManager.standardHeight, leading: 12*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, trailing: 12*ConstantsManager.standardWidth)
-        configuration.baseForegroundColor = ColorManager.common_100
-        configuration.baseBackgroundColor = ColorManager.orange_60        
-        let button = UIButton(configuration: configuration)
+    lazy var trialButton: UIButton = {
+        let button = ConfigurationButton(font: FontManager.H4_16, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.orange_60)
+        var configuration = button.configuration
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 8*ConstantsManager.standardHeight, leading: 12*ConstantsManager.standardWidth, bottom: 8*ConstantsManager.standardHeight, trailing: 12*ConstantsManager.standardWidth)
+        button.configuration = configuration
         button.layer.cornerRadius = 8*ConstantsManager.standardHeight
         return button
     }()
@@ -34,7 +33,6 @@ class NormalUserView: UIView {
     
     func setLocalizedText(){
         titleLabel.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "매수•매도 타이밍 알림 Coinmon Premium"))
-        trialButton.configuration?.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "14일 무료 체험하기"), attributes: .init([.font: FontManager.H4_16]))
     }
     
     private func layout() {

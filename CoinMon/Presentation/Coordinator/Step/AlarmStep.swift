@@ -1,17 +1,12 @@
 import RxFlow
 import RxCocoa
 
-enum SelectCycleForIndicatorFlowType {
-    case atMain
-    case atSelectCoin
-}
-
 enum AlarmStep: Step, StepProtocol {
     case navigateToMainAlarmViewController
     
     case navigateToSelectIndicatorViewController
-    case navigateToSelectCoinForIndicatorViewController(flowType: SelectCoinForIndicatorFlowType, indicatorId: String, indicatorName: String, isPremium: Bool)
-    case navigateToSelectCycleForIndicatorViewController(flowType: SelectCycleForIndicatorFlowType, selectCoinForIndicatorFlowType: SelectCoinForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool)
+    case navigateToSelectCoinForIndicatorViewController(flowType: FlowType, indicatorId: String, indicatorName: String, isPremium: Bool)
+    case navigateToSelectCycleForIndicatorViewController(flowType: FlowType, selectCycleForIndicatorFlowType: SelectCycleForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool)
     case navigateToDetailIndicatorViewController(flowType: String, indicatorId: String, indicatorName: String, isPremium: Bool, frequency: String)
     case navigateToDetailIndicatorCoinViewController(indicatorId: String, indicatorCoinId: String, coin: String, price: String, indicatorName: String, frequency: String)
     case navigateToUpdateIndicatorCoinViewController(indicatorId: String, indicatorName: String, frequency: String)
@@ -40,7 +35,7 @@ enum AlarmStep: Step, StepProtocol {
     
     // 프레젠트 공통 알람
     case presentToNetworkErrorAlertController
-    case presentToUnknownErrorAlertController
+    case presentToUnknownErrorAlertController(message: String)
     case presentToExpiredTokenErrorAlertController
     case presentToAWSServerErrorAlertController
     

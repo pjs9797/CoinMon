@@ -11,6 +11,7 @@ enum IndicatorService {
     case createIndicatorPush(indicatorId: String, frequency: String, targets: [String])
     case getIndicatorCoinHistory(indicatorId: String, indicatorCoinId: String)
     case deleteIndicatorPush(indicatorId: String)
+    case testPush
 }
 
 extension IndicatorService: TargetType {
@@ -36,11 +37,13 @@ extension IndicatorService: TargetType {
             return "indicator/getIndicatorCoinInfo"
         case .deleteIndicatorPush:
             return "indicatorPush/deleteIndicatorPush"
+        case .testPush:
+            return "push/testPush"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .getIndicator, .getIndicatorPush, .getIndicatorPushDetail, .getIndicatorCoinList, .updateIndicatorPush, .updateIndicatorPushState, .createIndicatorPush, .getIndicatorCoinHistory, .deleteIndicatorPush:
+        case .getIndicator, .getIndicatorPush, .getIndicatorPushDetail, .getIndicatorCoinList, .updateIndicatorPush, .updateIndicatorPushState, .createIndicatorPush, .getIndicatorCoinHistory, .deleteIndicatorPush, .testPush:
             return .post
         }
     }
@@ -70,6 +73,8 @@ extension IndicatorService: TargetType {
         case .deleteIndicatorPush(let indicatorId):
             let parameters = ["indicatorId": indicatorId]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .testPush:
+            return .requestPlain
         }
     }
     

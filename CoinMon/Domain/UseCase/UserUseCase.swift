@@ -26,4 +26,15 @@ class UserUseCase {
     func fetchUserData() -> Observable<UserData> {
         return repository.fetchUserData()
     }
+    
+    func checkRefresh() -> Observable<String> {
+        return repository.checkRefresh()
+            .flatMap { response -> Observable<String> in
+                if let response = response, response.resultCode == "200" {
+                    TokenManager.shared.saveAccessToken(response.accessToken)
+                    TokenManager.shared.saveRefreshToken(response.refreshToken)
+                }
+                return .just(response?.resultCode ?? "426")
+            }
+    }
 }

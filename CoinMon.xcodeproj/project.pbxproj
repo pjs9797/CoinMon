@@ -117,6 +117,7 @@
 		314636A32C05FBCD008A5629 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A22C05FBCD008A5629 /* SettingView.swift */; };
 		314636A72C060056008A5629 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A62C060056008A5629 /* SettingViewController.swift */; };
 		314636A92C06005E008A5629 /* SettingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314636A82C06005E008A5629 /* SettingReactor.swift */; };
+		315B77DA2CF0BB000056E0FA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 315B77D92CF0BB000056E0FA /* Kingfisher */; };
 		315C01762C09BAE300BE00E3 /* SignupEmailEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01752C09BAE300BE00E3 /* SignupEmailEntryViewController.swift */; };
 		315C01782C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01772C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift */; };
 		315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C01792C09CFA500BE00E3 /* SignupEmailEntryView.swift */; };
@@ -226,6 +227,12 @@
 		31CAA60C2CE0A8A300974E50 /* IsRealPopReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA60B2CE0A8A200974E50 /* IsRealPopReactor.swift */; };
 		31CAA60E2CE77DE900974E50 /* TabBarFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA60D2CE77DE900974E50 /* TabBarFlow.swift */; };
 		31CAA6102CE77DF000974E50 /* TabBarStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA60F2CE77DF000974E50 /* TabBarStep.swift */; };
+		31CAA6122CEDC28E00974E50 /* MoyaProviderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6112CEDC28E00974E50 /* MoyaProviderUtils.swift */; };
+		31CAA6142CEE0D7B00974E50 /* ConfigurationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6132CEE0D7B00974E50 /* ConfigurationButton.swift */; };
+		31CAA6162CF04A4300974E50 /* MoyaRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6152CF04A4300974E50 /* MoyaRequestInterceptor.swift */; };
+		31CAA6192CF050FE00974E50 /* LaunchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6182CF050FE00974E50 /* LaunchReactor.swift */; };
+		31CAA61C2CF0513100974E50 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA61B2CF0513100974E50 /* LaunchViewController.swift */; };
+		31CAA61F2CF0973200974E50 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA61E2CF0973200974E50 /* LaunchView.swift */; };
 		31CF70722CCA0550003BD8FD /* IndicatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70712CCA0550003BD8FD /* IndicatorService.swift */; };
 		31CF70742CCA05BB003BD8FD /* IndicatorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70732CCA05BB003BD8FD /* IndicatorDTO.swift */; };
 		31CF70762CCA05D4003BD8FD /* IndicatorRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF70752CCA05D4003BD8FD /* IndicatorRepositoryInterface.swift */; };
@@ -355,7 +362,6 @@
 		31E0A5602C201C4700756DFD /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A55F2C201C4700756DFD /* InquiryView.swift */; };
 		31E0A5622C201C6600756DFD /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5612C201C6600756DFD /* InquiryViewController.swift */; };
 		31E0A5642C201C7C00756DFD /* InquiryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E0A5632C201C7C00756DFD /* InquiryReactor.swift */; };
-		31E1C1D02C46845C009F99B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E1C1CF2C46845C009F99B9 /* LaunchScreen.storyboard */; };
 		31E1C1D32C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */; };
 		31E1C1D72C47BC66009F99B9 /* InquiryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */; };
 		31E1C1D92C48E684009F99B9 /* NoneCoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1C1D82C48E684009F99B9 /* NoneCoinView.swift */; };
@@ -606,6 +612,12 @@
 		31CAA60B2CE0A8A200974E50 /* IsRealPopReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsRealPopReactor.swift; sourceTree = "<group>"; };
 		31CAA60D2CE77DE900974E50 /* TabBarFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFlow.swift; sourceTree = "<group>"; };
 		31CAA60F2CE77DF000974E50 /* TabBarStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarStep.swift; sourceTree = "<group>"; };
+		31CAA6112CEDC28E00974E50 /* MoyaProviderUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderUtils.swift; sourceTree = "<group>"; };
+		31CAA6132CEE0D7B00974E50 /* ConfigurationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationButton.swift; sourceTree = "<group>"; };
+		31CAA6152CF04A4300974E50 /* MoyaRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaRequestInterceptor.swift; sourceTree = "<group>"; };
+		31CAA6182CF050FE00974E50 /* LaunchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchReactor.swift; sourceTree = "<group>"; };
+		31CAA61B2CF0513100974E50 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		31CAA61E2CF0973200974E50 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		31CF70712CCA0550003BD8FD /* IndicatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorService.swift; sourceTree = "<group>"; };
 		31CF70732CCA05BB003BD8FD /* IndicatorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorDTO.swift; sourceTree = "<group>"; };
 		31CF70752CCA05D4003BD8FD /* IndicatorRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -736,7 +748,6 @@
 		31E0A55F2C201C4700756DFD /* InquiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryView.swift; sourceTree = "<group>"; };
 		31E0A5612C201C6600756DFD /* InquiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
 		31E0A5632C201C7C00756DFD /* InquiryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryReactor.swift; sourceTree = "<group>"; };
-		31E1C1CF2C46845C009F99B9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31E1C1D22C468A55009F99B9 /* MarketListAtAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketListAtAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryButton.swift; sourceTree = "<group>"; };
 		31E1C1D82C48E684009F99B9 /* NoneCoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneCoinView.swift; sourceTree = "<group>"; };
@@ -790,6 +801,7 @@
 				31BEAFA42C37BB24001B7A35 /* RxCocoa in Frameworks */,
 				31BEAFC92C37BD58001B7A35 /* FirebaseAnalytics in Frameworks */,
 				31BEAFD92C37C660001B7A35 /* FirebaseMessaging in Frameworks */,
+				315B77DA2CF0BB000056E0FA /* Kingfisher in Frameworks */,
 				31BEAFCE2C37BD81001B7A35 /* ReactorKit in Frameworks */,
 				31BEAFBF2C37BCDE001B7A35 /* ReactiveMoya in Frameworks */,
 			);
@@ -914,6 +926,7 @@
 				3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */,
 				31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */,
 				3171542B2C8C20D0007CCD6D /* BottomButton.swift */,
+				31CAA6132CEE0D7B00974E50 /* ConfigurationButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -1459,7 +1472,6 @@
 		317779C82BE1E67A006E8378 /* CoinMon */ = {
 			isa = PBXGroup;
 			children = (
-				31E1C1CF2C46845C009F99B9 /* LaunchScreen.storyboard */,
 				31E0A4C32C10892400756DFD /* CoinMon.entitlements */,
 				3104F5142C44056D00DD40D6 /* Secrets.xcconfig */,
 				3104F50F2C43C24D00DD40D6 /* Plist */,
@@ -1508,6 +1520,8 @@
 				31E0A50C2C1711F500756DFD /* KeychainHelper.swift */,
 				31E0A50E2C17120300756DFD /* TokenManager.swift */,
 				3104F5102C43C28400DD40D6 /* ConfigManager.swift */,
+				31CAA6112CEDC28E00974E50 /* MoyaProviderUtils.swift */,
+				31CAA6152CF04A4300974E50 /* MoyaRequestInterceptor.swift */,
 				313325D72CB5141A0036541F /* ErrorHandler.swift */,
 				313325E42CBBA8390036541F /* PurchaseManager.swift */,
 				31CF70F52CD3C3C8003BD8FD /* StoreKitConfig.storekit */,
@@ -1529,6 +1543,7 @@
 		317779F12BE1FAE3006E8378 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				31CAA61D2CF0972600974E50 /* Launch */,
 				312497042CE0914300950BB8 /* Purchase */,
 				312496B52CDA029700950BB8 /* Subscription */,
 				31CF709B2CCD1079003BD8FD /* Survey */,
@@ -1546,6 +1561,7 @@
 		317779F22BE2008E006E8378 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				31CAA6172CF050EF00974E50 /* Launch */,
 				312497052CE0916600950BB8 /* Purchase */,
 				312496B82CDA04CF00950BB8 /* Subscription */,
 				31CF70A32CCD1D0D003BD8FD /* Survey */,
@@ -1563,6 +1579,7 @@
 		317779F32BE20095006E8378 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				31CAA61A2CF0510E00974E50 /* Launch */,
 				312497062CE0917300950BB8 /* Purchase */,
 				312496BB2CDA050800950BB8 /* Subscription */,
 				31CF70A62CCD1D3E003BD8FD /* Survey */,
@@ -1766,6 +1783,30 @@
 				31105E802CA677A600BFD195 /* FavoritesEntity.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		31CAA6172CF050EF00974E50 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				31CAA61B2CF0513100974E50 /* LaunchViewController.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		31CAA61A2CF0510E00974E50 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				31CAA6182CF050FE00974E50 /* LaunchReactor.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		31CAA61D2CF0972600974E50 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				31CAA61E2CF0973200974E50 /* LaunchView.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		31CF70892CCA687A003BD8FD /* DetailIndicatorCoin */ = {
@@ -2233,6 +2274,7 @@
 				31BEAFD02C37BD98001B7A35 /* RxFlow */,
 				31BEAFD62C37C051001B7A35 /* FirebaseAppCheck */,
 				31BEAFD82C37C660001B7A35 /* FirebaseMessaging */,
+				315B77D92CF0BB000056E0FA /* Kingfisher */,
 			);
 			productName = CoinMon;
 			productReference = 317779C62BE1E67A006E8378 /* CoinMon.app */;
@@ -2307,6 +2349,7 @@
 				31BEAFCC2C37BD80001B7A35 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				31BEAFCF2C37BD97001B7A35 /* XCRemoteSwiftPackageReference "RxFlow" */,
 				311E24732C5A6EE100C61202 /* XCRemoteSwiftPackageReference "Quick" */,
+				315B77D82CF0BB000056E0FA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 317779C72BE1E67A006E8378 /* Products */;
 			projectDirPath = "";
@@ -2341,7 +2384,6 @@
 				31777A0E2BE3794B006E8378 /* ColorAssets.xcassets in Resources */,
 				31CF70F42CD3A761003BD8FD /* GoogleService-Info.plist in Resources */,
 				31CF70F62CD3C3C8003BD8FD /* StoreKitConfig.storekit in Resources */,
-				31E1C1D02C46845C009F99B9 /* LaunchScreen.storyboard in Resources */,
 				31777A092BE368D3006E8378 /* Pretendard-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2425,6 +2467,7 @@
 				31CAA6082CE0A67000974E50 /* IsRealPopView.swift in Sources */,
 				31BCE97B2C04A07500DA2FC6 /* FeeTableViewHeader.swift in Sources */,
 				312496BA2CDA04E700950BB8 /* NewIndicatorViewController.swift in Sources */,
+				31CAA6162CF04A4300974E50 /* MoyaRequestInterceptor.swift in Sources */,
 				31F791632BECB12D00A7CABB /* SigninStep.swift in Sources */,
 				31BCE9902C05D01300DA2FC6 /* HomeEntity.swift in Sources */,
 				31E0A5222C182D7A00756DFD /* UserUseCase.swift in Sources */,
@@ -2501,6 +2544,7 @@
 				312496BF2CDA056900950BB8 /* TryNewIndicatorView.swift in Sources */,
 				312496E12CDC992B00950BB8 /* PurchaseRepositoryInterface.swift in Sources */,
 				31E0A52C2C1984E400756DFD /* CoinUseCase.swift in Sources */,
+				31CAA6192CF050FE00974E50 /* LaunchReactor.swift in Sources */,
 				31CF70E42CD2619B003BD8FD /* UpdateIndicatorCoinViewController.swift in Sources */,
 				31CF70942CCBA314003BD8FD /* SelectCycleForIndicatorReactor.swift in Sources */,
 				312453B72CA56008000ACB04 /* ToastMessageView.swift in Sources */,
@@ -2521,6 +2565,7 @@
 				31CF70722CCA0550003BD8FD /* IndicatorService.swift in Sources */,
 				31E0A5032C16CCB200756DFD /* PrivacyPolicyReactor.swift in Sources */,
 				312496ED2CDCD51400950BB8 /* NormalNoneIndicatorView.swift in Sources */,
+				31CAA61C2CF0513100974E50 /* LaunchViewController.swift in Sources */,
 				31423C502BFB5946008AB6FD /* PriceView.swift in Sources */,
 				317779CC2BE1E67A006E8378 /* SceneDelegate.swift in Sources */,
 				31E0A52E2C19937200756DFD /* AddAlarmViewController.swift in Sources */,
@@ -2584,6 +2629,7 @@
 				31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift in Sources */,
 				31946D652CA3BBF200237156 /* FirstInfoView.swift in Sources */,
 				312496C52CDA195800950BB8 /* PurchaseView.swift in Sources */,
+				31CAA6142CEE0D7B00974E50 /* ConfigurationButton.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				3171543A2C8C9028007CCD6D /* DetailCoinInfoEntity.swift in Sources */,
 				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
@@ -2618,6 +2664,7 @@
 				31BCE9852C04AFA100DA2FC6 /* SelectMarketView.swift in Sources */,
 				31E0A5112C17201000756DFD /* AddAlarmView.swift in Sources */,
 				31CF70802CCA5B80003BD8FD /* SelectCoinForIndicatorView.swift in Sources */,
+				31CAA61F2CF0973200974E50 /* LaunchView.swift in Sources */,
 				312496FD2CDF182700950BB8 /* SubscriptionUserView.swift in Sources */,
 				31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */,
 				317154182C86D967007CCD6D /* UIButton+Extension.swift in Sources */,
@@ -2640,6 +2687,7 @@
 				3104F50E2C43AC1100DD40D6 /* CustomDimSheetPresentationController.swift in Sources */,
 				31CF70DA2CD23CE3003BD8FD /* DetailIndicatorCoinChartViewController.swift in Sources */,
 				31E0A51E2C182CB300756DFD /* UserRepositoryInterface.swift in Sources */,
+				31CAA6122CEDC28E00974E50 /* MoyaProviderUtils.swift in Sources */,
 				31E0A4E52C15C72100756DFD /* SignupRepository.swift in Sources */,
 				31105E852CA6787400BFD195 /* FavoritesPriceDTO.swift in Sources */,
 				315C018D2C0B3B1000BE00E3 /* AlarmReactor.swift in Sources */,
@@ -3071,6 +3119,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		315B77D82CF0BB000056E0FA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.1;
+			};
+		};
 		31BEAFA02C37BB24001B7A35 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -3177,6 +3233,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 311E24732C5A6EE100C61202 /* XCRemoteSwiftPackageReference "Quick" */;
 			productName = Quick;
+		};
+		315B77D92CF0BB000056E0FA /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 315B77D82CF0BB000056E0FA /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		31BEAFA32C37BB24001B7A35 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

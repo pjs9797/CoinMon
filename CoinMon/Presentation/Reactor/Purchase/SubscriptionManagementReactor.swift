@@ -6,10 +6,11 @@ import RxFlow
 class SubscriptionManagementReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    
+    private let flowType: FlowType
     private let purchaseUseCase: PurchaseUseCase
     
-    init(purchaseUseCase: PurchaseUseCase) {
+    init(flowType: FlowType, purchaseUseCase: PurchaseUseCase) {
+        self.flowType = flowType
         self.purchaseUseCase = purchaseUseCase
     }
     
@@ -30,7 +31,14 @@ class SubscriptionManagementReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            self.steps.accept(PurchaseStep.popViewController)
+            switch flowType {
+            case .setting:
+                self.steps.accept(SettingStep.popViewController)
+            case .purchase:
+                self.steps.accept(PurchaseStep.popViewController)
+            default:
+                return .empty()
+            }
             return .empty()
         case .contactButtonTapped:
             let kakaoURL = "https://open.kakao.com/o/gxZ2CNtg"

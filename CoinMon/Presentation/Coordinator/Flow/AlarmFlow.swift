@@ -36,8 +36,8 @@ class AlarmFlow: Flow {
             return navigateToSelectIndicatorViewController()
         case .navigateToSelectCoinForIndicatorViewController(let flowType, let indicatorId, let indicatorName, let isPremium):
             return navigateToSelectCoinForIndicatorViewController(flowType: flowType, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
-        case .navigateToSelectCycleForIndicatorViewController(let flowType, let selectCoinForIndicatorFlowType, let indicatorId, let frequency, let targets, let indicatorName, let isPremium):
-            return navigateToSelectCycleForIndicatorViewController(flowType: flowType, selectCoinForIndicatorFlowType: selectCoinForIndicatorFlowType, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
+        case .navigateToSelectCycleForIndicatorViewController(let flowType, let selectCycleForIndicatorFlowType, let indicatorId, let frequency, let targets, let indicatorName, let isPremium):
+            return navigateToSelectCycleForIndicatorViewController(flowType: flowType, selectCycleForIndicatorFlowType: selectCycleForIndicatorFlowType, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
         case .navigateToDetailIndicatorViewController(let flowType, let indicatorId, let indicatorName, let isPremium, let frequency):
             return navigateToDetailIndicatorViewController(flowType: flowType, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium, frequency: frequency)
         case .navigateToDetailIndicatorCoinViewController(let indicatorId, let indicatorCoinId, let coin, let price, let indicatorName, let frequency):
@@ -85,8 +85,8 @@ class AlarmFlow: Flow {
             // 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
-        case .presentToUnknownErrorAlertController:
-            return presentToUnknownErrorAlertController()
+        case .presentToUnknownErrorAlertController(let message):
+            return presentToUnknownErrorAlertController(message: message)
         case .presentToExpiredTokenErrorAlertController:
             return presentToExpiredTokenErrorAlertController()
         case .presentToAWSServerErrorAlertController:
@@ -136,7 +136,7 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToSelectCoinForIndicatorViewController(flowType: SelectCoinForIndicatorFlowType, indicatorId: String, indicatorName: String, isPremium: Bool) -> FlowContributors {
+    private func navigateToSelectCoinForIndicatorViewController(flowType: FlowType, indicatorId: String, indicatorName: String, isPremium: Bool) -> FlowContributors {
         let reactor = SelectCoinForIndicatorReactor(flowType: flowType, indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium)
         let viewController = SelectCoinForIndicatorViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
@@ -146,8 +146,8 @@ class AlarmFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToSelectCycleForIndicatorViewController(flowType: SelectCycleForIndicatorFlowType, selectCoinForIndicatorFlowType: SelectCoinForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool) -> FlowContributors {
-        let reactor = SelectCycleForIndicatorReactor(indicatorUseCase: self.indicatorUseCase, flowType: flowType, selectCoinForIndicatorFlowType: selectCoinForIndicatorFlowType, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
+    private func navigateToSelectCycleForIndicatorViewController(flowType: FlowType, selectCycleForIndicatorFlowType: SelectCycleForIndicatorFlowType, indicatorId: String, frequency: String, targets: [String], indicatorName: String, isPremium: Bool) -> FlowContributors {
+        let reactor = SelectCycleForIndicatorReactor(flowType: flowType, selectCycleForIndicatorFlowType: selectCycleForIndicatorFlowType, indicatorUseCase: self.indicatorUseCase, indicatorId: indicatorId, frequency: frequency, targets: targets, indicatorName: indicatorName, isPremium: isPremium)
         let viewController = SelectCycleForIndicatorViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.isNavigationBarHidden = false
@@ -225,7 +225,7 @@ class AlarmFlow: Flow {
     }
     
     private func presentToIsRealPopViewController() -> FlowContributors {
-        let reactor = IsRealPopReactor(flowType: .atNotPurchase)
+        let reactor = IsRealPopReactor(flowType: .alarm)
         let viewController = IsRealPopViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -277,7 +277,7 @@ class AlarmFlow: Flow {
     }
     
     private func presentToResendTestAlarmViewController() -> FlowContributors {
-        let reactor = ResendTestAlarmReactor()
+        let reactor = ResendTestAlarmReactor(indicatorUseCase: self.indicatorUseCase)
         let viewController = ResendTestAlarmViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -441,10 +441,10 @@ class AlarmFlow: Flow {
         return .none
     }
     
-    private func presentToUnknownErrorAlertController() -> FlowContributors {
+    private func presentToUnknownErrorAlertController(message: String) -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
-                                                       message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
-                                                       preferredStyle: .alert)
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명", arguments: message),
+                                                preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)

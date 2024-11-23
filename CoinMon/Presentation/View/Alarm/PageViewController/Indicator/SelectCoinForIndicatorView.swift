@@ -54,7 +54,7 @@ class SelectCoinForIndicatorView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 8*ConstantsManager.standardHeight
         layout.minimumInteritemSpacing = 0
-        layout.estimatedItemSize = CGSize(width: 200, height: 30)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isHidden = true

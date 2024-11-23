@@ -3,10 +3,10 @@ import RxMoya
 import RxSwift
 
 class UserRepository: UserRepositoryInterface {
-    private var provider = MoyaProvider<UserService>()
+    private let provider: MoyaProvider<UserService>
     
-    init(provider: MoyaProvider<UserService> = MoyaProvider<UserService>()) {
-        self.provider = provider
+    init() {
+        provider = MoyaProvider<UserService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
     }
     
     func logout() -> Observable<String> {
@@ -63,6 +63,17 @@ class UserRepository: UserRepositoryInterface {
                 if let moyaError = error as? MoyaError, let response = moyaError.response {
                     print("Error: \(moyaError), Status code: \(response.statusCode)")
                 }
+                return Observable.error(error)
+            }
+    }
+    
+    func checkRefresh() -> Observable<AuthTokens?> {
+        return provider.rx.request(.checkRefresh)
+            .filterSuccessfulStatusCodes()
+            .map(SigninResponseDTO.self)
+            .map{ SigninResponseDTO.toAuthTokens(dto: $0) }
+            .asObservable()
+            .catch { error in
                 return Observable.error(error)
             }
     }

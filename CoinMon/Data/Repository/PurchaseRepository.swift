@@ -3,7 +3,11 @@ import RxMoya
 import RxSwift
 
 class PurchaseRepository: PurchaseRepositoryInterface {
-    private let provider = MoyaProvider<PurchaseService>()
+    private let provider: MoyaProvider<PurchaseService>
+    
+    init() {
+        provider = MoyaProvider<PurchaseService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
+    }
     
     func registerPurchaseReceipt(receiptData: String) -> Observable<String> {
         return provider.rx.request(.registerReceipt(receiptData: receiptData))

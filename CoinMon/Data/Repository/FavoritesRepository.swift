@@ -3,7 +3,11 @@ import RxMoya
 import RxSwift
 
 class FavoritesRepository: FavoritesRepositoryInterface {
-    private var provider = MoyaProvider<FavoritesService>()
+    private let provider: MoyaProvider<FavoritesService>
+    
+    init() {
+        provider = MoyaProvider<FavoritesService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
+    }
     
     func createFavorites(market: String, symbol: String) -> Observable<String> {
         return provider.rx.request(.createFavorites(market: market, symbol: symbol))
@@ -40,7 +44,6 @@ class FavoritesRepository: FavoritesRepositoryInterface {
     
     func updateFavorites(market: String, favoritesUpdateOrder: [FavoritesUpdateOrder]) -> Observable<String> {
         let favoritesUpdateOrderDtos = favoritesUpdateOrder.map { FavoritesUpdateOrderDTO.toFavoritesUpdateOrderDTO(entity: $0) }
-        print("favoritesUpdateOrderDtos",favoritesUpdateOrderDtos)
         return provider.rx.request(.updateFavorites(market: market, favoritesUpdateOrder: favoritesUpdateOrderDtos))
             .filterSuccessfulStatusCodes()
             .map(FavoritesResponseDTO.self)

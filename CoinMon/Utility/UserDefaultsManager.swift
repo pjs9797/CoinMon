@@ -18,7 +18,6 @@ class UserDefaultsManager {
     
     private let isFirstLaunchKey = "IsFirstLaunchKey"
     
-    private let isLoggedInKey = "isLoggedIn"
     private let loginTypeKey = "loginType"
     
     private let subscriptionStatusKey = "UserSubscriptionStatusKey"
@@ -50,27 +49,14 @@ class UserDefaultsManager {
         return UserDefaults.standard.bool(forKey: isFirstLaunchKey)
     }
     
-    // 로그인 상태 저장
-    func setLoggedIn(_ loggedIn: Bool, loginType: LoginType = .none) {
-        UserDefaults.standard.set(loggedIn, forKey: isLoggedInKey)
-        if loggedIn {
-            UserDefaults.standard.set(loginType.rawValue, forKey: loginTypeKey)
-        } else {
-            UserDefaults.standard.removeObject(forKey: loginTypeKey)
-        }
-    }
-    
-    // 로그인 여부 확인
-    func getIsLoggedIn() -> Bool {
-        return UserDefaults.standard.bool(forKey: isLoggedInKey)
+    // 로그인 타입 저장
+
+    func saveLoginType(_ loginType: LoginType) {
+        UserDefaults.standard.set(loginType.rawValue, forKey: loginTypeKey)
     }
     
     // 로그인 타입 확인
     func getLoginType() -> LoginType {
-        guard getIsLoggedIn() else {
-            return .none
-        }
-        
         if let loginTypeString = UserDefaults.standard.string(forKey: loginTypeKey) {
             return LoginType(rawValue: loginTypeString) ?? .none
         }

@@ -67,7 +67,7 @@ class InfoView: UIView {
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.top.equalTo(thirdInfoView.snp.bottom).offset(52*ConstantsManager.standardHeight)
-            make.bottom.equalToSuperview().offset(-232*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-202*ConstantsManager.standardHeight)
         }
     }
 }

@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class IndicatorTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
@@ -217,7 +218,6 @@ class IndicatorTableViewCell: UITableViewCell {
     }
     
     func configure(with indicatordata: IndicatorCoinData) {
-        
         if indicatordata.timing == "매수" {
             alertTimeLabel.textColor = ColorManager.green_40
             alertPriceLabel.textColor = ColorManager.green_40
@@ -227,6 +227,13 @@ class IndicatorTableViewCell: UITableViewCell {
             alertTimeLabel.textColor = ColorManager.red_50
             alertPriceLabel.textColor = ColorManager.red_50
             alertTypeLabel.textColor = ColorManager.red_50
+        }
+        
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(indicatordata.coinName).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
         }
         
         premiumLabel.isHidden = indicatordata.isPremium == "Y" ? false : true

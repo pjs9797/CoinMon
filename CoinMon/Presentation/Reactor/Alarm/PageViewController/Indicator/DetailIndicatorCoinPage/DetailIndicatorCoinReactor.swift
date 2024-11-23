@@ -13,7 +13,7 @@ class DetailIndicatorCoinReactor: ReactorKit.Reactor, Stepper {
         let coinTitle = "\(coin)(USDT)"
         
         self.indicatorUseCase = indicatorUseCase
-        self.initialState = State(indicatorId: indicatorId, indicatorCoinId: indicatorCoinId, coinTitle: coinTitle, coinPrice: "$\(price)", indicatorName: indicatorName, frequency: frequency)
+        self.initialState = State(indicatorId: indicatorId, indicatorCoinId: indicatorCoinId, coin: coin, coinTitle: coinTitle, coinPrice: "$\(price)", indicatorName: indicatorName, frequency: frequency)
     }
     
     enum Action {
@@ -44,6 +44,7 @@ class DetailIndicatorCoinReactor: ReactorKit.Reactor, Stepper {
         ]
         var indicatorId: String
         var indicatorCoinId: String
+        var coin: String
         var coinTitle: String
         var coinPrice: String
         var indicatorName: String

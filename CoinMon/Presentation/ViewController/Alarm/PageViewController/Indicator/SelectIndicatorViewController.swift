@@ -101,8 +101,6 @@ extension SelectIndicatorViewController {
             .bind(to: selectIndicatorView.explanIndicatorTableView.rx.items(cellIdentifier: "ExplanIndicatorTableVieCell", cellType: ExplanIndicatorTableViewCell.self)) { (index, indicatorInfo, cell) in
                 
                 let indicatorId = String(indicatorInfo.indicatorId)
-//                cell.configure(with: indicatorInfo)
-//                cell.configureTrial(indicatorId: indicatorId, subscriptionStatus: reactor.currentState.subscriptionStatus)
                 cell.configure(with: indicatorInfo, subscriptionStatus: reactor.currentState.subscriptionStatus)
 
                 let isPremium = indicatorInfo.isPremiumYN == "Y" ? true : false

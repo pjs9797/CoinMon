@@ -1,10 +1,10 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class FirstInfoView: UIView {
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .gray
         return imageView
     }()
     let coinTitleLabel: UILabel = {
@@ -48,7 +48,6 @@ class FirstInfoView: UIView {
         label.font = FontManager.H5_15
         return label
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -59,8 +59,8 @@ class SignupFlow: Flow {
             //MARK: 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
-        case .presentToUnknownErrorAlertController:
-            return presentToUnknownErrorAlertController()
+        case .presentToUnknownErrorAlertController(let message):
+            return presentToUnknownErrorAlertController(message: message)
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
         }
@@ -92,7 +92,7 @@ class SignupFlow: Flow {
     }
     
     private func navigateToTermsOfServiceViewController() -> FlowContributors {
-        let reactor = TermsOfServiceReactor(termsOfServiceFlow: .signup)
+        let reactor = TermsOfServiceReactor(flowType: .signup)
         let viewController = TermsOfServiceViewController(with: reactor)
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
@@ -101,7 +101,7 @@ class SignupFlow: Flow {
     }
     
     private func navigateToPrivacyPolicyViewController() -> FlowContributors {
-        let reactor = PrivacyPolicyReactor(termsOfServiceFlow: .signup)
+        let reactor = PrivacyPolicyReactor(flowType: .signup)
         let viewController = PrivacyPolicyViewController(with: reactor)
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
@@ -110,7 +110,7 @@ class SignupFlow: Flow {
     }
     
     private func navigateToMarketingConsentViewController() -> FlowContributors {
-        let reactor = MarketingConsentReactor(termsOfServiceFlow: .signup)
+        let reactor = MarketingConsentReactor(flowType: .signup)
         let viewController = MarketingConsentViewController(with: reactor)
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
@@ -212,9 +212,9 @@ class SignupFlow: Flow {
         return .none
     }
     
-    private func presentToUnknownErrorAlertController() -> FlowContributors {
+    private func presentToUnknownErrorAlertController(message: String) -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명", arguments: message),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)

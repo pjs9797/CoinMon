@@ -83,14 +83,13 @@ class SubscriptionManagementView: UIView {
         return label
     }()
     let contactButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "문의하기"), attributes: .init([.font: FontManager.B5_14]))
-        configuration.baseForegroundColor = ColorManager.gray_20
-        configuration.baseBackgroundColor = ColorManager.common_100
-        configuration.image = ImageManager.arrow_Chevron_Right?.withTintColor(ColorManager.gray_20 ?? .black, renderingMode: .alwaysTemplate)
-        configuration.imagePlacement = .trailing
-        configuration.imagePadding = 3*ConstantsManager.standardWidth
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.B5_14, foregroundColor: ColorManager.gray_20, backgroundColor: ColorManager.common_100)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "문의하기")
+        configuration?.image = ImageManager.arrow_Chevron_Right?.withTintColor(ColorManager.gray_20 ?? .black, renderingMode: .alwaysTemplate)
+        configuration?.imagePlacement = .trailing
+        configuration?.imagePadding = 3*ConstantsManager.standardWidth
+        button.configuration = configuration
         return button
     }()
     

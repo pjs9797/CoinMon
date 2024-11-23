@@ -4,10 +4,10 @@ import RxMoya
 import RxSwift
 
 class SigninRepository: SigninRepositoryInterface {
-    private var provider = MoyaProvider<SigninService>()
+    private let provider: MoyaProvider<SigninService>
     
-    init(provider: MoyaProvider<SigninService> = MoyaProvider<SigninService>()) {
-        self.provider = provider
+    init() {
+        provider = MoyaProvider<SigninService>(requestClosure: MoyaProviderUtils.requestClosure, session: Session(interceptor: MoyaRequestInterceptor()))
     }
     
     func checkEmailIsExisted(email: String) -> Observable<String> {

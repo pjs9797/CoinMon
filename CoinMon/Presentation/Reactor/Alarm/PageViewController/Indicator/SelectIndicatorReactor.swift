@@ -37,7 +37,7 @@ class SelectIndicatorReactor: ReactorKit.Reactor, Stepper {
             LocalizationManager.shared.localizedString(forKey: "무료")
         ]
         var indicators: [IndicatorInfo] = []
-        var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .normal, useTrialYN: "N")
+        var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .normal, useTrialYN: "Y")
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -46,7 +46,6 @@ class SelectIndicatorReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(AlarmStep.popViewController)
             return .empty()
         case .explainButtonTapped(let indicatorId):
-            //TODO: 플로우 타입으로 나눠서
             self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: indicatorId))
             return .empty()
         case .rightButtonTapped(let isPushed, let indicatorId, let indicatorName, let isPremium):
@@ -54,7 +53,7 @@ class SelectIndicatorReactor: ReactorKit.Reactor, Stepper {
                 self.steps.accept(AlarmStep.navigateToDetailIndicatorViewController(flowType: "WhenNotCreate", indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium, frequency: "15"))
             }
             else {
-                self.steps.accept(AlarmStep.navigateToSelectCoinForIndicatorViewController(flowType: .atNotPurchase, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium))
+                self.steps.accept(AlarmStep.navigateToSelectCoinForIndicatorViewController(flowType: .alarm, indicatorId: indicatorId, indicatorName: indicatorName, isPremium: isPremium))
             }
             return .empty()
         case .alarmButtonTapped(let indicatorId, let indicatorName):

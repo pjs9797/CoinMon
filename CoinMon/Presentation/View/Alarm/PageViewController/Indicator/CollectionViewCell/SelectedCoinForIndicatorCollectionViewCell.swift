@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class SelectedCoinForIndicatorCollectionViewCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
@@ -46,20 +47,21 @@ class SelectedCoinForIndicatorCollectionViewCell: UICollectionViewCell {
             }
         
         coinImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(14*ConstantsManager.standardHeight).priority(.high)
+            make.width.height.equalTo(14*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(8*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(8*ConstantsManager.standardHeight)
-            make.bottom.equalToSuperview().offset(-8*ConstantsManager.standardHeight)
+            make.top.equalToSuperview().offset(8 * ConstantsManager.standardHeight).priority(.medium)
+            make.bottom.equalToSuperview().offset(-8 * ConstantsManager.standardHeight).priority(.medium)
+            make.centerY.equalToSuperview()
         }
         
         coinLabel.snp.makeConstraints { make in
             make.leading.equalTo(coinImageView.snp.trailing).offset(4*ConstantsManager.standardWidth)
+            make.trailing.equalTo(deleteButton.snp.leading).offset(-4*ConstantsManager.standardWidth).priority(.low)
             make.centerY.equalTo(coinImageView)
         }
         
         deleteButton.snp.makeConstraints { make in
             make.width.height.equalTo(14*ConstantsManager.standardHeight)
-            make.leading.equalTo(coinLabel.snp.trailing).offset(4*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-10*ConstantsManager.standardWidth)
             make.centerY.equalTo(coinImageView)
         }
@@ -67,5 +69,11 @@ class SelectedCoinForIndicatorCollectionViewCell: UICollectionViewCell {
     
     func configure(with coin: String) {
         coinLabel.text = coin
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(coin).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
     }
 }

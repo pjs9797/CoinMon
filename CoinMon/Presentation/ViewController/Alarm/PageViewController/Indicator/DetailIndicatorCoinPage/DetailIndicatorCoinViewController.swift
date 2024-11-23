@@ -1,6 +1,7 @@
 import UIKit
 import ReactorKit
 import SnapKit
+import Kingfisher
 
 class DetailIndicatorCoinViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
@@ -139,6 +140,18 @@ extension DetailIndicatorCoinViewController {
                 self?.pageViewController.setViewControllers([self!.viewControllers[index]], direction: direction, animated: true, completion: nil)
                 self?.detailIndicatorCoinCategoryCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                 reactor.action.onNext(.setPreviousIndex(index))
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.coin }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] coin in
+                let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+                if let imageURL = URL(string: "\(baseURL)\(coin).png") {
+                    self?.detailIndicatorCoinView.coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+                } else {
+                    self?.detailIndicatorCoinView.coinImageView.image = ImageManager.login_coinmon
+                }
             })
             .disposed(by: disposeBag)
         

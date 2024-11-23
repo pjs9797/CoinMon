@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Kingfisher
 
 class IndicatorAlarmTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
@@ -15,12 +16,11 @@ class IndicatorAlarmTableViewCell: UITableViewCell {
         return label
     }()
     let alarmButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.attributedTitle = AttributedString(LocalizationManager.shared.localizedString(forKey: "알람 받기"), attributes: .init([.font: FontManager.D8_14]))
-        configuration.baseForegroundColor = ColorManager.gray_20
-        configuration.baseBackgroundColor = ColorManager.common_100
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 6*ConstantsManager.standardHeight, leading: 12*ConstantsManager.standardWidth, bottom: 6*ConstantsManager.standardHeight, trailing: 12*ConstantsManager.standardWidth)
-        let button = UIButton(configuration: configuration)
+        let button = ConfigurationButton(font: FontManager.D8_14, foregroundColor: ColorManager.gray_20, backgroundColor: ColorManager.common_100)
+        var configuration = button.configuration
+        configuration?.title = LocalizationManager.shared.localizedString(forKey: "알람 받기")
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 6*ConstantsManager.standardHeight, leading: 12*ConstantsManager.standardWidth, bottom: 6*ConstantsManager.standardHeight, trailing: 12*ConstantsManager.standardWidth)
+        button.configuration = configuration
         button.layer.cornerRadius = 8*ConstantsManager.standardHeight
         button.layer.borderColor = ColorManager.gray_96?.cgColor
         button.layer.borderWidth = 1
@@ -70,5 +70,11 @@ class IndicatorAlarmTableViewCell: UITableViewCell {
     
     func configure(title: String) {
         coinTitleLabel.text = title
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(title).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
     }
 }

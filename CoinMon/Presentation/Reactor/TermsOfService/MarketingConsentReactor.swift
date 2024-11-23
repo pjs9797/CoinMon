@@ -5,10 +5,10 @@ import RxFlow
 class MarketingConsentReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    let termsOfServiceFlow: TermsOfServiceFlow
+    let flowType: FlowType
     
-    init(termsOfServiceFlow: TermsOfServiceFlow){
-        self.termsOfServiceFlow = termsOfServiceFlow
+    init(flowType: FlowType){
+        self.flowType = flowType
     }
     
     enum Action {
@@ -26,11 +26,13 @@ class MarketingConsentReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            switch termsOfServiceFlow{
+            switch flowType{
             case .signup:
                 self.steps.accept(SignupStep.popViewController)
             case .setting:
                 self.steps.accept(SettingStep.popViewController)
+            default:
+                return .empty()
             }
             return .empty()
         }

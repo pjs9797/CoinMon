@@ -24,6 +24,8 @@ class AppFlow: Flow {
         guard let step = step as? AppStep else { return .none }
         switch step {
             //MARK: 푸시
+        case .navigateToLaunchViewController:
+            return navigateToLaunchViewController()
         case .navigateToSurveyViewController:
             return navigateToSurveyViewController()
         case .navigateToSigninViewController:
@@ -69,14 +71,23 @@ class AppFlow: Flow {
             //MARK: 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
             return presentToNetworkErrorAlertController()
-        case .presentToUnknownErrorAlertController:
-            return presentToUnknownErrorAlertController()
+        case .presentToUnknownErrorAlertController(let message):
+            return presentToUnknownErrorAlertController(message: message)
         case .presentToAWSServerErrorAlertController:
             return presentToAWSServerErrorAlertController()
         }
     }
     
     //MARK: 푸시 메소드
+    private func navigateToLaunchViewController() -> FlowContributors {
+        let reactor = LaunchReactor()
+        let viewController = LaunchViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
+        self.rootViewController.setViewControllers([viewController], animated: false)
+
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func navigateToSurveyViewController() -> FlowContributors {
         let reactor = SurveyReactor()
         let viewController = SurveyViewController(with: reactor)
@@ -229,9 +240,9 @@ class AppFlow: Flow {
         return .none
     }
     
-    private func presentToUnknownErrorAlertController() -> FlowContributors {
+    private func presentToUnknownErrorAlertController(message: String) -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 발생"),
-                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명"),
+                                                message: LocalizationManager.shared.localizedString(forKey: "알 수 없는 오류 설명", arguments: message),
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizationManager.shared.localizedString(forKey: "확인"), style: .default, handler: nil)
         alertController.addAction(okAction)

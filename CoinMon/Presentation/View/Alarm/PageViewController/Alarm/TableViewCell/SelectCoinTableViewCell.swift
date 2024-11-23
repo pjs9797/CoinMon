@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class SelectCoinTableViewCell: UITableViewCell {
     let coinView: UIView = {
@@ -88,7 +89,12 @@ class SelectCoinTableViewCell: UITableViewCell {
     }
     
     func configurePrice(with coinPriceAtAlarm: CoinPrice) {
-        coinImageView.image = UIImage(named: coinPriceAtAlarm.coinTitle) ?? ImageManager.login_coinmon
+        let baseURL = "http://\(ConfigManager.serverBaseURL)/images/"
+        if let imageURL = URL(string: "\(baseURL)\(coinPriceAtAlarm.coinTitle).png") {
+            coinImageView.kf.setImage(with: imageURL, placeholder: ImageManager.login_coinmon)
+        } else {
+            coinImageView.image = ImageManager.login_coinmon
+        }
         coinLabel.text = coinPriceAtAlarm.coinTitle
         priceLabel.text = coinPriceAtAlarm.price
         if let formattedPrice = formatPrice(coinPriceAtAlarm.price) {
