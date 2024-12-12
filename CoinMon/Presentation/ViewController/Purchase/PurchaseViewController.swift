@@ -35,6 +35,13 @@ class PurchaseViewController: UIViewController, ReactorKit.View{
         super.viewWillDisappear(animated)
         
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     private func setNavigationbar() {
@@ -66,6 +73,22 @@ extension PurchaseViewController {
     }
     
     func bindState(reactor: PurchaseReactor){
+        reactor.state.map { $0.isLoading }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] isLoading in
+                if isLoading {
+                    self?.purchaseView.activityIndicator.startAnimating()
+                    self?.purchaseView.purchaseButton.isEnabled = false
+                    self?.backButton.isEnabled = false
+                }
+                else {
+                    self?.purchaseView.activityIndicator.stopAnimating()
+                    self?.purchaseView.purchaseButton.isEnabled = true
+                    self?.backButton.isEnabled = true
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.subscriptionStatus }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] subscriptionStatus in

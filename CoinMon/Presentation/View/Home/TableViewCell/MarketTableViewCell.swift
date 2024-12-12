@@ -11,6 +11,7 @@ class MarketTableViewCell: UITableViewCell {
     let marketLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D6_16
+        label.textColor = ColorManager.common_0
         label.textAlignment = .left
         return label
     }()
@@ -25,6 +26,7 @@ class MarketTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
+        self.backgroundColor = ColorManager.common_100
         layout()
     }
 

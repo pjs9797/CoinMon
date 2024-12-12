@@ -17,6 +17,7 @@ class CoinForIndicatorTableViewCell: UITableViewCell {
     let coinLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D9_13
+        label.textColor = ColorManager.common_0
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -29,6 +30,7 @@ class CoinForIndicatorTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = FontManager.H7_13
         label.textAlignment = .right
+        label.textColor = ColorManager.common_0
         return label
     }()
     let changeView: UIView = {
@@ -51,6 +53,7 @@ class CoinForIndicatorTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
+        self.backgroundColor = ColorManager.common_100
         layout()
     }
 

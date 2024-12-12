@@ -19,6 +19,7 @@ class SelectCycleForIndicatorReactor: ReactorKit.Reactor, Stepper {
     
     enum Action {
         case backButtonTapped
+        case explainButtonTapped
         case completeButtonTapped
     }
     
@@ -46,6 +47,16 @@ class SelectCycleForIndicatorReactor: ReactorKit.Reactor, Stepper {
                 else {
                     self.steps.accept(AlarmStep.popViewController)
                 }
+            }
+            return .empty()
+        case .explainButtonTapped:
+            switch flowType {
+            case .alarm:
+                self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: currentState.indicatorId))
+            case .purchase:
+                self.steps.accept(PurchaseStep.presentToExplainIndicatorSheetPresentationController(indicatorId: currentState.indicatorId))
+            default:
+                return .empty()
             }
             return .empty()
         case .completeButtonTapped:

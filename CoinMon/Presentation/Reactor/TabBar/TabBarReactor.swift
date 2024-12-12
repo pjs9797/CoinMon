@@ -66,7 +66,6 @@ class TabBarReactor: Reactor, Stepper {
                     else {
                         isTrialTooltipHidden = false
                     }
-                    print("isTrialTooltipHidden",isTrialTooltipHidden)
                     if trialYN == "N" {
                         if let lastHiddenTime = UserDefaultsManager.shared.getNewIndicatorHiddenTime() {
                             let elapsedTime = Date().timeIntervalSince(lastHiddenTime)

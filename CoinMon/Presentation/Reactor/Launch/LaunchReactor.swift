@@ -31,11 +31,13 @@ class LaunchReactor: ReactorKit.Reactor, Stepper {
                             self?.steps.accept(AppStep.navigateToTabBarController)
                         }
                         else {
+                            print("checkRefresh Error: ",resultCode)
                             self?.steps.accept(AppStep.navigateToSigninViewController)
                         }
                         return .empty()
                     }
-                    .catch { [weak self] _ in
+                    .catch { [weak self] error in
+                        print("checkRefresh Error: ",error.localizedDescription)
                         self?.steps.accept(AppStep.navigateToSigninViewController)
                         return .empty()
                     }

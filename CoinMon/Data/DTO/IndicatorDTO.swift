@@ -51,7 +51,9 @@ struct GetIndicatorCoinDataResponseDTO: Codable {
     }
     
     static func toIndicatorCoinData(dto: GetIndicatorCoinDataResponseDTO) -> [IndicatorCoinData] {
-        return dto.data.info.map {
+        return dto.data.info
+            .filter { !$0.coinName.isEmpty }
+            .map {
             IndicatorCoinData(indicatorId: $0.indicatorId, indicatorCoinId: String($0.indicatorCoinId), indicatorName: $0.indicatorName, indicatorNameEng: $0.indicatorNameEng, isPremium: $0.isPremium, frequency: $0.frequency, coinName: $0.coinName, isOn: $0.isOn, curPrice: $0.curPrice, recentTime: $0.recentTime, recentPrice: $0.recentPrice, timing: $0.timing)
         }.sorted{ $0.indicatorId < $1.indicatorId }
     }

@@ -33,12 +33,14 @@ class NotificationView: UIView {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20*ConstantsManager.standardWidth, bottom: 0, right: 20*ConstantsManager.standardWidth)
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = ColorManager.common_100
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(NotificationTypeCollectionViewCell.self, forCellWithReuseIdentifier: "NotificationTypeCollectionViewCell")
         return collectionView
     }()
     let notificationTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0

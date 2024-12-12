@@ -7,7 +7,7 @@ class DetailIndicatorTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageManager.login_coinmon
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     let coinTitleLabel: UILabel = {
@@ -165,7 +165,7 @@ class DetailIndicatorTableViewCell: UITableViewCell {
         alertView.isHidden = true
         
         coinImageView.snp.remakeConstraints { make in
-            make.width.height.equalTo(20*ConstantsManager.standardHeight).priority(.high)
+            make.width.height.equalTo(20*ConstantsManager.standardHeight)
             make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(14*ConstantsManager.standardHeight)
             make.bottom.equalToSuperview().offset(-40*ConstantsManager.standardHeight)
@@ -178,7 +178,7 @@ class DetailIndicatorTableViewCell: UITableViewCell {
             alertTypeLabel.text = LocalizationManager.shared.localizedString(forKey: timing)
             
             coinImageView.snp.remakeConstraints { make in
-                make.width.height.equalTo(20*ConstantsManager.standardHeight).priority(.high)
+                make.width.height.equalTo(20*ConstantsManager.standardHeight)
                 make.leading.equalToSuperview()
                 make.top.equalToSuperview().offset(14*ConstantsManager.standardHeight)
             }

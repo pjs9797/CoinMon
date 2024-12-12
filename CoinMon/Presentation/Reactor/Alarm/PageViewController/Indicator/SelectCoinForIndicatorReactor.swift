@@ -93,7 +93,14 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
             }
             return .empty()
         case .explainButtonTapped:
-            self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: currentState.indicatorId))
+            switch flowType {
+            case .alarm:
+                self.steps.accept(AlarmStep.presentToExplainIndicatorSheetPresentationController(indicatorId: currentState.indicatorId))
+            case .purchase:
+                self.steps.accept(PurchaseStep.presentToExplainIndicatorSheetPresentationController(indicatorId: currentState.indicatorId))
+            default:
+                return .empty()
+            }
             return .empty()
         case .resetButtonTapped:
             let filteredList = currentState.filteredindicatorCoinPriceChangeList.map { listItem -> IndicatorCoinPriceChange in
@@ -229,7 +236,7 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
             }
             let sortedList = self.sortIndicatorCoinPriceChangeList(currentState.filteredindicatorCoinPriceChangeList, by: \.price, order: newOrder)
             return .concat([
-                .just(.setCoinSortOrder(newOrder)),
+                .just(.setPriceSortOrder(newOrder)),
                 .just(.setFilteredindicatorCoinPriceChangeList(sortedList))
             ])
         case .sortByChange:
@@ -244,7 +251,7 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
             }
             let sortedList = self.sortIndicatorCoinPriceChangeList(currentState.filteredindicatorCoinPriceChangeList, by: \.change, order: newOrder)
             return .concat([
-                .just(.setCoinSortOrder(newOrder)),
+                .just(.setChangeSortOrder(newOrder)),
                 .just(.setFilteredindicatorCoinPriceChangeList(sortedList))
             ])
         }
@@ -297,8 +304,8 @@ class SelectCoinForIndicatorReactor: ReactorKit.Reactor, Stepper {
                 rhs = Double(rhsValue) ?? 0.0
             }
             else {
-                lhs = $0[keyPath: actualKeyPath] as! String
-                rhs = $1[keyPath: actualKeyPath] as! String
+                lhs = $0[keyPath: actualKeyPath]
+                rhs = $1[keyPath: actualKeyPath]
             }
             
             switch order {

@@ -62,6 +62,7 @@ class ExplanIndicatorTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
+        self.backgroundColor = ColorManager.common_100
         layout()
     }
     

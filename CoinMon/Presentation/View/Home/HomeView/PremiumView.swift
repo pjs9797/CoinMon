@@ -28,6 +28,7 @@ class PremiumView: UIView {
     let premiumTableViewHeader = PremiumTableViewHeader()
     let premiumTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0

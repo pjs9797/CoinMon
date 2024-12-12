@@ -1,4 +1,5 @@
 import ReactorKit
+import UIKit
 import Foundation
 import RxCocoa
 import RxFlow
@@ -225,6 +226,10 @@ class FeeReactor: ReactorKit.Reactor, Stepper {
         timerDisposable = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.instance)
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
+                guard UIApplication.shared.applicationState == .active else {
+                    print("앱이 백그라운드 상태입니다. API 호출 중단")
+                    return
+                }
                 self?.action.onNext(.loadFeeList)
             })
     }

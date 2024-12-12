@@ -37,4 +37,8 @@ class UserUseCase {
                 return .just(response?.resultCode ?? "426")
             }
     }
+    
+    func postSurvey(answer: String) -> Observable<String> {
+        return repository.postSurvey(answer: answer)
+    }
 }

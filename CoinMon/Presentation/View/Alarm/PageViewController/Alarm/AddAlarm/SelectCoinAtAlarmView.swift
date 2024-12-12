@@ -6,6 +6,7 @@ class SelectCoinAtAlarmView: UIView {
     let selectCoinTableViewHeader = SelectCoinTableViewHeader()
     let selectCoinTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0

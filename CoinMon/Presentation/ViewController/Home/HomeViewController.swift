@@ -10,6 +10,7 @@ class HomeViewController: UIViewController, ReactorKit.View {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 2*ConstantsManager.standardWidth
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = ColorManager.common_100
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(HomeCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCategoryCollectionViewCell")
         return collectionView

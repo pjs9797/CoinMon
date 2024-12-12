@@ -39,6 +39,7 @@ class SelectCoinForIndicatorView: UIView {
     let coinForIndicatorTableViewHeader = CoinForIndicatorTableViewHeader()
     let coinForIndicatorTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
@@ -56,6 +57,7 @@ class SelectCoinForIndicatorView: UIView {
         layout.minimumInteritemSpacing = 0
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = ColorManager.common_100
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isHidden = true
         collectionView.register(SelectedCoinForIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: "SelectedCoinForIndicatorCollectionViewCell")

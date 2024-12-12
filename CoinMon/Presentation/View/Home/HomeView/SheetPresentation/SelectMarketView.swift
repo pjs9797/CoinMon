@@ -11,6 +11,7 @@ class SelectMarketView: UIView {
     }()
     let marketTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .none
         tableView.rowHeight = 56*ConstantsManager.standardHeight
         tableView.register(MarketTableViewCell.self, forCellReuseIdentifier: "MarketTableViewCell")

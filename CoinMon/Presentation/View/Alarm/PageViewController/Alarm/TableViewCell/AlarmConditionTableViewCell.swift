@@ -5,6 +5,7 @@ class AlarmConditionTableViewCell: UITableViewCell {
     let conditionLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D6_16
+        label.textColor = ColorManager.common_0
         label.textAlignment = .center
         return label
     }()
@@ -13,6 +14,7 @@ class AlarmConditionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
+        self.backgroundColor = ColorManager.common_100
         layout()
     }
 

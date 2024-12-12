@@ -299,8 +299,6 @@ class AlarmFlow: Flow {
         viewController.heightRelay
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] contentHeight in
-                print("Height Calculated: \(contentHeight)")
-                
                 if let sheet = viewController.sheetPresentationController {
                     let customDetent = UISheetPresentationController.Detent.custom { context in
                         return contentHeight
@@ -323,9 +321,7 @@ class AlarmFlow: Flow {
         let viewController = DeleteIndicatorPushSheetPresentationController(with: reactor)
         viewController.heightRelay
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] contentHeight in
-                print("Height Calculated: \(contentHeight)")
-                
+            .subscribe(onNext: { [weak self] contentHeight in                
                 if let sheet = viewController.sheetPresentationController {
                     let customDetent = UISheetPresentationController.Detent.custom { context in
                         return contentHeight

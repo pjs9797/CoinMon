@@ -90,7 +90,6 @@ class CoinRepository: CoinRepositoryInterface {
     
     func fetchCoinDetailBaseInfo(exchange: String, symbol: String) -> Observable<DetailBasicInfo> {
         return coinProvider.rx.request(.getCoinDetail(exchange: exchange, symbol: symbol))
-            .debug()
             .filterSuccessfulStatusCodes()
             .map(CoinDetailResponseDTO.self)
             .map { CoinDetailResponseDTO.toDetailBasicInfo(dto: $0) }

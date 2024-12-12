@@ -18,6 +18,7 @@ class SurveyView: UIView {
     }()
     let surveyTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorColor = .clear
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0

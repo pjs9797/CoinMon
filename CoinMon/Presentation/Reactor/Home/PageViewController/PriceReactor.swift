@@ -1,4 +1,5 @@
 import ReactorKit
+import UIKit
 import Foundation
 import RxCocoa
 import RxFlow
@@ -223,7 +224,6 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
         case .loadPriceList:
             if currentState.isTappedFavoriteButton == true {
                 return self.favoritesUseCase.fetchCoinPriceChangeGapListByFavorites(market: currentState.markets[currentState.selectedMarket].localizationKey)
-                    .debug()
                     .flatMap { [weak self] priceList -> Observable<Mutation> in
                         let sortedAndFilteredList = self?.sortAndFilterPriceList(priceList) ?? []
                         return .concat([
@@ -409,9 +409,14 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
     
     private func startTimer() {
         stopTimer()
+        
         timerDisposable = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.asyncInstance)
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
+                guard UIApplication.shared.applicationState == .active else {
+                    print("앱이 백그라운드 상태입니다. API 호출 중단")
+                    return
+                }
                 self?.action.onNext(.loadPriceList)
             })
     }

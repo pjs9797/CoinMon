@@ -22,6 +22,7 @@ class DetailCoinInfoViewController: UIViewController, ReactorKit.View {
         layout.minimumInteritemSpacing = 0
         layout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width-40*ConstantsManager.standardWidth)/3, height: 34*ConstantsManager.standardHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = ColorManager.common_100
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(DetailCoinInfoCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCoinInfoCategoryCollectionViewCell")
         return collectionView

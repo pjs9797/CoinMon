@@ -5,7 +5,7 @@ import Moya
 enum AppError: Error {
     case network(NSError)
     case awsServerError
-    case serverError(statusCode: Int)
+    case StatusError(statusCode: Int)
     case authenticationError
     case unknown(Error)
     
@@ -15,8 +15,8 @@ enum AppError: Error {
             return "Network error: \(error.localizedDescription)"
         case .awsServerError:
             return "AWS server is currently unavailable."
-        case .serverError(let statusCode):
-            return "Server error with status code: \(statusCode)"
+        case .StatusError(let statusCode):
+            return "Error with status code: \(statusCode)"
         case .authenticationError:
             return "Authentication error. Please log in again."
         case .unknown(let error):
@@ -34,22 +34,20 @@ class ErrorHandler {
     }
     
     private static func mapToAppError(_ error: Error) -> AppError {
-        if let rxError = error as? RxError, case .timeout = rxError {
-            return .awsServerError
-        }
         if let moyaError = error as? MoyaError {
             switch moyaError {
             case .underlying(let nsError as NSError, _):
-                print("Network Error Code: \(nsError.code)")
-                if nsError.code == 13 || nsError.code == NSURLErrorTimedOut {
+                switch nsError.code {
+                case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost:
+                    return .network(nsError)
+                default:
                     return .awsServerError
                 }
-                return .network(nsError)
             case .statusCode(let response):
                 if response.statusCode == 403 {
                     return .authenticationError
                 } else {
-                    return .serverError(statusCode: response.statusCode)
+                    return .StatusError(statusCode: response.statusCode)
                 }
             default:
                 return .unknown(moyaError)
@@ -61,7 +59,7 @@ class ErrorHandler {
     
     private static func logError(_ error: AppError) {
         switch error {
-        case .serverError(let statusCode):
+        case .StatusError(let statusCode):
             print("Error occurred: \(error.localizedDescription). Status code: \(statusCode)")
         default:
             print("Error occurred: \(error.localizedDescription)")
@@ -77,6 +75,8 @@ class ErrorHandler {
             return presentToAWSServerErrorAlertController(for: stepType)
         case .authenticationError:
             return presentToExpiredTokenErrorAlertController(for: stepType)
+        case .StatusError:
+            return nil
         default:
             return presentToUnknownErrorAlertController(for: stepType, message: errorMessage)
         }

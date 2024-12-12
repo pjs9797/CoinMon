@@ -5,6 +5,7 @@ import RxFlow
 class SurveyReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    private let userUseCase = UserUseCase(repository: UserRepository())
     
     enum Action {
         case completeButtonTapped
@@ -32,6 +33,19 @@ class SurveyReactor: ReactorKit.Reactor, Stepper {
             UserDefaultsManager.shared.setIsFirstLaunch(false)
             self.steps.accept(AppStep.navigateToSigninViewController)
             return .empty()
+            //TODO: 회의 후 주석 제거
+//            return userUseCase.postSurvey(answer: String(currentState.selectedIndex))
+//                .flatMap { _ -> Observable<Mutation> in
+//                    UserDefaultsManager.shared.setIsFirstLaunch(false)
+//                    self.steps.accept(AppStep.navigateToSigninViewController)
+//                    return .empty()
+//                }
+//                .catch { [weak self] error in
+//                    ErrorHandler.handle(error) { (step: AppStep) in
+//                        self?.steps.accept(step)
+//                    }
+//                    return .empty()
+//                }
         case .selectItem(let index):
             return .just(.selectItem(index))
         }

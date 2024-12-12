@@ -21,11 +21,11 @@ struct SubscriptionStatusResponseDTO: Codable {
         let info = dto.data.info
         let status: SubscriptionStatus
         switch info.status {
-        case "normal":
+        case "NORMAL":
             status = .normal
-        case "trial":
+        case "TRIAL":
             status = .trial
-        case "subscription":
+        case "SUBSCRIPTION":
             status = .subscription
         default:
             status = .normal

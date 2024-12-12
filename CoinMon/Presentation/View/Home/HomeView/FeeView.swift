@@ -9,6 +9,7 @@ class FeeView: UIView {
         layout.minimumLineSpacing = 8*ConstantsManager.standardWidth
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20*ConstantsManager.standardWidth, bottom: 0, right: 20*ConstantsManager.standardWidth)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = ColorManager.common_100
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(MarketListAtHomeCollectionViewCell.self, forCellWithReuseIdentifier: "MarketListAtHomeCollectionViewCell")
         return collectionView
@@ -16,6 +17,7 @@ class FeeView: UIView {
     let feeTableViewHeader = FeeTableViewHeader()
     let feeTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0

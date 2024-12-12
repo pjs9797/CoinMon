@@ -47,6 +47,11 @@ extension SelectCycleForIndicatorViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        selectCycleForIndicatorView.explainButton.rx.tap
+            .map{ Reactor.Action.explainButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         selectCycleForIndicatorView.completeButton.rx.tap
             .map{ Reactor.Action.completeButtonTapped }
             .bind(to: reactor.action)

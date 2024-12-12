@@ -111,7 +111,7 @@ extension IndicatorViewController {
             reactor.state.map { $0.subscriptionStatus }.distinctUntilChanged(),
             reactor.state.map { $0.indicatorCoinDatas }.distinctUntilChanged()
         )
-        .skip(2)
+        .skip(1)
         .observe(on: MainScheduler.asyncInstance)
         .subscribe(onNext: { [weak self] subscriptionStatus, indicatorCoinDatas in
             let status = subscriptionStatus.status
@@ -135,6 +135,11 @@ extension IndicatorViewController {
         .subscribe(onNext: { [weak self] indicatorCoinDatas, _ in
             let indicatorCoinDataCnt = indicatorCoinDatas.count
             if indicatorCoinDataCnt == 3 {
+                if indicatorCoinDatas.first == IndicatorCoinData(indicatorId: 0, indicatorCoinId: "", indicatorName: "", indicatorNameEng: "", isPremium: "", frequency: "", coinName: "", isOn: "", curPrice: 0, recentTime: "", recentPrice: 0, timing: "") {
+                    self?.mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.setTitle(LocalizationManager.shared.localizedString(forKey: "알람 추가"), for: .normal)
+                    self?.mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.isEnabled = true
+                    self?.mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.setTitleColor(ColorManager.gray_20, for: .normal)
+                }
                 self?.mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.setTitle(LocalizationManager.shared.localizedString(forKey: "추가할 수 있는 알람을 모두 추가했어요"), for: .normal)
                 self?.mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.isEnabled = false
                 self?.mainIndicatorView.subscriptionIndicatorView.addIndicatorButton.setTitleColor(ColorManager.gray_90, for: .normal)

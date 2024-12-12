@@ -35,6 +35,18 @@ class SuccessSubscriptionViewController: UIViewController, ReactorKit.View{
         reactor?.action.onNext(.loadSubscriptionStatus)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.post(name: .isPurchased, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
     private func setNavigationbar() {
         self.title = ""
         let attributes: [NSAttributedString.Key: Any] = [

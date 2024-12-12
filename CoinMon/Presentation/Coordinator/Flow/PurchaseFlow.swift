@@ -1,5 +1,6 @@
 import UIKit
 import RxFlow
+import RxSwift
 
 class PurchaseFlow: Flow {
     var root: Presentable {
@@ -46,6 +47,8 @@ class PurchaseFlow: Flow {
             return presentToFailurePurchaseAlertController()
         case .presentToServerFailurePurchaseAlertController:
             return presentToServerFailurePurchaseAlertController()
+        case .presentToExplainIndicatorSheetPresentationController(let indicatorId):
+            return presentToExplainIndicatorSheetPresentationController(indicatorId: indicatorId)
             
             // 프레젠트 공통 알람
         case .presentToNetworkErrorAlertController:
@@ -180,6 +183,30 @@ class PurchaseFlow: Flow {
         return .none
     }
     
+    private func presentToExplainIndicatorSheetPresentationController(indicatorId: String) -> FlowContributors {
+        let reactor = ExplainIndicatorSheetPresentationReactor(indicatorId: indicatorId)
+        let viewController = ExplainIndicatorSheetPresentationController(with: reactor)
+        viewController.heightRelay
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] contentHeight in
+                
+                if let sheet = viewController.sheetPresentationController {
+                    let customDetent = UISheetPresentationController.Detent.custom { context in
+                        return contentHeight
+                    }
+                    
+                    sheet.detents = [customDetent]
+                    sheet.prefersGrabberVisible = false
+                    sheet.preferredCornerRadius = 16 * ConstantsManager.standardHeight
+                }
+                
+                self?.rootViewController.present(viewController, animated: true)
+            })
+            .disposed(by: viewController.disposeBag)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
     private func presentToServerFailurePurchaseAlertController() -> FlowContributors {
         let alertController = CustomDimAlertController(title: LocalizationManager.shared.localizedString(forKey: "문의해주세요"),
                                                        message: LocalizationManager.shared.localizedString(forKey: "결제에 오류가 발생했습니다."),
@@ -274,6 +301,7 @@ class PurchaseFlow: Flow {
     }
     
     private func popToRootViewController() -> FlowContributors {
+        self.rootViewController.isNavigationBarHidden = true
         self.rootViewController.popToRootViewController(animated: true)
         
         return .none

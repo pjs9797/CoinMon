@@ -11,6 +11,7 @@ class SelectAlarmConditionView: UIView {
     }()
     let alarmConditionTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorStyle = .none
         tableView.rowHeight = 56*ConstantsManager.standardHeight
         tableView.register(AlarmConditionTableViewCell.self, forCellReuseIdentifier: "AlarmConditionTableViewCell")

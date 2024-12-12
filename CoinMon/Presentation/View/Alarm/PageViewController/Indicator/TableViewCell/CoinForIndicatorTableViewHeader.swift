@@ -69,8 +69,7 @@ class CoinForIndicatorTableViewHeader: UIView {
         }
         
         coinButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         priceView.snp.makeConstraints { make in
@@ -80,8 +79,7 @@ class CoinForIndicatorTableViewHeader: UIView {
         }
         
         priceButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         changeView.snp.makeConstraints { make in
@@ -92,8 +90,7 @@ class CoinForIndicatorTableViewHeader: UIView {
         }
         
         changeButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 }

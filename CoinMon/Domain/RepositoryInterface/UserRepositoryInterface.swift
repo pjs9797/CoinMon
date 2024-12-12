@@ -7,4 +7,5 @@ protocol UserRepositoryInterface {
     func changeNickname(nickname: String) -> Observable<String>
     func fetchUserData() -> Observable<UserData>
     func checkRefresh() -> Observable<AuthTokens?>
+    func postSurvey(answer: String) -> Observable<String>
 }

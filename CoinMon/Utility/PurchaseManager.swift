@@ -5,6 +5,7 @@ enum PurchaseEvent {
     case purchaseFailed      // 인앱 결제 실패 시
     case verificationFailed  // 결제는 성공했으나 서버 검증 실패 시
     case verificationSuccess // 결제 및 검증 성공 시
+    case loadingFinished
 }
 
 class PurchaseManager: NSObject, SKRequestDelegate {
@@ -27,7 +28,7 @@ class PurchaseManager: NSObject, SKRequestDelegate {
     
     private override init() {
         super.init()
-        startObservingTransactionUpdates()
+        //startObservingTransactionUpdates()
     }
     
     // 제품 로드 메서드
@@ -89,7 +90,7 @@ class PurchaseManager: NSObject, SKRequestDelegate {
         request.delegate = self
         request.start()
         
-        await waitForReceiptRefresh()
+//        await waitForReceiptRefresh()
         
         if let newReceiptData = base64Receipt {
             await verifyReceiptWithServer(receiptData: newReceiptData)
@@ -100,7 +101,6 @@ class PurchaseManager: NSObject, SKRequestDelegate {
 
     // 서버에 영수증 검증 요청
     private func verifyReceiptWithServer(receiptData: String) async {
-        print("receiptData: ",receiptData)
         purchaseUseCase.registerPurchaseReceipt(receiptData: receiptData)
             .subscribe(onNext: { [weak self] response in
                 print("Verification response from server: \(response)")
@@ -108,6 +108,9 @@ class PurchaseManager: NSObject, SKRequestDelegate {
             }, onError: { [weak self] error in
                 print("Error verifying receipt with server: \(error.localizedDescription)")
                 self?.purchaseEvent.onNext(.verificationFailed) // 검증 실패 이벤트
+            }, onCompleted: { [weak self] in
+                // 로딩 상태 종료
+                self?.purchaseEvent.onNext(.loadingFinished)
             })
             .disposed(by: disposeBag)
     }

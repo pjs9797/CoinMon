@@ -49,6 +49,9 @@ class SettingView: UIView {
         ]
         segmentedControl.setTitleTextAttributes(normalAttributes, for: .normal)
         segmentedControl.setTitleTextAttributes(selectedAttributes, for: .selected)
+        segmentedControl.selectedSegmentTintColor = ColorManager.common_100
+
+        segmentedControl.backgroundColor = ColorManager.gray_97
         segmentedControl.selectedSegmentIndex = LocalizationManager.shared.language == "ko" ? 0 : 1
         segmentedControl.layer.cornerRadius = 8*ConstantsManager.standardHeight
         return segmentedControl

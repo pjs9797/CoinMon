@@ -53,11 +53,9 @@ class UpdateIndicatorCoinReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .saveButtonTapped:
             let targets = currentState.indicatorCoinDatas.sorted { $0.isPinned ? true : ($1.isPinned ? false : $0.indicatorCoinId < $1.indicatorCoinId) }.map { String($0.indicatorCoinId) }
-            print("targets",targets)
             return indicatorUseCase.updateIndicatorPush(indicatorId: currentState.indicatorId, frequency: currentState.frequency, targets: targets)
                 .flatMap { resultCoid -> Observable<Mutation> in
                     if resultCoid == "200" {
-                        print("저장 성공")
                         self.steps.accept(AlarmStep.popViewController)
                     }
                     return .empty()
@@ -81,7 +79,6 @@ class UpdateIndicatorCoinReactor: ReactorKit.Reactor, Stepper {
         case .loadIndicatorCoinDatas:
             return indicatorUseCase.getUpdateIndicatorCoinDataDetail(indicatorId: currentState.indicatorId)
                 .flatMap { indicatorCoinData -> Observable<Mutation> in
-                    print(indicatorCoinData)
                     return .concat([
                         .just(.setIndicatorCoinDatas(indicatorCoinData)),
                         .just(.setInitialIndicatorCoinDatas(indicatorCoinData))

@@ -21,6 +21,7 @@ class UpdateIndicatorCoinView: UIView {
     }()
     let updateIndicatorCoinTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorColor = ColorManager.gray_99
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0

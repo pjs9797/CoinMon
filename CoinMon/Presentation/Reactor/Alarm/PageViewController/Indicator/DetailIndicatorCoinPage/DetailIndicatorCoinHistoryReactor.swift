@@ -1,4 +1,5 @@
 import ReactorKit
+import UIKit
 import RxCocoa
 import RxFlow
 import Foundation
@@ -93,6 +94,10 @@ class DetailIndicatorCoinHistoryReactor: ReactorKit.Reactor, Stepper {
         timerDisposable = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.asyncInstance)
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
+                guard UIApplication.shared.applicationState == .active else {
+                    print("앱이 백그라운드 상태입니다. API 호출 중단")
+                    return
+                }
                 NotificationCenter.default.post(name: .refreshIndicatorHistory, object: nil)
                 self?.action.onNext(.changeTimingType(self?.currentState.timingType ?? 0))
             })

@@ -9,6 +9,7 @@ class SelectIndicatorView: UIView {
         layout.minimumInteritemSpacing = 0
         layout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width-40*ConstantsManager.standardWidth)/3, height: 34*ConstantsManager.standardHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = ColorManager.common_100
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(DetailCoinInfoCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCoinInfoCategoryCollectionViewCell")
         return collectionView
@@ -20,6 +21,7 @@ class SelectIndicatorView: UIView {
     }()
     let explanIndicatorTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = ColorManager.common_100
         tableView.separatorColor = .clear
         tableView.separatorInset.left = 0
         tableView.sectionHeaderTopPadding = 0

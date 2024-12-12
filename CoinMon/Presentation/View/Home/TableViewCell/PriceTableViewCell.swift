@@ -15,6 +15,7 @@ class PriceTableViewCell: UITableViewCell {
     let coinLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.D9_13
+        label.textColor = ColorManager.common_0
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -26,6 +27,7 @@ class PriceTableViewCell: UITableViewCell {
     let priceLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H7_13
+        label.textColor = ColorManager.common_0
         label.textAlignment = .right
         return label
     }()
@@ -36,6 +38,7 @@ class PriceTableViewCell: UITableViewCell {
     let changeLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H7_13
+        label.textColor = ColorManager.common_0
         label.textAlignment = .right
         return label
     }()
@@ -46,6 +49,7 @@ class PriceTableViewCell: UITableViewCell {
     let gapLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.H7_13
+        label.textColor = ColorManager.common_0
         label.textAlignment = .right
         return label
     }()
@@ -54,6 +58,7 @@ class PriceTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
+        self.backgroundColor = ColorManager.common_100
         layout()
     }
 

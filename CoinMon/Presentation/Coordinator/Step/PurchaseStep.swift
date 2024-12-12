@@ -14,6 +14,7 @@ enum PurchaseStep: Step, StepProtocol {
     case presentToSuccessPurchaseAlertController
     case presentToFailurePurchaseAlertController
     case presentToServerFailurePurchaseAlertController
+    case presentToExplainIndicatorSheetPresentationController(indicatorId: String)
     
     // 프레젠트 공통 알람
     case presentToNetworkErrorAlertController

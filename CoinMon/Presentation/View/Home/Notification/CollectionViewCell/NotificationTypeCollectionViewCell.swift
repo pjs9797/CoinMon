@@ -44,8 +44,8 @@ class NotificationTypeCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(typeLabel)
         
         typeLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(12*ConstantsManager.standardWidth)
-            make.top.bottom.equalToSuperview().inset(6*ConstantsManager.standardHeight)
+            make.leading.trailing.equalToSuperview().inset(12)
+            make.top.bottom.equalToSuperview().inset(6)
         }
     }
     

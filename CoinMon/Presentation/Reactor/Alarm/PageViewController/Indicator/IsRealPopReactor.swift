@@ -37,7 +37,7 @@ class IsRealPopReactor: ReactorKit.Reactor, Stepper {
             if flowType == .purchase {
                 NotificationCenter.default.post(name: .isOutSelectCoinAtPremium, object: nil)
                 self.steps.accept(PurchaseStep.dismiss)
-                self.steps.accept(PurchaseStep.popViewController)
+                self.steps.accept(PurchaseStep.popToRootViewController)
             }
             else {
                 NotificationCenter.default.post(name: .isOutSelectCoinAtPremium, object: nil)

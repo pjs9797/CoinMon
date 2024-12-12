@@ -23,34 +23,42 @@ class PurchaseReactor: ReactorKit.Reactor, Stepper {
                     
                 case .verificationSuccess:
                     self?.steps.accept(PurchaseStep.navigateToSuccessSubscriptionViewController)
+                    
+                case .loadingFinished:
+                    self?.action.onNext(.loadingFinished)
                 }
             })
             .disposed(by: disposeBag)
     }
     
     enum Action {
+        case loadingFinished
         case backButtonTapped
         case trialButtonTapped
         case loadSubscriptionStatus
     }
     
     enum Mutation {
+        case setLoading(Bool)
         case setSubscriptionStatus(UserSubscriptionStatus)
     }
     
     struct State {
+        var isLoading: Bool = false
         var trialYN: String = "N"
         var subscriptionStatus: UserSubscriptionStatus = UserSubscriptionStatus(user: "", productId: nil, purchaseDate: nil, expiresDate: nil, isTrialPeriod: nil, autoRenewStatus: nil, status: .normal, useTrialYN: "N")
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .loadingFinished:
+            return .just(.setLoading(false))
         case .backButtonTapped:
             self.steps.accept(PurchaseStep.popWithCustomAnimation)
             return .empty()
         case .trialButtonTapped:
             PurchaseManager.shared.purchaseProduction()
-            return .empty()
+            return .just(.setLoading(true))
         case .loadSubscriptionStatus:
             return purchaseUseCase.fetchSubscriptionStatus()
                 .flatMap { subscriptionStatus -> Observable<Mutation> in
@@ -68,6 +76,8 @@ class PurchaseReactor: ReactorKit.Reactor, Stepper {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case .setLoading(let isLoading):
+            newState.isLoading = isLoading
         case .setSubscriptionStatus(let subscriptionStatus):
             newState.subscriptionStatus = subscriptionStatus
         }

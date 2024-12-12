@@ -8,6 +8,7 @@ enum UserService {
     case changeNickname(nickname: String)
     case getUserData
     case checkRefresh
+    case postSurvey(answer: String)
 }
 
 extension UserService: TargetType {
@@ -26,12 +27,14 @@ extension UserService: TargetType {
             return "get"
         case .checkRefresh:
             return "checkRefresh"
+        case .postSurvey:
+            return "postSurvey"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .logout, .withdraw, .appleWithdraw, .changeNickname, .checkRefresh:
+        case .logout, .withdraw, .appleWithdraw, .changeNickname, .checkRefresh, .postSurvey:
             return .post
         case .getUserData:
             return .get
@@ -54,6 +57,9 @@ extension UserService: TargetType {
             return .requestPlain
         case .checkRefresh:
             return .requestPlain
+        case .postSurvey(let answer):
+            let parameters = ["answer": answer]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
     

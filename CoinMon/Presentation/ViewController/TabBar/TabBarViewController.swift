@@ -1,5 +1,6 @@
 import UIKit
 import ReactorKit
+import RxCocoa
 import SnapKit
 
 class TabBarController: UITabBarController, ReactorKit.View {
@@ -22,8 +23,6 @@ class TabBarController: UITabBarController, ReactorKit.View {
         setupTabBar()
         setLocalizedText()
         layout()
-        setupNotifications()
-        
         
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] _ in
@@ -89,31 +88,6 @@ class TabBarController: UITabBarController, ReactorKit.View {
             make.bottom.equalTo(tabBar.snp.top).offset(-4*ConstantsManager.standardHeight)
         }
     }
-    
-    private func setupNotifications() {
-        NotificationCenter.default.rx.notification(.isPurchased)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.reactor?.action.onNext(.setTrialTooltipHidden(true))
-            })
-            .disposed(by: disposeBag)
-        
-        NotificationCenter.default.rx.notification(.isOutSelectCoinAtPremium)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.notSetAlarmTooltipView.isHidden = false
-                UserDefaultsManager.shared.saveNotSetAlarmTooltipHidden(false)
-            })
-            .disposed(by: disposeBag)
-        
-        NotificationCenter.default.rx.notification(.isCompletedSelectCoinAtPremium)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.notSetAlarmTooltipView.isHidden = true
-                UserDefaultsManager.shared.saveNotSetAlarmTooltipHidden(true)
-            })
-            .disposed(by: disposeBag)
-    }
 }
 
 extension TabBarController {
@@ -162,6 +136,30 @@ extension TabBarController {
         reactor.state.map { $0.isNotSetAlarmTooltipHidden }
             .distinctUntilChanged()
             .bind(to: notSetAlarmTooltipView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(.isPurchased)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.trialTooltipView.isHidden = true
+                self?.reactor?.action.onNext(.setTrialTooltipHidden(true))
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(.isOutSelectCoinAtPremium)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.notSetAlarmTooltipView.isHidden = false
+                UserDefaultsManager.shared.saveNotSetAlarmTooltipHidden(false)
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(.isCompletedSelectCoinAtPremium)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.notSetAlarmTooltipView.isHidden = true
+                UserDefaultsManager.shared.saveNotSetAlarmTooltipHidden(true)
+            })
             .disposed(by: disposeBag)
     }
 }

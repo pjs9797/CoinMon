@@ -35,6 +35,7 @@ class TryNewIndicatorViewController: UIViewController, ReactorKit.View{
         super.viewWillDisappear(animated)
         
         self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     private func setNavigationbar() {

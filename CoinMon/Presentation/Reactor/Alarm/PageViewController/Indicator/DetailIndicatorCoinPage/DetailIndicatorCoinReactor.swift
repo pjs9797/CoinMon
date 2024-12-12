@@ -114,6 +114,10 @@ class DetailIndicatorCoinReactor: ReactorKit.Reactor, Stepper {
         timerDisposable = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.asyncInstance)
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
+                guard UIApplication.shared.applicationState == .active else {
+                    print("앱이 백그라운드 상태입니다. API 호출 중단")
+                    return
+                }
                 self?.action.onNext(.loadIndicatorCoinHistory)
             })
     }
