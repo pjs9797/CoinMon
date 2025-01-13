@@ -7,51 +7,44 @@ class SigninView: UIView {
         imageView.image = ImageManager.loginCoinMon
         return imageView
     }()
-    let kakaoLoginButton: UIButton = {
-        let button = ConfigurationButton(font: FontManager.D6_16, foregroundColor: ColorManager.common_0, backgroundColor: ColorManager.yellow_70)
-        var configuration = button.configuration
-        configuration?.image = ImageManager.kakao
-        configuration?.imagePadding = 4*ConstantsManager.standardWidth
-        button.configuration = configuration
+    let kakaoLoginButton: BaseButton = {
+        let button = BaseButton()
+        button.setConfiguration(title: "", fontStyle: FontManagerA.D6_16, foregroundColor: ColorManager.yellow_70, backgroundColor: ColorManager.common_0)
+        button.setImage(image: ImageManager.kakao, padding: 4)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.isHidden = true
         return button
     }()
-    let appleLoginButton: UIButton = {
-        let button = ConfigurationButton(font: FontManager.D6_16, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.common_0)
-        var configuration = button.configuration
-        configuration?.image = ImageManager.apple
-        configuration?.imagePadding = 4*ConstantsManager.standardWidth
-        button.configuration = configuration
+    let appleLoginButton: BaseButton = {
+        let button = BaseButton()
+        button.setConfiguration(title: "", fontStyle: FontManagerA.D6_16, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.common_0)
+        button.setImage(image: ImageManager.apple, padding: 4)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.isHidden = true
         return button
     }()
-    let coinMonLoginButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(ColorManager.common_0, for: .normal)
-        button.titleLabel?.font = FontManager.D6_16
+    let coinMonLoginButton: BaseButton = {
+        let button = BaseButton()
+        button.setConfiguration(title: "", fontStyle: FontManagerA.D6_16, foregroundColor: ColorManager.common_0, backgroundColor: ColorManager.gray_97)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        button.backgroundColor = ColorManager.gray_97
         button.accessibilityIdentifier = "coinMonLoginButton"
         return button
     }()
-    let signupButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(ColorManager.gray_70, for: .normal)
-        button.titleLabel?.font = FontManager.B7_12
+    let signupButton: BaseButton = {
+        let button = BaseButton()
+        button.setConfiguration(title: LocalizationManager.shared.localizedString(forKey: "회원가입"), fontStyle: FontManagerA.T4_15, foregroundColor: ColorManager.gray_50)
+        button.setUnderline()
         return button
     }()
     let languageSettingButton: LanguageSettingButton = {
         let button = LanguageSettingButton()
-        button.setTitleColor(ColorManager.gray_60, for: .normal)
-        button.titleLabel?.font = FontManager.T5_14
         return button
     }()
     let completeWithdrawalToast: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.gray_10
         view.layer.cornerRadius = 12*ConstantsManager.standardHeight
+        view.isHidden = true
         return view
     }()
     let checkImageView: UIImageView = {
@@ -59,10 +52,9 @@ class SigninView: UIView {
         imageView.image = ImageManager.check24
         return imageView
     }()
-    let toastLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T3_16
-        label.textColor = ColorManager.common_100
+    let toastLabel: BaseLabel = {
+        let label = BaseLabel()
+        label.setStyle(text: "", fontStyle: FontManagerA.T3_16, textColor: ColorManager.common_100)
         return label
     }()
     
@@ -77,12 +69,12 @@ class SigninView: UIView {
     }
     
     func setLocalizedText(){
-        kakaoLoginButton.configuration?.title = LocalizationManager.shared.localizedString(forKey: "카카오로 계속하기")
-        appleLoginButton.configuration?.title = LocalizationManager.shared.localizedString(forKey: "애플로 계속하기")
-        coinMonLoginButton.setTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 아이디로 계속하기"), for: .normal)
-        signupButton.setTitle(LocalizationManager.shared.localizedString(forKey: "회원가입"), for: .normal)
+        kakaoLoginButton.updateTitle(LocalizationManager.shared.localizedString(forKey: "카카오로 계속하기"))
+        appleLoginButton.updateTitle(LocalizationManager.shared.localizedString(forKey: "애플로 계속하기"))
+        coinMonLoginButton.updateTitle(LocalizationManager.shared.localizedString(forKey: "코인몬 아이디로 계속하기"))
+        signupButton.updateTitle(LocalizationManager.shared.localizedString(forKey: "회원가입"))
         signupButton.setUnderline()
-        toastLabel.text = LocalizationManager.shared.localizedString(forKey: "계정 삭제 toast")
+        toastLabel.updateText(LocalizationManager.shared.localizedString(forKey: "계정 삭제 toast"))
     }
     
     private func layout() {
@@ -125,8 +117,6 @@ class SigninView: UIView {
         }
         
         signupButton.snp.makeConstraints { make in
-            make.width.equalTo(66*ConstantsManager.standardWidth)
-            make.height.equalTo(34*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(coinMonLoginButton.snp.bottom).offset(40*ConstantsManager.standardHeight)
         }

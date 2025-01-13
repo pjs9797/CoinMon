@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SigninEmailEntryViewController: UIViewController, ReactorKit.View {
+class SigninEmailEntryViewController: BaseViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let signinEmailEntryView = SigninEmailEntryView()
@@ -25,21 +25,10 @@ class SigninEmailEntryViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ColorManager.common_100
-        setNavigationbar()
-        hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardToButton(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)
-        LocalizationManager.shared.rxLanguage
-            .subscribe(onNext: { [weak self] aa in
-                self?.signinEmailEntryView.setLocalizedText()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func setNavigationbar() {
-        self.title = LocalizationManager.shared.localizedString(forKey: "로그인")
+        self.setNavigationBar(title: LocalizationManager.shared.localizedString(forKey: "로그인"), leftItem: backButton, rightItem: nil)
+        self.hideKeyboard(disposeBag: disposeBag)
+        self.bindKeyboardToButton(to: signinEmailEntryView.nextButton, disposeBag: disposeBag)
         backButton.accessibilityIdentifier = "signin_backButton"
-        navigationItem.leftBarButtonItem = backButton
     }
 }
 
@@ -74,11 +63,15 @@ extension SigninEmailEntryViewController {
     func bindState(reactor: SigninEmailEntryReactor){
         reactor.state.map { $0.email }
             .distinctUntilChanged()
-            .bind(to: self.signinEmailEntryView.emailTextField.rx.text)
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] email in
+                self?.signinEmailEntryView.emailTextField.updateText(email)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isClearButtonHidden }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: signinEmailEntryView.clearButton.rx.isHidden)
             .disposed(by: disposeBag)
         
@@ -86,6 +79,7 @@ extension SigninEmailEntryViewController {
             reactor.state.map { $0.isEmailValid }.distinctUntilChanged(),
             reactor.state.map { $0.email }.distinctUntilChanged()
         )
+        .observe(on: MainScheduler.asyncInstance)
         .bind(onNext: { [weak self] isValid, email in
             self?.signinEmailEntryView.emailErrorLabel.isHidden = isValid || email.isEmpty
             self?.signinEmailEntryView.nextButton.isEnabled = isValid

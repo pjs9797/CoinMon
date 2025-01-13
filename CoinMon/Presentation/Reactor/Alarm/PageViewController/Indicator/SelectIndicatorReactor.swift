@@ -20,6 +20,7 @@ class SelectIndicatorReactor: ReactorKit.Reactor, Stepper {
         case alarmButtonTapped(indicatorId: String, indicatorName: String)
         case trialButtonTapped
         case selectCategory(Int)
+        case loadIndicators
         case loadSubscriptionStatus
     }
     
@@ -69,6 +70,20 @@ class SelectIndicatorReactor: ReactorKit.Reactor, Stepper {
                     return .concat([
                         .just(.setIndicators(indicatorInfo)),
                         .just(.setSelectedCategory(index))
+                    ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error) { (step: AlarmStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
+        case .loadIndicators:
+            return indicatorUseCase.getIndicatorInfo(language: LocalizationManager.shared.language, categoryIndex: 0)
+                .flatMap { indicatorInfo -> Observable<Mutation> in
+                    return .concat([
+                        .just(.setIndicators(indicatorInfo)),
+                        .just(.setSelectedCategory(0))
                     ])
                 }
                 .catch { [weak self] error in

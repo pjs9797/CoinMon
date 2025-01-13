@@ -39,6 +39,7 @@ class DetailCoinInfoView: UIView {
         button.layer.borderWidth = 1
         button.layer.borderColor = ColorManager.gray_96?.cgColor
         button.layer.cornerRadius = 8*ConstantsManager.standardHeight
+        button.isHidden = true
         return button
     }()
     

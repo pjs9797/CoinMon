@@ -73,6 +73,7 @@ class DetailIndicatorReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .loadIndicatorCoinDatas:
             return indicatorUseCase.getIndicatorCoinDataDetail(indicatorId: currentState.indicatorId)
+                .debug()
                 .flatMap { indicatorCoinData -> Observable<Mutation> in
                     return .just(.setIndicatorCoinDatas(indicatorCoinData))
                 }

@@ -16,7 +16,6 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Action {
-        case setShowToastMessage(Bool)
         case kakaoLoginButtonTapped
         case appleLoginSuccess(identityToken: String, authorizationCode: String, deviceToken: String)
         case coinMonLoginButtonTapped
@@ -26,19 +25,15 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Mutation {
-        case setShowToastMessage(Bool)
         case setLanguage(String)
     }
     
     struct State {
-        var showToastMessage: Bool = false
         var currentLanguage: String
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .setShowToastMessage(let show):
-            return .just(.setShowToastMessage(show))
         case .kakaoLoginButtonTapped:
             //self.kakaoLogin()
             return .empty()
@@ -52,7 +47,6 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
                         default:
                             self?.steps.accept(AppStep.presentToAlreadySignedErrorAlertController)
                         }
-                        
                     }
                     else if let emailTuple = response as? (String, String) {
                         let (resultCode, email) = emailTuple
@@ -88,8 +82,6 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setShowToastMessage(let show):
-            newState.showToastMessage = show
         case .setLanguage(let newLanguage):
             newState.currentLanguage = newLanguage
         }

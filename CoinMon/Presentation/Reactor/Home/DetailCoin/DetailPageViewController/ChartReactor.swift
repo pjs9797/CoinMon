@@ -59,6 +59,14 @@ class ChartReactor: ReactorKit.Reactor, Stepper {
               "allow_symbol_change": true,
               "save_image": false,
               "calendar": false,
+               "overrides": {
+                   "study_legend.visibility": true,   // 인디케이터 범례 표시
+                   "mainSeriesProperties.showCountdown": true, // 카운트다운 표시
+                   "movingAverage.visible": true,    // 이동평균선 활성화
+                   "movingAverage.length": 50,       // 이동평균선 길이 설정
+                   "rsi.visible": true,              // RSI 활성화
+                   "rsi.length": 14                  // RSI 기간 설정
+                 }
               "support_host": "https://www.tradingview.com"
             }
               </script>

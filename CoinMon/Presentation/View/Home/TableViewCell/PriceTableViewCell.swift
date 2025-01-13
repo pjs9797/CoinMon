@@ -7,6 +7,12 @@ class PriceTableViewCell: UITableViewCell {
         let view = UIView()
         return view
     }()
+    let coinBackGroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 13*ConstantsManager.standardHeight
+        imageView.backgroundColor = ColorManager.gray_99
+        return imageView
+    }()
     let coinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12*ConstantsManager.standardHeight
@@ -72,10 +78,12 @@ class PriceTableViewCell: UITableViewCell {
                 contentView.addSubview($0)
             }
         
-        [coinImageView,coinLabel]
+        [coinBackGroundImageView,coinLabel]
             .forEach {
                 coinView.addSubview($0)
             }
+        
+        coinBackGroundImageView.addSubview(coinImageView)
         
         priceView.addSubview(priceLabel)
         changeView.addSubview(changeLabel)
@@ -86,11 +94,16 @@ class PriceTableViewCell: UITableViewCell {
             make.height.equalTo(52*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
         }
+        
+        coinBackGroundImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(26*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
 
         coinImageView.snp.makeConstraints { make in
             make.width.height.equalTo(24*ConstantsManager.standardHeight)
-            make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
 
         coinLabel.snp.makeConstraints { make in

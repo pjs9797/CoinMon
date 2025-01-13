@@ -24,7 +24,7 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     
     enum Mutation {
         case setVerificationNumber(String)
-        case setTimer(Int)
+        case setTimer(seconds: Int, formatted: String)
         case setClearButtonHidden(Bool)
         case setValid(Bool)
     }
@@ -32,6 +32,7 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     struct State {
         var verificationNumber: String = ""
         var remainingSeconds: Int = 300
+        var timerText: String = "05:00"
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
         var nextButtonTitle: String = LocalizationManager.shared.localizedString(forKey: "완료")
@@ -55,7 +56,6 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             return .empty()
         case .nextButtonTapped:
             if let fcmToken = TokenManager.shared.loadFCMToken() {
-                print("fcmToken", fcmToken)
                 return signinUseCase.checkEmailVerificationCodeForLogin(email: UserCredentialsManager.shared.email, number: currentState.verificationNumber, deviceToken: fcmToken)
                     .flatMap { [weak self] resultCode -> Observable<Mutation> in
                         if resultCode == "200" {
@@ -73,42 +73,35 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                     }
             }
             else {
-                print("FCM 토큰을 불러오지 못했습니다. 새로 갱신합니다.")
                 Messaging.messaging().token { [weak self] token, error in
                     if let error = error {
                         print("FCM 토큰을 가져오는 중 에러 발생: \(error)")
                     }
                     else if let token = token {
-                        print("새로운 FCM 토큰: \(token)")
                         TokenManager.shared.saveFCMToken(token)
-                        // FCM 토큰을 얻은 후 로그인 시도
-                        self?.signinUseCase.checkEmailVerificationCodeForLogin(email: UserCredentialsManager.shared.email, number: self?.currentState.verificationNumber ?? "000000", deviceToken: token)
-                            .flatMap { [weak self] resultCode -> Observable<Mutation> in
-                                if resultCode == "200" {
-                                    self?.steps.accept(SigninStep.completeSigninFlow)
-                                } else {
-                                    self?.steps.accept(SigninStep.presentToAuthenticationNumberErrorAlertController)
-                                }
-                                return .empty()
+                        let observable = self?.signinUseCase.checkEmailVerificationCodeForLogin(
+                            email: UserCredentialsManager.shared.email,
+                            number: self?.currentState.verificationNumber ?? "000000",
+                            deviceToken: token
+                        )
+                        .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                            if resultCode == "200" {
+                                self?.steps.accept(SigninStep.completeSigninFlow)
+                            } else {
+                                self?.steps.accept(SigninStep.presentToAuthenticationNumberErrorAlertController)
                             }
-                            .catch { [weak self] error in
-                                ErrorHandler.handle(error) { (step: SigninStep) in
-                                    self?.steps.accept(step)
-                                }
-                                return .empty()
+                            return .empty()
+                        }
+                        .catch { [weak self] error in
+                            ErrorHandler.handle(error) { (step: SigninStep) in
+                                self?.steps.accept(step)
                             }
-                            .subscribe(onNext: { _ in
-                                
-                            }, onError: { error in
-                                print("에러 발생: \(error)")
-                            })
-                            .disposed(by: DisposeBag())
+                            return .empty()
+                        }
                     }
                 }
                 return .empty()
             }
-        
-
         case .clearButtonTapped:
             return .concat([
                 .just(.setVerificationNumber("")),
@@ -126,7 +119,13 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             timerDisposeBag = DisposeBag()
             return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
                 .take(while: { [weak self] _ in self?.currentState.remainingSeconds ?? 0 > 0 })
-                .map { [weak self] _ in .setTimer((self?.currentState.remainingSeconds ?? 1) - 1) }
+                .map { [weak self] _ -> Mutation in
+                    let seconds = (self?.currentState.remainingSeconds ?? 1) - 1
+                    let minutes = seconds / 60
+                    let secondsFormatted = seconds % 60
+                    let formattedText = String(format: "%02d:%02d", minutes, secondsFormatted)
+                    return .setTimer(seconds: seconds, formatted: formattedText)
+                }
                 .do(onDispose: { [weak self] in
                     self?.timerDisposeBag = DisposeBag()
                 })
@@ -142,8 +141,9 @@ class SigninEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             newState.isClearButtonHidden = isHidden
         case .setValid(let isValid):
             newState.isVerificationNumberValid = isValid
-        case .setTimer(let seconds):
+        case .setTimer(let seconds, let formatted):
             newState.remainingSeconds = seconds
+            newState.timerText = formatted
         }
         return newState
     }

@@ -173,6 +173,9 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
             let localizedMarkets = currentState.markets.map { Market(marketTitle: LocalizationManager.shared.localizedString(forKey: $0.localizationKey), localizationKey: $0.localizationKey) }
             return .just(.setLocalizedMarkets(localizedMarkets))
         case .selectMarket(let index):
+            let selectedMarket = currentState.markets[index]
+            let newUnit = (selectedMarket.localizationKey.uppercased() == "BINANCE" || selectedMarket.localizationKey.uppercased() == "BYBIT") ? "USDT" : "KRW"
+                
             if currentState.isTappedFavoriteButton == true {
                 return self.favoritesUseCase.fetchCoinPriceChangeGapListByFavorites(market: currentState.markets[index].localizationKey)
                     .flatMap { [weak self] priceList -> Observable<Mutation> in
@@ -180,7 +183,8 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                         return .concat([
                             .just(.setPriceList(priceList)),
                             .just(.setFilteredPriceList(sortedAndFilteredList)),
-                            .just(.setSelectedMarket(index))
+                            .just(.setSelectedMarket(index)),
+                            .just(.setUnit(newUnit))
                         ])
                     }
                     .catch { [weak self] error in
@@ -197,7 +201,8 @@ class PriceReactor: ReactorKit.Reactor, Stepper {
                         return .concat([
                             .just(.setPriceList(priceList)),
                             .just(.setFilteredPriceList(sortedAndFilteredList)),
-                            .just(.setSelectedMarket(index))
+                            .just(.setSelectedMarket(index)),
+                            .just(.setUnit(newUnit))
                         ])
                     }
                     .catch { [weak self] error in

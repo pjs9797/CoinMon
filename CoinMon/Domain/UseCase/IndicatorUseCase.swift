@@ -9,8 +9,10 @@ class IndicatorUseCase {
     }
 
     func getIndicatorInfo(language: String, categoryIndex: Int) -> Observable<[IndicatorInfo]> {
+        
         let indicatorsObservable = repository.getIndicator()
         let indicatorCoinDataObservable = repository.getIndicatorCoinData()
+
         
         return Observable.zip(indicatorsObservable, indicatorCoinDataObservable) { indicators, indicatorCoinDatas in
             let pushIds = Set(indicatorCoinDatas.map { $0.indicatorId })

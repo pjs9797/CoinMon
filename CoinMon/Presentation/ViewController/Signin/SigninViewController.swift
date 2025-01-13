@@ -2,7 +2,7 @@ import UIKit
 import AuthenticationServices
 import ReactorKit
 
-class SigninViewController: UIViewController, ReactorKit.View {
+class SigninViewController: BaseViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let signinView = SigninView()
     
@@ -24,8 +24,18 @@ class SigninViewController: UIViewController, ReactorKit.View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = ColorManager.common_100
+    }
+    
+    func showToast() {
+        DispatchQueue.main.async { [weak self] in
+            self?.signinView.completeWithdrawalToast.isHidden = false
+            self?.signinView.completeWithdrawalToast.alpha = 1.0
+            UIView.animate(withDuration: 2.0, animations: {
+                self?.signinView.completeWithdrawalToast.alpha = 0.0
+            }, completion: { _ in
+                self?.signinView.completeWithdrawalToast.isHidden = true
+            })
+        }
     }
 }
 
@@ -63,39 +73,22 @@ extension SigninViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        signinView.languageSettingButton.rx.tap
-            .map{ Reactor.Action.languageSettingButtonTapped }
+        signinView.languageSettingButton.tapGesture.rx.event
+            .map{ _ in Reactor.Action.languageSettingButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
     func bindState(reactor: SigninReactor){
-        reactor.state.map { $0.showToastMessage }
-            .distinctUntilChanged()
-            .bind(onNext: { [weak self] show in
-                if show {
-                    self?.signinView.completeWithdrawalToast.isHidden = false
-                    self?.signinView.completeWithdrawalToast.alpha = 1.0
-                    UIView.animate(withDuration: 4.0, animations: {
-                        self?.signinView.completeWithdrawalToast.alpha = 0.0
-                    }, completion: { _ in
-                        self?.signinView.completeWithdrawalToast.isHidden = true
-                    })
-                }
-                else {
-                    self?.signinView.completeWithdrawalToast.isHidden = true
-                }
-            })
-            .disposed(by: disposeBag)
-        
         reactor.state.map { $0.currentLanguage }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] language in
                 if language == "ko" {
-                    self?.signinView.languageSettingButton.setTitle("한국어", for: .normal)
+                    self?.signinView.languageSettingButton.languageLabel.updateText("한국어")
                 }
                 else {
-                    self?.signinView.languageSettingButton.setTitle("English", for: .normal)
+                    self?.signinView.languageSettingButton.languageLabel.updateText("English")
                 }
                 self?.signinView.setLocalizedText()
             })
@@ -128,7 +121,6 @@ extension SigninViewController: ASAuthorizationControllerDelegate {
             print("email: \(email)")
             
         case let passwordCredential as ASPasswordCredential:
-            // Sign in using an existing iCloud Keychain credential.
             let username = passwordCredential.user
             let password = passwordCredential.password
             

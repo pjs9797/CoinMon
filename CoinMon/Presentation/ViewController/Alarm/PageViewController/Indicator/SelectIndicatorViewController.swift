@@ -26,7 +26,7 @@ class SelectIndicatorViewController: UIViewController, ReactorKit.View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = ColorManager.common_100
         setNavigationbar()
         setupNotifications()
@@ -76,6 +76,26 @@ extension SelectIndicatorViewController {
         
         selectIndicatorView.indicatorCategoryCollectionView.rx.itemSelected
             .map { Reactor.Action.selectCategory($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        selectIndicatorView.explanIndicatorTableView.rx.itemSelected
+            .compactMap { [weak self] indexPath -> Reactor.Action? in
+                guard let self = self,
+                      let cell = self.selectIndicatorView.explanIndicatorTableView.cellForRow(at: indexPath) as? ExplanIndicatorTableViewCell,
+                      !cell.rightButton.isHidden else {
+                    // 셀이 없거나 rightButton이 hidden이면 nil 반환
+                    return nil
+                }
+                let indicatorInfo = self.reactor?.currentState.indicators[indexPath.row]
+                let isPremium = indicatorInfo?.isPremiumYN == "Y" ?? "N"
+                return Reactor.Action.rightButtonTapped(
+                    isPushed: indicatorInfo?.isPushed ?? false,
+                    indicatorId: String(indicatorInfo?.indicatorId ?? 0),
+                    indicatorName: indicatorInfo?.indicatorName ?? "",
+                    isPremium: isPremium
+                )
+            }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

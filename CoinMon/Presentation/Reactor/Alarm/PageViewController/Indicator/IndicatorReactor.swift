@@ -37,6 +37,7 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
     
     enum Mutation {
         case setIndicatorCoinDatas([IndicatorCoinData])
+        case setIndicatorCoinDatasWhenAlarmSwitchTapped([IndicatorCoinData])
         case setSubscriptionStatus(UserSubscriptionStatus)
     }
     
@@ -67,7 +68,7 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
                             }
                             return updatedCoinData
                         }
-                        return .just(.setIndicatorCoinDatas(indicatorCoinDatas ?? []))
+                        return .just(.setIndicatorCoinDatasWhenAlarmSwitchTapped(indicatorCoinDatas ?? []))
                     }
                     return .empty()
                 }
@@ -150,6 +151,8 @@ class IndicatorReactor: ReactorKit.Reactor, Stepper {
             if currentState.subscriptionStatus.status == .normal && currentState.subscriptionStatus.useTrialYN == "Y" {
                 newState.indicatorCoinDatas.insert(IndicatorCoinData(indicatorId: 0, indicatorCoinId: "", indicatorName: "", indicatorNameEng: "", isPremium: "", frequency: "", coinName: "", isOn: "", curPrice: 0, recentTime: "", recentPrice: 0, timing: ""), at: 0)
             }
+        case .setIndicatorCoinDatasWhenAlarmSwitchTapped(let indicatorCoinDatas):
+            newState.indicatorCoinDatas = indicatorCoinDatas
         case .setSubscriptionStatus(let subscriptionStatus):
             newState.subscriptionStatus = subscriptionStatus
         }

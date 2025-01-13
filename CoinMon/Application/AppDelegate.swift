@@ -3,6 +3,7 @@ import KakaoSDKCommon
 import FirebaseMessaging
 import FirebaseCore
 import Firebase
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {

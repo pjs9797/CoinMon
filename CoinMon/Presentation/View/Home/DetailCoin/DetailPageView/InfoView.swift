@@ -11,15 +11,25 @@ class InfoView: UIView {
     let firstInfoView = FirstInfoView()
     let secondInfoView = SecondInfoView()
     let thirdInfoView = ThirdInfoView()
-    let noticeLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.attributedText = AttributedFontManager.B6_13
-        label.updateAttributedText(LocalizationManager.shared.localizedString(forKey: "코인몬에서 제공하는 정보는 고객의 투자 판단을 위한 단순 참고용일 뿐, 투자 제안 및 권유•특정 가상자산 추천을 하지 않습니다."))
-        label.textColor = ColorManager.gray_70
-        return label
+    let noticeTextView: BaseTextView = {
+        let textView = BaseTextView()
+        textView.setStyle(
+            text: LocalizationManager.shared.localizedString(forKey: "코인몬에서 제공하는 정보는 고객의 투자 판단을 위한 단순 참고용일 뿐, 투자 제안 및 권유•특정 가상자산 추천을 하지 않습니다."),
+            style: FontManagerA.B6_13
+        )
+        textView.addLinks(
+            links: [
+                "트레이딩뷰": URL(string: "https://kr.tradingview.com/")!,
+                "이코노믹 캘린더": URL(string: "https://kr.tradingview.com/economic-calendar/")!,
+                "스탁 스크리너": URL(string: "https://kr.tradingview.com/screener/")!
+            ],
+            linkColor: ColorManager.gray_50,
+            defaultColor: ColorManager.gray_70
+        )
+        textView.backgroundColor = ColorManager.gray_99
+        return textView
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -34,7 +44,7 @@ class InfoView: UIView {
     private func layout() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [firstInfoView,secondInfoView,thirdInfoView,noticeLabel]
+        [firstInfoView,secondInfoView,thirdInfoView,noticeTextView]
             .forEach{
                 contentView.addSubview($0)
             }
@@ -63,7 +73,7 @@ class InfoView: UIView {
             make.top.equalTo(secondInfoView.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
-        noticeLabel.snp.makeConstraints { make in
+        noticeTextView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
             make.top.equalTo(thirdInfoView.snp.bottom).offset(52*ConstantsManager.standardHeight)

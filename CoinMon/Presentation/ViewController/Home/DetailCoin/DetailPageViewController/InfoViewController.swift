@@ -78,3 +78,11 @@ extension InfoViewController {
             .disposed(by: disposeBag)
     }
 }
+
+extension InfoViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        // 하이퍼링크 탭 처리
+        UIApplication.shared.open(URL)
+        return false
+    }
+}

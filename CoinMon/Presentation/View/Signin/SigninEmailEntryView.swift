@@ -2,27 +2,24 @@ import UIKit
 import SnapKit
 
 class SigninEmailEntryView: UIView {
-    let enterEmailLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.D2_24
-        label.textColor = ColorManager.common_0
+    let enterEmailLabel: BaseLabel = {
+        let label = BaseLabel()
+        label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "이메일을 입력해주세요"), fontStyle: FontManagerA.D2_24, textColor: ColorManager.common_0)
         return label
     }()
-    let emailLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.T6_13
-        label.textColor = ColorManager.gray_40
+    let emailLabel: BaseLabel = {
+        let label = BaseLabel()
+        label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "이메일 아이디"), fontStyle: FontManagerA.T6_13, textColor: ColorManager.gray_40)
         return label
     }()
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.font = FontManager.H2_20
-        textField.textColor = ColorManager.common_0
+    let emailTextField: BaseTextField = {
+        let textField = BaseTextField()
+        textField.setStyle(placeholder: LocalizationManager.shared.localizedString(forKey: "사용하는 이메일을 입력"), style: FontManagerA.H2_20, textColor: ColorManager.common_0)
         return textField
     }()
-    let clearButton: UIButton = {
-        let button = UIButton()
-        button.setImage(ImageManager.iconClear, for: .normal)
+    let clearButton: BaseButton = {
+        let button = BaseButton()
+        button.setImage(image: ImageManager.iconClear)
         return button
     }()
     let textFieldLineView: UIView = {
@@ -30,14 +27,14 @@ class SigninEmailEntryView: UIView {
         view.backgroundColor = ColorManager.gray_90
         return view
     }()
-    let emailErrorLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.B7_12
-        label.textColor = ColorManager.red_50
+    let emailErrorLabel: BaseLabel = {
+        let label = BaseLabel()
+        label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "올바른 이메일을 입력해주세요"), fontStyle: FontManagerA.B7_12, textColor: ColorManager.red_50)
         return label
     }()
     let nextButton: UIButton = {
         let button = UIButton()
+        button.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
         button.setTitleColor(ColorManager.common_100, for: .normal)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
         button.titleLabel?.font = FontManager.D6_16
@@ -48,7 +45,6 @@ class SigninEmailEntryView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setAccessibilityIdentifier()
-        setLocalizedText()
         layout()
     }
     
@@ -62,17 +58,6 @@ class SigninEmailEntryView: UIView {
         emailTextField.accessibilityIdentifier = "signin_emailTextField"
         clearButton.accessibilityIdentifier = "signin_clearButton"
         emailErrorLabel.accessibilityIdentifier = "signin_emailErrorLabel"
-    }
-    
-    func setLocalizedText(){
-        enterEmailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일을 입력해주세요")
-        emailLabel.text = LocalizationManager.shared.localizedString(forKey: "이메일 아이디")
-        let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: ColorManager.gray_70 ?? UIColor.gray
-        ]
-        emailTextField.attributedPlaceholder = NSAttributedString(string: LocalizationManager.shared.localizedString(forKey: "사용하는 이메일을 입력"), attributes: attributes)
-        emailErrorLabel.text = LocalizationManager.shared.localizedString(forKey: "올바른 이메일을 입력해주세요")
-        nextButton.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
     }
     
     private func layout() {

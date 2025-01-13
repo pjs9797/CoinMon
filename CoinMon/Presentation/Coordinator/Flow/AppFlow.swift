@@ -109,7 +109,7 @@ class AppFlow: Flow {
     private func navigateToSigninViewControllerAfterWithdrawal() -> FlowContributors {
         let reactor = SigninReactor(signinUseCase: self.signinUseCase)
         let viewController = SigninViewController(with: reactor)
-        reactor.action.onNext(.setShowToastMessage(true))
+        viewController.showToast()
         self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.setViewControllers([viewController], animated: true)
 

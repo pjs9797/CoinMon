@@ -21,6 +21,13 @@
 		3104F5152C44056D00DD40D6 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3104F5142C44056D00DD40D6 /* Secrets.xcconfig */; };
 		3104F5162C44056D00DD40D6 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3104F5142C44056D00DD40D6 /* Secrets.xcconfig */; };
 		3104F51D2C46381B00DD40D6 /* LanguageSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */; };
+		31100E862D2F944300673362 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E852D2F944300673362 /* BaseButton.swift */; };
+		31100E892D2F95AF00673362 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E882D2F95AF00673362 /* BaseLabel.swift */; };
+		31100E8B2D2FFF1900673362 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E8A2D2FFF1900673362 /* BaseTextField.swift */; };
+		31100E8D2D30DD2B00673362 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E8C2D30DD2B00673362 /* BaseViewController.swift */; };
+		31100E8F2D33AE5400673362 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E8E2D33AE5400673362 /* UIViewController+Extension.swift */; };
+		31100E912D33AE7300673362 /* ConfigurationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E902D33AE7300673362 /* ConfigurationButton.swift */; };
+		31100E932D33B23F00673362 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31100E922D33B23F00673362 /* UILabel+Extension.swift */; };
 		31105E7D2CA674E100BFD195 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E7C2CA674E100BFD195 /* FavoritesService.swift */; };
 		31105E7F2CA6775700BFD195 /* FavoritesRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E7E2CA6775700BFD195 /* FavoritesRepositoryInterface.swift */; };
 		31105E812CA677A600BFD195 /* FavoritesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E802CA677A600BFD195 /* FavoritesEntity.swift */; };
@@ -139,11 +146,9 @@
 		31647C0E2CAEC37C00AF53CF /* UnsavedFavoritesSecondReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647C0D2CAEC37C00AF53CF /* UnsavedFavoritesSecondReactor.swift */; };
 		31647C102CB00BC700AF53CF /* ButtonToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647C0F2CB00BC700AF53CF /* ButtonToastMessageView.swift */; };
 		317154122C86D55D007CCD6D /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154112C86D55D007CCD6D /* UINavigationController+Extension.swift */; };
-		317154142C86D586007CCD6D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154132C86D586007CCD6D /* UIViewController+Extension.swift */; };
 		317154162C86D94F007CCD6D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154152C86D94F007CCD6D /* UIImage+Extension.swift */; };
 		317154182C86D967007CCD6D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154172C86D967007CCD6D /* UIButton+Extension.swift */; };
 		3171541A2C86D98F007CCD6D /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154192C86D98F007CCD6D /* UITableView+Extension.swift */; };
-		3171541C2C86E7AF007CCD6D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171541B2C86E7AF007CCD6D /* UILabel+Extension.swift */; };
 		317154212C8C17AD007CCD6D /* DetailCoinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154202C8C17AD007CCD6D /* DetailCoinInfoView.swift */; };
 		317154282C8C1F39007CCD6D /* DetailCoinInfoCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154272C8C1F39007CCD6D /* DetailCoinInfoCategoryCollectionViewCell.swift */; };
 		3171542A2C8C1FEC007CCD6D /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154292C8C1FEC007CCD6D /* ChartView.swift */; };
@@ -222,13 +227,13 @@
 		31BEAFD12C37BD98001B7A35 /* RxFlow in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFD02C37BD98001B7A35 /* RxFlow */; };
 		31BEAFD72C37C051001B7A35 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFD62C37C051001B7A35 /* FirebaseAppCheck */; };
 		31BEAFD92C37C660001B7A35 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 31BEAFD82C37C660001B7A35 /* FirebaseMessaging */; };
+		31C85FF22D35094A0052986A /* BaseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C85FF12D35094A0052986A /* BaseTextView.swift */; };
 		31CAA6082CE0A67000974E50 /* IsRealPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6072CE0A67000974E50 /* IsRealPopView.swift */; };
 		31CAA60A2CE0A89800974E50 /* IsRealPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6092CE0A89800974E50 /* IsRealPopViewController.swift */; };
 		31CAA60C2CE0A8A300974E50 /* IsRealPopReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA60B2CE0A8A200974E50 /* IsRealPopReactor.swift */; };
 		31CAA60E2CE77DE900974E50 /* TabBarFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA60D2CE77DE900974E50 /* TabBarFlow.swift */; };
 		31CAA6102CE77DF000974E50 /* TabBarStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA60F2CE77DF000974E50 /* TabBarStep.swift */; };
 		31CAA6122CEDC28E00974E50 /* MoyaProviderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6112CEDC28E00974E50 /* MoyaProviderUtils.swift */; };
-		31CAA6142CEE0D7B00974E50 /* ConfigurationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6132CEE0D7B00974E50 /* ConfigurationButton.swift */; };
 		31CAA6162CF04A4300974E50 /* MoyaRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6152CF04A4300974E50 /* MoyaRequestInterceptor.swift */; };
 		31CAA6192CF050FE00974E50 /* LaunchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6182CF050FE00974E50 /* LaunchReactor.swift */; };
 		31CAA61C2CF0513100974E50 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA61B2CF0513100974E50 /* LaunchViewController.swift */; };
@@ -420,6 +425,13 @@
 		3104F5102C43C28400DD40D6 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		3104F5142C44056D00DD40D6 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingButton.swift; sourceTree = "<group>"; };
+		31100E852D2F944300673362 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		31100E882D2F95AF00673362 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
+		31100E8A2D2FFF1900673362 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
+		31100E8C2D30DD2B00673362 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		31100E8E2D33AE5400673362 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		31100E902D33AE7300673362 /* ConfigurationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationButton.swift; sourceTree = "<group>"; };
+		31100E922D33B23F00673362 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		31105E7C2CA674E100BFD195 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 		31105E7E2CA6775700BFD195 /* FavoritesRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRepositoryInterface.swift; sourceTree = "<group>"; };
 		31105E802CA677A600BFD195 /* FavoritesEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEntity.swift; sourceTree = "<group>"; };
@@ -533,11 +545,9 @@
 		31647C0D2CAEC37C00AF53CF /* UnsavedFavoritesSecondReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedFavoritesSecondReactor.swift; sourceTree = "<group>"; };
 		31647C0F2CB00BC700AF53CF /* ButtonToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToastMessageView.swift; sourceTree = "<group>"; };
 		317154112C86D55D007CCD6D /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
-		317154132C86D586007CCD6D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		317154152C86D94F007CCD6D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		317154172C86D967007CCD6D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		317154192C86D98F007CCD6D /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
-		3171541B2C86E7AF007CCD6D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		317154202C8C17AD007CCD6D /* DetailCoinInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoinInfoView.swift; sourceTree = "<group>"; };
 		317154272C8C1F39007CCD6D /* DetailCoinInfoCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoinInfoCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		317154292C8C1FEC007CCD6D /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
@@ -607,13 +617,13 @@
 		31BCE9882C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketViewAtHomeSheetPresentationController.swift; sourceTree = "<group>"; };
 		31BCE98C2C05B20000DA2FC6 /* SelectMarketAtHomeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMarketAtHomeReactor.swift; sourceTree = "<group>"; };
 		31BCE98F2C05D01300DA2FC6 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
+		31C85FF12D35094A0052986A /* BaseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextView.swift; sourceTree = "<group>"; };
 		31CAA6072CE0A67000974E50 /* IsRealPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsRealPopView.swift; sourceTree = "<group>"; };
 		31CAA6092CE0A89800974E50 /* IsRealPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsRealPopViewController.swift; sourceTree = "<group>"; };
 		31CAA60B2CE0A8A200974E50 /* IsRealPopReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsRealPopReactor.swift; sourceTree = "<group>"; };
 		31CAA60D2CE77DE900974E50 /* TabBarFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFlow.swift; sourceTree = "<group>"; };
 		31CAA60F2CE77DF000974E50 /* TabBarStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarStep.swift; sourceTree = "<group>"; };
 		31CAA6112CEDC28E00974E50 /* MoyaProviderUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderUtils.swift; sourceTree = "<group>"; };
-		31CAA6132CEE0D7B00974E50 /* ConfigurationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationButton.swift; sourceTree = "<group>"; };
 		31CAA6152CF04A4300974E50 /* MoyaRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaRequestInterceptor.swift; sourceTree = "<group>"; };
 		31CAA6182CF050FE00974E50 /* LaunchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchReactor.swift; sourceTree = "<group>"; };
 		31CAA61B2CF0513100974E50 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -926,7 +936,7 @@
 				3104F51C2C46381B00DD40D6 /* LanguageSettingButton.swift */,
 				31E1C1D62C47BC66009F99B9 /* InquiryButton.swift */,
 				3171542B2C8C20D0007CCD6D /* BottomButton.swift */,
-				31CAA6132CEE0D7B00974E50 /* ConfigurationButton.swift */,
+				31100E902D33AE7300673362 /* ConfigurationButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -954,6 +964,18 @@
 				317779D72BE1E67B006E8378 /* Info.plist */,
 			);
 			path = Plist;
+			sourceTree = "<group>";
+		};
+		31100E872D2F959F00673362 /* BaseComponent */ = {
+			isa = PBXGroup;
+			children = (
+				31100E8C2D30DD2B00673362 /* BaseViewController.swift */,
+				31100E852D2F944300673362 /* BaseButton.swift */,
+				31100E882D2F95AF00673362 /* BaseLabel.swift */,
+				31100E8A2D2FFF1900673362 /* BaseTextField.swift */,
+				31C85FF12D35094A0052986A /* BaseTextView.swift */,
+			);
+			path = BaseComponent;
 			sourceTree = "<group>";
 		};
 		312453AF2CA555D1000ACB04 /* DetailCoin */ = {
@@ -1383,12 +1405,12 @@
 			isa = PBXGroup;
 			children = (
 				317154112C86D55D007CCD6D /* UINavigationController+Extension.swift */,
-				317154132C86D586007CCD6D /* UIViewController+Extension.swift */,
 				317154152C86D94F007CCD6D /* UIImage+Extension.swift */,
 				317154172C86D967007CCD6D /* UIButton+Extension.swift */,
 				317154192C86D98F007CCD6D /* UITableView+Extension.swift */,
-				3171541B2C86E7AF007CCD6D /* UILabel+Extension.swift */,
 				31647C022CAD832000AF53CF /* Notification.Name+Extension.swift */,
+				31100E8E2D33AE5400673362 /* UIViewController+Extension.swift */,
+				31100E922D33B23F00673362 /* UILabel+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1508,6 +1530,7 @@
 		317779EF2BE1FAC3006E8378 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				31100E872D2F959F00673362 /* BaseComponent */,
 				317154102C86D543007CCD6D /* Extension */,
 				3104F5052C43AA8500DD40D6 /* CustomComponent */,
 				31777A0B2BE3741A006E8378 /* FontManager.swift */,
@@ -2420,6 +2443,7 @@
 				31CF709A2CCBD719003BD8FD /* ExplainIndicatorSheetPresentationReactor.swift in Sources */,
 				31CF70842CCA5ED8003BD8FD /* CoinForIndicatorTableViewCell.swift in Sources */,
 				31CF70E22CD25C79003BD8FD /* UpdateIndicatorCoinTableViewCell.swift in Sources */,
+				31100E912D33AE7300673362 /* ConfigurationButton.swift in Sources */,
 				31777A382BE7A2C0006E8378 /* SignupPhoneNumberEntryViewController.swift in Sources */,
 				31777A342BE770D7006E8378 /* SignupStep.swift in Sources */,
 				31777A152BE3A458006E8378 /* SigninView.swift in Sources */,
@@ -2493,7 +2517,6 @@
 				31E0A5482C19CF5A00756DFD /* SelectCoinTableViewHeader.swift in Sources */,
 				31E0A4F12C16B5EE00756DFD /* SigninEmailVerificationNumberReactor.swift in Sources */,
 				31423C5C2BFC817B008AB6FD /* HomeStep.swift in Sources */,
-				317154142C86D586007CCD6D /* UIViewController+Extension.swift in Sources */,
 				31E0A55A2C1B28F900756DFD /* ModifyAlarmReactor.swift in Sources */,
 				313325D82CB5141A0036541F /* ErrorHandler.swift in Sources */,
 				31E0A50D2C1711F500756DFD /* KeychainHelper.swift in Sources */,
@@ -2536,10 +2559,12 @@
 				31647C082CAEB57B00AF53CF /* UnsavedFavoritesReactor.swift in Sources */,
 				312496F72CDCF5A200950BB8 /* NotSubscriptionIndicatorTableViewCell.swift in Sources */,
 				31647C032CAD832000AF53CF /* Notification.Name+Extension.swift in Sources */,
+				31100E8D2D30DD2B00673362 /* BaseViewController.swift in Sources */,
 				31777A302BE766B2006E8378 /* SigninEmailEntryReactor.swift in Sources */,
 				31E0A4F52C16C23700756DFD /* SigninRepository.swift in Sources */,
 				31CF70CD2CD0AE17003BD8FD /* ResendTestAlarmReactor.swift in Sources */,
 				31105E8B2CA6C78200BFD195 /* EditFavoritesReactor.swift in Sources */,
+				31100E932D33B23F00673362 /* UILabel+Extension.swift in Sources */,
 				312496FF2CE06F6500950BB8 /* PurchaseStep.swift in Sources */,
 				312496BF2CDA056900950BB8 /* TryNewIndicatorView.swift in Sources */,
 				312496E12CDC992B00950BB8 /* PurchaseRepositoryInterface.swift in Sources */,
@@ -2584,6 +2609,7 @@
 				31CF70E82CD276CD003BD8FD /* SelectCoinForUpdateIndicatorViewController.swift in Sources */,
 				3127AD192CBF8EEB000A75F7 /* SelectIndicatorReactor.swift in Sources */,
 				31946D6D2CA3CE5E00237156 /* CommunityViewController.swift in Sources */,
+				31100E8B2D2FFF1900673362 /* BaseTextField.swift in Sources */,
 				31E0A4DC2C158F3F00756DFD /* SignupService.swift in Sources */,
 				313325DB2CB532AB0036541F /* HomeStepper.swift in Sources */,
 				31CF70AA2CCD2A69003BD8FD /* DetailIndicatorCoinViewController.swift in Sources */,
@@ -2620,6 +2646,7 @@
 				31777A2E2BE76668006E8378 /* SigninEmailEntryViewController.swift in Sources */,
 				3104F50A2C43AB1500DD40D6 /* PremiumMarketButton.swift in Sources */,
 				31BCE9892C05B19000DA2FC6 /* SelectMarketViewAtHomeSheetPresentationController.swift in Sources */,
+				31100E8F2D33AE5400673362 /* UIViewController+Extension.swift in Sources */,
 				31CF70E02CD25BCB003BD8FD /* UpdateIndicatorCoinView.swift in Sources */,
 				312496E82CDCA9FB00950BB8 /* TabBarReactor.swift in Sources */,
 				31E0A54A2C19D1F500756DFD /* SelectCoinViewAtAlarmController.swift in Sources */,
@@ -2629,7 +2656,6 @@
 				31F7916E2BECED1B00A7CABB /* AgreeToTermsOfServiceSheetPresentationController.swift in Sources */,
 				31946D652CA3BBF200237156 /* FirstInfoView.swift in Sources */,
 				312496C52CDA195800950BB8 /* PurchaseView.swift in Sources */,
-				31CAA6142CEE0D7B00974E50 /* ConfigurationButton.swift in Sources */,
 				31BCE97F2C04A49400DA2FC6 /* PremiumView.swift in Sources */,
 				3171543A2C8C9028007CCD6D /* DetailCoinInfoEntity.swift in Sources */,
 				315C018A2C0B2C9D00BE00E3 /* AlarmEntity.swift in Sources */,
@@ -2640,6 +2666,7 @@
 				31CF70EA2CD276DD003BD8FD /* SelectCoinForUpdateIndicatorReactor.swift in Sources */,
 				31E0A5152C1824BC00756DFD /* AuthTokens.swift in Sources */,
 				31105E7F2CA6775700BFD195 /* FavoritesRepositoryInterface.swift in Sources */,
+				31100E862D2F944300673362 /* BaseButton.swift in Sources */,
 				312496F12CDCDD9100950BB8 /* IndicatorAlarmTableViewCell.swift in Sources */,
 				312496D92CDB920B00950BB8 /* TooltipView.swift in Sources */,
 				31CF707A2CCA10D0003BD8FD /* IndicatorUseCase.swift in Sources */,
@@ -2651,6 +2678,7 @@
 				31CF70BD2CD0953C003BD8FD /* IsNotSetTestAlarmView.swift in Sources */,
 				31BCE9872C04B0AC00DA2FC6 /* MarketTableViewCell.swift in Sources */,
 				31105E8D2CA6C8BA00BFD195 /* EditFavoritesView.swift in Sources */,
+				31C85FF22D35094A0052986A /* BaseTextView.swift in Sources */,
 				31CF70BB2CD094BA003BD8FD /* IsReceivedTestAlarmView.swift in Sources */,
 				31CF70762CCA05D4003BD8FD /* IndicatorRepositoryInterface.swift in Sources */,
 				312496D12CDB213500950BB8 /* SubscriptionManagementView.swift in Sources */,
@@ -2669,7 +2697,6 @@
 				31423C452BFB4EBC008AB6FD /* PriceViewController.swift in Sources */,
 				317154182C86D967007CCD6D /* UIButton+Extension.swift in Sources */,
 				31423C522BFB5998008AB6FD /* MarketListAtHomeCollectionViewCell.swift in Sources */,
-				3171541C2C86E7AF007CCD6D /* UILabel+Extension.swift in Sources */,
 				31E0A4EF2C16B5C000756DFD /* SigninEmailVerificationNumberViewController.swift in Sources */,
 				31CAA6102CE77DF000974E50 /* TabBarStep.swift in Sources */,
 				315C01782C09BB0F00BE00E3 /* SignupEmailEntryReactor.swift in Sources */,
@@ -2702,6 +2729,7 @@
 				31E0A4C92C10908400756DFD /* WithdrawalView.swift in Sources */,
 				31777A2A2BE5EDDD006E8378 /* SigninEmailEntryView.swift in Sources */,
 				312496D32CDB215100950BB8 /* SubscriptionManagementViewController.swift in Sources */,
+				31100E892D2F95AF00673362 /* BaseLabel.swift in Sources */,
 				31E0A5402C19C42500756DFD /* SelectSecondAlarmConditionSheetPresentationController.swift in Sources */,
 				315C017A2C09CFA500BE00E3 /* SignupEmailEntryView.swift in Sources */,
 				312496DF2CDC991300950BB8 /* PurchaseRepository.swift in Sources */,
@@ -2974,7 +3002,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoinMon/CoinMon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YSRYRQWSU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoinMon/Info.plist;
@@ -2986,7 +3014,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.21;
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3008,7 +3036,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoinMon/CoinMon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YSRYRQWSU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoinMon/Info.plist;
@@ -3020,7 +3048,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.21;
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.CoinMon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

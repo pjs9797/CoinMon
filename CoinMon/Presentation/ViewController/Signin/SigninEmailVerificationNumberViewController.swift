@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SigninEmailVerificationNumberViewController: UIViewController, ReactorKit.View {
+class SigninEmailVerificationNumberViewController: BaseViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let verificationNumberView = VerificationNumberView(verificationType: VerificationType.email)
@@ -25,16 +25,11 @@ class SigninEmailVerificationNumberViewController: UIViewController, ReactorKit.
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ColorManager.common_100
-        setNavigationbar()
-        hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardToButton(to: verificationNumberView.nextButton, disposeBag: disposeBag)
+        self.setNavigationBar(title: LocalizationManager.shared.localizedString(forKey: "로그인"), leftItem: backButton, rightItem: nil)
+        self.hideKeyboard(disposeBag: disposeBag)
+        self.bindKeyboardToButton(to: verificationNumberView.nextButton, disposeBag: disposeBag)
         self.reactor?.action.onNext(.postEmailCode)
-    }
-    
-    private func setNavigationbar() {
-        self.title = LocalizationManager.shared.localizedString(forKey: "로그인")
-        navigationItem.leftBarButtonItem = backButton
+        self.reactor?.action.onNext(.startTimer)
     }
 }
 
@@ -45,8 +40,6 @@ extension SigninEmailVerificationNumberViewController {
     }
     
     func bindAction(reactor: SigninEmailVerificationNumberReactor){
-        reactor.action.onNext(.startTimer)
-        
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
@@ -69,13 +62,9 @@ extension SigninEmailVerificationNumberViewController {
     }
     
     func bindState(reactor: SigninEmailVerificationNumberReactor){
-        reactor.state.map{ $0.remainingSeconds }
+        reactor.state.map{ $0.timerText }
             .distinctUntilChanged()
-            .map { seconds -> String in
-                let minutes = seconds / 60
-                let seconds = seconds % 60
-                return String(format: "%02d:%02d", minutes, seconds)
-            }
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: verificationNumberView.timerLabel.rx.text)
             .disposed(by: disposeBag)
         

@@ -131,7 +131,7 @@
 "30일" = "30D";
 "90일" = "90D";
 "1년" = "1Y";
-"코인몬에서 제공하는 정보는 고객의 투자 판단을 위한 단순 참고용일 뿐, 투자 제안 및 권유•특정 가상자산 추천을 하지 않습니다." = "The information provided by Coinmon is merely for reference to help customers make investment decisions, and does not constitute investment suggestions or recommendations or recommendations for specific virtual assets.";
+"코인몬에서 제공하는 정보는 고객의 투자 판단을 위한 단순 참고용일 뿐, 투자 제안 및 권유•특정 가상자산 추천을 하지 않습니다." = "• The information provided by Coinmon is merely for reference to help customers make investment decisions, and does not constitute investment suggestions or recommendations or recommendations for specific virtual assets.\n\n• CoinMon's chart solution is provided by TradingView, a chart platform for the global community. In addition to charts such as BTCUSD, you can trade based on comprehensive market analysis through advanced analysis tools such as the Economic Calendar or Stock Screener.";
 "지정가 알람 설정되었어요" = "Price alarm set";
 "지정가 알람 삭제되었어요" = "Deleteed from Price alarm";
 "지정가 알람 편집되었어요" = "Edited Price alarm";
