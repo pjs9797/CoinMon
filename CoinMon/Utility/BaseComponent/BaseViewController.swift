@@ -11,7 +11,7 @@ class BaseViewController: UIViewController {
     // 기본 네비게이션 타이틀 설정
     func setNavigationBar(title: String?, fontStyle: FontStyle = FontManagerA.H4_16, color: UIColor? = ColorManager.common_0, leftItem: UIBarButtonItem?, rightItem: UIBarButtonItem?) {
         let titleLabel = BaseLabel()
-        titleLabel.setStyle(text: title ?? "", fontStyle: fontStyle)
+        titleLabel.setStyle(text: title ?? "", fontStyle: fontStyle, textColor: ColorManager.common_0)
         titleLabel.textColor = color
         self.navigationItem.titleView = titleLabel
         self.navigationItem.leftBarButtonItem = leftItem
@@ -26,7 +26,7 @@ class BaseViewController: UIViewController {
     func setNavigationBarTitleWithSubtitle(title: String, rightBarButton: UIBarButtonItem, titleFont: FontStyle = FontManagerA.D3_22, titleColor: UIColor? = ColorManager.common_0, subtitleFont: FontStyle = FontManagerA.B3_16, subtitleColor: UIColor? = ColorManager.gray_40) {
         // 타이틀 라벨
         let titleLabel = BaseLabel()
-        titleLabel.setStyle(text: title, fontStyle: titleFont)
+        titleLabel.setStyle(text: title, fontStyle: titleFont, textColor: ColorManager.common_0)
         titleLabel.textColor = titleColor
 
         // 서브 타이틀 라벨

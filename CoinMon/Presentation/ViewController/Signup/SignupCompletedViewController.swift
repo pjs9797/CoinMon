@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SignupCompletedViewController: UIViewController, ReactorKit.View {
+class SignupCompletedViewController: BaseViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let signupCompletedView = SignupCompletedView()
     
@@ -23,8 +23,6 @@ class SignupCompletedViewController: UIViewController, ReactorKit.View {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = ColorManager.common_100
     }
 }
 

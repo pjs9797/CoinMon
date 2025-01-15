@@ -3,7 +3,7 @@ import UIKit
 class BaseLabel: UILabel {
     private var fontStyle: FontStyle?
 
-    func setStyle(text: String, fontStyle: FontStyle, textColor: UIColor? = ColorManager.common_0) {
+    func setStyle(text: String, fontStyle: FontStyle, textColor: UIColor?) {
         self.fontStyle = fontStyle
         self.font = fontStyle.font
         self.textColor = textColor

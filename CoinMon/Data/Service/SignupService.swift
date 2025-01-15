@@ -5,9 +5,7 @@ enum SignupService {
     case checkEmail(email: String)
     case emailCode(email: String)
     case checkEmailCode(email: String, number: String)
-    case phoneCode(phoneNumber: String)
-    case checkPhoneCode(phoneNumber: String, number: String)
-    case signup(phoneNumber:String, email: String, userType:String)
+    case signup(email: String, userType:String)
 }
 
 extension SignupService: TargetType {
@@ -20,10 +18,6 @@ extension SignupService: TargetType {
             return "emailCode"
         case .checkEmailCode:
             return "checkEmailCode"
-        case .phoneCode:
-            return "phoneCode"
-        case .checkPhoneCode:
-            return "checkPhoneCode"
         case .signup:
             return "join"
         }
@@ -31,7 +25,7 @@ extension SignupService: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .checkEmail, .emailCode, .checkEmailCode, .phoneCode, .checkPhoneCode, .signup:
+        case .checkEmail, .emailCode, .checkEmailCode, .signup:
             return .post
         }
     }
@@ -47,14 +41,8 @@ extension SignupService: TargetType {
         case .checkEmailCode(let email, let number):
             let parameters = ["email": email, "number": number]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .phoneCode(let phoneNumber):
-            let parameters = ["phoneNumber": phoneNumber]
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .checkPhoneCode(let phoneNumber, let number):
-            let parameters = ["phoneNumber": phoneNumber, "number": number]
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .signup(let phoneNumber, let email, let userType):
-            let parameters = ["phoneNumber": phoneNumber, "email": email, "userType": userType]
+        case .signup(let email, let userType):
+            let parameters = ["email": email, "userType": userType]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }

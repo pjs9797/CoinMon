@@ -23,16 +23,12 @@ class SignupFlow: Flow {
             return navigateToSignupEmailEntryViewController()
         case .navigateToSignupEmailVerificationNumberViewController:
             return navigateToSignupEmailVerificationNumberViewController()
-        case .navigateToSignupPhoneNumberEntryViewController:
-            return navigateToSignupPhoneNumberEntryViewController()
         case .navigateToTermsOfServiceViewController:
             return navigateToTermsOfServiceViewController()
         case .navigateToPrivacyPolicyViewController:
             return navigateToPrivacyPolicyViewController()
         case .navigateToMarketingConsentViewController:
             return navigateToMarketingConsentViewController()
-        case .navigateToPhoneVerificationNumberViewController:
-            return navigateToPhoneVerificationNumberViewController()
         case .navigateToSignupCompletedViewController:
             return navigateToSignupCompletedViewController()
             
@@ -83,14 +79,6 @@ class SignupFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToSignupPhoneNumberEntryViewController() -> FlowContributors {
-        let reactor = SignupPhoneNumberEntryReactor(signupUseCase: signupUseCase)
-        let viewController = SignupPhoneNumberEntryViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
-
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
-    }
-    
     private func navigateToTermsOfServiceViewController() -> FlowContributors {
         let reactor = TermsOfServiceReactor(flowType: .signup)
         let viewController = TermsOfServiceViewController(with: reactor)
@@ -113,14 +101,6 @@ class SignupFlow: Flow {
         let reactor = MarketingConsentReactor(flowType: .signup)
         let viewController = MarketingConsentViewController(with: reactor)
         self.rootViewController.isNavigationBarHidden = false
-        self.rootViewController.pushViewController(viewController, animated: true)
-
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
-    }
-    
-    private func navigateToPhoneVerificationNumberViewController() -> FlowContributors {
-        let reactor = PhoneVerificationNumberReactor(signupUseCase: signupUseCase)
-        let viewController = PhoneVerificationNumberViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
 
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

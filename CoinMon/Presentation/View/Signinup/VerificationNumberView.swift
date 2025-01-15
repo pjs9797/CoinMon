@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 class VerificationNumberView: UIView {
-    let verificationType: VerificationType
     let enterVerificationNumberLabel: BaseLabel = {
         let label = BaseLabel()
         label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "인증번호를 입력해주세요"), fontStyle: FontManagerA.D2_24, textColor: ColorManager.common_0)
@@ -11,7 +10,7 @@ class VerificationNumberView: UIView {
     }()
     let sentVerificationNumberLabel: BaseLabel = {
         let label = BaseLabel()
-        label.setStyle(text: "", fontStyle: FontManagerA.B5_14, textColor: ColorManager.gray_15)
+        label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "에 인증번호를 보냈어요", arguments: UserCredentialsManager.shared.email), fontStyle: FontManagerA.B5_14, textColor: ColorManager.gray_15)
         label.numberOfLines = 0
         return label
     }()
@@ -22,7 +21,7 @@ class VerificationNumberView: UIView {
     }()
     let verificationNumberTextField: BaseTextField = {
         let textField = BaseTextField()
-        textField.setStyle(placeholder: LocalizationManager.shared.localizedString(forKey: "6자리 인증번호 입력"), style: FontManagerA.H2_20)
+        textField.setStyle(placeholder: LocalizationManager.shared.localizedString(forKey: "6자리 인증번호 입력"), style: FontManagerA.H2_20, textColor: ColorManager.common_0)
         textField.keyboardType = .numberPad
         return textField
     }()
@@ -41,33 +40,19 @@ class VerificationNumberView: UIView {
         view.backgroundColor = ColorManager.gray_90
         return view
     }()
-    let nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
-        button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        button.titleLabel?.font = FontManager.D6_16
+    let nextButton: BottomButtonA = {
+        let button = BottomButtonA()
+        button.updateTitle(LocalizationManager.shared.localizedString(forKey: "다음"))
         return button
     }()
     
-    init(verificationType: VerificationType) {
-        self.verificationType = verificationType
+    init() {
         super.init(frame: .zero)
-        setLocalizedText()
         layout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setLocalizedText(){
-        switch verificationType {
-        case .email:
-            sentVerificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "에 인증번호를 보냈어요", arguments: UserCredentialsManager.shared.email)
-        case .phone:
-            sentVerificationNumberLabel.text = LocalizationManager.shared.localizedString(forKey: "에 인증번호를 보냈어요", arguments: UserCredentialsManager.shared.phoneNumber)
-        }
     }
     
     private func layout() {

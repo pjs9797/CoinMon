@@ -2,10 +2,9 @@ import UIKit
 import SnapKit
 
 class SignupCompletedView: UIView {
-    let signupCompletedLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.D2_24
-        label.textColor = ColorManager.common_0
+    let signupCompletedLabel: BaseLabel = {
+        let label = BaseLabel()
+        label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "회원가입 완료! 🎉"), fontStyle: FontManagerA.D2_24, textColor: ColorManager.common_0)
         label.numberOfLines = 0
         return label
     }()
@@ -15,28 +14,19 @@ class SignupCompletedView: UIView {
         imageView.image = ImageManager.check_Yellow
         return imageView
     }()
-    let signupCompletedButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.backgroundColor = ColorManager.orange_60
-        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        button.titleLabel?.font = FontManager.D6_16
+    let signupCompletedButton: BottomButtonA = {
+        let button = BottomButtonA()
+        button.updateTitle(LocalizationManager.shared.localizedString(forKey: "완료"))
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setLocalizedText()
         layout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setLocalizedText(){
-        signupCompletedLabel.text = LocalizationManager.shared.localizedString(forKey: "회원가입 완료! 🎉")
-        signupCompletedButton.setTitle(LocalizationManager.shared.localizedString(forKey: "완료"), for: .normal)
     }
     
     private func layout() {

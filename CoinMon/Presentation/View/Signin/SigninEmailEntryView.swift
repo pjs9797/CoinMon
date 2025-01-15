@@ -32,12 +32,9 @@ class SigninEmailEntryView: UIView {
         label.setStyle(text: LocalizationManager.shared.localizedString(forKey: "올바른 이메일을 입력해주세요"), fontStyle: FontManagerA.B7_12, textColor: ColorManager.red_50)
         return label
     }()
-    let nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(LocalizationManager.shared.localizedString(forKey: "다음"), for: .normal)
-        button.setTitleColor(ColorManager.common_100, for: .normal)
-        button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        button.titleLabel?.font = FontManager.D6_16
+    let nextButton: BottomButtonA = {
+        let button = BottomButtonA()
+        button.updateTitle(LocalizationManager.shared.localizedString(forKey: "다음"))
         button.accessibilityIdentifier = "signin_nextButton"
         return button
     }()

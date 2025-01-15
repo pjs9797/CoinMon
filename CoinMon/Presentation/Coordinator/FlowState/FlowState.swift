@@ -7,11 +7,6 @@ enum FlowType{
     case purchase
 }
 
-enum VerificationType{
-    case email
-    case phone
-}
-
 enum SelectMarketFlow{
     case departure
     case arrival

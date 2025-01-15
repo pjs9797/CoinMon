@@ -2,9 +2,9 @@ import UIKit
 import SnapKit
 
 class HomeCategoryCollectionViewCell: UICollectionViewCell {
-    let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontManager.D3_22
+    let categoryLabel: BaseLabel = {
+        let label = BaseLabel()
+        label.setStyle(text: "", fontStyle: FontManagerA.D3_22, textColor: ColorManager.common_0)
         label.textAlignment = .center
         return label
     }()

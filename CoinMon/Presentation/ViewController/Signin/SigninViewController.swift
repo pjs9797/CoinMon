@@ -82,7 +82,7 @@ extension SigninViewController {
     func bindState(reactor: SigninReactor){
         reactor.state.map { $0.currentLanguage }
             .distinctUntilChanged()
-            .observe(on: MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] language in
                 if language == "ko" {
                     self?.signinView.languageSettingButton.languageLabel.updateText("한국어")

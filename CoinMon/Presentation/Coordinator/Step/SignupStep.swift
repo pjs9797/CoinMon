@@ -4,11 +4,9 @@ enum SignupStep: Step, StepProtocol {
     //MARK: 푸시
     case navigateToSignupEmailEntryViewController
     case navigateToSignupEmailVerificationNumberViewController
-    case navigateToSignupPhoneNumberEntryViewController
     case navigateToTermsOfServiceViewController
     case navigateToPrivacyPolicyViewController
     case navigateToMarketingConsentViewController
-    case navigateToPhoneVerificationNumberViewController
     case navigateToSignupCompletedViewController
     
     //MARK: 프레젠트

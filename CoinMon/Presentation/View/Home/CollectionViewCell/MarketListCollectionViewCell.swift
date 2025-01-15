@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import SnapKit
 
-class MarketListAtHomeCollectionViewCell: UICollectionViewCell {
+class MarketListCollectionViewCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
     let marketImageView: UIImageView = {
         let imageView = UIImageView()

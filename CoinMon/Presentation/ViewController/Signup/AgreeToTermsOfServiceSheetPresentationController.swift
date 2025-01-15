@@ -22,9 +22,7 @@ class AgreeToTermsOfServiceSheetPresentationController: CustomDimSheetPresentati
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = ColorManager.common_100
+        super.viewDidLoad()        
     }
 }
 

@@ -25,7 +25,7 @@ class InquiryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SettingStep.popViewController)
             return .empty()
         case .discordButtonTapped:
-            let discordURL = "https://discord.gg/JVGbZDNY"
+            let discordURL = "https://discord.gg/NdVzrZ7J"
             let discordAppStoreURL = "itms-apps://itunes.apple.com/app/id985746746"
             self.steps.accept(SettingStep.goToOpenURL(url: discordURL, fallbackUrl: discordAppStoreURL))
             return .empty()

@@ -42,30 +42,8 @@ class SignupRepository: SignupRepositoryInterface {
             }
     }
     
-    func requestPhoneVerificationCode(phoneNumber: String) -> Observable<String> {
-        return provider.rx.request(.phoneCode(phoneNumber: phoneNumber))
-            .filterSuccessfulStatusCodes()
-            .map(SignupDTO.self)
-            .map{ SignupDTO.toResultCode(dto: $0) }
-            .asObservable()
-            .catch { error in
-                return Observable.error(error)
-            }
-    }
-    
-    func checkPhoneVerificationCode(phoneNumber: String, number: String) -> Observable<String> {
-        return provider.rx.request(.checkPhoneCode(phoneNumber: phoneNumber, number: number))
-            .filterSuccessfulStatusCodes()
-            .map(SignupDTO.self)
-            .map{ SignupDTO.toResultCode(dto: $0) }
-            .asObservable()
-            .catch { error in
-                return Observable.error(error)
-            }
-    }
-    
-    func signup(phoneNumber: String, email: String, userType: String) -> Observable<String> {
-        return provider.rx.request(.signup(phoneNumber: phoneNumber, email: email, userType: userType))
+    func signup(email: String, userType: String) -> Observable<String> {
+        return provider.rx.request(.signup(email: email, userType: userType))
             .filterSuccessfulStatusCodes()
             .map(SignupDTO.self)
             .map{ SignupDTO.toResultCode(dto: $0) }

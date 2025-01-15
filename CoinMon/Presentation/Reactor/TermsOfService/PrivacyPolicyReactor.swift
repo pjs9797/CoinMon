@@ -1,3 +1,4 @@
+import Foundation
 import ReactorKit
 import RxCocoa
 import RxFlow
@@ -29,6 +30,7 @@ class PrivacyPolicyReactor: ReactorKit.Reactor, Stepper {
             switch flowType{
             case .signup:
                 self.steps.accept(SignupStep.popViewController)
+                NotificationCenter.default.post(name: Notification.Name("presentToAgreeToTermsOfServiceViewController"), object: nil)
             case .setting:
                 self.steps.accept(SettingStep.popViewController)
             default:

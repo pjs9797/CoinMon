@@ -45,8 +45,6 @@ class AppFlow: Flow {
             return goToPurchaseFlow()
         case .goToSignupFlow:
             return goToSignupFlow()
-        case .goToSignupFlowForApple:
-            return goToSignupFlowForApple()
         case .goToSigninFlow:
             return goToSigninFlow()
             
@@ -196,12 +194,6 @@ class AppFlow: Flow {
         let signupFlow = SignupFlow(with: self.rootViewController)
         
         return .one(flowContributor: .contribute(withNextPresentable: signupFlow, withNextStepper: OneStepper(withSingleStep: SignupStep.navigateToSignupEmailEntryViewController)))
-    }
-    
-    private func goToSignupFlowForApple() -> FlowContributors {
-        let signupFlow = SignupFlow(with: self.rootViewController)
-        
-        return .one(flowContributor: .contribute(withNextPresentable: signupFlow, withNextStepper: OneStepper(withSingleStep: SignupStep.navigateToSignupPhoneNumberEntryViewController)))
     }
     
     private func goToSigninFlow() -> FlowContributors {

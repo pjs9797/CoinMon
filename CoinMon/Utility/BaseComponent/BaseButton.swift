@@ -1,15 +1,14 @@
 import UIKit
 
 class BaseButton: UIButton {
-    private var fontStyle: FontStyle?
+    var fontStyle: FontStyle?
     
-    func setConfiguration(title: String, fontStyle: FontStyle, foregroundColor: UIColor? = ColorManager.common_0, backgroundColor: UIColor? = ColorManager.common_100) {
+    func setConfiguration(title: String, fontStyle: FontStyle, foregroundColor: UIColor?, backgroundColor: UIColor?) {
         self.fontStyle = fontStyle
         
         var buttonConfig = UIButton.Configuration.filled()
         buttonConfig.baseBackgroundColor = backgroundColor
         buttonConfig.baseForegroundColor = foregroundColor
-        buttonConfig.cornerStyle = .medium
         
         if let attributedTitle = FontManagerA.createAttributedString(text: title, style: fontStyle) {
             buttonConfig.attributedTitle = attributedTitle
@@ -28,8 +27,7 @@ class BaseButton: UIButton {
         
         self.configuration = buttonConfig
         
-        self.configurationUpdateHandler = { [weak self] button in
-            guard let self = self else { return }
+        self.configurationUpdateHandler = { button in
             var updatedConfig = button.configuration ?? UIButton.Configuration.filled()
             updatedConfig.background.backgroundColor = backgroundColor
             button.configuration = updatedConfig
@@ -44,6 +42,18 @@ class BaseButton: UIButton {
         }
         
         self.configuration = config
+    }
+    
+    func updateBackgroundColor(_ color: UIColor?) {
+        guard var config = self.configuration else { return }
+        config.baseBackgroundColor = color
+        self.configuration = config
+        
+        self.configurationUpdateHandler = { button in
+            var updatedConfig = button.configuration ?? UIButton.Configuration.filled()
+            updatedConfig.background.backgroundColor = color
+            button.configuration = updatedConfig
+        }
     }
     
     func setContentInsets(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat) {

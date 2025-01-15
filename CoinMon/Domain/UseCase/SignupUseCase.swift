@@ -19,15 +19,7 @@ class SignupUseCase {
         return repository.checkEmailVerificationCode(email: email, number: number)
     }
     
-    func requestPhoneVerificationCode(phoneNumber: String) -> Observable<String> {
-        return repository.requestPhoneVerificationCode(phoneNumber: phoneNumber)
-    }
-    
-    func checkPhoneVerificationCode(phoneNumber: String, number: String) -> Observable<String> {
-        return repository.checkPhoneVerificationCode(phoneNumber: phoneNumber, number: number)
-    }
-    
-    func signup(phoneNumber: String, email: String, userType: String) -> Observable<String> {
-        return repository.signup(phoneNumber: phoneNumber, email: email, userType: userType)
+    func signup(email: String, userType: String) -> Observable<String> {
+        return repository.signup(email: email, userType: userType)
     }
 }

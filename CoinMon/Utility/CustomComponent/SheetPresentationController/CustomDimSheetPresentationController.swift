@@ -1,6 +1,6 @@
 import UIKit
 
-class CustomDimSheetPresentationController: UIViewController {
+class CustomDimSheetPresentationController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

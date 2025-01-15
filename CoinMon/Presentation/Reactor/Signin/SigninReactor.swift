@@ -41,6 +41,7 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
             return signinUseCase.appleLogin(identityToken: identityToken, authorizationCode: authorizationCode, deviceToken: deviceToken)
                 .flatMap { [weak self] response -> Observable<Mutation> in
                     if let resultCode = response as? String {
+                        print(resultCode)
                         switch resultCode {
                         case "200":
                             self?.steps.accept(AppStep.navigateToTabBarController)
@@ -50,10 +51,11 @@ class SigninReactor: ReactorKit.Reactor, Stepper {
                     }
                     else if let emailTuple = response as? (String, String) {
                         let (resultCode, email) = emailTuple
+                        print(emailTuple)
                         if resultCode == "202" {
                             UserCredentialsManager.shared.email = email
                             UserCredentialsManager.shared.loginType = "APPLE"
-                            self?.steps.accept(AppStep.goToSignupFlowForApple)
+                            //TODO: 애플 로그인 회원가입 플로우 추가
                         }
                     }
                     return .empty()

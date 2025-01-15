@@ -74,14 +74,11 @@ class AgreeToTermsOfServiceReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(SignupStep.navigateToTermsOfServiceViewController)
             return .empty()
         case .nextButtonTapped:
-            return signupUseCase.requestPhoneVerificationCode(phoneNumber: UserCredentialsManager.shared.phoneNumber)
+            return signupUseCase.signup(email: UserCredentialsManager.shared.email, userType: UserCredentialsManager.shared.loginType)
                 .flatMap { [weak self] resultCode -> Observable<Mutation> in
                     if resultCode == "200" {
                         self?.steps.accept(SignupStep.dismiss)
-                        self?.steps.accept(SignupStep.navigateToPhoneVerificationNumberViewController)
-                    }
-                    else {
-                        self?.steps.accept(SignupStep.presentToAlreadysubscribedNumberErrorAlertController)
+                        self?.steps.accept(SignupStep.navigateToSignupCompletedViewController)
                     }
                     return .empty()
                 }

@@ -16,7 +16,6 @@ enum AppStep: Step, StepProtocol {
     //MARK: 플로우 이동
     case goToPurchaseFlow
     case goToSignupFlow
-    case goToSignupFlowForApple
     case goToSigninFlow
     
     //MARK: 플로우 종료

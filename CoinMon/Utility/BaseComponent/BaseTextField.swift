@@ -3,7 +3,7 @@ import UIKit
 class BaseTextField: UITextField {
     private var fontStyle: FontStyle?
 
-    func setStyle(text: String? = nil, placeholder: String?, style: FontStyle, textColor: UIColor? = ColorManager.common_0) {
+    func setStyle(text: String? = nil, placeholder: String?, style: FontStyle, textColor: UIColor?) {
         self.fontStyle = style
         self.font = style.font
         self.textColor = textColor

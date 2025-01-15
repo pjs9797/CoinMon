@@ -14,6 +14,7 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     
     enum Action {
         case postEmailCode
+        case presentToAgreeToTermsOfServiceViewController
         case backButtonTapped
         case nextButtonTapped
         case clearButtonTapped
@@ -23,7 +24,7 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     
     enum Mutation {
         case setVerificationNumber(String)
-        case setTimer(Int)
+        case setTimer(seconds: Int, formatted: String)
         case setClearButtonHidden(Bool)
         case setValid(Bool)
     }
@@ -31,9 +32,9 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
     struct State {
         var verificationNumber: String = ""
         var remainingSeconds: Int = 300
+        var timerText: String = "05:00"
         var isVerificationNumberValid: Bool = false
         var isClearButtonHidden: Bool = false
-        var nextButtonTitle: String = LocalizationManager.shared.localizedString(forKey: "다음")
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -49,6 +50,9 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
                     }
                     return .empty()
                 }
+        case .presentToAgreeToTermsOfServiceViewController:
+            self.steps.accept(SignupStep.presentToAgreeToTermsOfServiceViewController)
+            return .empty()
         case .backButtonTapped:
             self.steps.accept(SignupStep.popViewController)
             return .empty()
@@ -56,7 +60,7 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             return signupUseCase.checkEmailVerificationCode(email: UserCredentialsManager.shared.email, number: currentState.verificationNumber)
                 .flatMap { [weak self] resultCode -> Observable<Mutation> in
                     if resultCode == "200" {
-                        self?.steps.accept(SignupStep.navigateToSignupPhoneNumberEntryViewController)
+                        self?.steps.accept(SignupStep.presentToAgreeToTermsOfServiceViewController)
                     }
                     else {
                         self?.steps.accept(SignupStep.presentToAuthenticationNumberErrorAlertController)
@@ -86,7 +90,13 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             timerDisposeBag = DisposeBag()
             return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
                 .take(while: { [weak self] _ in self?.currentState.remainingSeconds ?? 0 > 0 })
-                .map { [weak self] _ in .setTimer((self?.currentState.remainingSeconds ?? 1) - 1) }
+                .map { [weak self] _ -> Mutation in
+                    let seconds = (self?.currentState.remainingSeconds ?? 1) - 1
+                    let minutes = seconds / 60
+                    let secondsFormatted = seconds % 60
+                    let formattedText = String(format: "%02d:%02d", minutes, secondsFormatted)
+                    return .setTimer(seconds: seconds, formatted: formattedText)
+                }
                 .do(onDispose: { [weak self] in
                     self?.timerDisposeBag = DisposeBag()
                 })
@@ -102,8 +112,9 @@ class SignupEmailVerificationNumberReactor: ReactorKit.Reactor, Stepper {
             newState.isClearButtonHidden = isHidden
         case .setValid(let isValid):
             newState.isVerificationNumberValid = isValid
-        case .setTimer(let seconds):
+        case .setTimer(let seconds, let formatted):
             newState.remainingSeconds = seconds
+            newState.timerText = formatted
         }
         return newState
     }

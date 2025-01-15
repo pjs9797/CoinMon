@@ -25,7 +25,7 @@ struct SigninResponseDTO: Codable {
 
 struct SigninDataDTO: Codable {
     let imgIndex: String
-    let phoneNumber: String
+    let phoneNumber: String?
     let nickname: String
     let userType: String?
     let accessToken: String

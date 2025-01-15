@@ -63,7 +63,7 @@ extension SigninEmailEntryViewController {
     func bindState(reactor: SigninEmailEntryReactor){
         reactor.state.map { $0.email }
             .distinctUntilChanged()
-            .observe(on: MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] email in
                 self?.signinEmailEntryView.emailTextField.updateText(email)
             })
@@ -71,7 +71,7 @@ extension SigninEmailEntryViewController {
         
         reactor.state.map{ $0.isClearButtonHidden }
             .distinctUntilChanged()
-            .observe(on: MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.instance)
             .bind(to: signinEmailEntryView.clearButton.rx.isHidden)
             .disposed(by: disposeBag)
         
@@ -79,11 +79,15 @@ extension SigninEmailEntryViewController {
             reactor.state.map { $0.isEmailValid }.distinctUntilChanged(),
             reactor.state.map { $0.email }.distinctUntilChanged()
         )
-        .observe(on: MainScheduler.asyncInstance)
+        .observe(on: MainScheduler.instance)
         .bind(onNext: { [weak self] isValid, email in
             self?.signinEmailEntryView.emailErrorLabel.isHidden = isValid || email.isEmpty
-            self?.signinEmailEntryView.nextButton.isEnabled = isValid
-            self?.signinEmailEntryView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
+            if isValid {
+                self?.signinEmailEntryView.nextButton.isEnable()
+            }
+            else {
+                self?.signinEmailEntryView.nextButton.isNotEnable()
+            }
         })
         .disposed(by: disposeBag)
     }

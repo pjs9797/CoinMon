@@ -1,7 +1,7 @@
 import UIKit
 import ReactorKit
 
-class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
+class SignupEmailEntryViewController: BaseViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
     let signupEmailEntryView = SignupEmailEntryView()
@@ -25,15 +25,9 @@ class SignupEmailEntryViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ColorManager.common_100
-        setNavigationbar()
-        hideKeyboard(disposeBag: disposeBag)
-        bindKeyboardToButton(to: signupEmailEntryView.nextButton, disposeBag: disposeBag)
-    }
-    
-    private func setNavigationbar() {
-        self.title = LocalizationManager.shared.localizedString(forKey: "회원가입")
-        navigationItem.leftBarButtonItem = backButton
+        self.setNavigationBar(title: LocalizationManager.shared.localizedString(forKey: "회원가입"), leftItem: backButton, rightItem: nil)
+        self.hideKeyboard(disposeBag: disposeBag)
+        self.bindKeyboardToButton(to: signupEmailEntryView.nextButton, disposeBag: disposeBag)
     }
 }
 
@@ -68,13 +62,17 @@ extension SignupEmailEntryViewController {
     func bindState(reactor: SignupEmailEntryReactor){
         reactor.state.map { $0.email }
             .distinctUntilChanged()
-            .bind(to: self.signupEmailEntryView.emailTextField.rx.text)
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] email in
+                self?.signupEmailEntryView.emailTextField.updateText(email)
+            })
             .disposed(by: disposeBag)
         
         Observable.combineLatest(
             reactor.state.map { $0.isEmailValid }.distinctUntilChanged(),
             reactor.state.map { $0.email }.distinctUntilChanged()
         )
+        .observe(on: MainScheduler.instance)
         .bind(onNext: { [weak self] isValid, email in
             self?.signupEmailEntryView.emailErrorLabel.isHidden = isValid || email.isEmpty
             self?.signupEmailEntryView.emailDuplicateLabel.isHidden = isValid ? false : true
@@ -82,16 +80,18 @@ extension SignupEmailEntryViewController {
                 self?.signupEmailEntryView.emailDuplicateLabel.isHidden = true
             }
             self?.signupEmailEntryView.duplicateButton.isEnabled = isValid ? true : false
-            self?.signupEmailEntryView.duplicateButton.backgroundColor = isValid ? ColorManager.gray_5 : ColorManager.gray_90
+            self?.signupEmailEntryView.duplicateButton.updateBackgroundColor(isValid ? ColorManager.gray_5 : ColorManager.gray_90)
+
         })
         .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isDuplicatedEmail }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] isDuplicated in
                 if let isDuplicated {
                     self?.signupEmailEntryView.emailDuplicateLabel.isHidden = false
-                    self?.signupEmailEntryView.emailDuplicateLabel.text = isDuplicated ? LocalizationManager.shared.localizedString(forKey: "중복되는 이메일이에요") : LocalizationManager.shared.localizedString(forKey: "중복되지 않는 이메일이에요")
+                    self?.signupEmailEntryView.emailDuplicateLabel.updateText(isDuplicated ? LocalizationManager.shared.localizedString(forKey: "중복되는 이메일이에요") : LocalizationManager.shared.localizedString(forKey: "중복되지 않는 이메일이에요"))
                     self?.signupEmailEntryView.emailDuplicateLabel.textColor = isDuplicated ? ColorManager.red_50 : ColorManager.green_50
                 }
                 else {
@@ -103,9 +103,14 @@ extension SignupEmailEntryViewController {
         
         reactor.state.map{ $0.isNextButtonEnable }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] isValid in
-                self?.signupEmailEntryView.nextButton.isEnabled = isValid ? true : false
-                self?.signupEmailEntryView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
+                if isValid {
+                    self?.signupEmailEntryView.nextButton.isEnable()
+                }
+                else {
+                    self?.signupEmailEntryView.nextButton.isNotEnable()
+                }
             })
             .disposed(by: disposeBag)
     }

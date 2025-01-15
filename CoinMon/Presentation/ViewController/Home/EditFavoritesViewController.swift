@@ -139,7 +139,7 @@ extension EditFavoritesViewController {
     func bindState(reactor: EditFavoritesReactor){
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
-            .bind(to: editFavoritesView.marketCollectionView.rx.items(cellIdentifier: "MarketListAtHomeCollectionViewCell", cellType: MarketListAtHomeCollectionViewCell.self)) { index, markets, cell in
+            .bind(to: editFavoritesView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
                 let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
                 if isSelected {

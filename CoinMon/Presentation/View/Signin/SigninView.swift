@@ -12,6 +12,7 @@ class SigninView: UIView {
         button.setConfiguration(title: "", fontStyle: FontManagerA.D6_16, foregroundColor: ColorManager.yellow_70, backgroundColor: ColorManager.common_0)
         button.setImage(image: ImageManager.kakao, padding: 4)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
+        button.clipsToBounds = true
         button.isHidden = true
         return button
     }()
@@ -20,19 +21,21 @@ class SigninView: UIView {
         button.setConfiguration(title: "", fontStyle: FontManagerA.D6_16, foregroundColor: ColorManager.common_100, backgroundColor: ColorManager.common_0)
         button.setImage(image: ImageManager.apple, padding: 4)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        button.isHidden = true
+        button.clipsToBounds = true
+        //button.isHidden = true
         return button
     }()
     let coinMonLoginButton: BaseButton = {
         let button = BaseButton()
         button.setConfiguration(title: "", fontStyle: FontManagerA.D6_16, foregroundColor: ColorManager.common_0, backgroundColor: ColorManager.gray_97)
         button.layer.cornerRadius = 12*ConstantsManager.standardHeight
+        button.clipsToBounds = true
         button.accessibilityIdentifier = "coinMonLoginButton"
         return button
     }()
     let signupButton: BaseButton = {
         let button = BaseButton()
-        button.setConfiguration(title: LocalizationManager.shared.localizedString(forKey: "회원가입"), fontStyle: FontManagerA.T4_15, foregroundColor: ColorManager.gray_50)
+        button.setConfiguration(title: LocalizationManager.shared.localizedString(forKey: "회원가입"), fontStyle: FontManagerA.T4_15, foregroundColor: ColorManager.gray_50, backgroundColor: ColorManager.common_100)
         button.setUnderline()
         return button
     }()

@@ -4,7 +4,7 @@ import ReactorKit
 class SigninEmailVerificationNumberViewController: BaseViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.arrow_Chevron_Left, style: .plain, target: nil, action: nil)
-    let verificationNumberView = VerificationNumberView(verificationType: VerificationType.email)
+    let verificationNumberView = VerificationNumberView()
     
     init(with reactor: SigninEmailVerificationNumberReactor) {
         super.init(nibName: nil, bundle: nil)
@@ -64,31 +64,45 @@ extension SigninEmailVerificationNumberViewController {
     func bindState(reactor: SigninEmailVerificationNumberReactor){
         reactor.state.map{ $0.timerText }
             .distinctUntilChanged()
-            .observe(on: MainScheduler.asyncInstance)
-            .bind(to: verificationNumberView.timerLabel.rx.text)
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] time in
+                self?.verificationNumberView.timerLabel.updateText(time)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.verificationNumber }
             .distinctUntilChanged()
-            .bind(to: verificationNumberView.verificationNumberTextField.rx.text)
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] number in
+                self?.verificationNumberView.verificationNumberTextField.updateText(number)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isClearButtonHidden }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
             .bind(to: verificationNumberView.clearButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.isVerificationNumberValid }
             .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] isValid in
-                self?.verificationNumberView.nextButton.isEnabled = isValid ? true : false
-                self?.verificationNumberView.nextButton.backgroundColor = isValid ? ColorManager.orange_60 : ColorManager.gray_90
+                if isValid {
+                    self?.verificationNumberView.nextButton.isEnable()
+                }
+                else {
+                    self?.verificationNumberView.nextButton.isNotEnable()
+                }
             })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.nextButtonTitle }
             .distinctUntilChanged()
-            .bind(to: verificationNumberView.nextButton.rx.title(for: .normal))
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] title in
+                self?.verificationNumberView.nextButton.updateTitle(title)
+            })
             .disposed(by: disposeBag)
     }
 }

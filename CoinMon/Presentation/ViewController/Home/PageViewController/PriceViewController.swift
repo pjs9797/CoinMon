@@ -242,7 +242,7 @@ extension PriceViewController {
         reactor.state.map { $0.markets }
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)
-            .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListAtHomeCollectionViewCell", cellType: MarketListAtHomeCollectionViewCell.self)) { index, markets, cell in
+            .bind(to: priceView.marketCollectionView.rx.items(cellIdentifier: "MarketListCollectionViewCell", cellType: MarketListCollectionViewCell.self)) { index, markets, cell in
                 let isSelected = index == reactor.currentState.selectedMarket
                 cell.isSelected = isSelected
                 if isSelected {

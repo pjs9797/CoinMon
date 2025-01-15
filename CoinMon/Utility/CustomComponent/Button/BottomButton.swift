@@ -1,10 +1,11 @@
 import UIKit
 
 class BottomButtonA: BaseButton {
+    var title: String?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //configureButton()
+        configureButton()
     }
     
     required init?(coder: NSCoder) {
@@ -12,14 +13,21 @@ class BottomButtonA: BaseButton {
     }
     
     override func updateTitle(_ text: String) {
-        // 기존 `setConfiguration` 재호출로 타이틀을 안전하게 갱신
-        self.setConfiguration(
-            title: text,
-            fontStyle: FontManagerA.D6_16,
-            foregroundColor: ColorManager.common_100,
-            backgroundColor: ColorManager.orange_60
-        )
+        guard var currentConfig = self.configuration else { return }
+        title = text
+        // 새로운 타이틀을 설정
+        if let fontStyle = self.fontStyle {
+            if let attributedTitle = FontManagerA.createAttributedString(text: text, style: fontStyle) {
+                currentConfig.attributedTitle = attributedTitle
+            }
+        } else {
+            currentConfig.title = text
+        }
+
+        // 업데이트된 설정을 버튼에 적용
+        self.configuration = currentConfig
     }
+
     
     private func configureButton() {
         self.setConfiguration(
@@ -30,13 +38,14 @@ class BottomButtonA: BaseButton {
         )
         
         self.layer.cornerRadius = 12 * ConstantsManager.standardHeight
+        self.clipsToBounds = true
     }
     
     func isNotEnable() {
         self.setConfiguration(
-            title: self.currentTitle ?? "",
+            title: title ?? "",
             fontStyle: FontManagerA.D6_16,
-            foregroundColor: ColorManager.common_100?.withAlphaComponent(0.6),
+            foregroundColor: ColorManager.common_100,
             backgroundColor: ColorManager.gray_90
         )
         self.isEnabled = false
@@ -44,7 +53,7 @@ class BottomButtonA: BaseButton {
     
     func isEnable() {
         self.setConfiguration(
-            title: self.currentTitle ?? "",
+            title: title ?? "",
             fontStyle: FontManagerA.D6_16,
             foregroundColor: ColorManager.common_100,
             backgroundColor: ColorManager.orange_60
